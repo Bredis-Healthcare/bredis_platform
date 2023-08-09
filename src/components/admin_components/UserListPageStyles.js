@@ -31,7 +31,7 @@ export const UserItem = styled.li`
     }
 `;
 
-export const UserInfo = styled.div`
+export const UserInfos = styled.div`
     display: flex;
     flex-direction: column; // Stack items vertically
     align-items: flex-start;
@@ -40,12 +40,12 @@ export const UserInfo = styled.div`
 export const UserName = styled.div`
     font-size: 24px; // Increase font size
     font-weight: bold; // Make it bold
-    margin-bottom: 10px; // Add spacing between name and date
+    margin-bottom: 10px; // Add spacing between name and info
 `;
 
-export const DateInfo = styled.div`
+export const UserInfo = styled.div`
     font-size: 16px;
-    margin-bottom: 10px; // Add spacing between date and button
+    margin-bottom: 3px;
 `;
 
 export const UserButton = styled.button`

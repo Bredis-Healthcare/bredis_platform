@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from './LoginPageStyles';
-import logo from '../img/bredis_logo.png'
-import axios from "../api/axios";
+import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from '../LoginPageStyles';
+import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
 
 // Main login component
@@ -25,9 +24,9 @@ const LoginPage = () => {
                     "password": password  // using state value for password
                 });
                 console.log("request data", request.data["memberId"]);
-                
-                navigate(`/${request.data["memberId"]}/order_check`,  {replace : true});
-                
+                if(request.data["memberId"] === 1){
+                    navigate("/admin/userlist",  {replace : true});
+                }
             } catch (error) {
                 console.error("Error while logging in:", error);
             }
@@ -37,7 +36,6 @@ const LoginPage = () => {
 
     return (
         <LoginContainer>
-            <LoginImage src={logo} alt="Login Illustration" />
             <LoginInput 
                 type="email" 
                 placeholder="Email" 

@@ -56,3 +56,18 @@ export const DetailButton = styled.button`
         background-color: #0056b3;
     }
 `;
+
+export const CreateOrderButton = styled.button`
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #4CAF50; // Green background for differentiation
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; // Smooth color transition
+
+    &:hover {
+        background-color: #45a049; // Darker green on hover
+    }
+`;
