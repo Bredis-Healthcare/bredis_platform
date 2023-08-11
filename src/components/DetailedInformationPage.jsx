@@ -23,12 +23,12 @@ const DetailedInformationPage = () => {
         // fetchData();
     }, [])
     
-    // const fetchData = async () => {
-    //     const request = await axios.get(`/orders/${orderId}/detail`);
-    //     console.log('request', request.data);
-    //     console.log('!!!');
-    //     setData(request.data);
-    // };  
+    const fetchData = async () => {
+        const request = await axios.get(`/orders/${orderId}/detail`);
+        console.log('request', request.data);
+        console.log('!!!');
+        setData(request.data);
+    };  
 
 
     const handleUploadClick = () => {

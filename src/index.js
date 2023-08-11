@@ -90,7 +90,10 @@ const router = createBrowserRouter([
     element: <ThreadPage />,
     loader: threadLoader,
   },
-]);
+],
+{
+  basename : "/bredis_platform/"
+});
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(

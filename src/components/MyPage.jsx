@@ -3,59 +3,13 @@ import {
     MyInfoContainer,
     ProfileInfoContainer,
     OrderHistoryContainer,
-    OrderItem
+    OrderItem,
+    GoButton
 } from './MyPageStyle.js';
-import  {useNavigate  } from "react-router-dom";
-import {
-    useLoaderData,
-} from 'react-router-dom'
+import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
 
-function ProfileInfo({ userInfo }) {
-    return (
-        <ProfileInfoContainer>
-            <h2>{userInfo.name}</h2>
-            <p>Email: {userInfo.email}</p>
-            <p>Mobile: {userInfo.mobile}</p>
-            <p>Organization: {userInfo.organization}</p>
-            <p>Department: {userInfo.department}</p>
-            <p>Position: {userInfo.position}</p>
-            <p>Joined: {userInfo.createdDatetime}</p>
-        </ProfileInfoContainer>
-    );
-}
 
-function OrderHistory({ orderHistory }) {
-    return (
-        <OrderHistoryContainer>
-            <h3>Order History</h3>
-            {orderHistory.map((order) => (
-                <OrderItem key={order.id}>
-                    <p>Order Number: {order.orderNumber}</p>
-                    <p>Items: {order.items}</p>
-                    <p>Status: {order.status}</p>
-                    <p>Price: {order.price}</p>
-                    <p>Ordered: {order.createdDatetime}</p>
-                    <p>Last Updated: {order.updatedDatetime}</p>
-                </OrderItem>
-            ))}
-        </OrderHistoryContainer>
-    );
-}
-
-function ThreadHistory({ threadHistory }) {
-    return (
-        <OrderHistoryContainer>
-            <h3>Thread History</h3>
-            {threadHistory.map((order) => (
-                <OrderItem key={order.id}>
-                    <p>Id: {order.id}</p>
-                    <p>createdDatetime: {order.createdDatetime}</p>
-                </OrderItem>
-            ))}
-        </OrderHistoryContainer>
-    );
-}
 
 export async function loader({ params }) {
     const userId = params.userId
@@ -64,9 +18,67 @@ export async function loader({ params }) {
 
 
 function MyPage() {
+    
     const [userInfo, setUserInfo] = useState(null); // or your fetching logic
     const { userId } = useLoaderData();
     const navigate = useNavigate();
+
+    const handelGoToDetailInformation = (e, orderNumber) => {
+        navigate(`../../orders/${orderNumber}/detail`)
+    }
+    const handelGoToThread = (e, threadID) => {
+        navigate(`/thread/${threadID}/${userId}`)
+    
+    }
+    
+    function ProfileInfo({ userInfo }) {
+        return (
+            <ProfileInfoContainer>
+                <h2>{userInfo.name}</h2>
+                <p>Email: {userInfo.email}</p>
+                <p>Mobile: {userInfo.mobile}</p>
+                <p>Organization: {userInfo.organization}</p>
+                <p>Department: {userInfo.department}</p>
+                <p>Position: {userInfo.position}</p>
+                <p>Joined: {userInfo.createdDatetime}</p>
+            </ProfileInfoContainer>
+        );
+    }
+    
+    function OrderHistory({ orderHistory }) {
+        return (
+            <OrderHistoryContainer>
+                <h3>Order History</h3>
+                {orderHistory.map((order) => (
+                    <OrderItem key={order.id}>
+                        <p>Order Number: {order.orderNumber}</p>
+                        <p>Items: {order.items}</p>
+                        <p>Status: {order.status}</p>
+                        <p>Price: {order.price}</p>
+                        <p>Ordered: {order.createdDatetime}</p>
+                        <p>Last Updated: {order.updatedDatetime}</p>
+                        <GoButton onClick={(e) => {handelGoToDetailInformation(e, order.orderNumber)} }>Go to Detail Information</GoButton>
+                    </OrderItem>
+                ))}
+            </OrderHistoryContainer>
+        );
+    }
+    
+    function ThreadHistory({ threadHistory }) {
+        return (
+            <OrderHistoryContainer>
+                <h3>Thread History</h3>
+                {threadHistory.map((order) => (
+                    <OrderItem key={order.id}>
+                        <p>Id: {order.id}</p>
+                        <p>createdDatetime: {order.createdDatetime}</p>
+                        <GoButton onClick={(e) => {handelGoToThread(e, order.id)}}>Go to Thread</GoButton>
+                    </OrderItem>
+                ))}
+            </OrderHistoryContainer>
+        );
+    }
+
 
     useEffect(() => {  
         fetchData();

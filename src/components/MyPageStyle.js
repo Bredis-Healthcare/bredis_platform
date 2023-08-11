@@ -27,3 +27,19 @@ export const OrderItem = styled.div`
     border-radius: 5px;
     margin-top: 10px;
 `;
+
+export const GoButton = styled.button`
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+`;
