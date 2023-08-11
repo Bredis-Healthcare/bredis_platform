@@ -19,8 +19,8 @@ const DetailedInformationPage = () => {
     const { orderId } = useLoaderData();
 
     useEffect(() => {
-        setData(orderInfo);  
-        // fetchData();
+        // setData(orderInfo);  
+        fetchData();
     }, [])
     
     const fetchData = async () => {

@@ -6,6 +6,7 @@ import {
     OrderItem,
     GoButton
 } from './MyPageStyle.js';
+import OrderModal from './OrderModal';
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
 
@@ -22,6 +23,7 @@ function MyPage() {
     const [userInfo, setUserInfo] = useState(null); // or your fetching logic
     const { userId } = useLoaderData();
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handelGoToDetailInformation = (e, orderNumber) => {
         navigate(`../../orders/${orderNumber}/detail`)
@@ -29,6 +31,13 @@ function MyPage() {
     const handelGoToThread = (e, threadID) => {
         navigate(`/thread/${threadID}/${userId}`)
     
+    }
+    
+    const handleOffer= () => {
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setIsModalOpen(false);
     }
     
     function ProfileInfo({ userInfo }) {
@@ -99,6 +108,8 @@ function MyPage() {
             {userInfo ? (
                 <>
                     <ProfileInfo userInfo={userInfo} />
+                    <GoButton onClick={handleOffer}>문의하기</GoButton>
+                    <OrderModal userId = {userId} isOpen={isModalOpen} closeModal={closeModal} />
                     <OrderHistory orderHistory={userInfo.orderHistory} />
                     <ThreadHistory threadHistory={userInfo.threads} />
                 </>

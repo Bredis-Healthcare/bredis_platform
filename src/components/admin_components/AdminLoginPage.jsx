@@ -19,14 +19,12 @@ const LoginPage = () => {
         e.preventDefault();
         async function loginPress() {
             try {
-                const request = await axios.post('login', {
+                const request = await axios.post('/admin/login', {
                     "email": email,  // using state value for email
                     "password": password  // using state value for password
                 });
                 console.log("request data", request.data["memberId"]);
-                if(request.data["memberId"] === 1){
-                    navigate("/admin/userlist" );
-                }
+                navigate("/admin/userlist" );
             } catch (error) {
                 console.error("Error while logging in:", error);
             }

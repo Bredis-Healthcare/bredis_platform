@@ -5,12 +5,12 @@ import {
     SubHeader,
     Information,
     OrderList,
-    OrderItem
+    OrderItem,
+    GoButton,
 } from './AdminUserDetailPageStyle';
 import axios from "../../api/axios";
-import {
-    useLoaderData,
-} from 'react-router-dom'
+
+import  {useNavigate, useLoaderData, } from "react-router-dom";
 
 export async function loader({ params }) {
     const userId = params.userId
@@ -20,10 +20,15 @@ export async function loader({ params }) {
 const AdminUserDetailPage = () => {
     const { userId } = useLoaderData();
     const [userData, setUserData] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchData();
     }, [userId]);
+
+    const handelGoToThread = (e, threadID, userId) => {
+        navigate(`/thread/${threadID}/${0}`)
+    }
 
     const fetchData = async () => {
         const request = await axios.get(`/members/${userId}/detail`);
@@ -57,6 +62,16 @@ const AdminUserDetailPage = () => {
                         <Information>Price: {order.price}</Information>
                         <Information>Created At: {order.createdDatetime}</Information>
                         <Information>Updated At: {order.updatedDatetime}</Information>
+                    </OrderItem>
+                ))}
+            </OrderList>
+            <SubHeader>Thread History</SubHeader>
+            <OrderList>
+                {userData.threads.map(order => (
+                    <OrderItem key={order.id}>
+                        <Information>Id: {order.id}</Information>
+                        <Information>createdDatetime: {order.createdDatetime}</Information>
+                        <GoButton onClick={(e) => {handelGoToThread(e, order.id, userData.id)}}>Go to Thread</GoButton>
                     </OrderItem>
                 ))}
             </OrderList>

@@ -38,7 +38,7 @@ const ThreadPage = () => {
     }
 
     const handleGoToOrderCheck= () => {
-        navigate(`../../../${userId}/order_check`);
+        navigate(`../../../Mypage/${userId}`);
     }
 
     const closeModal = () => {
@@ -93,8 +93,23 @@ const ThreadPage = () => {
                 placeholder="Type your message here..."
             />
             <SendButton onClick={handleSend}>Send</SendButton>
-            <SendButton onClick={handleOffer}>Add Offer</SendButton>
-            <SendButton onClick={handleGoToOrderCheck}>Go to Order Check</SendButton>
+            <div>
+                {
+                    // userId === '0' ?
+                    true ?
+                    <SendButton onClick={handleOffer}>Add Offer</SendButton> :
+                    <></>
+                }
+            </div>
+
+            <div>
+                {
+                    userId !== '0' ?
+                    <SendButton onClick={handleGoToOrderCheck}>Go to Order Check</SendButton> :
+                    <></>
+                }
+            </div>
+            
             <OrderModal threadId = {threadId} userId = {userId} isOpen={isModalOpen} closeModal={closeModal} />
         </MainContainer>
     );
