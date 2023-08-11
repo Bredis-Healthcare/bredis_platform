@@ -5,14 +5,6 @@ import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
 
 const UserListPage = () => {
-    // Sample user data (Replace with real data from API or database)
-    // const users = [
-    //     { name: 'John Doe', lastConfirmed: '2023-08-05' },
-    //     { name: 'Jane Smith', lastConfirmed: '2023-08-04' },
-    //     { name: 'bbbbbbbbb', lastConfirmed: '2023-08-07' },
-    //     { name: 'aaaaaaaa', lastConfirmed: '2023-08-08' },
-    //     // ... Add more users as required
-    // ];
 
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
@@ -28,7 +20,7 @@ const UserListPage = () => {
     };
 
     const handleCreateOrderClick = (user, e) => {
-        navigate(`/admin/userdetail/${user.id}`,  {replace : true})
+        navigate(`/admin/userdetail/${user.id}`   )
     }
 
     return (

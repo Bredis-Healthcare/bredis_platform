@@ -4,7 +4,7 @@ export const PageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; // Full viewport height
+    height: 100%; // Full viewport height
     background-color: #f5f5f5;
 `;
 

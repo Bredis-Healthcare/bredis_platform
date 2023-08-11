@@ -6,7 +6,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import DetailInformationPage from './components/DetailInformationPage';
 import LoginPage from './components/LoginPage';
 import AdminLoginPage from './components/admin_components/AdminLoginPage';
 import MainPage from './components/MainPage';
@@ -24,6 +23,12 @@ import ThreadPage, {
   loader as threadLoader,
 } 
 from './components/ThreadPage';
+import MyPage, {
+  loader as UserPageLoader,
+}  from './components/MyPage';
+import DetailedInformationPage, {
+  loader as detailedInformationLodaer,
+}  from './components/DetailedInformationPage';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +60,13 @@ const router = createBrowserRouter([
     path: "/user_list",
     element: <UserListPage/>,
     errorElement: <ErrorPage />,
+    loader: threadLoader,
+  },
+  {
+    path: "/Mypage/:userId",
+    element: <MyPage/>,
+    errorElement: <ErrorPage />,
+    loader: UserPageLoader,
   },
   {
     path: "/:userId/order_check",
@@ -63,9 +75,10 @@ const router = createBrowserRouter([
     loader: OrderCheckLoader,
   },
   {
-    path: "/detail_information",
-    element: <DetailInformationPage/>,
+    path: "/orders/:orderId/detail",
+    element: <DetailedInformationPage/>,
     errorElement: <ErrorPage />,
+    loader: detailedInformationLodaer,
   },
   {
     path: "/admin/userdetail/:userId",

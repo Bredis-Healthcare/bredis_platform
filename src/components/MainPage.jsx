@@ -11,8 +11,8 @@ const MainPage = () => {
     return (
         <MainContainer>
             <BigImage src={logo} alt="Descriptive Image" />
-            <MainButton onClick={() => navigate("/login",  {replace : true})}> 로그인</MainButton> 
-            <MainButton onClick={() => navigate("/admin/login",  {replace : true})}> 관리자 로그인</MainButton> 
+            <MainButton onClick={() => navigate("/login")}> 로그인</MainButton> 
+            <MainButton onClick={() => navigate("/admin/login")}> 관리자 로그인</MainButton> 
         </MainContainer>
     );
 };

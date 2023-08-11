@@ -25,7 +25,7 @@ const LoginPage = () => {
                 });
                 console.log("request data", request.data["memberId"]);
                 if(request.data["memberId"] === 1){
-                    navigate("/admin/userlist",  {replace : true});
+                    navigate("/admin/userlist" );
                 }
             } catch (error) {
                 console.error("Error while logging in:", error);
@@ -49,11 +49,11 @@ const LoginPage = () => {
                 onChange={(e) => setPassword(e.target.value)} 
             />
             <LoginButton onClick={handleLogin}>Login</LoginButton>
-            <SignupButton 
-                onClick={() => navigate("/signup",  {replace : true})}
+            {/* <SignupButton 
+                onClick={() => navigate("/signup"  )}
             >
                 Sign Up
-            </SignupButton>
+            </SignupButton> */}
         </LoginContainer>
     );
 };

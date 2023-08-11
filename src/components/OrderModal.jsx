@@ -22,7 +22,7 @@ const OrderModal = ({ userId, isOpen, closeModal }) => {
                 });
                 console.log("request data", request);
 
-                navigate(`../../thread/${request.data["threadId"]}/${userId}`,  {replace : true});
+                navigate(`../../thread/${request.data["threadId"]}/${userId}`);
 
 
             } catch (error) {

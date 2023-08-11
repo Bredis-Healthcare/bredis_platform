@@ -45,7 +45,7 @@ const SignUpPage = () => {
             }
         }
         SignUpPress();
-        navigate("/",  {replace : true});
+        navigate("/");
         
 
         // Logic for handling signup can be added here

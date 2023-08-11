@@ -38,7 +38,7 @@ const ThreadPage = () => {
     }
 
     const handleGoToOrderCheck= () => {
-        navigate(`../../../${userId}/order_check`,  {replace : true});
+        navigate(`../../../${userId}/order_check`);
     }
 
     const closeModal = () => {

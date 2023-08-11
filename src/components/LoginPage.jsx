@@ -26,7 +26,7 @@ const LoginPage = () => {
                 });
                 console.log("request data", request.data["memberId"]);
                 
-                navigate(`/${request.data["memberId"]}/order_check`,  {replace : true});
+                navigate(`/Mypage/${request.data["memberId"]}`  );
                 
             } catch (error) {
                 console.error("Error while logging in:", error);
@@ -52,7 +52,7 @@ const LoginPage = () => {
             />
             <LoginButton onClick={handleLogin}>Login</LoginButton>
             <SignupButton 
-                onClick={() => navigate("/signup",  {replace : true})}
+                onClick={() => navigate("/signup"  )}
             >
                 Sign Up
             </SignupButton>
