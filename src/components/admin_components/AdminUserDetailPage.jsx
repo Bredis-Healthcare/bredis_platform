@@ -30,6 +30,10 @@ const AdminUserDetailPage = () => {
         navigate(`/thread/${threadID}/${0}`)
     }
 
+    const handelGoToDetailedInformation = (e, orderNumber) => {
+        navigate(`../../adminorders/${orderNumber}/detail`)
+    }
+
     const fetchData = async () => {
         const request = await axios.get(`/members/${userId}/detail`);
         console.log('request', request.data);
@@ -62,6 +66,7 @@ const AdminUserDetailPage = () => {
                         <Information>금액: {order.price}</Information>
                         <Information>생성일시: {order.createdDatetime}</Information>
                         <Information>최종수정일시: {order.updatedDatetime}</Information>
+                        <GoButton onClick={(e) => {handelGoToDetailedInformation(e, order.orderNumber )}}> 상세 보기</GoButton>
                     </OrderItem>
                 ))}
             </OrderList>

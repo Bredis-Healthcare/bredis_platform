@@ -19,19 +19,28 @@ import  {useNavigate  } from "react-router-dom";
 export async function loader({ params }) {
     const threadId = params.threadId
     const userId = params.userId
-    return { threadId, userId };
+    const isAdmin = false
+    return { threadId, userId, isAdmin };
   }
+
+export async function adminloader({ params }) {
+    const threadId = params.threadId
+    const userId = params.userId
+    const isAdmin = true
+    return { threadId, userId , isAdmin };
+}
 
 const ThreadPage = () => {
     const [message, setMessage] = useState('');
     const [chats, setChats] = useState([]);
-    const { userId, threadId } = useLoaderData();
+    const { userId, threadId, isAdmin } = useLoaderData();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {  
         fetchData();
-    }, [message])
+    }, [])
+
 
     const handleOffer= () => {
         setIsModalOpen(true);
@@ -52,7 +61,7 @@ const ThreadPage = () => {
         setChats(request.data.messages);
     };
 
-    const handleSend = () => {
+    const handleSend = async () => {
         // Logic to send message, e.g., update chats array, send to an API, etc.
         console.log(message);
         console.log("!", threadId, userId );
@@ -72,7 +81,10 @@ const ThreadPage = () => {
             }
         }
 
-        sendMessage()
+        await sendMessage()
+
+        fetchData()
+        console.log("fetch");
         setMessage(''); // Clear the input box after sending
     };
 
@@ -95,8 +107,7 @@ const ThreadPage = () => {
             <SendButton onClick={handleSend}>전송</SendButton>
             <div>
                 {
-                    // userId === '0' ?
-                    true ?
+                    isAdmin ?
                     <SendButton onClick={handleOffer}>주문 생성하기(관리자 기능)</SendButton> :
                     <></>
                 }
@@ -104,7 +115,7 @@ const ThreadPage = () => {
 
             <div>
                 {
-                    userId !== '0' ?
+                    !isAdmin ?
                     <SendButton onClick={handleGoToOrderCheck}>돌아가기</SendButton> :
                     <></>
                 }

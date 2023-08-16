@@ -9,9 +9,6 @@ import {
 import LoginPage from './components/LoginPage';
 import AdminLoginPage from './components/admin_components/AdminLoginPage';
 import MainPage from './components/MainPage';
-import OrderCheckPage,{
-  loader as OrderCheckLoader,
-}  from './components/OrderCheckPage';
 import SignUpPage from './components/SignUpPage';
 import UserListPage from './components/admin_components/UserListPage';
 import ErrorPage from './error-page';
@@ -20,6 +17,7 @@ import AdminUserDetailPage,{
 } 
 from './components/admin_components/AdminUserDetailPage';
 import ThreadPage, {
+  adminloader as adminthreadLoader,
   loader as threadLoader,
 } 
 from './components/ThreadPage';
@@ -28,6 +26,7 @@ import MyPage, {
 }  from './components/MyPage';
 import DetailedInformationPage, {
   loader as detailedInformationLodaer,
+  adminloader as admindetailedInformationLodaer,
 }  from './components/DetailedInformationPage';
 
 const router = createBrowserRouter([
@@ -69,16 +68,16 @@ const router = createBrowserRouter([
     loader: UserPageLoader,
   },
   {
-    path: "/:userId/order_check",
-    element: <OrderCheckPage/>,
-    errorElement: <ErrorPage />,
-    loader: OrderCheckLoader,
-  },
-  {
     path: "/orders/:orderId/detail",
     element: <DetailedInformationPage/>,
     errorElement: <ErrorPage />,
     loader: detailedInformationLodaer,
+  },
+  {
+    path: "/adminorders/:orderId/detail",
+    element: <DetailedInformationPage/>,
+    errorElement: <ErrorPage />,
+    loader: admindetailedInformationLodaer,
   },
   {
     path: "/admin/userdetail/:userId",
@@ -89,6 +88,11 @@ const router = createBrowserRouter([
     path: "/thread/:threadId/:userId",
     element: <ThreadPage />,
     loader: threadLoader,
+  },
+  {
+    path: "/adminthread/:threadId/:userId",
+    element: <ThreadPage />,
+    loader: adminthreadLoader,
   },
 ],
 {

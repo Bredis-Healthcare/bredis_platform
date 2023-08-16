@@ -71,3 +71,53 @@ export const UploadLink = styled.a`
     }
 `;
 
+// dropbox style
+export const DropdownSelect = styled.select`
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    outline: none;
+    background-color: white;
+    cursor: pointer;
+`;
+export const SelectButton = styled.button`
+    padding: 8px 16px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; // Smooth color transition
+
+    &:hover {
+        background-color: #0056b3;
+    }
+
+    ${props => props.primary && `
+        background-color: #007BFF;
+        &:hover {
+            background-color: #0056b3;
+        }
+    `}
+
+    ${props => props.secondary && `
+        background-color: #e0e0e0;
+        color: #333;
+        &:hover {
+            background-color: #b3b3b3;
+        }
+    `}
+`;
+
+export const InputBox = styled.input`
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    outline: none;
+`;
