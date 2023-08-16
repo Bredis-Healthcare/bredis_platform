@@ -6,7 +6,7 @@ import  {useNavigate  } from "react-router-dom";
 
 // Main login component
 const LoginPage = () => {
-    
+
     // States for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,9 +25,9 @@ const LoginPage = () => {
                     "password": password  // using state value for password
                 });
                 console.log("request data", request.data["memberId"]);
-                
+
                 navigate(`/Mypage/${request.data["memberId"]}`  );
-                
+
             } catch (error) {
                 console.error("Error while logging in:", error);
             }
@@ -38,20 +38,29 @@ const LoginPage = () => {
     return (
         <LoginContainer>
             <LoginImage src={logo} alt="Login Illustration" />
-            <LoginInput 
-                type="email" 
-                placeholder="Email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
+            <form onSubmit={handleLogin}>
+            <LoginInput
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
             />
-            <LoginInput 
-                type="password" 
-                placeholder="Password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
+            <LoginInput
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
             />
-            <LoginButton onClick={handleLogin}>Login</LoginButton>
-            <SignupButton 
+            <LoginButton
+                type="submit"
+                style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
+            >
+                Login
+            </LoginButton>
+            </form>
+            <SignupButton
                 onClick={() => navigate("/signup"  )}
             >
                 Sign Up
