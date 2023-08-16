@@ -82,7 +82,7 @@ const ThreadPage = () => {
             {
                 chats.map((chat, index) => (
                     <ChatBox key={index}>
-                        <UserInfo>{chat.id} {chat.createdDatetime}</UserInfo>
+                        <UserInfo style={{fontWeight: "lighter"}}>{chat.createdDatetime}</UserInfo>
                         <ChatContent>{chat.content}</ChatContent>
                     </ChatBox>
                 ))

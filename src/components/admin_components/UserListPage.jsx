@@ -29,15 +29,15 @@ const UserListPage = () => {
                 {users.map((user, index) => (
                     <UserItem key={index}>
                         <UserInfos>
-                            <UserName>name: {user.name}</UserName>
-                            <UserInfo>email: {user.email}</UserInfo>
-                            <UserInfo>mobile: {user.mobile}</UserInfo>
-                            <UserInfo>organization: {user.organization}</UserInfo>
-                            <UserInfo>department: {user.department}</UserInfo>
-                            <UserInfo>position: {user.position}</UserInfo>
-                            <UserInfo>createdDatetime: {user.createdDatetime}</UserInfo>
+                            <UserName>{user.name}</UserName>
+                            <UserInfo>이메일: {user.email}</UserInfo>
+                            <UserInfo>전화번호: {user.mobile}</UserInfo>
+                            <UserInfo>조직: {user.organization}</UserInfo>
+                            <UserInfo>부서: {user.department}</UserInfo>
+                            <UserInfo>직책: {user.position}</UserInfo>
+                            <UserInfo>가입일시: {user.createdDatetime}</UserInfo>
                         </UserInfos>
-                        <UserButton  onClick={(e) => {handleCreateOrderClick(user, e)}} >Direct</UserButton>
+                        <UserButton  onClick={(e) => {handleCreateOrderClick(user, e)}} >상세</UserButton>
                     </UserItem>
                 ))}
             </UserList>
