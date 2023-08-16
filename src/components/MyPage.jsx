@@ -43,13 +43,17 @@ function MyPage() {
     function ProfileInfo({ userInfo }) {
         return (
             <ProfileInfoContainer>
-                <h2>{userInfo.name}</h2>
-                <p>Email: {userInfo.email}</p>
-                <p>Mobile: {userInfo.mobile}</p>
-                <p>Organization: {userInfo.organization}</p>
-                <p>Department: {userInfo.department}</p>
-                <p>Position: {userInfo.position}</p>
-                <p>Joined: {userInfo.createdDatetime}</p>
+                <div>
+                    <h2>{userInfo.name}님의 정보</h2>
+                    <OrderItem>
+                        <div style={{display:'inline-block'}}>
+                            <p>{userInfo.email}</p>
+                            <p>{userInfo.mobile}</p>
+                            <p>{userInfo.organization}/{userInfo.department}/{userInfo.position}</p>
+                        </div>
+                        <GoButton onClick={handleOffer} style={{backgroundColor: '#dbd807'}}>문의하기</GoButton>
+                    </OrderItem>
+                </div>
             </ProfileInfoContainer>
         );
     }
@@ -57,16 +61,17 @@ function MyPage() {
     function OrderHistory({ orderHistory }) {
         return (
             <OrderHistoryContainer>
-                <h3>Order History</h3>
+                <h3>주문 내역</h3>
                 {orderHistory.map((order) => (
                     <OrderItem key={order.id}>
-                        <p>Order Number: {order.orderNumber}</p>
-                        <p>Items: {order.items}</p>
-                        <p>Status: {order.status}</p>
-                        <p>Price: {order.price}</p>
-                        <p>Ordered: {order.createdDatetime}</p>
-                        <p>Last Updated: {order.updatedDatetime}</p>
-                        <GoButton onClick={(e) => {handelGoToDetailInformation(e, order.orderNumber)} }>Go to Detail Information</GoButton>
+                        <div style={{display:'inline-block'}}>
+                            <p>주문번호: {order.orderNumber}</p>
+                            <p>주문 항목: {order.items}</p>
+                            <p>상태: {order.status}</p>
+                            <p>금액: {order.price}</p>
+                            <p>주문일시: {order.createdDatetime}</p>
+                        </div>
+                        <GoButton onClick={(e) => {handelGoToDetailInformation(e, order.orderNumber)} }>상세 보기</GoButton>
                     </OrderItem>
                 ))}
             </OrderHistoryContainer>
@@ -76,12 +81,14 @@ function MyPage() {
     function ThreadHistory({ threadHistory }) {
         return (
             <OrderHistoryContainer>
-                <h3>Thread History</h3>
+                <h3>문의 내역</h3>
                 {threadHistory.map((order) => (
                     <OrderItem key={order.id}>
-                        <p>Id: {order.id}</p>
-                        <p>createdDatetime: {order.createdDatetime}</p>
-                        <GoButton onClick={(e) => {handelGoToThread(e, order.id)}}>Go to Thread</GoButton>
+                        <div style={{display:'inline-block'}}>
+                            <p>번호: {order.id}</p>
+                            <p>생성일시: {order.createdDatetime}</p>
+                        </div>
+                        <GoButton onClick={(e) => {handelGoToThread(e, order.id)}}>상세 보기</GoButton>
                     </OrderItem>
                 ))}
             </OrderHistoryContainer>
@@ -108,7 +115,6 @@ function MyPage() {
             {userInfo ? (
                 <>
                     <ProfileInfo userInfo={userInfo} />
-                    <GoButton onClick={handleOffer}>문의하기</GoButton>
                     <OrderModal userId = {userId} isOpen={isModalOpen} closeModal={closeModal} />
                     <OrderHistory orderHistory={userInfo.orderHistory} />
                     <ThreadHistory threadHistory={userInfo.threads} />

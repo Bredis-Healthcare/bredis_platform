@@ -26,11 +26,13 @@ export const OrderItem = styled.div`
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
+    border: solid grey;
+    position: relative
 `;
 
 export const GoButton = styled.button`
     margin-top: 10px;
-    width: 100%;
+    width: 30%;
     padding: 8px;
     background-color: #007BFF;
     color: white;
@@ -38,6 +40,10 @@ export const GoButton = styled.button`
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: inline-block;
+    position: absolute;
+    right: 5%;
+    bottom: 10%;
 
     &:hover {
         background-color: #0056b3;

@@ -37,7 +37,7 @@ const OrderModal = ({ userId, isOpen, closeModal }) => {
     
 
     return (
-        <ModalContainer>
+        <ModalContainer style={{zIndex: 999}}>
             <ModalContent>
                 <CloseButton onClick={closeModal}>X</CloseButton>
 

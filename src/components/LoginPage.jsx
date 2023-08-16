@@ -41,14 +41,14 @@ const LoginPage = () => {
             <form onSubmit={handleLogin}>
             <LoginInput
                 type="email"
-                placeholder="Email"
+                placeholder="이메일"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
             />
             <LoginInput
                 type="password"
-                placeholder="Password"
+                placeholder="비밀번호"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
@@ -57,13 +57,13 @@ const LoginPage = () => {
                 type="submit"
                 style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
             >
-                Login
+                로그인
             </LoginButton>
             </form>
             <SignupButton
                 onClick={() => navigate("/signup"  )}
             >
-                Sign Up
+                회원가입
             </SignupButton>
         </LoginContainer>
     );
