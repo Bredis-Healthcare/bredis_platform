@@ -92,7 +92,7 @@ const router = createBrowserRouter([
   },
 ],
 {
-  basename : "/bredis_platform/"
+  // basename : "/bredis_platform/"
 });
 
 
