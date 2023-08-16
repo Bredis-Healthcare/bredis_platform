@@ -43,7 +43,7 @@ function FileUploadModal( {isOpen, closeModal}) {
             <ModalContent>
                 <CloseButton onClick={closeModal}>X</CloseButton>
 
-                <Title>File Upload</Title>
+                <Title>샘플 데이터 업로드</Title>
                 <Contents>
                     <UploadBox>
                         <DragFile
@@ -55,9 +55,9 @@ function FileUploadModal( {isOpen, closeModal}) {
                             }}
                         >
                             <ImageIcon src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="File Icon" />
-                            <p>Drag files to upload</p>
+                            <p>파일을 드래그하여 업로드</p>
                         </DragFile>
-                        <FileLabel htmlFor="chooseFile">Choose File</FileLabel>
+                        <FileLabel htmlFor="chooseFile">파일 선택하기</FileLabel>
                         <FileInput 
                             id="chooseFile" 
                             type="file" 
@@ -81,7 +81,7 @@ function FileUploadModal( {isOpen, closeModal}) {
                                         <div className="bar"></div>
                                     </Progress>
                                     <Status>
-                                        <span className="percent">100% done</span>
+                                        <span className="percent">100% 완료</span>
                                         <span className="speed">90KB/sec</span>
                                     </Status>
                                 </Details>
@@ -89,7 +89,7 @@ function FileUploadModal( {isOpen, closeModal}) {
                         ))}
                     </FilesContainer>
                 </Contents>
-                <SubmitButton onClick={handleSubmit} >Submit</SubmitButton>
+                <SubmitButton onClick={handleSubmit} >업로드</SubmitButton>
             </ModalContent>
         </RootContainer>
     );

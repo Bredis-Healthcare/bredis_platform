@@ -40,6 +40,7 @@ export const InputBox = styled.div`
 
     input {
         width: 100%;
+        height: 250px;
         padding: 8px;
         box-sizing: border-box;
         border: 1px solid #ddd;

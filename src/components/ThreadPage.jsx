@@ -90,14 +90,14 @@ const ThreadPage = () => {
             <InputBox
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type your message here..."
+                placeholder="메시지를 입력해주세요."
             />
-            <SendButton onClick={handleSend}>Send</SendButton>
+            <SendButton onClick={handleSend}>전송</SendButton>
             <div>
                 {
                     // userId === '0' ?
                     true ?
-                    <SendButton onClick={handleOffer}>Add Offer</SendButton> :
+                    <SendButton onClick={handleOffer}>주문 생성하기(관리자 기능)</SendButton> :
                     <></>
                 }
             </div>
@@ -105,7 +105,7 @@ const ThreadPage = () => {
             <div>
                 {
                     userId !== '0' ?
-                    <SendButton onClick={handleGoToOrderCheck}>Go to Order Check</SendButton> :
+                    <SendButton onClick={handleGoToOrderCheck}>돌아가기</SendButton> :
                     <></>
                 }
             </div>

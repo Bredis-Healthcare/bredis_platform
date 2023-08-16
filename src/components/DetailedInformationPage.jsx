@@ -81,15 +81,15 @@ const DetailedInformationPage = () => {
         <MainContainer>
             {data ? (
                 <>
-                <h1>Order #{data.orderNumber}</h1>
+                <h1>주문번호 #{data.orderNumber}</h1>
                 <InfoBox>
-                    <p><strong>Status:</strong> {data.status}</p>
-                    <p><strong>Items:</strong> {data.items}</p>
-                    <p><strong>Price:</strong> {data.price}</p>
+                    <p><strong>상태:</strong> {data.status}</p>
+                    <p><strong>주문 항목:</strong> {data.items}</p>
+                    <p><strong>금액:</strong> {data.price}</p>
                 </InfoBox>
     
                 <HistoryContainer>
-                    <h2>Analysis History</h2>
+                    <h2>분석 히스토리</h2>
                     {data.analysisHistory.map((history, index) => (
                         <HistoryItem key={index}>
                             <span>{history.createdDatetime}</span>
@@ -99,7 +99,7 @@ const DetailedInformationPage = () => {
                 </HistoryContainer>
     
                 <HistoryContainer>
-                    <h2>Payment History</h2>
+                    <h2>결제 히스토리</h2>
                     {data.paymentHistory.map((payment, index) => (
                         <HistoryItem key={index}>
                             <span>{payment.createdDatetime}</span>
@@ -108,10 +108,10 @@ const DetailedInformationPage = () => {
                     ))}
                 </HistoryContainer>
     
-                <DownloadLink href={data.sampleDataDownloadLink}>Download Sample Data</DownloadLink>
-                <DownloadLink href={data.reportDownloadLink}>Download Report</DownloadLink>
-                <DownloadLink href={data.fakeReportDownloadLink}>Download Fake Report</DownloadLink>
-                <UploadLink onClick={() => handleUploadClick()} >Upload Data</UploadLink>
+                <DownloadLink href={data.sampleDataDownloadLink}>샘플 데이터 다운로드</DownloadLink>
+                <UploadLink onClick={() => handleUploadClick()} >샘플 데이터 업로드</UploadLink>
+                <DownloadLink href={data.reportDownloadLink}>분석 보고서 다운로드</DownloadLink>
+                <DownloadLink href={data.fakeReportDownloadLink}>임시 분석 보고서 다운로드</DownloadLink>
                 <FileUploadModal isOpen={isModalOpen} closeModal={closeModal} />
                 </>
                 ):(

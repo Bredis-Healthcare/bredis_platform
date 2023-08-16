@@ -43,22 +43,22 @@ const OrderModal = ({ threadId, userId, isOpen, closeModal }) => {
             <ModalContent>
                 <CloseButton onClick={closeModal}>X</CloseButton>
 
-                <h1><strong>Set New Offer</strong></h1>
+                <h1><strong>주문 생성</strong></h1>
                 <InputBox>
-                    <label><strong>Item:</strong></label>
-                    <input type="text" placeholder="Enter item name" onChange={(e) => setItem(e.target.value)} />
+                    <label><strong>주문 항목:</strong></label>
+                    <input type="text" placeholder="주문 항목" onChange={(e) => setItem(e.target.value)} />
                 </InputBox>
 
                 <InputBox>
-                    <label><strong>Price:</strong></label>
-                    <input type="text" placeholder="Enter price" onChange={(e) => setPrice(e.target.value)} />
+                    <label><strong>금액:</strong></label>
+                    <input style={{height:'70px'}} type="text" placeholder="금액" onChange={(e) => setPrice(e.target.value)} />
                 </InputBox>
                 <InputBox>
-                    <label><strong>Details:</strong></label>
-                    <input type="text" placeholder="Enter price" onChange={(e) => setDetail(e.target.value)} />
+                    <label><strong>상세내용:</strong></label>
+                    <input type="text" placeholder="상세 내용" onChange={(e) => setDetail(e.target.value)} />
                 </InputBox>
 
-                <SubmitButton onClick={handleSubmit} >Submit</SubmitButton>
+                <SubmitButton onClick={handleSubmit} >완료</SubmitButton>
             </ModalContent>
         </ModalContainer>
     );

@@ -50,13 +50,12 @@ const OrderModal = ({ userId, isOpen, closeModal }) => {
                     <label><strong>Price:</strong></label>
                     <input type="text" placeholder="Enter price" onChange={(e) => setPrice(e.target.value)} />
                 </InputBox> */}
-                <h1><strong>New Offer</strong></h1>
+                <h1><strong>견적 문의</strong></h1>
                 <InputBox>
-                    <label><strong>Details:</strong></label>
-                    <input type="text" placeholder="Enter price" onChange={(e) => setDetail(e.target.value)} />
+                    <input type="text" placeholder="문의 내용을 입력해주세요." onChange={(e) => setDetail(e.target.value)} />
                 </InputBox>
 
-                <SubmitButton onClick={handleSubmit} >Submit</SubmitButton>
+                <SubmitButton onClick={handleSubmit} >전송</SubmitButton>
             </ModalContent>
         </ModalContainer>
     );
