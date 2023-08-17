@@ -37,7 +37,7 @@ const UserListPage = () => {
                             <UserInfo>직책: {user.position}</UserInfo>
                             <UserInfo>가입일시: {user.createdDatetime}</UserInfo>
                         </UserInfos>
-                        <UserButton  onClick={(e) => {handleCreateOrderClick(user, e)}} >상세</UserButton>
+                        <UserButton  onClick={(e) => {handleCreateOrderClick(user, e)}} >상세 보기</UserButton>
                     </UserItem>
                 ))}
             </UserList>

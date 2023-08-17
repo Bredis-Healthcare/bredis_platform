@@ -48,7 +48,7 @@ export const DownloadLink = styled.a`
     color: #fff;
     border-radius: 5px;
     text-align: center;
-    margin-bottom: 10px;
+    margin: 5px;
     text-decoration: none;
 
     &:hover {
@@ -63,7 +63,7 @@ export const UploadLink = styled.a`
     color: #fff;
     border-radius: 5px;
     text-align: center;
-    margin-bottom: 10px;
+    margin: 5px;
     text-decoration: none;
 
     &:hover {
@@ -73,7 +73,7 @@ export const UploadLink = styled.a`
 
 // dropbox style
 export const DropdownSelect = styled.select`
-    width: 100%;
+    width: 30%;
     padding: 10px;
     margin-top: 20px;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -87,8 +87,7 @@ export const SelectButton = styled.button`
     background-color: #007BFF;
     border: none;
     border-radius: 5px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: 10px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease; // Smooth color transition
@@ -114,7 +113,7 @@ export const SelectButton = styled.button`
 `;
 
 export const InputBox = styled.input`
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-top: 20px;
     border: 1px solid rgba(0, 0, 0, 0.1);

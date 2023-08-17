@@ -135,24 +135,36 @@ const DetailedInformationPage = () => {
                     <p><strong>주문 상태:</strong> {data.status}</p>
                     <p><strong>금액:</strong> {data.price}</p>
                 </InfoBox>
-                <div>
+                <h1>검체 정보</h1>
+                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.sampleDataDownloadLink} download>검체 데이터 양식 다운로드</DownloadLink>
+                    <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink>
+
+                <h1>분석 정보</h1>
+                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.reportDownloadLink} download>분석 보고서 다운로드</DownloadLink>
+                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.fakeReportDownloadLink} download>임시 분석 보고서 다운로드</DownloadLink>
                 {
-                    isAdmin ?
-                    <div>
-                        <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}} >
-                            <option value="" disabled>수정 할 상태를 고르세요</option>
-                            {statusList.map((value) => (
-                                <option value={value.title}>{value.title}</option>
+                    isAdmin ? <></> : <p><strong>상태:</strong> {data.status}</p>
+                }
+                <div>
+                    {
+                isAdmin ?
+                        <div>
+                            <h3 style={{display:"inline"}}>상태: </h3>
+                            <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}}
+                                style={{display:"inline"}}>
+                                <option value="" disabled>수정할 상태를 선택해주세요</option>
+                                {statusList.map((value) => (
+                            <option value={value.title}>{value.title}</option>
                             ))}
-                        </DropdownSelect>
-                        <SelectButton onClick={handleDropdownOptionSelect}>상태 수정하기</SelectButton>
-                    </div>
+                            </DropdownSelect>
+                            <SelectButton style={{display:"inline"}} onClick={handleDropdownOptionSelect}>수정하기</SelectButton>
+                        </div>
                       :
                     <></>
                 }
                 </div>
                 <HistoryContainer>
-                    <h2>분석 히스토리</h2>
+                    <h3>분석 내역</h3>
                     <InfoBox>
                         {data.analysisHistory.map((history, index) => (
                             <HistoryItem key={index}>
@@ -169,20 +181,18 @@ const DetailedInformationPage = () => {
                         <InputBox
                             value={adminmassage1}
                             onChange={(e) => setAdminmassage1(e.target.value)}
-                            placeholder="업데이트할 분석 내용을 적어주세요"
+                            placeholder="추가할 분석 내용을 입력해주세요"
                         />
-                        <SelectButton onClick={handleAdminMassage1}>분석 업데이트</SelectButton>
+                        <SelectButton onClick={handleAdminMassage1}>분석 내역 추가</SelectButton>
                     </div>
 
                       :
                     <></>
                 }
                 </div>
-                <DownloadLink href={data.sampleDataDownloadLink} download>샘플 데이터 양식 다운로드</DownloadLink>
-                <UploadLink onClick={() => handleUploadClick()} >샘플 데이터 업로드</UploadLink>
     
                 <HistoryContainer>
-                    <h2>결제 히스토리</h2>
+                    <h1>결제 내역</h1>
                     <InfoBox>
                         {data.paymentHistory.map((payment, index) => (
                             <HistoryItem key={index}>
@@ -199,16 +209,14 @@ const DetailedInformationPage = () => {
                         <InputBox
                             value={adminmassage2}
                             onChange={(e) => setAdminmassage2(e.target.value)}
-                            placeholder="업데이트 할 결제 내역을 적어주세요."
+                            placeholder="추가할 결제 내용을 입력해주세요."
                         />
-                        <SelectButton onClick={handleAdminMassage2}>결제 업데이트</SelectButton>
+                        <SelectButton onClick={handleAdminMassage2}>결제 내역 추가</SelectButton>
                     </div>
                       :
                     <></>
                 }
                 </div>
-                <DownloadLink href={data.reportDownloadLink} download>분석 보고서 다운로드</DownloadLink>
-                <DownloadLink href={data.fakeReportDownloadLink} download>임시 분석 보고서 다운로드</DownloadLink>
                 <FileUploadModal orderId = {orderId} isOpen={isModalOpen} closeModal={closeModal} />
                 </>
                 ):(

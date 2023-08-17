@@ -59,14 +59,16 @@ const AdminUserDetailPage = () => {
             <SubHeader>주문 내역</SubHeader>
             <OrderList>
                 {userData.orderHistory.map(order => (
-                    <OrderItem key={order.id}>
-                        <Information>주문번호: {order.orderNumber}</Information>
-                        <Information>주문 항목: {order.items}</Information>
-                        <Information>상태: {order.status}</Information>
-                        <Information>금액: {order.price}</Information>
-                        <Information>생성일시: {order.createdDatetime}</Information>
-                        <Information>최종수정일시: {order.updatedDatetime}</Information>
-                        <GoButton onClick={(e) => {handelGoToDetailedInformation(e, order.orderNumber )}}> 상세 보기</GoButton>
+                    <OrderItem key={order.id} style={{position:'relative'}}>
+                        <div style={{display:'inline-block'}}>
+                            <Information style={{fontWeight: "bold"}}>주문번호: {order.orderNumber}</Information>
+                            <Information>주문 항목: {order.items}</Information>
+                            <Information>상태: {order.status}</Information>
+                            <Information>금액: {order.price}</Information>
+                            <Information>생성일시: {order.createdDatetime}</Information>
+                            <Information>최종수정일시: {order.updatedDatetime}</Information>
+                        </div>
+                        <GoButton style={{position:'absolute', width: '30%', right: '5%', bottom: '10%', display:'inline-block'}} onClick={(e) => {handelGoToDetailedInformation(e, order.orderNumber )}}> 상세 보기</GoButton>
                     </OrderItem>
                 ))}
             </OrderList>
