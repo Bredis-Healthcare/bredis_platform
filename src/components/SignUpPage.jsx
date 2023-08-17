@@ -53,66 +53,66 @@ const SignUpPage = () => {
 
     return (
         <SignupContainer>
-            <InputLabel>Email</InputLabel>
+            <InputLabel>이메일</InputLabel>
             <SignupInput 
                 type="email"
-                placeholder="Email"
+                placeholder="이메일"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
-            <InputLabel>Password</InputLabel>
+            <InputLabel>비밀번호</InputLabel>
             <SignupInput 
                 type="password"
-                placeholder="Password"
+                placeholder="비밀번호"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <InputLabel>Confirm Password</InputLabel>
+            <InputLabel>비밀번호 확인</InputLabel>
             <SignupInput 
                 type="password"
-                placeholder="Confirm Password"
+                placeholder="비밀번호 확인"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <PasswordMatchInfo>
-                {confirmPassword && (password === confirmPassword ? 'Passwords match!' : 'Passwords do not match!')}
+                {confirmPassword && (password === confirmPassword ? '비밀번호가 일치합니다.' : '비밀번호가 일치하지 않습니다.')}
             </PasswordMatchInfo>
-            <InputLabel>Name</InputLabel>
+            <InputLabel>이름</InputLabel>
             <SignupInput 
                 type="text"
-                placeholder="Name"
+                placeholder="이름"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <InputLabel>Phone Number</InputLabel>
+            <InputLabel>전화번호</InputLabel>
             <SignupInput 
                 type="tel"
-                placeholder="Phone Number"
+                placeholder="전화번호"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
             />
-            <InputLabel>Organization</InputLabel>
+            <InputLabel>조직</InputLabel>
             <SignupInput 
                 type="text"
-                placeholder="Organization"
+                placeholder="조직"
                 value={organization}
                 onChange={(e) => setOrganization(e.target.value)}
             />
-            <InputLabel>Department</InputLabel>
+            <InputLabel>부서</InputLabel>
             <SignupInput 
                 type="text"
-                placeholder="Department"
+                placeholder="부서"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
             />
-            <InputLabel>Position</InputLabel>
+            <InputLabel>직책</InputLabel>
             <SignupInput 
                 type="text"
-                placeholder="Position"
+                placeholder="직책"
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
             />
-            <SignupButton onClick={handleSignup}>Sign Up</SignupButton>
+            <SignupButton onClick={handleSignup}>완료</SignupButton>
         </SignupContainer>
     );
 };

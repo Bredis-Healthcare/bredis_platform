@@ -25,6 +25,7 @@ export const SignupContainer = styled.div`
 // Styled component for input labels
 export const InputLabel = styled.label`
     font-size: 16px;
+    font-weight: bold;
     margin: 10px 0 5px 0;
     color: #333;
     width: 80%; // Match the width of the input fields for consistency
@@ -64,7 +65,7 @@ export const PasswordMatchInfo = styled.p`
     height: 20px; // Ensuring consistent spacing
 
     // If the content is 'Passwords match!', then color it green
-    ${props => props.children === 'Passwords match!' && `
+    ${props => props.children === '비밀번호가 일치합니다.' && `
         color: green;
     `}
 `;
