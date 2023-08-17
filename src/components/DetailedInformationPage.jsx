@@ -207,8 +207,8 @@ const DetailedInformationPage = () => {
                     <></>
                 }
                 </div>
-                <DownloadLink href={data.reportDownloadLink}>분석 보고서 다운로드</DownloadLink>
-                <DownloadLink href={data.fakeReportDownloadLink}>임시 분석 보고서 다운로드</DownloadLink>
+                <DownloadLink href={data.reportDownloadLink} download>분석 보고서 다운로드</DownloadLink>
+                <DownloadLink href={data.fakeReportDownloadLink} download>임시 분석 보고서 다운로드</DownloadLink>
                 <FileUploadModal isOpen={isModalOpen} closeModal={closeModal} />
                 </>
                 ):(
