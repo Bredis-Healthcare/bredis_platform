@@ -7,7 +7,7 @@ import {
 } from './FileUploadModalStyles';
 import axios from "../api/axios";
 
-function FileUploadModal( {isOpen, closeModal}) {
+function FileUploadModal( {orderId, isOpen, closeModal}) {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const fileRef = useRef(null);
 
@@ -17,21 +17,29 @@ function FileUploadModal( {isOpen, closeModal}) {
     };
 
     const handleSubmit = (orderName) => {
-        async function Upload() {
+
+        const upload = async () => {
+            const formData = new FormData();
+            Array.from(uploadedFiles).forEach((el) => {
+              formData.append("file", el);
+            });
+        
             try {
-                // const request = await axios.post('/messages/new-thread', 
-                // {
-                //     "memberId": userId,
-                //     "content": detail
-                // });
-                console.log("Data Upload");
-
+              const response = await axios.post(`/orders/${orderId}/sample-data`, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  "boundary": "--boundary",
+                },
+              });
+              alert("성공");
+              console.log(response)
             } catch (error) {
-                console.error("Error while Uploading in:", error);
+              console.log("파일보내기 에러", error);
             }
-        }
+          };
 
-        Upload();
+        upload();
+        setUploadedFiles([]);
         closeModal();
     }
 
@@ -41,7 +49,10 @@ function FileUploadModal( {isOpen, closeModal}) {
         <RootContainer>
             
             <ModalContent>
-                <CloseButton onClick={closeModal}>X</CloseButton>
+                <CloseButton onClick={(e) => {
+                    setUploadedFiles([]);
+                    closeModal();
+                }}>X</CloseButton>
 
                 <Title>샘플 데이터 업로드</Title>
                 <Contents>
