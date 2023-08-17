@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://service.bredis.co.kr/",
+    baseURL: "https://api.bredis.co.kr/",
 })
 
 instance.interceptors.response.use(
