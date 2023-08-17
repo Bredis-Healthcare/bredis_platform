@@ -57,15 +57,16 @@ const DetailedInformationPage = () => {
     }
 
     const handleDropdownOptionSelect = async () => {
-        statusList.map( async (value, index) => {
+        statusList.map( async (value) => {
             // console.log(value.title, selectedOption)
             if(value.title === selectedOption )
             {
                 // console.log("!")
                 setSelectedOptionCode(value.code)
                 
-                alert(`You selected: ${selectedOption} Code : ${value.code}`);
-                const request = await axios.patch(`/orders/${orderId}/status?status=${value.code}`);
+                // alert(`You selected: ${selectedOption} Code : ${value.code}`);
+                const request = await axios.patch(`/orders/${orderId}/status?status=${value.code}`); 
+                fetchData();
                 console.log(request)
             }
          })
@@ -130,7 +131,6 @@ const DetailedInformationPage = () => {
                 <>
                 <h1>주문번호 #{data.orderNumber}</h1>
                 <InfoBox>
-                    <p><strong>상태:</strong> {data.status}</p>
                     <p><strong>주문 항목:</strong> {data.items}</p>
                     <p><strong>주문 상태:</strong> {data.status}</p>
                     <p><strong>금액:</strong> {data.price}</p>
@@ -138,15 +138,15 @@ const DetailedInformationPage = () => {
                 <div>
                 {
                     isAdmin ?
-                    <dev>
+                    <div>
                         <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}} >
                             <option value="" disabled>수정 할 상태를 고르세요</option>
-                            {statusList.map((value, index) => (
+                            {statusList.map((value) => (
                                 <option value={value.title}>{value.title}</option>
                             ))}
                         </DropdownSelect>
                         <SelectButton onClick={handleDropdownOptionSelect}>상태 수정하기</SelectButton>
-                    </dev>
+                    </div>
                       :
                     <></>
                 }
@@ -165,20 +165,20 @@ const DetailedInformationPage = () => {
                 <div>
                 {
                     isAdmin ?
-                    <dev>
+                    <div>
                         <InputBox
                             value={adminmassage1}
                             onChange={(e) => setAdminmassage1(e.target.value)}
                             placeholder="업데이트할 분석 내용을 적어주세요"
                         />
                         <SelectButton onClick={handleAdminMassage1}>분석 업데이트</SelectButton>
-                    </dev>
+                    </div>
 
                       :
                     <></>
                 }
                 </div>
-                <DownloadLink href={data.sampleDataDownloadLink}>샘플 데이터 양식 다운로드</DownloadLink>
+                <DownloadLink href={data.sampleDataDownloadLink} download>샘플 데이터 양식 다운로드</DownloadLink>
                 <UploadLink onClick={() => handleUploadClick()} >샘플 데이터 업로드</UploadLink>
     
                 <HistoryContainer>
@@ -195,14 +195,14 @@ const DetailedInformationPage = () => {
                 <div>
                 {
                     isAdmin ?
-                    <dev>   
+                    <div>   
                         <InputBox
                             value={adminmassage2}
                             onChange={(e) => setAdminmassage2(e.target.value)}
                             placeholder="업데이트 할 결제 내역을 적어주세요."
                         />
                         <SelectButton onClick={handleAdminMassage2}>결제 업데이트</SelectButton>
-                    </dev>
+                    </div>
                       :
                     <></>
                 }
