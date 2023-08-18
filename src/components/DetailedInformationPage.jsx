@@ -4,7 +4,8 @@ import {
 } from './DetailedInformationPageStyles';
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
-import FileUploadModal from './FileUploadModal';
+import FileUploadModal from './modal/FileUploadModal';
+import AnalisisResultChangeModal from './modal/AnalisisResultChangeModal';
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -21,18 +22,19 @@ export async function adminloader({ params }) {
 const DetailedInformationPage = () => {
     const [data, setData] = useState(null); // or your fetching logic
     const [statusList, setStatusList] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
+    const [isAnalysisResultChangeModalOpen, setIsAnalysisResultChangeModalModalOpen] = useState(false);
     const [adminmassage1, setAdminmassage1] = useState('');
     const [adminmassage2, setAdminmassage2] = useState('');
     const navigate = useNavigate();
     const { orderId, isAdmin } = useLoaderData();
     const [selectedOption, setSelectedOption] = useState('');
-    const [selectedOptionCode, setSelectedOptionCode] = useState('');
+    
 
     useEffect(() => {
-        // setData(orderInfo);  
         fetchData();
     }, [])
+
     
     const fetchData = async () => {
         const request = await axios.get(`/orders/${orderId}/detail`);
@@ -49,11 +51,22 @@ const DetailedInformationPage = () => {
 
 
     const handleUploadClick = () => {
-        setIsModalOpen(true);
+        setIsFileUploadModalOpen(true);
     }
 
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const closeFileUploadModal = () => {
+        setIsFileUploadModalOpen(false);
+    }
+
+    const handleAnalysisResultChangeClick = () => {
+        setIsAnalysisResultChangeModalModalOpen(true);
+    }
+
+    const closeAnalysisResultChangeModal = (doReload) => {
+        setIsAnalysisResultChangeModalModalOpen(false);
+        if(doReload){
+            window.location.reload(false)
+        }
     }
 
     const handleDropdownOptionSelect = async () => {
@@ -62,7 +75,6 @@ const DetailedInformationPage = () => {
             if(value.title === selectedOption )
             {
                 // console.log("!")
-                setSelectedOptionCode(value.code)
                 
                 // alert(`You selected: ${selectedOption} Code : ${value.code}`);
                 const request = await axios.patch(`/orders/${orderId}/status?status=${value.code}`); 
@@ -89,41 +101,6 @@ const DetailedInformationPage = () => {
     }
   
 
-    const orderInfo = {
-        id: 3,
-        orderNumber: "202308090246-61f81f",
-        member_id: 1,
-        items: "testItem",
-        status: "분석 진행중",
-        analysisHistory: [
-          {
-            createdDatetime: "2023-08-10 14:37:00",
-            text: "원자재 입고가 완료되어 분석을 시작합니다."
-          },
-          {
-            createdDatetime: "2023-08-10 14:37:00",
-            text: "원자재 입고가 완료되어 분석을 시작합니다."
-          }
-        ],
-        sampleDataExampleDownloadLink: "",
-        sampleDataDownloadLink: "test-service/202308090246-61f81f/SAMPLE_DATA_202308090246-61f81f.csv",
-        reportDownloadLink: "test-service/202308090246-61f81f/REPORT_202308090246-61f81f.pdf",
-        fakeReportDownloadLink: "test-service/202308090246-61f81f/TEMP_REPORT_202308090246-61f81f.pdf",
-        price: 15000,
-        paymentHistory: [
-          {
-            createdDatetime: "2023-08-10 14:37:00",
-            text: "1,000,000 결제 (계좌 이체) / 잔금 1,370,000"
-          },
-          {
-            createdDatetime: "2023-08-10 14:37:00",
-            text: "1,000,000 결제 (계좌 이체) / 잔금 1,370,000"
-          }
-        ],
-        createdDatetime: "2023-08-09 02:46:40",
-        updatedDatetime: "2023-08-09 02:46:40"
-      };
-
       
     return (
         <MainContainer>
@@ -135,10 +112,28 @@ const DetailedInformationPage = () => {
                     <p><strong>주문 상태:</strong> {data.status}</p>
                     <p><strong>금액:</strong> {data.price}</p>
                 </InfoBox>
+                
+                <h1>분석결과</h1>
+                <InfoBox >
+                    {
+                        data.analysisResult ?
+                        <div>{data.analysisResult}</div> :
+                        "분석이 아직 진행 중 입니다."
+                    }
+                </InfoBox>
+
+                {
+                    isAdmin ? <SelectButton onClick={handleAnalysisResultChangeClick}>분석 결과 수정하기</SelectButton> : <></>
+                }
+
+
                 <h1>검체 정보</h1>
                     <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.sampleDataDownloadLink} download>검체 데이터 양식 다운로드</DownloadLink>
-                    <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink>
-
+                    {
+                        isAdmin ?
+                        <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink> :
+                        <></>
+                    }
                 <h1>분석 정보</h1>
                     <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.reportDownloadLink} download>분석 보고서 다운로드</DownloadLink>
                     <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.fakeReportDownloadLink} download>임시 분석 보고서 다운로드</DownloadLink>
@@ -166,12 +161,18 @@ const DetailedInformationPage = () => {
                 <HistoryContainer>
                     <h3>분석 내역</h3>
                     <InfoBox>
-                        {data.analysisHistory.map((history, index) => (
-                            <HistoryItem key={index}>
-                                <span>{history.createdDatetime}</span>
-                                <p>{history.text}</p>
-                            </HistoryItem>
-                        ))}
+                        {
+                            data.analysisHistory.length > 0 ? 
+                            <div>{data.analysisHistory.map((history, index) => (
+                                <HistoryItem key={index}>
+                                    <span>{history.createdDatetime}</span>
+                                    <p>{history.text}</p>
+                                </HistoryItem>
+                            ))}</div> :
+                            <div>내역이 존재하지 않습니다.</div> 
+                            
+                        }
+                        
                     </InfoBox>
                 </HistoryContainer>
                 <div>
@@ -194,6 +195,18 @@ const DetailedInformationPage = () => {
                 <HistoryContainer>
                     <h1>결제 내역</h1>
                     <InfoBox>
+                        {
+                            data.paymentHistory.length > 0 ?
+                            <div>
+                                {data.paymentHistory.map((payment, index) => (
+                                    <HistoryItem key={index}>
+                                        <span>{payment.createdDatetime}</span>
+                                        <p>{payment.text}</p>
+                                    </HistoryItem>
+                                ))}
+                            </div>:
+                            <div>내역이 존재하지 않습니다.</div>
+                        }
                         {data.paymentHistory.map((payment, index) => (
                             <HistoryItem key={index}>
                                 <span>{payment.createdDatetime}</span>
@@ -217,7 +230,8 @@ const DetailedInformationPage = () => {
                     <></>
                 }
                 </div>
-                <FileUploadModal orderId = {orderId} isOpen={isModalOpen} closeModal={closeModal} />
+                <FileUploadModal orderId = {orderId} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
+                <AnalisisResultChangeModal orderId = {orderId} prvtext = {data.analysisResult} isOpen={isAnalysisResultChangeModalOpen} closeModal={closeAnalysisResultChangeModal} />
                 </>
                 ):(
                     <p>Loading...</p>

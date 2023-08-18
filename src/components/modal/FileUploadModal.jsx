@@ -5,7 +5,7 @@ import {
     Thumbnail, Details, Header, Progress, Status,
     ImageIcon, CloseButton, ModalContent, SubmitButton,
 } from './FileUploadModalStyles';
-import axios from "../api/axios";
+import axios from "../../api/axios";
 
 function FileUploadModal( {orderId, isOpen, closeModal}) {
     const [uploadedFiles, setUploadedFiles] = useState([]);

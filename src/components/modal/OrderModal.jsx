@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import { ModalContainer, ModalContent, CloseButton, InputBox, SubmitButton } from './OrderModalStyles';
-import axios from "../api/axios";
+import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
 
 const OrderModal = ({ userId, isOpen, closeModal }) => {

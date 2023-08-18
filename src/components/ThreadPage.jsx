@@ -4,17 +4,10 @@ import {
     useLoaderData,
 } from 'react-router-dom'
 import axios from "../api/axios";
-import OrderModal from './OrderModalAdd';
+import OrderModal from './modal/OrderModalAdd';
 import  {useNavigate  } from "react-router-dom";
 
 
-// Sample data (You can replace this with real data from your API or database)
-// const chats = [
-//     { name: 'John Doe', position: 'Manager', message: 'Hello everyone!' },
-//     { name: 'Jane Smith', position: 'Employee', message: 'Hello, John!' },
-//     { name: 'Anna Lee', position: 'CEO', message: 'Hope everyone is doing well.' },
-//     // ... more chats
-// ];
 
 export async function loader({ params }) {
     const threadId = params.threadId

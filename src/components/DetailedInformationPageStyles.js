@@ -14,6 +14,7 @@ export const InfoBox = styled.div`
     border-radius: 5px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
     margin-bottom: 20px;
+    white-space : pre-wrap;
 
     p {
         margin: 10px 0;

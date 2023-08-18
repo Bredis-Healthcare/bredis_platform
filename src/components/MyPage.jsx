@@ -6,7 +6,7 @@ import {
     OrderItem,
     GoButton
 } from './MyPageStyle.js';
-import OrderModal from './OrderModal';
+import OrderModal from './modal/OrderModal';
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
 

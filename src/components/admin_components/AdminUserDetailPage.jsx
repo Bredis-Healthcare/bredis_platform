@@ -27,7 +27,7 @@ const AdminUserDetailPage = () => {
     }, [userId]);
 
     const handelGoToThread = (e, threadID, userId) => {
-        navigate(`/thread/${threadID}/${0}`)
+        navigate(`/adminthread/${threadID}/${userId}`)
     }
 
     const handelGoToDetailedInformation = (e, orderNumber) => {
@@ -54,7 +54,10 @@ const AdminUserDetailPage = () => {
             <Information>부서: {userData.department}</Information>
             <Information>직책: {userData.position}</Information>
             <Information>가입일시: {userData.createdDatetime}</Information>
-            <Information>관리자 메모: {userData.adminMemo ? userData.adminMemo : "N/A"}</Information>
+            
+            <SubHeader>관리자 메모</SubHeader>
+            <Information> {userData.adminMemo ? userData.adminMemo : "N/A"}</Information>
+            
             
             <SubHeader>주문 내역</SubHeader>
             <OrderList>
@@ -80,7 +83,7 @@ const AdminUserDetailPage = () => {
                             <Information>문의 Id: {order.id}</Information>
                             <Information>생성일시: {order.createdDatetime}</Information>
                         </div>
-                        <GoButton style={{position:'absolute', width: '30%', right: '5%', bottom: '10%', display:'inline-block'}} onClick={(e) => {handelGoToThread(e, order.id, userData.id)}}>상세 보기</GoButton>
+                        <GoButton style={{position:'absolute', width: '30%', right: '5%', bottom: '10%'}} onClick={(e) => {handelGoToThread(e, order.id, userData.id)}}>상세 보기</GoButton>
                     </OrderItem>
                 ))}
             </OrderList>
