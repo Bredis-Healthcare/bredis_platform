@@ -75,12 +75,14 @@ const AdminUserDetailPage = () => {
                     </OrderItem>
                 ))}
             </OrderList>
-            <SubHeader>문의 내역</SubHeader>
+            <SubHeader>견적 및 기타 문의 내역</SubHeader>
+            주문 건에 대한 문의 내역은 각 주문 상세 정보에서 확인할 수 있습니다.
             <OrderList>
                 {userData.threads.map(order => (
                     <OrderItem key={order.id} style={{position:'relative'}}>
                         <div style={{display:'inline-block'}}>
                             <Information>문의 Id: {order.id}</Information>
+                            <Information>카테고리: {order.category}</Information>
                             <Information>생성일시: {order.createdDatetime}</Information>
                         </div>
                         <GoButton style={{position:'absolute', width: '30%', right: '5%', bottom: '10%'}} onClick={(e) => {handelGoToThread(e, order.id, userData.id)}}>상세 보기</GoButton>

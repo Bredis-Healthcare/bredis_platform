@@ -81,11 +81,13 @@ function MyPage() {
     function ThreadHistory({ threadHistory }) {
         return (
             <OrderHistoryContainer>
-                <h3>문의 내역</h3>
+                <h3>견적 및 기타 문의 내역</h3>
+                주문 건에 대한 문의 내역은 각 주문 상세 정보에서 확인할 수 있습니다.
                 {threadHistory.map((order) => (
                     <OrderItem key={order.id}>
                         <div style={{display:'inline-block'}}>
                             <p>번호: {order.id}</p>
+                            <p>카테고리: {order.category}</p>
                             <p>생성일시: {order.createdDatetime}</p>
                         </div>
                         <GoButton onClick={(e) => {handelGoToThread(e, order.id)}}>상세 보기</GoButton>
