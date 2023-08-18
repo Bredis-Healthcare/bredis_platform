@@ -6,6 +6,7 @@ import {
 import axios from "../api/axios";
 import OrderModal from './modal/OrderModalAdd';
 import  {useNavigate  } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 
 
@@ -24,6 +25,8 @@ export async function adminloader({ params }) {
 }
 
 const ThreadPage = () => {
+    
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [message, setMessage] = useState('');
     const [chats, setChats] = useState([]);
     const { userId, threadId, isAdmin } = useLoaderData();
@@ -31,6 +34,7 @@ const ThreadPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {  
+        console.log("cookies", cookies)
         fetchData();
     }, [])
 
@@ -40,7 +44,7 @@ const ThreadPage = () => {
     }
 
     const handleGoToOrderCheck= () => {
-        navigate(`../../../Mypage/${userId}`);
+        navigate(`../../../Mypage`);
     }
 
     const closeModal = () => {
@@ -63,7 +67,7 @@ const ThreadPage = () => {
             try {
                 const request = await axios.post('/messages', 
                 {
-                    "senderId": userId,
+                    "senderId": cookies.login['id'],
                     "threadId": threadId,
                     "content": message,
                 });

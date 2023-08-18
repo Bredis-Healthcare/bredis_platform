@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from '../LoginPageStyles';
 import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
+import {useCookies} from 'react-cookie';
 
 // Main login component
 const LoginPage = () => {
@@ -9,6 +10,7 @@ const LoginPage = () => {
     // States for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [cookies, setCookie] = useCookies(['name']);
     const navigate = useNavigate();
 
 
@@ -24,6 +26,7 @@ const LoginPage = () => {
                     "password": password  // using state value for password
                 });
                 console.log("request data", request.data["memberId"]);
+                setCookie('login', {id : 0}, {path : "/"})
                 navigate("/admin/userlist" );
             } catch (error) {
                 console.error("Error while logging in:", error);

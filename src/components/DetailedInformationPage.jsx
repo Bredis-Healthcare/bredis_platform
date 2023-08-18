@@ -126,14 +126,6 @@ const DetailedInformationPage = () => {
                     isAdmin ? <SelectButton onClick={handleAnalysisResultChangeClick}>분석 결과 수정하기</SelectButton> : <></>
                 }
 
-
-                <h1>검체 정보</h1>
-                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.sampleDataDownloadLink} download>검체 데이터 양식 다운로드</DownloadLink>
-                    {
-                        isAdmin ?
-                        <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink> :
-                        <></>
-                    }
                 <h1>분석 정보</h1>
                     <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.reportDownloadLink} download>분석 보고서 다운로드</DownloadLink>
                     <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.fakeReportDownloadLink} download>임시 분석 보고서 다운로드</DownloadLink>
@@ -158,8 +150,16 @@ const DetailedInformationPage = () => {
                     <></>
                 }
                 </div>
+
+                <h1>검체 정보</h1>
+                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.sampleDataDownloadLink} download>검체 데이터 양식 다운로드</DownloadLink>
+                    {
+                        isAdmin ?
+                        <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink> :
+                        <></>
+                    }
+                <h3>분석 내역</h3>
                 <HistoryContainer>
-                    <h3>분석 내역</h3>
                     <InfoBox>
                         {
                             data.analysisHistory.length > 0 ? 

@@ -29,6 +29,8 @@ import DetailedInformationPage, {
   adminloader as admindetailedInformationLodaer,
 }  from './components/DetailedInformationPage';
 
+import { CookiesProvider } from 'react-cookie';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,7 +64,8 @@ const router = createBrowserRouter([
     loader: threadLoader,
   },
   {
-    path: "/Mypage/:userId",
+    // path: "/Mypage/:userId",
+    path: "/Mypage/",
     element: <MyPage/>,
     errorElement: <ErrorPage />,
     loader: UserPageLoader,
@@ -85,7 +88,8 @@ const router = createBrowserRouter([
     loader: userDetailLoader,
   },
   {
-    path: "/thread/:threadId/:userId",
+    // path: "/thread/:threadId/:userId",
+    path: "/thread/:threadId/",
     element: <ThreadPage />,
     loader: threadLoader,
   },
@@ -102,7 +106,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </React.StrictMode>
 );
 

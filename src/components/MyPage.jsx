@@ -9,8 +9,7 @@ import {
 import OrderModal from './modal/OrderModal';
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
-
-
+import { useCookies } from 'react-cookie';
 
 export async function loader({ params }) {
     const userId = params.userId
@@ -20,16 +19,23 @@ export async function loader({ params }) {
 
 function MyPage() {
     
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [userInfo, setUserInfo] = useState(null); // or your fetching logic
     const { userId } = useLoaderData();
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    
+    useEffect(() => {  
+        console.log("cookie", cookies)
+        fetchData();
+    }, [])
     const handelGoToDetailInformation = (e, orderNumber) => {
         navigate(`../../orders/${orderNumber}/detail`)
     }
     const handelGoToThread = (e, threadID) => {
-        navigate(`/thread/${threadID}/${userId}`)
+        // navigate(`/thread/${threadID}/${cookies.login}`)
+        setCookie('thread', {id : threadID}, {path : "/thread"})
+        navigate(`/thread/${threadID}`)
     
     }
     
@@ -96,26 +102,34 @@ function MyPage() {
     }
 
 
-    useEffect(() => {  
-        fetchData();
-    }, [])
 
 
+    // const fetchData = async () => {
+    //     const request = await axios.post(`/my-info`, { "memberId": userId });
+    //     console.log('request', request.data);
+    //     setUserInfo(request.data);
+    // }; 
     const fetchData = async () => {
-        const request = await axios.post(`/my-info`, { "memberId": userId });
+        const request = await axios.post(`/my-info`, { "memberId": cookies.login['id'] });
         console.log('request', request.data);
         setUserInfo(request.data);
-    };    
+    };       
 
     
     // UseEffect or other logic to fetch data
+
+    if(!cookies.login)
+    {
+        console.error("Error while logging in : No cookie");
+        return <></>
+    }
 
     return (
         <MyInfoContainer>
             {userInfo ? (
                 <>
                     <ProfileInfo userInfo={userInfo} />
-                    <OrderModal userId = {userId} isOpen={isModalOpen} closeModal={closeModal} />
+                    <OrderModal userId = {cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
                     <OrderHistory orderHistory={userInfo.orderHistory} />
                     <ThreadHistory threadHistory={userInfo.threads} />
                 </>

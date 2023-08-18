@@ -3,6 +3,7 @@ import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } fro
 import logo from '../img/bredis_logo.png'
 import axios from "../api/axios";
 import  {useNavigate  } from "react-router-dom";
+import {useCookies} from 'react-cookie';
 
 // Main login component
 const LoginPage = () => {
@@ -10,6 +11,8 @@ const LoginPage = () => {
     // States for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
+    const [cookies, setCookie] = useCookies(['name']);
     const navigate = useNavigate();
 
 
@@ -25,8 +28,10 @@ const LoginPage = () => {
                     "password": password  // using state value for password
                 });
                 console.log("request data", request.data["memberId"]);
-
-                navigate(`/Mypage/${request.data["memberId"]}`  );
+                setCookie('login', {id : request.data["memberId"]}, {path : "/"})
+                // navigate(`/Mypage/${request.data["memberId"]}`  );
+                navigate(`/Mypage/`);
+                
 
             } catch (error) {
                 console.error("Error while logging in:", error);
