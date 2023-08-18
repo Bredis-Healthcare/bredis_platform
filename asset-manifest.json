@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.2875cf94.css",
-    "main.js": "/static/js/main.7259d229.js",
+    "main.js": "/static/js/main.5f5c622e.js",
     "static/js/787.db26289b.chunk.js": "/static/js/787.db26289b.chunk.js",
     "static/media/bredis_logo.png": "/static/media/bredis_logo.3a5a6679ca737917b2ea.png",
     "static/media/bredis_logo_wide.png": "/static/media/bredis_logo_wide.dc70bdac982a33eed62b.png",
     "index.html": "/index.html",
     "main.2875cf94.css.map": "/static/css/main.2875cf94.css.map",
-    "main.7259d229.js.map": "/static/js/main.7259d229.js.map",
+    "main.5f5c622e.js.map": "/static/js/main.5f5c622e.js.map",
     "787.db26289b.chunk.js.map": "/static/js/787.db26289b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2875cf94.css",
-    "static/js/main.7259d229.js"
+    "static/js/main.5f5c622e.js"
   ]
 }
