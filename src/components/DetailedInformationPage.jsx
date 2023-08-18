@@ -4,8 +4,8 @@ import {
 } from './DetailedInformationPageStyles';
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
-import FileUploadModal from './modal/FileUploadModal';
-import AnalisisResultChangeModal from './modal/AnalisisResultChangeModal';
+import FileUploadModal from './modals/FileUploadModal';
+import AnalisisResultChangeModal from './modals/AnalisisResultChangeModal';
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -38,10 +38,10 @@ const DetailedInformationPage = () => {
     
     const fetchData = async () => {
         const request = await axios.get(`/orders/${orderId}/detail`);
-        const statusRequest = await axios.get(`/orders/status/list`);
+        const statusRequest = await axios.get(`/protocols`);
 
         setData(request.data);
-        setStatusList(statusRequest.data.list)
+        setStatusList(statusRequest.data.orderStatusList)
         setSelectedOption(request.data.status)
         console.log("request", request, "statusRequest", statusRequest)
         
@@ -134,7 +134,7 @@ const DetailedInformationPage = () => {
                 }
                 <div>
                     {
-                isAdmin ?
+                    isAdmin ?
                         <div>
                             <h3 style={{display:"inline"}}>상태: </h3>
                             <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}}

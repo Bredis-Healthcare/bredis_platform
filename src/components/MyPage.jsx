@@ -6,10 +6,11 @@ import {
     OrderItem,
     GoButton
 } from './MyPageStyle.js';
-import OrderModal from './modal/OrderModal';
+import OrderModal from './modals/OrderModal.jsx';
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
 import { useCookies } from 'react-cookie';
+import LoginModal from './modals/LoginModal.jsx';
 
 export async function loader({ params }) {
     const userId = params.userId
@@ -24,18 +25,51 @@ function MyPage() {
     const { userId } = useLoaderData();
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [statusList, setStatusList] = useState([]);
     
+
     useEffect(() => {  
         console.log("cookie", cookies)
         fetchData();
     }, [])
+
+    
+    
+
+    // const fetchData = async () => {
+    //     const request = await axios.post(`/my-info`, { "memberId": userId });
+    //     console.log('request', request.data);
+    //     setUserInfo(request.data);
+    // }; 
+    const fetchData = async () => {
+        if(!cookies.login)
+        {
+            console.error("Error while logging in : No cookie");
+            return (
+                <h1>ddd</h1>
+            )
+        }
+        const request = await axios.post(`/my-info`, { "memberId": cookies.login['id'] });
+        const statusRequest = await axios.get(`/protocols`);
+        
+        console.log('request', request.data);
+        console.log('statusRequest', statusRequest.data.threadCategoryList);
+        setUserInfo(request.data);
+        setStatusList(statusRequest.data.threadCategoryList)
+    };    
+    
+    
+
+
     const handelGoToDetailInformation = (e, orderNumber) => {
         navigate(`../../orders/${orderNumber}/detail`)
     }
-    const handelGoToThread = (e, threadID) => {
+    const handelGoToThread = async (e, threadID) => {
         // navigate(`/thread/${threadID}/${cookies.login}`)
-        setCookie('thread', {id : threadID}, {path : "/thread"})
-        navigate(`/thread/${threadID}`)
+        console.log("threadID", threadID)
+        await setCookie('thread', {id : threadID}, {path : "/"})
+        // navigate(`/thread/${threadID}`)
+        navigate(`/thread`)
     
     }
     
@@ -88,13 +122,13 @@ function MyPage() {
         return (
             <OrderHistoryContainer>
                 <h3>문의 내역</h3>
-                {threadHistory.map((order) => (
-                    <OrderItem key={order.id}>
+                {threadHistory.map((thread) => (
+                    <OrderItem key={thread.id}>
                         <div style={{display:'inline-block'}}>
-                            <p>번호: {order.id}</p>
-                            <p>생성일시: {order.createdDatetime}</p>
+                            <p>번호: {thread.id}</p>
+                            <p>생성일시: {thread.createdDatetime}</p>
                         </div>
-                        <GoButton onClick={(e) => {handelGoToThread(e, order.id)}}>상세 보기</GoButton>
+                        <GoButton onClick={(e) => {handelGoToThread(e, thread.id)}}>문의 보기</GoButton>
                     </OrderItem>
                 ))}
             </OrderHistoryContainer>
@@ -103,40 +137,34 @@ function MyPage() {
 
 
 
-
-    // const fetchData = async () => {
-    //     const request = await axios.post(`/my-info`, { "memberId": userId });
-    //     console.log('request', request.data);
-    //     setUserInfo(request.data);
-    // }; 
-    const fetchData = async () => {
-        const request = await axios.post(`/my-info`, { "memberId": cookies.login['id'] });
-        console.log('request', request.data);
-        setUserInfo(request.data);
-    };       
-
     
     // UseEffect or other logic to fetch data
 
-    if(!cookies.login)
-    {
-        console.error("Error while logging in : No cookie");
-        return <></>
-    }
 
     return (
-        <MyInfoContainer>
-            {userInfo ? (
-                <>
-                    <ProfileInfo userInfo={userInfo} />
-                    <OrderModal userId = {cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
-                    <OrderHistory orderHistory={userInfo.orderHistory} />
-                    <ThreadHistory threadHistory={userInfo.threads} />
-                </>
-            ) : (
-                <p>Loading...</p>
-            )}
-        </MyInfoContainer>
+        <div>
+            {
+                cookies.login ?
+            
+                <MyInfoContainer>
+                {userInfo ? (
+                    <>
+                        <ProfileInfo userInfo={userInfo} />
+                        <OrderModal statusList = {statusList} userId = {cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
+                        <OrderHistory orderHistory={userInfo.orderHistory} />
+                        <ThreadHistory threadHistory={userInfo.threads} />
+                    </>
+                ) : (
+                    <p>Loading...</p>
+                )}
+                </MyInfoContainer>:
+            
+                <h1>hello</h1>
+                
+             }
+
+
+    </div>
     );
 }
 

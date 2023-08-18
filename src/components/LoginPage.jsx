@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from './LoginPageStyles';
 import logo from '../img/bredis_logo.png'
 import axios from "../api/axios";
@@ -11,11 +11,15 @@ const LoginPage = () => {
     // States for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
     const [cookies, setCookie] = useCookies(['name']);
     const navigate = useNavigate();
 
-
+    // useEffect(()=>{
+    //     if(cookies.login)
+    //     {
+            
+    //     }
+    // });
 
 
     // Function to handle form submission
@@ -27,14 +31,16 @@ const LoginPage = () => {
                     "email": email,  // using state value for email
                     "password": password  // using state value for password
                 });
-                console.log("request data", request.data["memberId"]);
-                setCookie('login', {id : request.data["memberId"]}, {path : "/"})
+                console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                // console.log(request.request['status'])
+                setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                 // navigate(`/Mypage/${request.data["memberId"]}`  );
                 navigate(`/Mypage/`);
                 
 
             } catch (error) {
                 console.error("Error while logging in:", error);
+                console.error(error.request['status']);
             }
         }
         loginPress();

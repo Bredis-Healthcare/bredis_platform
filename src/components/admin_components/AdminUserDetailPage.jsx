@@ -9,6 +9,7 @@ import {
     GoButton,
 } from './AdminUserDetailPageStyle';
 import axios from "../../api/axios";
+import { useCookies } from 'react-cookie';
 
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 
@@ -21,8 +22,10 @@ const AdminUserDetailPage = () => {
     const { userId } = useLoaderData();
     const [userData, setUserData] = useState(null);
     const navigate = useNavigate();
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
     useEffect(() => {
+        console.log("cookie", cookies)
         fetchData();
     }, [userId]);
 

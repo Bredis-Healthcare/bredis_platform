@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from '../LoginPageStyles';
 import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
@@ -14,7 +14,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
 
-
+    
 
     // Function to handle form submission
     const handleLogin = (e) => {
@@ -25,8 +25,8 @@ const LoginPage = () => {
                     "email": email,  // using state value for email
                     "password": password  // using state value for password
                 });
-                console.log("request data", request.data["memberId"]);
-                setCookie('login', {id : 0}, {path : "/"})
+                console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                 navigate("/admin/userlist" );
             } catch (error) {
                 console.error("Error while logging in:", error);

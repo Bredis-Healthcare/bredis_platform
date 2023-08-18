@@ -89,7 +89,8 @@ const router = createBrowserRouter([
   },
   {
     // path: "/thread/:threadId/:userId",
-    path: "/thread/:threadId/",
+    // path: "/thread/:threadId/",
+    path: "/thread",
     element: <ThreadPage />,
     loader: threadLoader,
   },

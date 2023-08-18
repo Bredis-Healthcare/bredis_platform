@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { ModalContainer, ModalContent, CloseButton, InputBox, SubmitButton} from './AnalisisResultChangeModalStyles.js';
-import axios from "../../api/axios";
+import axios from "../../api/axios.js";
 import  {useNavigate  } from "react-router-dom";
 
 const AnalisisResultChangeModal = ({ orderId, prvtext, isOpen, closeModal }) => {
