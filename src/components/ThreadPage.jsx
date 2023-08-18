@@ -94,7 +94,13 @@ const ThreadPage = () => {
             {
                 chats.map((chat, index) => (
                     <ChatBox key={index}>
-                        <UserInfo style={{fontWeight: "lighter"}}>{chat.createdDatetime}</UserInfo>
+                        <UserInfo style={{fontWeight: "lighter"}}>{chat.createdDatetime}
+                            <div style={{fontWeight: "normal"}}>
+                                {
+                                    chat.senderId === 0 ? "관리자" : ""
+                                }
+                            </div>
+                        </UserInfo>
                         <ChatContent>{chat.content}</ChatContent>
                     </ChatBox>
                 ))
