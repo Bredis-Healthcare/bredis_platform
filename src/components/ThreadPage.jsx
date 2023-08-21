@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { MainContainer, ChatBox, UserInfo, ChatContent, InputBox, SendButton } from './ThreadPageStyles';
+import { MainContainer, ChatBox, UserInfo, ChatContent, InputBox, SendButton, DropdownSelect, SelectButton, } from './ThreadPageStyles';
 import {
     useLoaderData,
 } from 'react-router-dom'
 import axios from "../api/axios";
-import OrderModal from './modal/OrderModalAdd';
+import OrderModal from './modals/OrderModalAdd';
 import  {useNavigate  } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 
 
@@ -24,13 +25,18 @@ export async function adminloader({ params }) {
 }
 
 const ThreadPage = () => {
+    
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [message, setMessage] = useState('');
     const [chats, setChats] = useState([]);
     const { userId, threadId, isAdmin } = useLoaderData();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [statusList, setStatusList] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {  
+        console.log("cookies", cookies)
         fetchData();
     }, [])
 
@@ -40,7 +46,7 @@ const ThreadPage = () => {
     }
 
     const handleGoToOrderCheck= () => {
-        navigate(`../../../Mypage/${userId}`);
+        navigate(`../../../Mypage`);
     }
 
     const closeModal = () => {
@@ -49,8 +55,12 @@ const ThreadPage = () => {
 
 
     const fetchData = async () => {
-        const request = await axios.get(`/messages?threadId=${threadId}`);
+        const request = await axios.get(`/messages?threadId=${threadId||cookies.thread['id']}`);
+        const statusRequest = await axios.get(`/protocols`);
+
+        console.log('statusRequest', statusRequest.data.threadCategoryList);
         console.log('request', request.data);
+        setStatusList(statusRequest.data.threadCategoryList);
         setChats(request.data.messages);
     };
 
@@ -63,8 +73,8 @@ const ThreadPage = () => {
             try {
                 const request = await axios.post('/messages', 
                 {
-                    "senderId": userId,
-                    "threadId": threadId,
+                    "senderId": cookies.login['id'],
+                    "threadId": cookies.thread['id'],
                     "content": message,
                 });
                 console.log("request data", request);
@@ -79,6 +89,17 @@ const ThreadPage = () => {
         fetchData()
         console.log("fetch");
         setMessage(''); // Clear the input box after sending
+    };
+
+    const handleDropdownOptionSelect = async () => {
+        statusList.map( async (value) => {
+            // console.log(value.title, selectedOption)
+            if(value.title === selectedOption )
+            {
+                fetchData();
+                // console.log(request)
+            }
+         })
     };
 
     return (
@@ -114,13 +135,35 @@ const ThreadPage = () => {
 
             <div>
                 {
-                    !isAdmin ?
-                    <SendButton onClick={handleGoToOrderCheck}>돌아가기</SendButton> :
+                    isAdmin ?
+                    <></> :
+                    <SendButton onClick={handleGoToOrderCheck}>돌아가기</SendButton>
+                }
+            </div>
+
+            <div>
+                    {
+                    isAdmin ?
+                        <div>
+                            <h3 style={{display:"inline"}}>주문 상태: </h3>
+                            <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}}
+                                style={{display:"inline"}}>
+                                <option value="" disabled>수정할 상태를 선택해주세요</option>
+                                {statusList.map((value) => (
+                            <option value={value.title}>{value.title}</option>
+                            ))}
+                            </DropdownSelect>
+                            <SelectButton style={{display:"inline"}} onClick={handleDropdownOptionSelect}>수정하기</SelectButton>
+                        </div>
+                      :
                     <></>
                 }
             </div>
+
+            <OrderModal threadId = {threadId||cookies.thread['id']} userId = {userId || cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
+
+                
             
-            <OrderModal threadId = {threadId} userId = {userId} isOpen={isModalOpen} closeModal={closeModal} />
         </MainContainer>
     );
 };

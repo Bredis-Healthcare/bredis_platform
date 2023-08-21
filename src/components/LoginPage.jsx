@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from './LoginPageStyles';
 import logo from '../img/bredis_logo.png'
 import axios from "../api/axios";
 import  {useNavigate  } from "react-router-dom";
+import {useCookies} from 'react-cookie';
 
 // Main login component
 const LoginPage = () => {
@@ -10,9 +11,31 @@ const LoginPage = () => {
     // States for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [cookies, setCookie] = useCookies(['name']);
     const navigate = useNavigate();
 
-
+    useEffect(()=>{
+        console.log("!!!!", cookies.login)
+        if(cookies.login && cookies.login["id"]!==0)
+        {
+            async function autoLogin() {
+                try {
+                    const request = await axios.post('login-auto', {
+                    });
+                    console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                    setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
+                    console.log("자동로그인되었습니다")
+                    navigate(`/Mypage`);
+                    
+    
+                } catch (error) {
+                    console.error("Error while logging in:", error);
+                    console.error(error.request['status']);
+                }
+            }
+            autoLogin();
+        }
+    });
 
 
     // Function to handle form submission
@@ -24,12 +47,14 @@ const LoginPage = () => {
                     "email": email,  // using state value for email
                     "password": password  // using state value for password
                 });
-                console.log("request data", request.data["memberId"]);
-
-                navigate(`/Mypage/${request.data["memberId"]}`  );
+                console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
+                navigate(`/Mypage`);
+                
 
             } catch (error) {
                 console.error("Error while logging in:", error);
+                console.error(error.request['status']);
             }
         }
         loginPress();

@@ -71,3 +71,28 @@ export const SignupButton = styled.button`
         background-color: #218838;
     }
 `;
+
+// Modal overlay that will cover the entire screen
+export const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7); // Semi-transparent background
+    z-index: 1000; // Ensure the modal is on top of everything else
+`;
+
+
+export const CloseButton = styled.button`
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+`;

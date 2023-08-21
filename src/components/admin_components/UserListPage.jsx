@@ -3,13 +3,16 @@ import { useState, useEffect  } from 'react';
 import { UserList, UserItem, UserButton, PageContainer, UserName, UserInfos, UserInfo } from './UserListPageStyles';
 import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const UserListPage = () => {
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {  
+        console.log("cookie", cookies)
         fetchData();
     }, [])
 
@@ -20,7 +23,7 @@ const UserListPage = () => {
     };
 
     const handleCreateOrderClick = (user, e) => {
-        navigate(`/admin/userdetail/${user.id}`   )
+        navigate(`../userdetail/${user.id}`   )
     }
 
     return (

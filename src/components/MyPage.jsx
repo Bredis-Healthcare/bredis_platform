@@ -6,11 +6,11 @@ import {
     OrderItem,
     GoButton
 } from './MyPageStyle.js';
-import OrderModal from './modal/OrderModal';
-import  {useNavigate, useLoaderData, } from "react-router-dom";
+import OrderModal from './modals/OrderModal.jsx';
+import  {useNavigate, useLoaderData, useLocation, Outlet, } from "react-router-dom";
 import axios from "../api/axios";
-
-
+import { useCookies } from 'react-cookie';
+import LoginModal from './modals/LoginModal.jsx';
 
 export async function loader({ params }) {
     const userId = params.userId
@@ -20,16 +20,55 @@ export async function loader({ params }) {
 
 function MyPage() {
     
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [userInfo, setUserInfo] = useState(null); // or your fetching logic
     const { userId } = useLoaderData();
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [statusList, setStatusList] = useState([]);
+    
+    let location = useLocation();
+    
+
+    useEffect(() => {  
+        console.log("cookie", cookies)
+        fetchData();
+    }, [])
+
+    
+    
+
+    // const fetchData = async () => {
+    //     const request = await axios.post(`/my-info`, { "memberId": userId });
+    //     console.log('request', request.data);
+    //     setUserInfo(request.data);
+    // }; 
+    const fetchData = async () => {
+        try {
+            const statusRequest = await axios.get(`/protocols`);
+            const request = await axios.post(`/my-info`, { "memberId": cookies.login && cookies.login['id'] });
+            
+            console.log('request', request.data);
+            console.log('statusRequest', statusRequest.data.threadCategoryList);
+            setUserInfo(request.data);
+            setStatusList(statusRequest.data.threadCategoryList)
+            
+        } catch (error) {
+            console.log("My Page fetch Error : ", error)
+        }
+    };    
+    
+    
+
 
     const handelGoToDetailInformation = (e, orderNumber) => {
-        navigate(`../../orders/${orderNumber}/detail`)
+        navigate(`orders/${orderNumber}/detail`)
     }
-    const handelGoToThread = (e, threadID) => {
-        navigate(`/thread/${threadID}/${userId}`)
+    const handelGoToThread = async (e, threadID) => {
+        // navigate(`/thread/${threadID}/${cookies.login}`)
+        console.log("threadID", threadID)
+        await setCookie('thread', {id : threadID}, {path : "/"})
+        navigate(`./thread`)
     
     }
     
@@ -82,15 +121,15 @@ function MyPage() {
         return (
             <OrderHistoryContainer>
                 <h3>견적 및 기타 문의 내역</h3>
-                주문 건에 대한 문의 내역은 각 주문 상세 정보에서 확인할 수 있습니다.
-                {threadHistory.map((order) => (
-                    <OrderItem key={order.id}>
+                <p>주문 건에 대한 문의 내역은 각 주문 상세 정보에서 확인할 수 있습니다.</p>
+                { threadHistory.map((thread) => (
+                    <OrderItem key={thread.id}>
                         <div style={{display:'inline-block'}}>
-                            <p>번호: {order.id}</p>
-                            <p>카테고리: {order.category}</p>
-                            <p>생성일시: {order.createdDatetime}</p>
+                            <p>번호: {thread.id}</p>
+                            <p>카테고리: {thread.category}</p>
+                            <p>생성일시: {thread.createdDatetime}</p>
                         </div>
-                        <GoButton onClick={(e) => {handelGoToThread(e, order.id)}}>상세 보기</GoButton>
+                        <GoButton onClick={(e) => {handelGoToThread(e, thread.id)}}>문의 보기</GoButton>
                     </OrderItem>
                 ))}
             </OrderHistoryContainer>
@@ -98,33 +137,29 @@ function MyPage() {
     }
 
 
-    useEffect(() => {  
-        fetchData();
-    }, [])
-
-
-    const fetchData = async () => {
-        const request = await axios.post(`/my-info`, { "memberId": userId });
-        console.log('request', request.data);
-        setUserInfo(request.data);
-    };    
 
     
     // UseEffect or other logic to fetch data
 
+
     return (
-        <MyInfoContainer>
+        <div>
+            
+            { location["pathname"] === '/Mypage' && <MyInfoContainer>
             {userInfo ? (
                 <>
                     <ProfileInfo userInfo={userInfo} />
-                    <OrderModal userId = {userId} isOpen={isModalOpen} closeModal={closeModal} />
+                    <OrderModal statusList = {statusList} userId = {cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
                     <OrderHistory orderHistory={userInfo.orderHistory} />
                     <ThreadHistory threadHistory={userInfo.threads} />
                 </>
             ) : (
                 <p>Loading...</p>
             )}
-        </MyInfoContainer>
+            </MyInfoContainer> }
+            <Outlet/>
+        
+    </div>
     );
 }
 

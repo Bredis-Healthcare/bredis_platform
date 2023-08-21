@@ -1,28 +1,42 @@
 import React, { useState} from 'react';
-import { ModalContainer, ModalContent, CloseButton, InputBox, SubmitButton } from './OrderModalStyles';
+import { ModalContainer, ModalContent, CloseButton, InputBox, SubmitButton, DropdownSelect } from './OrderModalStyles';
 import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
-const OrderModal = ({ userId, isOpen, closeModal }) => {
+const OrderModal = ({ statusList, userId, isOpen, closeModal }) => {
     const navigate = useNavigate();
     const [item, setItem] = useState('');
     const [price, setPrice] = useState('');
     const [detail, setDetail] = useState('');
+    const [selectedOption, setSelectedOption] = useState('');
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
     
 
     if (!isOpen) return null;
 
     const handleSubmit = (orderName) => {
+        let code = ""
+        statusList.map( async (value) => {
+            // console.log(value.title, selectedOption)
+            if(value.title === selectedOption )
+            {
+                code = value.code
+            }
+         })
         async function MakeOrder() {
             try {
                 const request = await axios.post('/messages/new-thread', 
                 {
                     "memberId": userId,
-                    "content": detail
+                    "content": detail,
+                    "category" : code
+
                 });
                 console.log("request data", request);
+                setCookie('thread', {id : request.data["threadId"]}, {path : "/"})
 
-                navigate(`../../thread/${request.data["threadId"]}/${userId}`);
+                navigate(`../../thread/`);
 
 
             } catch (error) {
@@ -54,7 +68,16 @@ const OrderModal = ({ userId, isOpen, closeModal }) => {
                 <InputBox>
                     <input type="text" placeholder="문의 내용을 입력해주세요." onChange={(e) => setDetail(e.target.value)} />
                 </InputBox>
-
+                <div>
+                    <h3 style={{display:"inline"}}>종류: </h3>
+                    <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}}
+                        style={{display:"inline"}}>
+                        <option value="" disabled>문의 종류를 선택해 주세요</option>
+                        {statusList.map((value, index) => (
+                    <option key={index} value={value.title}>{value.title}</option>
+                    ))}
+                    </DropdownSelect>
+                </div>
                 <SubmitButton onClick={handleSubmit} >전송</SubmitButton>
             </ModalContent>
         </ModalContainer>

@@ -49,6 +49,47 @@ export const InputBox = styled.input`
     outline: none;
 `;
 
+export const DropdownSelect = styled.select`
+    width: 50%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    outline: none;
+    background-color: white;
+    cursor: pointer;
+`;
+
+export const SelectButton = styled.button`
+    padding: 8px 16px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; // Smooth color transition
+
+    &:hover {
+        background-color: #0056b3;
+    }
+
+    ${props => props.primary && `
+        background-color: #007BFF;
+        &:hover {
+            background-color: #0056b3;
+        }
+    `}
+
+    ${props => props.secondary && `
+        background-color: #e0e0e0;
+        color: #333;
+        &:hover {
+            background-color: #b3b3b3;
+        }
+    `}
+`;
+
 // Send button to send the chat message
 export const SendButton = styled.button`
     margin-top: 10px;

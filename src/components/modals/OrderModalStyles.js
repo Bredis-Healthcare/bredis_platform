@@ -56,9 +56,21 @@ export const SubmitButton = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top : 10px;
     transition: background-color 0.3s ease;
 
     &:hover {
         background-color: #0056b3;
     }
+`;
+
+export const DropdownSelect = styled.select`
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    outline: none;
+    background-color: white;
+    cursor: pointer;
 `;

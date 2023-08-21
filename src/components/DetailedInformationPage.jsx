@@ -4,8 +4,8 @@ import {
 } from './DetailedInformationPageStyles';
 import  {useNavigate, useLoaderData, } from "react-router-dom";
 import axios from "../api/axios";
-import FileUploadModal from './modal/FileUploadModal';
-import AnalisisResultChangeModal from './modal/AnalisisResultChangeModal';
+import FileUploadModal from './modals/FileUploadModal';
+import AnalisisResultChangeModal from './modals/AnalisisResultChangeModal';
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -37,13 +37,18 @@ const DetailedInformationPage = () => {
 
     
     const fetchData = async () => {
-        const request = await axios.get(`/orders/${orderId}/detail`);
-        const statusRequest = await axios.get(`/orders/status/list`);
-
-        setData(request.data);
-        setStatusList(statusRequest.data.list)
-        setSelectedOption(request.data.status)
-        console.log("request", request, "statusRequest", statusRequest)
+        try {
+            const request = await axios.get(`/orders/${orderId}/detail`);
+            const statusRequest = await axios.get(`/protocols`);
+    
+            setData(request.data);
+            setStatusList(statusRequest.data.orderStatusList)
+            setSelectedOption(request.data.status)
+            console.log("request", request, "statusRequest", statusRequest)
+            
+        } catch (error) {
+            console.log("error", error)
+        }
         
     };  
 
@@ -126,14 +131,6 @@ const DetailedInformationPage = () => {
                     isAdmin ? <SelectButton onClick={handleAnalysisResultChangeClick}>분석 결과 수정하기</SelectButton> : <></>
                 }
 
-
-                <h1>검체 정보</h1>
-                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.sampleDataDownloadLink} download>검체 데이터 양식 다운로드</DownloadLink>
-                    {
-                        isAdmin ?
-                        <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink> :
-                        <></>
-                    }
                 <h1>분석 정보</h1>
                     <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.reportDownloadLink} download>분석 보고서 다운로드</DownloadLink>
                     <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.fakeReportDownloadLink} download>임시 분석 보고서 다운로드</DownloadLink>
@@ -142,7 +139,7 @@ const DetailedInformationPage = () => {
                 }
                 <div>
                     {
-                isAdmin ?
+                    isAdmin ?
                         <div>
                             <h3 style={{display:"inline"}}>상태: </h3>
                             <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}}
@@ -158,8 +155,16 @@ const DetailedInformationPage = () => {
                     <></>
                 }
                 </div>
+
+                <h1>검체 정보</h1>
+                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.sampleDataDownloadLink} download>검체 데이터 양식 다운로드</DownloadLink>
+                    {
+                        isAdmin ?
+                        <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink> :
+                        <></>
+                    }
+                <h3>분석 내역</h3>
                 <HistoryContainer>
-                    <h3>분석 내역</h3>
                     <InfoBox>
                         {
                             data.analysisHistory.length > 0 ? 
