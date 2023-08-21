@@ -14,8 +14,6 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
 
-    
-
     // Function to handle form submission
     const handleLogin = (e) => {
         e.preventDefault();

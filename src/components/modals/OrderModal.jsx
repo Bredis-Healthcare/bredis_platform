@@ -73,8 +73,8 @@ const OrderModal = ({ statusList, userId, isOpen, closeModal }) => {
                     <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}}
                         style={{display:"inline"}}>
                         <option value="" disabled>문의 종류를 선택해 주세요</option>
-                        {statusList.map((value) => (
-                    <option value={value.title}>{value.title}</option>
+                        {statusList.map((value, index) => (
+                    <option key={index} value={value.title}>{value.title}</option>
                     ))}
                     </DropdownSelect>
                 </div>

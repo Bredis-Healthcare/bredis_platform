@@ -14,12 +14,28 @@ const LoginPage = () => {
     const [cookies, setCookie] = useCookies(['name']);
     const navigate = useNavigate();
 
-    // useEffect(()=>{
-    //     if(cookies.login)
-    //     {
-            
-    //     }
-    // });
+    useEffect(()=>{
+        console.log("!!!!", cookies.login)
+        if(cookies.login && cookies.login["id"]!==0)
+        {
+            async function autoLogin() {
+                try {
+                    const request = await axios.post('login-auto', {
+                    });
+                    console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                    setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
+                    console.log("자동로그인되었습니다")
+                    navigate(`/Mypage`);
+                    
+    
+                } catch (error) {
+                    console.error("Error while logging in:", error);
+                    console.error(error.request['status']);
+                }
+            }
+            autoLogin();
+        }
+    });
 
 
     // Function to handle form submission
@@ -32,10 +48,8 @@ const LoginPage = () => {
                     "password": password  // using state value for password
                 });
                 console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
-                // console.log(request.request['status'])
                 setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                // navigate(`/Mypage/${request.data["memberId"]}`  );
-                navigate(`/Mypage/`);
+                navigate(`/Mypage`);
                 
 
             } catch (error) {

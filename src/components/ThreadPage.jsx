@@ -55,7 +55,7 @@ const ThreadPage = () => {
 
 
     const fetchData = async () => {
-        const request = await axios.get(`/messages?threadId=${cookies.thread['id']}`);
+        const request = await axios.get(`/messages?threadId=${threadId||cookies.thread['id']}`);
         const statusRequest = await axios.get(`/protocols`);
 
         console.log('statusRequest', statusRequest.data.threadCategoryList);
@@ -158,9 +158,12 @@ const ThreadPage = () => {
                       :
                     <></>
                 }
-                </div>
+            </div>
+
+            <OrderModal threadId = {threadId||cookies.thread['id']} userId = {userId || cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
+
+                
             
-            <OrderModal threadId = {cookies.thread['id']} userId = {userId} isOpen={isModalOpen} closeModal={closeModal} />
         </MainContainer>
     );
 };

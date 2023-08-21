@@ -37,13 +37,18 @@ const DetailedInformationPage = () => {
 
     
     const fetchData = async () => {
-        const request = await axios.get(`/orders/${orderId}/detail`);
-        const statusRequest = await axios.get(`/protocols`);
-
-        setData(request.data);
-        setStatusList(statusRequest.data.orderStatusList)
-        setSelectedOption(request.data.status)
-        console.log("request", request, "statusRequest", statusRequest)
+        try {
+            const request = await axios.get(`/orders/${orderId}/detail`);
+            const statusRequest = await axios.get(`/protocols`);
+    
+            setData(request.data);
+            setStatusList(statusRequest.data.orderStatusList)
+            setSelectedOption(request.data.status)
+            console.log("request", request, "statusRequest", statusRequest)
+            
+        } catch (error) {
+            console.log("error", error)
+        }
         
     };  
 

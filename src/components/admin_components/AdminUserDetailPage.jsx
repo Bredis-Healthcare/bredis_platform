@@ -30,11 +30,11 @@ const AdminUserDetailPage = () => {
     }, [userId]);
 
     const handelGoToThread = (e, threadID, userId) => {
-        navigate(`/adminthread/${threadID}/${userId}`)
+        navigate(`../thread/${threadID}/${userId}`)
     }
 
     const handelGoToDetailedInformation = (e, orderNumber) => {
-        navigate(`../../adminorders/${orderNumber}/detail`)
+        navigate(`../orders/${orderNumber}/detail`)
     }
 
     const fetchData = async () => {

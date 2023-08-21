@@ -7,7 +7,7 @@ import {
     GoButton
 } from './MyPageStyle.js';
 import OrderModal from './modals/OrderModal.jsx';
-import  {useNavigate, useLoaderData, } from "react-router-dom";
+import  {useNavigate, useLoaderData, useLocation, Outlet, } from "react-router-dom";
 import axios from "../api/axios";
 import { useCookies } from 'react-cookie';
 import LoginModal from './modals/LoginModal.jsx';
@@ -27,6 +27,8 @@ function MyPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [statusList, setStatusList] = useState([]);
     
+    let location = useLocation();
+    
 
     useEffect(() => {  
         console.log("cookie", cookies)
@@ -42,34 +44,31 @@ function MyPage() {
     //     setUserInfo(request.data);
     // }; 
     const fetchData = async () => {
-        if(!cookies.login)
-        {
-            console.error("Error while logging in : No cookie");
-            return (
-                <h1>ddd</h1>
-            )
+        try {
+            const statusRequest = await axios.get(`/protocols`);
+            const request = await axios.post(`/my-info`, { "memberId": cookies.login && cookies.login['id'] });
+            
+            console.log('request', request.data);
+            console.log('statusRequest', statusRequest.data.threadCategoryList);
+            setUserInfo(request.data);
+            setStatusList(statusRequest.data.threadCategoryList)
+            
+        } catch (error) {
+            console.log("My Page fetch Error : ", error)
         }
-        const request = await axios.post(`/my-info`, { "memberId": cookies.login['id'] });
-        const statusRequest = await axios.get(`/protocols`);
-        
-        console.log('request', request.data);
-        console.log('statusRequest', statusRequest.data.threadCategoryList);
-        setUserInfo(request.data);
-        setStatusList(statusRequest.data.threadCategoryList)
     };    
     
     
 
 
     const handelGoToDetailInformation = (e, orderNumber) => {
-        navigate(`../../orders/${orderNumber}/detail`)
+        navigate(`orders/${orderNumber}/detail`)
     }
     const handelGoToThread = async (e, threadID) => {
         // navigate(`/thread/${threadID}/${cookies.login}`)
         console.log("threadID", threadID)
         await setCookie('thread', {id : threadID}, {path : "/"})
-        // navigate(`/thread/${threadID}`)
-        navigate(`/thread`)
+        navigate(`./thread`)
     
     }
     
@@ -143,27 +142,21 @@ function MyPage() {
 
     return (
         <div>
-            {
-                cookies.login ?
             
-                <MyInfoContainer>
-                {userInfo ? (
-                    <>
-                        <ProfileInfo userInfo={userInfo} />
-                        <OrderModal statusList = {statusList} userId = {cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
-                        <OrderHistory orderHistory={userInfo.orderHistory} />
-                        <ThreadHistory threadHistory={userInfo.threads} />
-                    </>
-                ) : (
-                    <p>Loading...</p>
-                )}
-                </MyInfoContainer>:
-            
-                <h1>hello</h1>
-                
-             }
-
-
+            { location["pathname"] === '/Mypage' && <MyInfoContainer>
+            {userInfo ? (
+                <>
+                    <ProfileInfo userInfo={userInfo} />
+                    <OrderModal statusList = {statusList} userId = {cookies.login['id']} isOpen={isModalOpen} closeModal={closeModal} />
+                    <OrderHistory orderHistory={userInfo.orderHistory} />
+                    <ThreadHistory threadHistory={userInfo.threads} />
+                </>
+            ) : (
+                <p>Loading...</p>
+            )}
+            </MyInfoContainer> }
+            <Outlet/>
+        
     </div>
     );
 }

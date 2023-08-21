@@ -23,7 +23,7 @@ const UserListPage = () => {
     };
 
     const handleCreateOrderClick = (user, e) => {
-        navigate(`/admin/userdetail/${user.id}`   )
+        navigate(`../userdetail/${user.id}`   )
     }
 
     return (

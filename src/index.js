@@ -36,69 +36,74 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainPage/>,
     errorElement: <ErrorPage />,
+    children :
+    [
+      {
+        path:"admin",
+        children :
+        [
+          {
+            path: "login",
+            element: <AdminLoginPage/>,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: "userlist",
+            element: <UserListPage/>,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: "userdetail/:userId",
+            element: <AdminUserDetailPage />,
+            loader: userDetailLoader,
+          },
+          {
+            path: "orders/:orderId/detail",
+            element: <DetailedInformationPage/>,
+            errorElement: <ErrorPage />,
+            loader: admindetailedInformationLodaer,
+          },
+          {
+            path: "thread/:threadId/:userId",
+            element: <ThreadPage />,
+            loader: adminthreadLoader,
+          },
+        ]
+      },
+      
+      {
+        path: "login",
+        element: <LoginPage/>,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "signup",
+        element: <SignUpPage/>,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "Mypage",
+        element: <MyPage/>,
+        errorElement: <ErrorPage />,
+        loader: UserPageLoader,
+        children :
+        [
+          {
+            path: "orders/:orderId/detail",
+            element: <DetailedInformationPage/>,
+            errorElement: <ErrorPage />,
+            loader: detailedInformationLodaer,
+          },
+          {
+            path: "thread",
+            element: <ThreadPage />,
+            loader: threadLoader,
+          },
+        ],
+      },
+    ]
   },
-  {
-    path: "/login",
-    element: <LoginPage/>,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/admin/login",
-    element: <AdminLoginPage/>,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/admin/userlist",
-    element: <UserListPage/>,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/signup",
-    element: <SignUpPage/>,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/user_list",
-    element: <UserListPage/>,
-    errorElement: <ErrorPage />,
-    loader: threadLoader,
-  },
-  {
-    // path: "/Mypage/:userId",
-    path: "/Mypage/",
-    element: <MyPage/>,
-    errorElement: <ErrorPage />,
-    loader: UserPageLoader,
-  },
-  {
-    path: "/orders/:orderId/detail",
-    element: <DetailedInformationPage/>,
-    errorElement: <ErrorPage />,
-    loader: detailedInformationLodaer,
-  },
-  {
-    path: "/adminorders/:orderId/detail",
-    element: <DetailedInformationPage/>,
-    errorElement: <ErrorPage />,
-    loader: admindetailedInformationLodaer,
-  },
-  {
-    path: "/admin/userdetail/:userId",
-    element: <AdminUserDetailPage />,
-    loader: userDetailLoader,
-  },
-  {
-    // path: "/thread/:threadId/:userId",
-    // path: "/thread/:threadId/",
-    path: "/thread",
-    element: <ThreadPage />,
-    loader: threadLoader,
-  },
-  {
-    path: "/adminthread/:threadId/:userId",
-    element: <ThreadPage />,
-    loader: adminthreadLoader,
-  },
+  
 ],
 {
   // basename : "/bredis_platform/"
