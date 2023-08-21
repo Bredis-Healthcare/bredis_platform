@@ -20,6 +20,7 @@ const OrderModal = ({ threadId, userId, isOpen, closeModal }) => {
                     "memberId": userId,
                     "items": item,
                     "price": price,
+                    "detail": detail,
                     "threadId": threadId
                 });
                 console.log("request data", request);
