@@ -3,6 +3,7 @@ import { HeaderContainer, Logo, HeaderTitle, HeaderButtonContainer, HeaderButton
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/bredis_logo_wide.png'
 import { useCookies } from 'react-cookie';
+import axios from "../api/axios";
 
 
 const Header = () => {
@@ -13,7 +14,8 @@ const Header = () => {
 
     }, [])
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        const request = await axios.post('logout')
         removeCookie(['login']);
         navigate("/");
     }
