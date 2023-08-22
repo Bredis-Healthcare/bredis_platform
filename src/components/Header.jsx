@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HeaderContainer, Logo, HeaderTitle, HeaderButtonContainer, HeaderButton, LogoTitleContainer } from './HeaderStyles';
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/bredis_logo_wide.png'
+import { useCookies } from 'react-cookie';
 
 
 const Header = () => {
     const navigate = useNavigate();
+	const [cookies, setCookie, removeCookie] = useCookies(['login']);
+
+    useEffect(()=>{
+
+    }, [])
+
+    const handleLogout = () => {
+        removeCookie(['login']);
+        navigate("/");
+    }
 
     return (
         <HeaderContainer>
@@ -16,6 +27,11 @@ const Header = () => {
             <HeaderButtonContainer>
                 <HeaderButton onClick={() => navigate("/Mypage")} >내 정보</HeaderButton>
                 <HeaderButton onClick={() => navigate("/")} >서비스 소개</HeaderButton>
+                {
+                    cookies?.login ? 
+                    <HeaderButton onClick={() => handleLogout()} >로그아웃</HeaderButton> :
+                    <></>
+                }
             </HeaderButtonContainer>
         </HeaderContainer>
     );
