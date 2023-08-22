@@ -36,7 +36,7 @@ const OrderModal = ({ statusList, userId, isOpen, closeModal }) => {
                 console.log("request data", request);
                 setCookie('thread', {id : request.data["threadId"]}, {path : "/"})
 
-                navigate(`../../thread/`);
+                navigate(`../../Mypage/thread/`);
 
 
             } catch (error) {
@@ -69,10 +69,10 @@ const OrderModal = ({ statusList, userId, isOpen, closeModal }) => {
                     <input type="text" placeholder="문의 내용을 입력해주세요." onChange={(e) => setDetail(e.target.value)} />
                 </InputBox>
                 <div>
-                    <h3 style={{display:"inline"}}>종류: </h3>
+                    <h3 style={{display:"inline"}}>유형: </h3>
                     <DropdownSelect value={selectedOption} onChange={(e) => {setSelectedOption(e.target.value)}}
                         style={{display:"inline"}}>
-                        <option value="" disabled>문의 종류를 선택해 주세요</option>
+                        <option value="" disabled>문의 유형을 선택해 주세요</option>
                         {statusList.map((value, index) => (
                     <option key={index} value={value.title}>{value.title}</option>
                     ))}
