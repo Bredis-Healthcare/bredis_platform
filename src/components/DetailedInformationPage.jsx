@@ -23,6 +23,7 @@ const DetailedInformationPage = () => {
     const [data, setData] = useState(null); // or your fetching logic
     const [statusList, setStatusList] = useState([]);
     const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
+    const [uploadFileType, setUploadFileType] = useState('');
     const [isAnalysisResultChangeModalOpen, setIsAnalysisResultChangeModalModalOpen] = useState(false);
     const [adminmassage1, setAdminmassage1] = useState('');
     const [adminmassage2, setAdminmassage2] = useState('');
@@ -69,8 +70,9 @@ const DetailedInformationPage = () => {
         link.parentNode.removeChild(link);
     }
 
-    const handleUploadClick = () => {
+    const handleUploadClick = (fileType) => {
         setIsFileUploadModalOpen(true);
+        setUploadFileType(fileType);
     }
 
     const closeFileUploadModal = () => {
@@ -149,8 +151,8 @@ const DetailedInformationPage = () => {
                     {
                         isAdmin ?
                             <div>
-                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >분석 보고서 업로드</UploadLink>
-                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >분석 가보고서 업로드</UploadLink>
+                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick("REPORT")} >분석 보고서 업로드</UploadLink>
+                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick("DUMMY_REPORT")} >분석 가보고서 업로드</UploadLink>
                             </div> :
                             <div>
                                 <DownloadLink style={{width: '40%', display:'inline-block'}} onClick={(e) => handleDownloadClick(e, data.reportFileName, "REPORT")} download>분석 보고서 다운로드</DownloadLink>
@@ -190,7 +192,7 @@ const DetailedInformationPage = () => {
                             <DownloadLink style={{width: '40%', display:'inline-block'}} onClick={(e) => handleDownloadClick(e, data.sampleDataFileName, "SAMPLE_DATA")} download>검체 데이터 다운로드</DownloadLink> :
                             <div>
                                 <DownloadLink style={{width: '40%', display:'inline-block'}} href={`https://drive.google.com/uc?export=download&id=1Um9eFOIDWFVslcgH-36AeLRYzGPLwyjY`} download>검체 데이터 양식 다운로드</DownloadLink>
-                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink>
+                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick("SAMPLE_DATA")} >검체 데이터 업로드</UploadLink>
                             </div>
                     }
                 <h3>분석 내역</h3>
@@ -265,7 +267,7 @@ const DetailedInformationPage = () => {
                     <></>
                 }
                 </div>
-                <FileUploadModal orderId = {orderId} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
+                <FileUploadModal orderId = {orderId} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
                 <AnalisisResultChangeModal orderId = {orderId} prvtext = {data.analysisResult} isOpen={isAnalysisResultChangeModalOpen} closeModal={closeAnalysisResultChangeModal} />
                 </>
                 ):(

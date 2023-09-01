@@ -7,7 +7,7 @@ import {
 } from './FileUploadModalStyles';
 import axios from "../../api/axios";
 
-function FileUploadModal( {orderId, isOpen, closeModal}) {
+function FileUploadModal( {orderId, uploadFileType, isOpen, closeModal}) {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const fileRef = useRef(null);
 
@@ -25,13 +25,13 @@ function FileUploadModal( {orderId, isOpen, closeModal}) {
             });
         
             try {
-              const response = await axios.post(`/orders/${orderId}/sample-data`, formData, {
+              const response = await axios.post(`/orders/${orderId}/files?type=${uploadFileType}`, formData, {
                 headers: {
                   "Content-Type": "multipart/form-data",
                   "boundary": "--boundary",
                 },
               });
-              alert("성공");
+              alert("업로드되었습니다.");
               console.log(response)
             } catch (error) {
               console.log("파일보내기 에러", error);
@@ -54,7 +54,7 @@ function FileUploadModal( {orderId, isOpen, closeModal}) {
                     closeModal();
                 }}>X</CloseButton>
 
-                <Title>샘플 데이터 업로드</Title>
+                <Title>데이터 업로드</Title>
                 <Contents>
                     <UploadBox>
                         <DragFile
