@@ -54,6 +54,20 @@ const DetailedInformationPage = () => {
 
 
 
+    const handleDownloadClick = async (e, fileName, fileType) => {
+        if (!fileName) {
+            alert('아직 파일이 등록되지 않았습니다.');
+            return;
+        }
+        const request = await axios.get(`/orders/${orderId}/files?type=${fileType}&fileName=${fileName}`);
+        const downloadUrl = request.data.link;
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', `FileName.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+    }
 
     const handleUploadClick = () => {
         setIsFileUploadModalOpen(true);
@@ -132,11 +146,24 @@ const DetailedInformationPage = () => {
                 }
 
                 <h1>분석 정보</h1>
-                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.reportDownloadLink} download>분석 보고서 다운로드</DownloadLink>
-                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.fakeReportDownloadLink} download>임시 분석 보고서 다운로드</DownloadLink>
-                {
-                    isAdmin ? <></> : <p><strong>상태:</strong> {data.status}</p>
-                }
+                    {
+                        isAdmin ?
+                            <div>
+                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >분석 보고서 업로드</UploadLink>
+                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >분석 가보고서 업로드</UploadLink>
+                            </div> :
+                            <div>
+                                <DownloadLink style={{width: '40%', display:'inline-block'}} onClick={(e) => handleDownloadClick(e, data.reportFileName, "REPORT")} download>분석 보고서 다운로드</DownloadLink>
+                                <DownloadLink style={{width: '40%', display:'inline-block'}} onClick={(e) => handleDownloadClick(e, data.dummyReportFileName, "DUMMY_REPORT")} download>분석 가보고서 다운로드</DownloadLink>
+                            </div>
+
+
+
+                    }
+
+                    {
+                        isAdmin ? <></> : <p><strong>상태:</strong> {data.status}</p>
+                    }
                 <div>
                     {
                     isAdmin ?
@@ -157,11 +184,14 @@ const DetailedInformationPage = () => {
                 </div>
 
                 <h1>검체 정보</h1>
-                    <DownloadLink style={{width: '40%', display:'inline-block'}} href={data.sampleDataDownloadLink} download>검체 데이터 양식 다운로드</DownloadLink>
+
                     {
                         isAdmin ?
-                        <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink> :
-                        <></>
+                            <DownloadLink style={{width: '40%', display:'inline-block'}} onClick={(e) => handleDownloadClick(e, data.sampleDataFileName, "SAMPLE_DATA")} download>검체 데이터 다운로드</DownloadLink> :
+                            <div>
+                                <DownloadLink style={{width: '40%', display:'inline-block'}} href={`https://drive.google.com/uc?export=download&id=1Um9eFOIDWFVslcgH-36AeLRYzGPLwyjY`} download>검체 데이터 양식 다운로드</DownloadLink>
+                                <UploadLink style={{width: '40%', display:'inline-block'}} onClick={() => handleUploadClick()} >검체 데이터 업로드</UploadLink>
+                            </div>
                     }
                 <h3>분석 내역</h3>
                 <HistoryContainer>
