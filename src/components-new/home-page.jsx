@@ -6,15 +6,10 @@ const NewMainPage = () => {
     const navigate = useNavigate();
     return (
         <div className="1 w-[1667px] h-[1072px] relative bg-neutral-100">
-            <div className=" w-[1667px] h-[85px] left-0 top-[987px] absolute">
-                <img className=" w-[1667px] h-[85px] left-0 top-0 absolute" src="https://via.placeholder.com/1667x85" />
-                <div className=" w-[116px] h-4 left-[475px] top-[37px] absolute text-zinc-500 text-[10px] font-bold">회사 소개서 다운로드</div>
-                <div className="Rfq w-[116px] h-4 left-[609px] top-[37px] absolute text-zinc-500 text-[10px] font-bold">RFQ 다운로드</div>
-            </div>
             <div className=" w-[1667px] h-[115px] left-0 top-[70px] absolute">
                 <div className="Rectangle6 w-[1667px] h-[115px] left-0 top-0 absolute bg-sky-900" />
                 <div className=" left-[33px] top-[57px] absolute text-white text-3xl font-bold">주문 내역 > 주문 상세</div>
-                <div className="987204 left-[323px] top-[63px] absolute text-white text-2xl font-normal"><span>202308181119-987204</span></div>
+                <div className="987204 left-[323px] top-[63px] absolute"><span className="text-white text-2xl font-normal">202308181119-987204</span><span className="text-white text-2xl font-bold"> </span></div>
             </div>
             <div className=" w-[1667px] h-[76px] left-0 top-0 absolute">
                 <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
@@ -113,6 +108,16 @@ const NewMainPage = () => {
                     <div className="ImportLight w-5 h-5 left-[93px] top-0 absolute flex-col justify-start items-start inline-flex" />
                     <div className=" left-0 top-0 absolute text-zinc-500 text-base font-normal">양식 다운로드</div>
                 </div>
+            </div>
+            <div className=" w-[1667px] h-[87px] left-0 top-[986px] absolute">
+                <div className="Rectangle38 w-[1667px] h-[87px] left-0 top-0 absolute bg-gray-200" />
+                <div className=" w-[116px] h-4 left-[465px] top-[39px] absolute text-zinc-500 text-[10px] font-bold">회사 소개서 다운로드</div>
+                <div className="Rfq w-[116px] h-4 left-[602px] top-[39px] absolute text-zinc-500 text-[10px] font-bold">RFQ 다운로드</div>
+                <div className="3655524 left-[876px] top-[15px] absolute text-center"><span className="text-zinc-500 text-[10px] font-bold">주소 </span><span className="text-zinc-500 text-[10px] font-normal">|</span><span className="text-zinc-500 text-[10px] font-bold"> 부산광역시 남구 신선로 365, 5층 524호(용담동, 부산창업지원센터) </span></div>
+                <div className=" left-[465px] top-[15px] absolute text-center"><span className="text-zinc-500 text-[10px] font-bold">주식회사  </span><span className="text-zinc-500 text-[10px] font-normal">|</span><span className="text-zinc-500 text-[10px] font-bold"> 브레디스헬스케어</span></div>
+                <div className=" left-[601px] top-[15px] absolute text-center"><span className="text-zinc-500 text-[10px] font-bold">대표자 </span><span className="text-zinc-500 text-[10px] font-normal">|</span><span className="text-zinc-500 text-[10px] font-bold"> 황현두 , 김지나</span></div>
+                <div className="4418602877 left-[715px] top-[15px] absolute text-center"><span className="text-zinc-500 text-[10px] font-bold">사업자등록번호 </span><span className="text-zinc-500 text-[10px] font-normal">|</span><span className="text-zinc-500 text-[10px] font-bold"> 441-86-02877</span></div>
+                <div className="Copyrights2023BredisHealthcareIncAllRightsReserved left-[465px] top-[63px] absolute text-center text-zinc-500 text-[10px] font-bold">Copyrights ⓒ 2023 Bredis Healthcare Inc. All Rights Reserved</div>
             </div>
         </div>
     );
