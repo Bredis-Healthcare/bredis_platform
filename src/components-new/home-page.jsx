@@ -19,19 +19,16 @@ const NewMainPage = () => {
                 <div className="DigitalElisa left-[189px] top-[21px] absolute text-black text-[26px] font-bold">Digital ELISA 연구분석서비스</div>
                 <img className=" w-[189px] h-[76px] left-0 top-0 absolute" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800" />
                 <div className=" w-[50px] h-[30px] left-[1521px] top-[29px] absolute">
-                    <div className="Bell w-[30px] h-[30px] left-0 top-0 absolute">
-                        <div className="Ellipse45 w-2.5 h-2.5 left-[20px] top-[26.25px] absolute origin-top-left rotate-180 rounded-full border border-neutral-700" />
+                    <div className="Bell w-[55px] h-[30px] left-0 top-0 absolute">
+                        <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fec38e501943d468fa0df8b6f1a34a36f?&width=200" alt=""/>
                     </div>
-                    <div className="ExpandDown w-6 h-6 left-[26px] top-[4px] absolute" />
                 </div>
                 <div className=" left-[1223px] top-[32px] absolute text-neutral-700 text-xl font-bold">문의하기</div>
                 <div className=" left-[1099px] top-[32px] absolute text-black text-xl font-bold">서비스 소개</div>
                 <div className=" w-[85px] h-[3px] left-[1415px] top-[16px] absolute bg-sky-900" />
                 <div className=" w-[49px] h-[30px] left-[1581px] top-[29px] absolute">
-                    <div className="ExpandDown w-6 h-6 left-[25px] top-[5px] absolute" />
-                    <div className="UserCicrleLight w-[29px] h-[30px] left-0 top-0 absolute">
-                        <div className="Ellipse46 w-[7.25px] h-[7.50px] left-[10.88px] top-[8.75px] absolute rounded-full border border-neutral-800" />
-                        <div className="Ellipse47 w-[21.75px] h-[22.50px] left-[3.62px] top-[3.75px] absolute rounded-full border border-neutral-800" />
+                    <div className="UserCicrleLight w-[55px] h-[30px] left-0 top-0 absolute">
+                        <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F620ec0bc269049aa87c29d8e1cbbc3be?&width=200" alt=""/>
                     </div>
                 </div>
             </div>
