@@ -6,6 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import "./index.css"
 import LoginPage from './components/LoginPage';
 import AdminLoginPage from './components/admin_components/AdminLoginPage';
 import MainPage from './components/MainPage';
@@ -30,11 +31,12 @@ import DetailedInformationPage, {
 }  from './components/DetailedInformationPage';
 
 import { CookiesProvider } from 'react-cookie';
+import NewMainPage from "./components-new/home-page";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage/>,
+    element: <NewMainPage/>,
     errorElement: <ErrorPage />,
     children :
     [
