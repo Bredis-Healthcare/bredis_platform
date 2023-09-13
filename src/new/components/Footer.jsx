@@ -1,11 +1,11 @@
 import {Link, useNavigate} from "react-router-dom";
 import * as React from 'react';
 
-const Footer = () => {
+function Footer() {
 
     const navigate = useNavigate();
     return (
-        <div className="Footer w-[1667px] h-[87px] left-0 top-[986px] absolute">
+        <div className="self-stretch w-full shrink-0 flex flex-col min-h-[84px] mt-[38px] px-[20px] py-[37px] max-md:min-h-[30px] relative">
             <div className="Rectangle38 w-[1667px] h-[87px] left-0 top-0 absolute bg-gray-200" />
             <div className=" w-[116px] h-4 left-[465px] top-[39px] absolute text-zinc-500 text-[10px] font-bold">회사 소개서 다운로드</div>
             <div className="Rfq w-[116px] h-4 left-[602px] top-[39px] absolute text-zinc-500 text-[10px] font-bold">RFQ 다운로드</div>
