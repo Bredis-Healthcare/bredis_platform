@@ -1,8 +1,8 @@
 import {Route, Routes} from 'react-router-dom';
-import OrderList from "./components-new/OrderList";
-import OrderDetail from "./components-new/OrderDetail";
+import OrderList from "./new/pages/OrderList";
+import OrderDetail from "./new/pages/OrderDetail";
 import React from "react";
-import Home from "./components-new/Home";
+import Home from "./new/pages/Home";
 
 const App = () => {
     return (
