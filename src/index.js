@@ -7,14 +7,13 @@ import {CookiesProvider} from "react-cookie";
 import Home from "./new/pages/Home";
 import OrderDetail, {loader as OrderDetailLoader} from "./new/pages/OrderDetail";
 import ErrorPage from "./error-page";
-import OrderList, {loader as OrderListLoader}  from './new/pages/OrderList';
-import MainPage from "./components/MainPage";
+import OrderList, {loader as OrderListLoader} from './new/pages/OrderList';
 import LoginPage from "./components/LoginPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainPage/>,
+        element: <Home/>,
         errorElement: <ErrorPage/>,
     },
     {
