@@ -22,7 +22,6 @@ function OrderList() {
 
 
     useEffect(() => {
-        console.log("cookie", cookies)
         fetchData();
     }, [])
 

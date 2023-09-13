@@ -5,11 +5,9 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {CookiesProvider} from "react-cookie";
 import Home from "./new/pages/Home";
-import OrderDetail from "./new/pages/OrderDetail";
+import OrderDetail, {loader as OrderDetailLoader} from "./new/pages/OrderDetail";
 import ErrorPage from "./error-page";
-import OrderList, {
-    loader as UserPageLoader,
-}  from './new/pages/OrderList';
+import OrderList, {loader as OrderListLoader}  from './new/pages/OrderList';
 import MainPage from "./components/MainPage";
 import LoginPage from "./components/LoginPage";
 
@@ -28,11 +26,13 @@ const router = createBrowserRouter([
         path: "/orders/list",
         element: <OrderList/>,
         errorElement: <ErrorPage/>,
+        loader: OrderListLoader
     },
     {
         path: "/orders/detail",
         element: <OrderDetail/>,
         errorElement: <ErrorPage/>,
+        loader: OrderDetailLoader
     }]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
