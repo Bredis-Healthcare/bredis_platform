@@ -21,4 +21,4 @@ const Layout = (props) => {
     </div>
 }
 
-export default Layout;
+export default React.memo(Layout);
