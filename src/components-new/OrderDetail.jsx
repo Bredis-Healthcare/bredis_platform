@@ -1,17 +1,17 @@
 import {useNavigate} from "react-router-dom";
 import * as React from 'react';
 
-const NewMainPage = () => {
+const OrderDetail = () => {
 
     const navigate = useNavigate();
     return (
         <div className="1 w-[1667px] h-[1072px] relative bg-neutral-100">
-            <div className=" w-[1667px] h-[115px] left-0 top-[70px] absolute">
+            <div className="MenuHeader w-[1667px] h-[115px] left-0 top-[70px] absolute">
                 <div className="Rectangle6 w-[1667px] h-[115px] left-0 top-0 absolute bg-sky-900" />
                 <div className=" left-[33px] top-[57px] absolute text-white text-3xl font-bold">주문 내역 > 주문 상세</div>
                 <div className="987204 left-[323px] top-[63px] absolute"><span className="text-white text-2xl font-normal">202308181119-987204</span><span className="text-white text-2xl font-bold"> </span></div>
             </div>
-            <div className=" w-[1667px] h-[76px] left-0 top-0 absolute">
+            <div className="Header w-[1667px] h-[76px] left-0 top-0 absolute">
                 <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
                 <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
                 <div className=" left-[1326px] top-[32px] absolute text-black text-xl font-bold">주문하기</div>
@@ -106,7 +106,7 @@ const NewMainPage = () => {
                     <div className=" left-0 top-0 absolute text-zinc-500 text-base font-normal">양식 다운로드</div>
                 </div>
             </div>
-            <div className=" w-[1667px] h-[87px] left-0 top-[986px] absolute">
+            <div className="Footer w-[1667px] h-[87px] left-0 top-[986px] absolute">
                 <div className="Rectangle38 w-[1667px] h-[87px] left-0 top-0 absolute bg-gray-200" />
                 <div className=" w-[116px] h-4 left-[465px] top-[39px] absolute text-zinc-500 text-[10px] font-bold">회사 소개서 다운로드</div>
                 <div className="Rfq w-[116px] h-4 left-[602px] top-[39px] absolute text-zinc-500 text-[10px] font-bold">RFQ 다운로드</div>
@@ -120,4 +120,4 @@ const NewMainPage = () => {
     );
 }
 
-export default NewMainPage;
+export default OrderDetail;
