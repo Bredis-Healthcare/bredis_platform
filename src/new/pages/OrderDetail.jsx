@@ -55,8 +55,8 @@ const OrderDetail = () => {
                     <Layout menuName="주문 내역 > 주문 상세" menuNameAddInfo={`${data.orderNumber}`}>
                         <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] pt-[37px] pb-[32px] px-[20px]">
                             <div className="w-[1222px] h-[850px] ml-[58px] mr-[22px] max-md:mx-[10px] relative">
-                                <div className="SimoaPtau181AdvantageV214 left-0 top-[40px] absolute text-black text-2xl font-bold">{data.items}</div>
-                                <div className="Ab40Ab42GfapNflPtau181 left-0 top-[124px] absolute text-black text-xl font-normal">{data.request}</div>
+                                <div className="SimoaPtau181AdvantageV214 left-0 top-[40px] absolute text-black text-2xl font-bold">{data.title}</div>
+                                <div className="Ab40Ab42GfapNflPtau181 left-0 top-[124px] absolute text-black text-xl font-normal">{data.requestDetail}</div>
                                 <div className="0503111932 left-[624px] top-[35px] absolute text-black text-2xl font-light">{data.createdDatetime}</div>
                                 <div className=" left-[933px] top-[34px] absolute text-lime-500 text-2xl font-bold">{data.status}</div>
                                 <div className="987204 left-0 top-[10px] absolute text-zinc-500 text-lg font-normal">{data.orderNumber}</div>

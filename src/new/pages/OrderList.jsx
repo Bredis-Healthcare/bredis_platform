@@ -57,8 +57,8 @@ function OrderList() {
                                             </div>
                                         )}
                                         <div className={`w-[1077px] h-[200px] left-[76px] top-[${34 + index * 200}px] relative`}>
-                                            <div className="SimoaPtau181AdvantageV214 left-0 top-[30px] absolute text-black text-2xl font-bold font-['Inter']">{order.items}</div>
-                                            <div className="Ab40Ab42GfapNflPtau181 left-0 top-[121px] absolute text-black text-2xl font-normal font-['Inter']">{order.request}</div>
+                                            <div className="SimoaPtau181AdvantageV214 left-0 top-[30px] absolute text-black text-2xl font-bold font-['Inter']">{order.title}</div>
+                                            <div className="Ab40Ab42GfapNflPtau181 left-0 top-[121px] absolute text-black text-2xl font-normal font-['Inter']">{order.requestDetail}</div>
                                             <div className="987204 left-0 top-0 absolute text-zinc-500 text-lg font-normal font-['Inter']">주문번호: {order.orderNumber}</div>
                                             <div className=" left-[726px] top-[1px] absolute text-zinc-500 text-lg font-normal font-['Inter']">주문일시</div>
                                             <div className="0503 left-[650px] top-[31px] absolute text-black text-2xl font-light font-['Inter']">{order.createdDatetime}</div>
