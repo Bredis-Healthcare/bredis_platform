@@ -43,12 +43,16 @@ const OrderDetail = () => {
 
     const [orderInfoOn, setToggleOrderInfo] = useState(false);  // 메뉴의 초기값을 false로 설정
     const [analysisInfoOn, setToggleAnalysisInfo] = useState(false);
+    const [threadInfoOn, setToggleThreadInfo] = useState(false);
 
     const toggleOrderInfo = () => {
         setToggleOrderInfo(orderInfoOn => !orderInfoOn); // on,off 개념 boolean
     }
     const toggleAnalysisInfo = () => {
         setToggleAnalysisInfo(analysisInfoOn => !analysisInfoOn);
+    }
+    const toggleThreadInfo = () => {
+        setToggleThreadInfo(threadInfoOn => !threadInfoOn);
     }
 
     return (
@@ -136,7 +140,6 @@ const OrderDetail = () => {
                                             <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
                                         </div>
                                     </div>
-
                                     <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'}`}>
                                         <div className="w-full max-w-[1097px] flex flex-col ml-[6px] mt-[20px] max-md:ml-[6px] relative">
                                             <div className="Line7 w-[1099px] h-[0px] left-[6px] top-[287px] absolute border border-zinc-500"></div>
@@ -362,6 +365,19 @@ const OrderDetail = () => {
 
                                         </div>
                                     </div>
+
+                                    {/*1:1 문의*/}
+                                    <div className="w-full flex flex-row gap-[2.98779296875px] items-start flex-wrap mt-[23px]">
+                                        <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col -mt-px">
+                                            1:1 문의
+                                        </div>
+                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
+                                             onClick={()=>toggleThreadInfo()}>
+                                            <img className={`object-cover object-center ${threadInfoOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${threadInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                        </div>
+                                    </div>
+                                    <div className={`threadInfoOn ${threadInfoOn ? 'block' : 'hidden'}`}> hi </div>
                                 </div>
                             </div>
                         </div>
