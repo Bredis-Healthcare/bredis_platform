@@ -11,7 +11,7 @@ const LoginPage = () => {
     // States for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie] = useCookies(['name']);
+    const [cookies, setCookie, removeCookie] = useCookies(['name']);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -30,7 +30,8 @@ const LoginPage = () => {
     
                 } catch (error) {
                     console.error("Error while logging in:", error);
-                    console.error(error.request['status']);
+                    removeCookie(['login']);
+                    navigate("/");
                 }
             }
             autoLogin();
