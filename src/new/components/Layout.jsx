@@ -12,9 +12,7 @@ const Layout = (props) => {
         </div>
         <div className="absolute top-[185px] w-[1667px]">
             <div className={`w-full max-w-[1667px] flex flex-col p-px bg-neutral-100`}>
-                <main>
-                    {props.children}
-                </main>
+                {props.children}
                 <Footer/>
             </div>
         </div>
