@@ -26,7 +26,8 @@ function MakeOrder() {
         }
     };
 
-    async function submitRequest (id, contents) {
+    async function submitRequest (id) {
+        let contents = document.getElementById("message").value
         if (window.confirm("견적 요청서를 제출하시겠습니까?")) {
             await axios.post(`/quotation-requests/submit`, { "id": id, "contents": contents});
             window.location.reload();
@@ -63,7 +64,7 @@ function MakeOrder() {
                                             </div>
                                         ) : (
                                             <button className=" w-[114px] h-[35px] left-[1113px] top-[1420px] absolute"
-                                                    onClick={() => submitRequest(data.id, "api contents")}>
+                                                    onClick={() => submitRequest(data.id)}>
                                                 <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
                                                 <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">
                                                     { data.status === 'OPINION_REGISTERED' ? '요청서 수정' : '요청서 전송' }

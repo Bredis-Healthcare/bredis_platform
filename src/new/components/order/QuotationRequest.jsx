@@ -148,9 +148,6 @@ function QuotationRequest (props) {
                 </div>
             </div>
 
-
-            <div className=" w-[95px] h-[17px] left-[490px] top-[1180px] absolute text-slate-500 text-lg font-bold font-['Inter']">특이사항</div>
-
             <div className=" w-[134px] h-[17px] left-[490px] top-[1096px] absolute text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청일:</div>
             <div className="1101 w-[141px] h-[18px] left-[634px] top-[1096px] absolute text-black text-lg font-normal font-['Inter']">2023.11.01</div>
             <div className=" w-[164px] h-[17px] left-[489px] top-[1139px] absolute text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청 주소:</div>
@@ -166,6 +163,11 @@ function QuotationRequest (props) {
                 </div>
                 <div className="ImportLight w-5 h-[21px] left-[102px] top-[42px] absolute" />
             </div>
+
+            <div className=" w-[95px] h-[17px] left-[490px] top-[1180px] absolute text-slate-500 text-lg font-bold font-['Inter']">특이사항</div>
+            <textarea id="message" rows="4" className="resize-none left-[490px] top-[1220px] absolute block p-2.5 w-[760px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...">
+                {data.content}
+            </textarea>
         </div>
     )
 
