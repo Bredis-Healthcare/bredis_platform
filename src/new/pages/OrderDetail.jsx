@@ -377,7 +377,96 @@ const OrderDetail = () => {
                                             <img className={`object-cover object-center ${threadInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
                                         </div>
                                     </div>
-                                    <div className={`threadInfoOn ${threadInfoOn ? 'block' : 'hidden'}`}> hi </div>
+                                    <div className={`threadInfoOn ${threadInfoOn ? 'block' : 'hidden'}`}>
+                                        <div className="w-full max-w-[1013px] pt-[-1px] pb-[-1px] flex flex-col mt-[18px] pl-[12px] pr-[20px] relative">
+                                            <div className="text-black not-italic font-bold text-[20px] mt-[-0px] flex flex-col">
+                                                메시지
+                                            </div>
+                                            <div className="w-full max-w-[972px] flex flex-col ml-[2px] mt-[43px] max-md:ml-[2px]">
+                                                <div className="flex max-sm:flex-col max-sm:items-stretch">
+                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(8%_-_10px)] max-sm:w-full">
+                                                        <div className="text-black text-[15px] font-light font-['Inter'] text-center flex flex-col mt-[46px] max-md:mt-[50px]">
+                                                            김철수
+                                                            <br />
+                                                            2023.08.31 16:00:00
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(92%_-_10px)] ml-[20px] max-sm:w-full">
+                                                        <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col max-md:mt-[46px]">
+                                                            안녕하십니까, 메디이노파트너스(MIP) 이충희 입니다. <br />
+                                                            저희는 바이오/헬스 전문 창업기획자 (AC) 로서 의료진창업회사에 주로
+                                                            투자하여왔으며 주로 의료진 LP 들께 바이오/헬스 관련 전도유망한
+                                                            기업들을 소개하고 있습니다. <br />
+                                                            저희 MIP의 포트폴리오 확장 차원에서 기업들을 발굴 중에 연락을
+                                                            드리게 되었습니다. <br />
+                                                            가능하시다면, 저희도 소개드리고, 브레디스의 기술과 미래에 대해서
+                                                            대화를 나누는 자리를 함께 하였으면 좋겠습니다. <br />
+                                                            그럼 연락 부탁드리겠습니다. <br />
+                                                            <br />
+                                                            감사합니다 <br />
+                                                            이충희 드림
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="w-full max-w-[972px] flex flex-col ml-[2px] mt-[43px] max-md:ml-[2px]">
+                                                <div className="flex max-sm:flex-col max-sm:items-stretch">
+                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(8%_-_10px)] max-sm:w-full">
+                                                        <div className="text-black text-[15px] font-light font-['Inter'] text-center flex flex-col mt-[46px] max-md:mt-[50px]">
+                                                            김철수
+                                                            <br />
+                                                            2023.08.31 16:00:00
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(92%_-_10px)] ml-[20px] max-sm:w-full">
+                                                        <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col max-md:mt-[46px]">
+                                                            안녕하십니까, 메디이노파트너스(MIP) 이충희 입니다. <br />
+                                                            저희는 바이오/헬스 전문 창업기획자 (AC) 로서 의료진창업회사에 주로
+                                                            투자하여왔으며 주로 의료진 LP 들께 바이오/헬스 관련 전도유망한
+                                                            기업들을 소개하고 있습니다. <br />
+                                                            저희 MIP의 포트폴리오 확장 차원에서 기업들을 발굴 중에 연락을
+                                                            드리게 되었습니다. <br />
+                                                            가능하시다면, 저희도 소개드리고, 브레디스의 기술과 미래에 대해서
+                                                            대화를 나누는 자리를 함께 하였으면 좋겠습니다. <br />
+                                                            그럼 연락 부탁드리겠습니다. <br />
+                                                            <br />
+                                                            감사합니다 <br />
+                                                            이충희 드림
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/*<div className="w-full max-w-[247px] mb-[-0px] z-[1] flex flex-row gap-[20px] items-start flex-wrap justify-between ml-[7px] mt-[42px] max-md:ml-[7px]">*/}
+                                            {/*    <div className="text-black not-italic font-light text-[14px] flex flex-col min-w-[75px] mt-[2px]">*/}
+                                            {/*        관리자*/}
+                                            {/*        <br />*/}
+                                            {/*        2023.09.01 12:30:00*/}
+                                            {/*    </div>*/}
+                                            {/*    <div className="text-black not-italic font-medium text-[14px] self-stretch flex flex-col min-w-[131px]">*/}
+                                            {/*        관리자 메시지입니다.*/}
+                                            {/*        <br />*/}
+                                            {/*        <br />*/}
+                                            {/*        감사합니다.*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
+                                            <div className="Line2 w-[1013.17px] h-[0px] left-[0px] top-[36.10px] absolute border border-black border-opacity-25"></div>
+                                            <div className="Line4 w-[1013.17px] h-[0px] left-[0px] top-[243.70px] absolute border border-black border-opacity-25"></div>
+                                            <div className="Line3 w-[311px] h-[0px] left-[90px] top-[36px] absolute origin-top-left rotate-90 border border-black border-opacity-25"></div>
+                                        </div>
+
+
+                                        {/*<div className=" w-[1016px] h-[347px] mt-10 relative">*/}
+                                        {/*    <div className="Rectangle2 w-[1013px] h-[311px] left-0 top-[5px] absolute bg-neutral-100" />*/}
+                                        {/*    <div className=" w-[67px] h-6 left-[11px] top-0 absolute text-black text-[22px] font-bold font-['Inter']">메시지</div>*/}
+                                        {/*    <div className="20230831160000 w-[101px] h-[21px] left-[14px] top-[111px] absolute text-black text-[15px] font-light font-['Inter']">김철수<br/>2023.08.31 16:00:00</div>*/}
+                                        {/*    <div className="MipAcLpMip w-[867px] h-[83px] left-[135px] top-[65px] absolute text-black text-[15px] font-medium font-['Inter']">안녕하십니까, 메디이노파트너스(MIP) 이충희 입니다. <br/>저희는 바이오/헬스 전문 창업기획자 (AC) 로서 의료진창업회사에 주로 투자하여왔으며 주로 의료진 LP 들께 바이오/헬스 관련 전도유망한 기업들을 소개하고 있습니다. <br/>저희 MIP의 포트폴리오 확장 차원에서 기업들을 발굴 중에 연락을 드리게 되었습니다. <br/>가능하시다면, 저희도 소개드리고, 브레디스의 기술과 미래에 대해서 대화를 나누는 자리를 함께 하였으면 좋겠습니다. <br/>그럼 연락 부탁드리겠습니다. <br/><br/>감사합니다 <br/>이충희 드림</div>*/}
+                                        {/*    <div className="Line2 w-[1013.17px] h-[0px] left-[2.83px] top-[36.10px] absolute border border-black border-opacity-25"></div>*/}
+                                        {/*    <div className="Line4 w-[1013.17px] h-[0px] left-[2.83px] top-[243.70px] absolute border border-black border-opacity-25"></div>*/}
+                                        {/*    <div className="Line3 w-[311px] h-[0px] left-[112px] top-[36px] absolute origin-top-left rotate-90 border border-black border-opacity-25"></div>*/}
+                                        {/*    <div className=" w-[415px] h-[57px] left-[135px] top-[265px] absolute text-black text-[15px] font-medium font-['Inter']">관리자 메시지입니다.<br/><br/>감사합니다.</div>*/}
+                                        {/*    <div className="20230901123000 w-[101px] h-[60px] left-[19px] top-[267px] absolute text-black text-[15px] font-light font-['Inter']">관리자<br/>2023.09.01 12:30:00</div>*/}
+                                        {/*</div>*/}
+                                    </div>
                                 </div>
                             </div>
                         </div>
