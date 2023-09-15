@@ -1,9 +1,29 @@
 import {Link, useNavigate} from "react-router-dom";
 import * as React from 'react';
+import {useState} from 'react';
+
 
 const Header = () => {
 
     const navigate = useNavigate();
+    const [isHovering3, setIsHovering3] = useState(false);
+    const [isHovering4, setIsHovering4] = useState(false);
+
+    const colorOn3 = () => {
+        setIsHovering3(true);
+    }
+
+    const colorOff3 = () => {
+        setIsHovering3(false);
+    }
+
+    const colorOn4 = () => {
+        setIsHovering4(true);
+    }
+
+    const colorOff4 = () => {
+        setIsHovering4(false);
+    }
 
     return (
             <div className="Header w-[1667px] h-[76px] left-0 top-0 absolute">
@@ -16,13 +36,14 @@ const Header = () => {
                 <div className=" left-[1099px] top-[32px] absolute text-black text-xl font-bold">서비스 소개</div>
                 <div className=" left-[1223px] top-[32px] absolute text-black text-xl font-bold">문의하기</div>
 
-                <Link to={"/orders/create"}>
-                    <div className=" left-[1326px] top-[32px] absolute text-black text-xl font-bold">주문하기</div>
+                <Link to={"/orders/create"} onMouseOver={colorOn3} onMouseOut={colorOff3}>
+                    <div className={`${isHovering3 ? 'block' : 'hidden'} w-[85px] h-[3px] left-[1320px] top-[16px] absolute bg-sky-900`} />
+                    <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'} left-[1326px] top-[32px] absolute text-xl font-bold`}>주문하기</div>
                 </Link>
 
-                <div className=" w-[85px] h-[3px] left-[1415px] top-[16px] absolute bg-sky-900" />
-                <Link to={"/orders/list"}>
-                    <div className=" left-[1421px] top-[32px] absolute text-sky-900 text-xl font-bold">주문내역</div>
+                <Link to={"/orders/list"} onMouseOver={colorOn4} onMouseOut={colorOff4}>
+                    <div className={`${isHovering4 ? 'block' : 'hidden'} w-[85px] h-[3px] left-[1415px] top-[16px] absolute bg-sky-900`} />
+                    <div className={`${isHovering4 ? 'text-sky-900' : 'text-black'} left-[1421px] top-[32px] absolute  text-xl font-bold`}>주문내역</div>
                 </Link>
                 <div className=" w-[50px] h-[30px] left-[1521px] top-[29px] absolute">
                     <div className="Bell w-[55px] h-[30px] left-0 top-0 absolute">
