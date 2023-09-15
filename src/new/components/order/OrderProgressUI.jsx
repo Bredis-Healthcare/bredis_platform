@@ -1,6 +1,7 @@
 import React from "react";
 
-const statusList = ['NEW', 'MODIFIED','OPINION_REGISTERED','QUOTATION_SUGGESTED','ORDER_PROGRESS','CANCELED'];
+const statusList = ['BEFORE_SUBMIT', 'SUBMITTED', 'OPINION_REGISTERED', 'QUOTATION_SUGGESTED', 'ORDER_STARTED', 'CANCELED']
+
 function OrderProgressUI (props) {
     let statusNumber = statusList.indexOf(props.status)
     return (
