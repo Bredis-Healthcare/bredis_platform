@@ -12,9 +12,14 @@ const Header = () => {
                     <div className="DigitalElisa left-[189px] top-[21px] absolute text-black text-[26px] font-bold">Digital ELISA 연구분석서비스</div>
                     <img className=" w-[189px] h-[76px] left-0 top-0 absolute" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800" />
                 </Link>
+
                 <div className=" left-[1099px] top-[32px] absolute text-black text-xl font-bold">서비스 소개</div>
                 <div className=" left-[1223px] top-[32px] absolute text-black text-xl font-bold">문의하기</div>
-                <div className=" left-[1326px] top-[32px] absolute text-black text-xl font-bold">주문하기</div>
+
+                <Link to={"/orders/create"}>
+                    <div className=" left-[1326px] top-[32px] absolute text-black text-xl font-bold">주문하기</div>
+                </Link>
+
                 <div className=" w-[85px] h-[3px] left-[1415px] top-[16px] absolute bg-sky-900" />
                 <Link to={"/orders/list"}>
                     <div className=" left-[1421px] top-[32px] absolute text-sky-900 text-xl font-bold">주문내역</div>
