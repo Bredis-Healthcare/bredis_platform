@@ -33,6 +33,13 @@ function MakeOrder() {
         }
     }
 
+    async function cancelRequest (id) {
+        if (window.confirm("진행 중이던 견적 요청 내용이 모두 삭제됩니다. 정말로 다시 작성하시겠습니까?")) {
+            await axios.post(`/quotation-requests/${id}/cancel`);
+            window.location.reload();
+        }
+    }
+
     return (
         <div>
             {data ? (
@@ -65,7 +72,7 @@ function MakeOrder() {
                                         )
                                     }
                                     <button className=" w-[106px] h-[35px] left-[990px] top-[1420px] absolute"
-                                            onClick={() => {window.confirm("진행 중이던 견적 요청 내용이 모두 삭제됩니다. 정말로 다시 작성하시겠습니까?");}}>
+                                            onClick={() => cancelRequest(data.id)}>
                                         <div className="Rectangle7 w-[106px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
                                         <div className=" w-[80px] h-[17px] left-[15px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
                                     </button>
@@ -73,7 +80,7 @@ function MakeOrder() {
                         }
                         {
                             data.status === 'OPINION_REGISTERED' ? (
-                                <div className="Group17 w-[815px] h-[146px] left-[443px] top-[1400px] absolute">
+                                <div className="Group17 w-[815px] h-[146px] left-[443px] top-[1250px] absolute">
                                     <div className="Rectangle39 w-[815px] h-[146px] left-0 top-0 absolute bg-slate-500 rounded-[22px] shadow" />
                                     <div className=" w-[276.21px] h-[18px] left-[20.59px] top-[12px] absolute text-white text-lg font-semibold font-['Inter']">담당자 의견</div>
                                     <div className="Xxx23YyyXxx w-[773.78px] left-[20.59px] top-[38px] absolute text-white text-lg font-normal font-['Inter']">{data.managerComment}</div>
