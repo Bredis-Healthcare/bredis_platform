@@ -10,6 +10,7 @@ import ErrorPage from "./error-page";
 import OrderList, {loader as OrderListLoader} from './new/pages/OrderList';
 import LoginPage from "./components/LoginPage";
 import MakeOrder from "./new/pages/MakeOrder";
+import Threads from "./new/pages/Threads";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
     {
         path: "login",
         element: <LoginPage/>,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "threads",
+        element: <Threads/>,
         errorElement: <ErrorPage />,
     },
     {

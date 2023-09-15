@@ -34,7 +34,9 @@ const Header = () => {
                 </Link>
 
                 <div className=" left-[1099px] top-[32px] absolute text-black text-xl font-bold">서비스 소개</div>
-                <div className=" left-[1223px] top-[32px] absolute text-black text-xl font-bold">문의하기</div>
+                <Link to={"/threads"}>
+                    <div className=" left-[1223px] top-[32px] absolute text-black text-xl font-bold">문의하기</div>
+                </Link>
 
                 <Link to={"/orders/create"} onMouseOver={colorOn3} onMouseOut={colorOff3}>
                     <div className={`${isHovering3 ? 'block' : 'hidden'} w-[85px] h-[3px] left-[1320px] top-[16px] absolute bg-sky-900`} />
