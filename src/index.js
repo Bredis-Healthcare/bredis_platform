@@ -9,8 +9,10 @@ import OrderDetail, {loader as OrderDetailLoader} from "./new/pages/OrderDetail"
 import ErrorPage from "./error-page";
 import OrderList, {loader as OrderListLoader} from './new/pages/OrderList';
 import LoginPage from "./components/LoginPage";
-import MakeOrder from "./new/pages/MakeOrder";
-import Threads from "./new/pages/Threads";
+import OrderCreate from "./new/pages/OrderCreate";
+import ThreadsList from "./new/pages/ThreadsList";
+import ThreadsCreate from "./new/pages/ThreadsCreate";
+import ThreadsDetail from "./new/pages/ThreadsDetail";
 
 const router = createBrowserRouter([
     {
@@ -19,18 +21,28 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>,
     },
     {
-        path: "login",
+        path: "/login",
         element: <LoginPage/>,
         errorElement: <ErrorPage />,
     },
     {
-        path: "threads",
-        element: <Threads/>,
+        path: "/threads/new",
+        element: <ThreadsCreate/>,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/threads/list",
+        element: <ThreadsList/>,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/threads/detail",
+        element: <ThreadsDetail/>,
         errorElement: <ErrorPage />,
     },
     {
         path: "/orders/create",
-        element: <MakeOrder/>,
+        element: <OrderCreate/>,
         errorElement: <ErrorPage/>
     },
     {

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function AskButton () {
     return (
-        <Link to={"/threads"}>
+        <Link to={"/threads/list"}>
             <div className=" w-[106px] h-[106px] left-[1450px] top-[1330px] absolute">
                 <div className=" w-[106px] h-[106px] left-0 top-0 absolute bg-neutral-100 rounded-full shadow"/>
                 <div className=" w-[100px] h-[100px] left-[3px] top-[3px] absolute bg-yellow-300 rounded-full"/>

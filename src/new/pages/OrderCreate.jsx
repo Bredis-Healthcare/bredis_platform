@@ -7,7 +7,7 @@ import QuotationRequest from "../components/order/QuotationRequest";
 import WaitReply from "../components/order/WaitReply";
 import AskButton from "../components/AskButton";
 
-function MakeOrder() {
+function OrderCreate() {
 
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [data, setData] = useState(null); // or your fetching logic
@@ -101,4 +101,4 @@ function MakeOrder() {
     )
 }
 
-export default MakeOrder;
+export default OrderCreate;
