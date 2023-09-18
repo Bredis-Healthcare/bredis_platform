@@ -408,7 +408,7 @@ const OrderDetail = () => {
                                                         <div className="flex max-sm:flex-col max-sm:items-stretch">
                                                             <div className="flex flex-col items-stretch leading-[normal] w-[calc(10%_-_10px)] max-sm:w-full my-3">
                                                                 <div className="text-black text-[14px] font-light font-['Inter'] text-center flex flex-col my-3">
-                                                                    {message.senderId}
+                                                                    {message.senderName}
                                                                     <br />
                                                                     {message.createdDatetime}
                                                                 </div>
