@@ -45,7 +45,7 @@ function OrderList() {
             {userInfo ? (
                 <>
                     <Layout menuName="주문 내역">
-                        <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px]">
+                        <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px] pt-[40px]">
                             {
                                 userInfo.orderHistory.map((order, index) => (
                                     <div key={order.id}>
