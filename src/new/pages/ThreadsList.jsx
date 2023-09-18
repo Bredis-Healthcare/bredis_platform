@@ -57,7 +57,7 @@ function ThreadsList () {
 
                                             <div className=" left-[835px] top-0 absolute text-zinc-500 text-lg font-normal font-['Inter']">상태</div>
                                             <div className=" left-[817px] top-[30px] absolute text-lime-500 text-2xl font-bold font-['Inter']">{thread.status}</div>
-                                            <div className="20220831143000 left-0 top-[67px] absolute text-zinc-500 text-lg font-normal font-['Inter']">생성일시: {thread.createdDatetime}</div>
+                                            <div className="20220831143000 left-0 top-[67px] absolute text-zinc-500 text-lg font-normal font-['Inter']">문의일시: {thread.createdDatetime}</div>
                                             {
                                                 thread.status !== '종료' ? (<div />) : (
                                                     <div className="20230331150000 left-[807px] top-[68px] absolute text-zinc-500 text-lg font-normal font-['Inter']">종료일시: {thread.updatedDatetime}</div>
