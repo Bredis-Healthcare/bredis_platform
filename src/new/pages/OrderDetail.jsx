@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation,} from "react-router-dom";
+import {Link, useLocation,} from "react-router-dom";
 import axios from "../../api/axios";
 import Layout from "../components/Layout";
+import {useCookies} from "react-cookie";
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -16,7 +17,9 @@ export async function adminloader({ params }) {
 }
 
 const OrderDetail = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [data, setData] = useState(null); // or your fetching logic
+    const [threadData, setThreadData] = useState(null); // or your fetching logic
     const [statusList, setStatusList] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const location = useLocation()
@@ -28,9 +31,11 @@ const OrderDetail = () => {
     const fetchData = async () => {
         try {
             const request = await axios.get(`/orders/${location.state.orderNumber}/detail`);
+            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${location.state.orderNumber}`);
             const statusRequest = await axios.get(`/protocols`);
     
             setData(request.data);
+            setThreadData(threadsRequest.data)
             setStatusList(statusRequest.data.orderStatusList)
             setSelectedOption(request.data.status)
             console.log("request", request, "statusRequest", statusRequest)
@@ -53,6 +58,20 @@ const OrderDetail = () => {
     }
     const toggleThreadInfo = () => {
         setToggleThreadInfo(threadInfoOn => !threadInfoOn);
+    }
+
+    const [sendModeOn, setSendMode] = useState(false);
+
+    const toggleSendMode = () => {
+        setSendMode(sendModeOn => !sendModeOn); // on,off 개념 boolean
+    }
+
+    async function submitMessage() {
+        let contents = document.getElementById("message").value
+        if (window.confirm("메시지를 전송하시겠습니까?")) {
+            await axios.post(`/messages`, { "threadId": threadData.id, "content": contents, "senderId": cookies.login && cookies.login['id']});
+            window.location.reload();
+        }
     }
 
     return (
@@ -382,76 +401,55 @@ const OrderDetail = () => {
                                             <div className="text-black not-italic font-bold text-[20px] mt-[-0px] flex flex-col">
                                                 메시지
                                             </div>
-                                            <div className="w-full max-w-[972px] flex flex-col ml-[2px] mt-[43px] max-md:ml-[2px]">
-                                                <div className="flex max-sm:flex-col max-sm:items-stretch">
-                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(8%_-_10px)] max-sm:w-full">
-                                                        <div className="text-black text-[15px] font-light font-['Inter'] text-center flex flex-col mt-[46px] max-md:mt-[50px]">
-                                                            김철수
-                                                            <br />
-                                                            2023.08.31 16:00:00
+                                            <div className="w-full max-w-[972px] left-[0px] top-[0px] self-center flex flex-col mt-[10px] relative">
+                                                {threadData.messages.map((message, index) => (
+                                                    <div>
+                                                        <div className="Line2 flex flex-col w-[1013px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
+                                                        <div className="flex max-sm:flex-col max-sm:items-stretch">
+                                                            <div className="flex flex-col items-stretch leading-[normal] w-[calc(10%_-_10px)] max-sm:w-full my-3">
+                                                                <div className="text-black text-[14px] font-light font-['Inter'] text-center flex flex-col my-3">
+                                                                    {message.senderId}
+                                                                    <br />
+                                                                    {message.createdDatetime}
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex flex-col items-stretch leading-[normal] w-[calc(90%_-_10px)] ml-[20px] max-sm:w-full my-5">
+                                                                <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col my-5">
+                                                                    {message.content}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(92%_-_10px)] ml-[20px] max-sm:w-full">
-                                                        <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col max-md:mt-[46px]">
-                                                            안녕하십니까, 메디이노파트너스(MIP) 이충희 입니다. <br />
-                                                            저희는 바이오/헬스 전문 창업기획자 (AC) 로서 의료진창업회사에 주로
-                                                            투자하여왔으며 주로 의료진 LP 들께 바이오/헬스 관련 전도유망한
-                                                            기업들을 소개하고 있습니다. <br />
-                                                            저희 MIP의 포트폴리오 확장 차원에서 기업들을 발굴 중에 연락을
-                                                            드리게 되었습니다. <br />
-                                                            가능하시다면, 저희도 소개드리고, 브레디스의 기술과 미래에 대해서
-                                                            대화를 나누는 자리를 함께 하였으면 좋겠습니다. <br />
-                                                            그럼 연락 부탁드리겠습니다. <br />
-                                                            <br />
-                                                            감사합니다 <br />
-                                                            이충희 드림
-                                                        </div>
-                                                    </div>
+                                                ))}
+                                                <div className="Line2 flex flex-col w-[1013px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
+                                                <div className={`${sendModeOn ? 'block' : 'hidden'}`}>
+                                                    <div className=" w-[415px] h-[22px] text-neutral-700 text-[15px] mt-5 font-medium font-['Inter']">※ 간단한 주의사항...</div>
+                                                    <textarea id="message" rows="12" className="resize-none left-[0px] top-[10px] relative block p-2.5 mb-3 w-[990px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="메시지를 입력해주세요."></textarea>
+                                                </div>
+                                                <div className="flex flex-row-reverse max-sm:flex-col max-sm:items-stretch">
+                                                    <button className={`${sendModeOn ? 'hidden' : 'block'} w-[120px] h-[35px] relative mx-2 my-2`}
+                                                            onClick={()=>toggleSendMode()}>
+                                                        <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                                                        <div className=" w-[101px] h-[17px] left-[10px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">메시지 작성</div>
+                                                    </button>
+                                                    <button className={`${sendModeOn ? 'block' : 'hidden'} w-[120px] h-[35px] relative mx-2 my-2`}
+                                                            onClick={() => submitMessage()}>
+                                                        <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                                                        <div className=" w-[101px] h-[17px] left-[10px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">메시지 전송</div>
+                                                    </button>
+                                                    <Link to="/orders/list" className={`${sendModeOn ? 'hidden' : 'block'}`}>
+                                                        <button className=" w-[120px] h-[35px] relative mx-2 my-2">
+                                                            <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                                            <div className=" w-[79px] h-[17px] left-[20px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
+                                                        </button>
+                                                    </Link>
+                                                    <button className={`${sendModeOn ? 'block' : 'hidden'} w-[120px] h-[35px] relative mx-2 my-2`}
+                                                            onClick={()=>toggleSendMode()}>>
+                                                        <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                                        <div className=" w-[79px] h-[17px] left-[20px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">취소</div>
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div className="w-full max-w-[972px] flex flex-col ml-[2px] mt-[43px] max-md:ml-[2px]">
-                                                <div className="flex max-sm:flex-col max-sm:items-stretch">
-                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(8%_-_10px)] max-sm:w-full">
-                                                        <div className="text-black text-[15px] font-light font-['Inter'] text-center flex flex-col mt-[46px] max-md:mt-[50px]">
-                                                            김철수
-                                                            <br />
-                                                            2023.08.31 16:00:00
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex flex-col items-stretch leading-[normal] w-[calc(92%_-_10px)] ml-[20px] max-sm:w-full">
-                                                        <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col max-md:mt-[46px]">
-                                                            안녕하십니까, 메디이노파트너스(MIP) 이충희 입니다. <br />
-                                                            저희는 바이오/헬스 전문 창업기획자 (AC) 로서 의료진창업회사에 주로
-                                                            투자하여왔으며 주로 의료진 LP 들께 바이오/헬스 관련 전도유망한
-                                                            기업들을 소개하고 있습니다. <br />
-                                                            저희 MIP의 포트폴리오 확장 차원에서 기업들을 발굴 중에 연락을
-                                                            드리게 되었습니다. <br />
-                                                            가능하시다면, 저희도 소개드리고, 브레디스의 기술과 미래에 대해서
-                                                            대화를 나누는 자리를 함께 하였으면 좋겠습니다. <br />
-                                                            그럼 연락 부탁드리겠습니다. <br />
-                                                            <br />
-                                                            감사합니다 <br />
-                                                            이충희 드림
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/*<div className="w-full max-w-[247px] mb-[-0px] z-[1] flex flex-row gap-[20px] items-start flex-wrap justify-between ml-[7px] mt-[42px] max-md:ml-[7px]">*/}
-                                            {/*    <div className="text-black not-italic font-light text-[14px] flex flex-col min-w-[75px] mt-[2px]">*/}
-                                            {/*        관리자*/}
-                                            {/*        <br />*/}
-                                            {/*        2023.09.01 12:30:00*/}
-                                            {/*    </div>*/}
-                                            {/*    <div className="text-black not-italic font-medium text-[14px] self-stretch flex flex-col min-w-[131px]">*/}
-                                            {/*        관리자 메시지입니다.*/}
-                                            {/*        <br />*/}
-                                            {/*        <br />*/}
-                                            {/*        감사합니다.*/}
-                                            {/*    </div>*/}
-                                            {/*</div>*/}
-                                            <div className="Line2 w-[1013.17px] h-[0px] left-[0px] top-[36.10px] absolute border border-black border-opacity-25"></div>
-                                            <div className="Line4 w-[1013.17px] h-[0px] left-[0px] top-[243.70px] absolute border border-black border-opacity-25"></div>
-                                            <div className="Line3 w-[311px] h-[0px] left-[90px] top-[36px] absolute origin-top-left rotate-90 border border-black border-opacity-25"></div>
                                         </div>
 
 
@@ -467,6 +465,13 @@ const OrderDetail = () => {
                                         {/*    <div className="20230901123000 w-[101px] h-[60px] left-[19px] top-[267px] absolute text-black text-[15px] font-light font-['Inter']">관리자<br/>2023.09.01 12:30:00</div>*/}
                                         {/*</div>*/}
                                     </div>
+
+                                    <Link to="/orders/list" className={`threadInfoOn ${threadInfoOn ? 'hidden' : 'block'}`}>
+                                        <button className=" w-[120px] h-[35px] left-[920px] top-[60px] relative mx-2 my-2">
+                                            <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                            <div className=" w-[79px] h-[17px] left-[20px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

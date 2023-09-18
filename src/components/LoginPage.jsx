@@ -25,7 +25,7 @@ const LoginPage = () => {
                     console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                     setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                     console.log("자동로그인되었습니다")
-                    navigate(`/Mypage`);
+                    navigate(`/`);
                     
     
                 } catch (error) {
@@ -50,7 +50,7 @@ const LoginPage = () => {
                 });
                 console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                 setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                navigate(`/Mypage`);
+                navigate(`/`);
                 
 
             } catch (error) {
