@@ -2,14 +2,90 @@ import React, {useState} from "react";
 import TableCell from "./TableCell";
 import Select from "react-select";
 import TableHeaderCell from "./TableHeaderCell";
+import axios from "../../../api/axios";
 
 function QuotationRequest (props) {
     let data = props.data
 
     const [inputModeOn, setInputMode] = useState(false);
+    const [selectedBiomarkers, setSelectedBiomarkers] = useState([]);
+    const [selectedSampleType, setSelectedSampleType] = useState("");
+    const [selectedRepetition, setSelectedRepetition] = useState("");
+    const [selectedAddAnalysis, setSelectedAddAnalysis] = useState([]);
+
+    const biomarkerOptions = [
+        { value: "GFAP", label: "GFAP" },
+        { value: "BDNF", label: "BDNF" },
+        { value: "NfL", label: "NfL" },
+        { value: "AB40", label: "AB40" },
+        { value: "AB42", label: "AB42" },
+        { value: "p-Tau231", label: "p-Tau231" },
+        { value: "p-Tau181", label: "p-Tau181" },
+    ];
+
+    const additionalAnalysisOptions = [
+        { value: "없음", label: "없음" },
+        { value: "Amyloid PET Positivity Prediction", label: "Amyloid PET Positivity Prediction" },
+        { value: "Cognitive Stage Transition Prediction", label: "Cognitive Stage Transition Prediction" }
+    ]
+
+    const handleBiomarkersChange = (e) => {
+        setSelectedBiomarkers(Array.isArray(e) ? e.map(x => x.value) : []);
+    }
+    const handleAddAnalysisChange = (e) => {
+        setSelectedAddAnalysis(Array.isArray(e) ? e.map(x => x.value) : []);
+    }
 
     const toggleInputMode = () => {
         setInputMode(inputModeOn => !inputModeOn); // on,off 개념 boolean
+    }
+
+    async function saveRow() {
+        // let organization = document.getElementById("organizationInput").value
+        // if (!organization) {
+        //     alert("의뢰 기관을 입력해주세요.")
+        //     return
+        // }
+
+        let uniqueNumber = document.getElementById("uniqueNumberInput").value
+        if (!uniqueNumber) {
+            alert("고유번호를 입력해주세요.")
+            return
+        }
+        if (selectedBiomarkers.length < 1) {
+            alert("바이오마커를 선택해주세요.")
+            return
+        }
+        if (!selectedSampleType) {
+            alert("샘플 종류를 선택해주세요.")
+            return
+        }
+        if (!selectedRepetition) {
+            alert("반복 횟수를 선택해주세요.")
+            return
+        }
+        let volume = document.getElementById("volumeInput").value
+        if (!volume) {
+            alert("용량을 입력해주세요.")
+            return
+        }
+
+
+        data.content.sampleDataList.push({
+            "number": `${data.content.sampleDataList.length + 1}`,
+            "uniqueNumber": uniqueNumber,
+            "biomarkers": selectedBiomarkers,
+            "sampleType": selectedSampleType,
+            "repetition": selectedRepetition,
+            "volume": volume + 'μl',
+            "additionalAnalysis": selectedAddAnalysis
+        })
+
+        console.log(data.content)
+        await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
+
+        toggleInputMode()
+
     }
     return (
         <div className="top-[-150px] relative">
@@ -78,18 +154,11 @@ function QuotationRequest (props) {
                             </TableCell>
                             <TableCell minWidth="200px">
                                 <Select isMulti name="biomarkersSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full`} classNamePrefix="select"
-                                    options={[
-                                        { value: "GFAP", label: "GFAP" },
-                                        { value: "BDNF", label: "BDNF" },
-                                        { value: "NfL", label: "NfL" },
-                                        { value: "AB40", label: "AB40" },
-                                        { value: "AB42", label: "AB42" },
-                                        { value: "p-Tau231", label: "p-Tau231" },
-                                        { value: "p-Tau181", label: "p-Tau181" },
-                                    ]}/>
+                                        value={biomarkerOptions.filter(obj => selectedBiomarkers.includes(obj.value))} onChange={handleBiomarkersChange} options={biomarkerOptions}/>
                             </TableCell>
                             <TableCell minWidth="110px">
                                 <Select name="sampleTypeSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select"
+                                        onChange={(choice) => setSelectedSampleType(choice.value)}
                                         options={[
                                             { value: "EDTA Plasma", label: "EDTA Plasma" },
                                             { value: "Serum", label: "Serum" },
@@ -98,6 +167,7 @@ function QuotationRequest (props) {
                             </TableCell>
                             <TableCell minWidth="110px">
                                 <Select name="repetitionSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select"
+                                        onChange={(choice) => setSelectedRepetition(choice.value)}
                                         options={[
                                             { value: "Single", label: "Single" },
                                             { value: "Duplicate", label: "Duplicate" },
@@ -114,11 +184,7 @@ function QuotationRequest (props) {
                             </TableCell>
                             <TableCell minWidth="200px">
                                 <Select isMulti name="additionalAnalysisSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full`} classNamePrefix="select"
-                                        options={[
-                                            { value: "없음", label: "없음" },
-                                            { value: "Amyloid PET Positivity Prediction", label: "Amyloid PET Positivity Prediction" },
-                                            { value: "Cognitive Stage Transition Prediction", label: "Cognitive Stage Transition Prediction" }
-                                        ]}/>
+                                        value={additionalAnalysisOptions.filter(obj => selectedAddAnalysis.includes(obj.value))} onChange={handleAddAnalysisChange} options={additionalAnalysisOptions}/>
                             </TableCell>
                             <TableCell>
                                     <button className={`${inputModeOn ? 'hidden' : 'inline-block'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleInputMode()}>
@@ -133,7 +199,7 @@ function QuotationRequest (props) {
                                     <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />
                                     <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']">취소</div>
                                 </button>
-                                <button className={`${inputModeOn ? 'inline-block' : 'hidden'} w-[41px] h-[26px] relative mx-1`} onClick={()=>toggleInputMode()}>
+                                <button className={`${inputModeOn ? 'inline-block' : 'hidden'} w-[41px] h-[26px] relative mx-1`} onClick={()=>saveRow()}>
                                     <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
                                     <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">저장</div>
                                 </button>
@@ -141,7 +207,6 @@ function QuotationRequest (props) {
                         </tr>
                     }
                     </tbody>
-                    <script src="./multiselect-dropdown.js" ></script>
                 </table>
             </div>
 
