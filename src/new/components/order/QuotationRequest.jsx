@@ -1,8 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import TableCell from "./TableCell";
 
 function QuotationRequest (props) {
     let data = props.data
+
+    const [inputModeOn, setInputMode] = useState(false);
+
+    const toggleInputMode = () => {
+        setInputMode(inputModeOn => !inputModeOn); // on,off 개념 boolean
+    }
     return (
         <div className="top-[-150px] relative">
             <div className="Rectangle30 w-[861px] h-[1020px] left-[428px] top-[363px] absolute bg-white shadow" />
@@ -31,7 +37,7 @@ function QuotationRequest (props) {
                         {
                             ['번호', '고유번호','바이오마커','샘플 종류','반복 횟수','용량','추가 분석','동작'].map((name) => (
                                 <th style={{backgroundColor: '#f0f0f0', borderColor: '#ccc', color:'#333', borderStyle: 'solid', borderWidth: '1px', fontFamily: 'Arial sansSerif', fontSize: '14px',
-                                    fontWeight: 'bold', overflow:'hidden', padding:'10px 5px', wordBreak: 'break-all'}}>{name}</th>
+                                    fontWeight: 'bold', overflow:'hidden', padding:'8px 6px', wordBreak: 'break-all'}}>{name}</th>
                             ))
                         }
                     </tr>
@@ -64,16 +70,70 @@ function QuotationRequest (props) {
                             <TableCell>
                                 {data.content.sampleDataList.length + 1}
                             </TableCell>
-                            <TableCell/><TableCell/><TableCell/><TableCell/><TableCell/><TableCell/>
                             <TableCell>
-                                    <button className=" w-[41px] h-[26px] relative mx-1">
+                                <input id="uniqueNumberInput" type="text" placeholder="고유번호" className={`${inputModeOn ? 'block' : 'hidden'} w-[70px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                            </TableCell>
+                            <TableCell>
+                                <select id="biomarkerSelect" multiple className={`${inputModeOn ? 'block' : 'hidden'}`}>
+                                    {/*<option value="" selected disabled style={{display: 'none'}}>바이오마커</option>*/}
+                                    <option value="GFAP">GFAP</option>
+                                    <option value="BDNF">BDNF</option>
+                                    <option value="NfL">NfL</option>
+                                    <option value="AB40">AB40</option>
+                                    <option value="AB42">AB42</option>
+                                    <option value="AB42">AB42</option>
+                                    <option value="AB42">AB42</option>
+                                    <option value="AB42">AB42</option>
+                                    <option value="AB42">AB42</option>
+                                    <option value="AB42">AB42</option>
+                                </select>
+                            </TableCell>
+                            <TableCell>
+                                <select id="sampleTypeSelect" className={`${inputModeOn ? 'block' : 'hidden'}`}>
+                                    <option value="EDTA Plasma">EDTA Plasma</option>
+                                    <option value="Serum">Serum</option>
+                                    <option value="CSF">CSF</option>
+                                </select>
+                            </TableCell>
+                            <TableCell>
+                                <select id="repetitionSelect" className={`${inputModeOn ? 'block' : 'hidden'}`}>
+                                    <option value="Single">Single</option>
+                                    <option value="Duplicate">Duplicate</option>
+                                    <option value="Triplicate">Triplicate</option>
+                                    <option value="Quadruplicate">Quadruplicate</option>
+                                </select>
+                            </TableCell>
+                            <TableCell>
+                                <div className={`${inputModeOn ? 'block' : 'hidden'}`}>
+                                    <input id="volumeInput" type="text" placeholder="용량" className={`w-[40px] h-[25px] mr-1 text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                                    μl
+                                </div>
+
+                            </TableCell>
+                            <TableCell>
+                                <select id="additionalAnalysisSelect" multiple className={`${inputModeOn ? 'block' : 'hidden'}`}>
+                                    <option value="없음">없음</option>
+                                    <option value="Amyloid PET Positivity Prediction">Amyloid PET Positivity Prediction</option>
+                                    <option value="Cognitive Stage Transition Prediction">Cognitive Stage Transition Prediction</option>
+                                </select>
+                            </TableCell>
+                            <TableCell>
+                                    <button className={`${inputModeOn ? 'hidden' : 'inline-block'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleInputMode()}>
                                         <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
                                         <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">복제</div>
                                     </button>
-                                    <button className=" w-[41px] h-[26px] relative mx-1">
+                                    <button className={`${inputModeOn ? 'hidden' : 'inline-block'} w-[41px] h-[26px] relative mx-1`} onClick={()=>toggleInputMode()}>
                                         <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
                                         <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">신규</div>
                                     </button>
+                                <button className={`${inputModeOn ? 'inline-block' : 'hidden'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleInputMode()}>
+                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />
+                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']">취소</div>
+                                </button>
+                                <button className={`${inputModeOn ? 'inline-block' : 'hidden'} w-[41px] h-[26px] relative mx-1`} onClick={()=>toggleInputMode()}>
+                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">저장</div>
+                                </button>
                             </TableCell>
                         </tr>
                     }
