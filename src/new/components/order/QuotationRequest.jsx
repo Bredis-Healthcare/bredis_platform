@@ -101,7 +101,7 @@ function QuotationRequest (props) {
         <div className="relative">
             <div className="Rectangle30 w-[1100px] h-[1200px] left-[300px] top-[205px] absolute bg-white shadow" />
 
-            <div className="relative left-[10px] h-[380px]">
+            <div className="relative left-[10px] h-[370px]">
                 <div className=" w-[95px] h-[17px] left-[380px] top-[250px] absolute text-slate-500 text-lg font-bold font-['Inter']">의뢰 기관: </div>
                 <input id="organizationInput" type="text" defaultValue={data.content.organization} className={`w-[200px] h-[30px] px-1.5 left-[459px] top-[250px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                 <div className=" w-[95px] h-[17px] left-[380px] top-[293px] absolute text-slate-500 text-lg font-bold font-['Inter']">담당자:</div>
@@ -114,14 +114,14 @@ function QuotationRequest (props) {
                 <input id="emailInput" type="email" defaultValue={data.content.email} className={`w-[200px] h-[30px] px-1.5 left-[1110px] top-[293px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
             </div>
 
-            <div className="relative top-[0px] h-auto">
+            <div className="relative top-[0px] h-[630px]">
                 <div className=" w-[297px] h-[17px] left-[390px] top-[12px] relative text-slate-500 text-lg font-bold font-['Inter']">샘플 및 분석 대상 바이오마커 정보 입력</div>
                 <div className=" w-[214px] h-6 left-[1130px] top-[0px] relative">
                     <div className=" left-0 top-[0px] absolute text-sky-900 text-[15px] font-bold font-['Inter']">바이오마커 상세 목록 다운로드</div>
                     <div className="ImportLight w-6 h-6 left-[190px] top-0 absolute flex-col justify-start items-start inline-flex" />
                 </div>
                 {/*테이블 높이는 600으로 고정시키고 싶다.*/}
-                <div id="table" className="left-[390px] top-[10px] relative" style={{overflow: 'visible'}}>
+                <div id="table" className="left-[390px] top-[10px] w-auto float-left relative max-h-[580px] overflow-y-scroll">
                     <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0}}>
                         <thead>
                         <tr>
@@ -135,7 +135,7 @@ function QuotationRequest (props) {
                             <TableHeaderCell value="동작" />
                         </tr>
                         </thead>
-                        <tbody className="h-[500px] overflow-y-auto">
+                        <tbody>
                         {
                             data.content.sampleDataList.map((row, index) => (
                                 <tr>
