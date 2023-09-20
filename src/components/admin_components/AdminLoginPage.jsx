@@ -35,7 +35,9 @@ const LoginPage = () => {
 
     return (
         <LoginContainer>
-            <p>연구서비스 플랫폼 어드민에 오신 것을 환영합니다.</p>
+            <p>연구서비스 플랫폼 어드민에 오신 것을 환영합니다.</p>에
+            <p>info@bredis.co.kr</p>
+            <p>bredisAdmin!1</p>
             <form onSubmit={handleLogin}>
                 <LoginInput
                     type="email"

@@ -13,9 +13,11 @@ import OrderCreate from "./new/pages/OrderCreate";
 import ThreadsList from "./new/pages/ThreadsList";
 import ThreadsCreate from "./new/pages/ThreadsCreate";
 import ThreadsDetail from "./new/pages/ThreadsDetail";
-import MembersList from "./new/pages/MembersList";
+import MembersList from "./new/pages/admin/MembersList";
 import AdminLoginPage from "./components/admin_components/AdminLoginPage";
-import MembersDetail from "./new/pages/MembersDetail";
+import MembersDetail from "./new/pages/admin/MembersDetail";
+import AdminOrderList from "./new/pages/admin/AdminOrderList";
+import AdminOrderDetail from "./new/pages/admin/AdminOrderDetail";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +75,16 @@ const router = createBrowserRouter([
     {
         path: "/admin-page/members/detail",
         element: <MembersDetail/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/orders",
+        element: <AdminOrderList/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/orders/detail",
+        element: <AdminOrderDetail/>,
         errorElement: <ErrorPage/>
     },
 ]);

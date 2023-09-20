@@ -1,6 +1,6 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import React, {useEffect, useState} from "react";
-import axios from "../../api/axios";
+import axios from "../../../api/axios";
 import {Link, useLocation} from "react-router-dom";
 
 function MembersDetail() {
@@ -37,10 +37,12 @@ function MembersDetail() {
                         </div>
                         <div className="Group23 w-[485px] h-[226px] left-[726px] top-[633px] absolute">
                             <div className="Rectangle22 w-[485px] h-[226px] left-0 top-0 absolute bg-white shadow" />
-                            <div className=" w-[120px] h-[35px] left-[332px] top-[175px] absolute">
-                                <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
-                                <div className=" w-[90px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">전체 보기 ></div>
-                            </div>
+                            <Link to="/admin-page/members/orders" state={{memberId: data.id}}>
+                                <button className=" w-[120px] h-[35px] left-[332px] top-[175px] absolute">
+                                    <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
+                                    <div className=" w-[90px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">전체 보기 ></div>
+                                </button>
+                            </Link>
                             <div className="Group22 w-[297px] h-[94px] left-[94px] top-[57px] absolute">
                                 <div className="Group19 w-[85px] h-[94px] left-[106px] top-0 absolute">
                                     <div className=" w-7 h-[41px] left-[29px] top-[6px] absolute text-zinc-500 text-[45px] font-bold font-['Inter']">0</div>
