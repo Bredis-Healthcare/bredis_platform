@@ -3,6 +3,7 @@ import {Link, useLocation,} from "react-router-dom";
 import axios from "../../../api/axios";
 import Layout from "../../components/Layout";
 import {useCookies} from "react-cookie";
+import Select from "react-select";
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -29,6 +30,9 @@ const AdminOrderDetail = () => {
     const [threadInfoOn, setToggleThreadInfo] = useState(false);
 
     const [editStatusOn, setEditStatusOn] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState("");
+    const [editRequestDetailOn, setEditRequestDetailOn] = useState(false);
+
 
     useEffect(() => {
         fetchData();
@@ -73,6 +77,30 @@ const AdminOrderDetail = () => {
         setEditStatusOn(editStatusOn => !editStatusOn); // on,off 개념 boolean
     }
 
+    async function saveStatus() {
+        if (!selectedStatus) {
+            alert("주문 상태를 선택해주세요.")
+            return
+        }
+        await axios.patch(`/orders/${data.orderNumber}/status?status=${selectedStatus}`);
+        window.location.reload();
+    }
+
+    function toggleEditRequestDetail() {
+        setEditRequestDetailOn(editRequestDetailOn => !editRequestDetailOn); // on,off 개념 boolean
+
+    }
+
+    async function saveRequestDetail() {
+        let editContent = document.getElementById("requestDetailInput").value
+        if (!editContent) {
+            alert("의뢰 내용을 입력해주세요.")
+            return
+        }
+        await axios.patch(`/orders/${data.orderNumber}/request-detail`,{"requestDetail": `${editContent}`});
+        window.location.reload();
+    }
+
     async function submitMessage() {
         let contents = document.getElementById("message").value
         if (window.confirm("메시지를 전송하시겠습니까?")) {
@@ -98,12 +126,24 @@ const AdminOrderDetail = () => {
                                                 <div className="text-black not-italic font-bold text-[22px] flex flex-col mt-[15px]">
                                                     {data.title}
                                                 </div>
-                                                <div className="text-[#888988] not-italic font-normal text-[16px] flex flex-col mt-[26px]">
-                                                    의뢰내용
+                                                <div className="flex flex-row">
+                                                    <div className="text-[#888988] not-italic font-normal text-[16px] flex flex-col mt-[26px]">
+                                                        의뢰내용
+                                                    </div>
+                                                    <button className={`editButton ${editRequestDetailOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditRequestDetail()}>
+                                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[18px] self-stretch shrink-0"/>
+                                                    </button>
+                                                    <button className={`saveButton ${editRequestDetailOn ? 'block' : 'hidden'}`} onClick={()=>saveRequestDetail()}>
+                                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[18px] mx-[3px] self-stretch shrink-0"/>
+                                                    </button>
                                                 </div>
-                                                <div className="text-black not-italic font-normal text-[18px] self-stretch flex flex-col mt-[16px]">
+
+                                                <div className={`${editRequestDetailOn ? 'hidden' : 'block'} w-[500px] text-black not-italic font-normal text-[18px] self-stretch flex flex-col mt-[16px]`}>
                                                     {data.requestDetail}
                                                 </div>
+                                                <textarea id="requestDetailInput" rows="4" className={`${editRequestDetailOn ? 'block' : 'hidden'} resize-none left-[0px] mt-5 relative block p-2.5 w-[500px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
+                                                    {data.requestDetail}
+                                                </textarea>
 
 
                                             </div>
@@ -147,14 +187,22 @@ const AdminOrderDetail = () => {
                                                                 <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col ml-[2px]">
                                                                     상태
                                                                 </div>
-                                                                <button className={`${editStatusOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditStatus()}>
+                                                                <button className={`editButton ${editStatusOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditStatus()}>
                                                                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] self-stretch shrink-0"/>
                                                                 </button>
-                                                                <button className={`${editStatusOn ? 'block' : 'hidden'}`} onClick={()=>toggleEditStatus()}>
+                                                                <button className={`saveButton ${editStatusOn ? 'block' : 'hidden'}`} onClick={()=>saveStatus()}>
                                                                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mx-[3px] self-stretch shrink-0"/>
                                                                 </button>
                                                             </div>
-                                                            <div className="text-[#035772] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]">
+                                                            <Select name="statusSelect" className={`${editStatusOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select"
+                                                                    onChange={(choice) => setSelectedStatus(choice.value)}
+                                                                    options={[
+                                                                        { value: "ANALYSIS_IN_PROGRESS", label: "분석중" },
+                                                                        { value: "ANALYSIS_COMPLETE", label: "분석 완료" },
+                                                                        { value: "Triplicate", label: "Triplicate" },
+                                                                        { value: "Quadruplicate", label: "Quadruplicate" }
+                                                                    ]}/>
+                                                            <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} text-[#035772] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>
                                                                 {data.status}
                                                             </div>
                                                         </div>
