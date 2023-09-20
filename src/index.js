@@ -13,6 +13,9 @@ import OrderCreate from "./new/pages/OrderCreate";
 import ThreadsList from "./new/pages/ThreadsList";
 import ThreadsCreate from "./new/pages/ThreadsCreate";
 import ThreadsDetail from "./new/pages/ThreadsDetail";
+import MembersList from "./new/pages/MembersList";
+import AdminLoginPage from "./components/admin_components/AdminLoginPage";
+import MembersDetail from "./new/pages/MembersDetail";
 
 const router = createBrowserRouter([
     {
@@ -56,7 +59,23 @@ const router = createBrowserRouter([
         element: <OrderDetail/>,
         errorElement: <ErrorPage/>,
         loader: OrderDetailLoader
-    }]);
+    },
+    {
+        path: "/admin-page/login",
+        element: <AdminLoginPage/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/list",
+        element: <MembersList/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/detail",
+        element: <MembersDetail/>,
+        errorElement: <ErrorPage/>
+    },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>

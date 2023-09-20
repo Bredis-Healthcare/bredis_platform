@@ -25,7 +25,7 @@ const LoginPage = () => {
                 });
                 console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                 setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                navigate("/admin/userlist" );
+                navigate("/admin-page/members/list" );
             } catch (error) {
                 console.error("Error while logging in:", error);
             }

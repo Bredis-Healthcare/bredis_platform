@@ -66,6 +66,10 @@ const Header = () => {
                     <img className=" w-[189px] h-[76px] left-0 top-0 absolute" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800" />
                 </Link>
 
+                <Link to={"/admin-page/members/list"}>
+                    <div className="left-[700px] top-[21px] absolute text-black text-[15px] font-bold">관리자 페이지</div>
+                </Link>
+
                 <Link to={"/"} onMouseOver={colorOn1} onMouseOut={colorOff1}>
                     <div className={`${isHovering1 ? 'block' : 'hidden'} w-[94px] h-[3px] left-[1099px] top-[16px] absolute bg-sky-900`} />
                     <div className={`${isHovering1 ? 'text-sky-900' : 'text-black'} left-[1099px] top-[32px] absolute text-black text-xl font-bold`}>서비스 소개</div>
