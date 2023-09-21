@@ -35,8 +35,11 @@ function AdminOrderCreate() {
         data.managerComment = e.target.value
     }
 
-    function toggleQuotationSuggestionOn(id) {
-
+    async function suggestQuotation(id) {
+        if (window.confirm("견적서를 전송하시겠습니까?")) {
+            await axios.post(`/quotation-requests/${id}/suggest-quotation`, { "quotationFileLink": "https://bredis.s3.ap-northeast-2.amazonaws.com/test-service/202308181119-987204/SAMPLE_DATA_202308181119-987204.pdf"});
+            window.location.reload();
+        }
     }
 
     async function submitComment(id) {
@@ -87,7 +90,7 @@ function AdminOrderCreate() {
                                         <div className=" w-[140px] h-[17px] left-[0px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">담당자 의견 전송</div>
                                     </button>
                                     <button className={`${commentOn ? 'hidden' : 'inline-block'} alwayson w-[114px] h-[35px] left-[950px] relative`}
-                                            onClick={() => toggleQuotationSuggestionOn(data.id)}>
+                                            onClick={() => suggestQuotation(data.id)}>
                                         <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
                                         <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">견적 제안</div>
                                     </button>
@@ -106,13 +109,13 @@ function AdminOrderCreate() {
                                 </div>
 
                             </div>
-                            <div className={`${data.status === 'QUOTATION_SUGGESTED' ? 'block' : 'hidden'} flex flex-row-reverse relative`}>
-                                <button className="alwayson w-[106px] h-[35px] relative"
+                            <div className={`${data.status === 'QUOTATION_SUGGESTED' ? 'block' : 'hidden'} top-[10px] right-[370px] flex flex-row-reverse relative`}>
+                                <div className=" w-[149px] h-[17px] my-[5px] text-sky-900 text-lg font-bold font-['Inter']">견적 제안 완료</div>
+                                <button className="alwayson w-[106px] h-[35px] relative mx-[20px]"
                                         onClick={() => navigate(-1)}>
                                     <div className="Rectangle7 w-[106px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
                                     <div className=" w-[80px] h-[17px] left-[15px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
                                 </button>
-                                <div className=" w-[149px] h-[17px] text-sky-900 text-lg font-bold font-['Inter']">견적 제안 완료</div>
                             </div>
 
                         </div>
