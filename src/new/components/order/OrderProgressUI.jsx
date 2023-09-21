@@ -5,7 +5,7 @@ const statusList = ['BEFORE_SUBMIT', 'SUBMITTED', 'OPINION_REGISTERED', 'QUOTATI
 function OrderProgressUI (props) {
     let statusNumber = statusList.indexOf(props.status)
     return (
-        <div className="Ui w-[683px] h-20 left-[492px] top-[80px] absolute">
+        <div className="Ui w-[683px] h-20 left-[492px] top-[80px] relative">
             <div className={`left-0 top-[56px] absolute text-slate-500 text-xl font-bold font-['Inter']`}>견적 요청서 작성</div>
             <div className="Group14 w-[45px] h-[45px] left-[39px] top-0 absolute">
                 <div className="Ellipse50 w-[45px] h-[45px] left-0 top-0 absolute rounded-full border-2 border-slate-500" />

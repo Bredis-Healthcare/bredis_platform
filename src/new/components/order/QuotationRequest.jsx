@@ -1,17 +1,33 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TableCell from "./TableCell";
 import Select from "react-select";
 import TableHeaderCell from "./TableHeaderCell";
 import axios from "../../../api/axios";
 
 function QuotationRequest (props) {
-    let data = props.data
+
 
     const [inputModeOn, setInputMode] = useState(false);
+    const [readOnly, setReadOnly] = useState(false);
     const [selectedBiomarkers, setSelectedBiomarkers] = useState([]);
     const [selectedSampleType, setSelectedSampleType] = useState("");
     const [selectedRepetition, setSelectedRepetition] = useState("");
     const [selectedAddAnalysis, setSelectedAddAnalysis] = useState([]);
+    const [inputAdditionalInfo, setInputAdditionalInfo] = useState("");
+
+    let data = props.data
+
+    useEffect(() => {
+        setReadOnly(props.readOnly)
+        if (props.readOnly) {
+            document.querySelectorAll('input').forEach(input => input.setAttribute("readOnly", ''))
+            document.querySelectorAll('button').forEach(button => {
+                if (!button.classList.contains('alwaysOn')) {
+                    button.style.display='none'
+                }
+            })
+        }
+    }, [])
 
     const biomarkerOptions = [
         { value: "GFAP", label: "GFAP" },
@@ -36,16 +52,18 @@ function QuotationRequest (props) {
         setSelectedAddAnalysis(Array.isArray(e) ? e.map(x => x.value) : []);
     }
 
+    const handleAdditionalInfoChange = (e) => {
+        setInputAdditionalInfo(e.target.value)
+    }
+
     const toggleInputMode = () => {
         setInputMode(inputModeOn => !inputModeOn); // on,off 개념 boolean
     }
 
     async function saveRow() {
-        // let organization = document.getElementById("organizationInput").value
-        // if (!organization) {
-        //     alert("의뢰 기관을 입력해주세요.")
-        //     return
-        // }
+        if (readOnly) {
+            return
+        }
 
         let uniqueNumber = document.getElementById("uniqueNumberInput").value
         if (!uniqueNumber) {
@@ -88,41 +106,41 @@ function QuotationRequest (props) {
     }
 
     async function deleteRow(e) {
-        if(!window.confirm("삭제하시겠습니까?")) {
+        if(readOnly || !window.confirm("삭제하시겠습니까?")) {
             return;
         }
-        data.content.sampleDataList.splice(e.target.attributes.rowNumber.value, 1);
+        data.content.sampleDataList.splice(e.target.attributes.rownumber.value, 1);
         await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
 
         toggleInputMode() //FIXME: 이것 호출 안해도 새로고침 되도록.
     }
 
     return (
-        <div className="relative">
-            <div className="Rectangle30 w-[1100px] h-[1200px] left-[300px] top-[205px] absolute bg-white shadow" />
+        <div className="Rectangle30 w-[1100px] h-[1200px] left-[300px] top-[120px] relative bg-white shadow">
+            {/*<div className="" />*/}
 
-            <div className="relative left-[10px] h-[370px]">
-                <div className=" w-[95px] h-[17px] left-[380px] top-[250px] absolute text-slate-500 text-lg font-bold font-['Inter']">의뢰 기관: </div>
-                <input id="organizationInput" type="text" defaultValue={data.content.organization} className={`w-[200px] h-[30px] px-1.5 left-[459px] top-[250px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
-                <div className=" w-[95px] h-[17px] left-[380px] top-[293px] absolute text-slate-500 text-lg font-bold font-['Inter']">담당자:</div>
-                <input id="managerNameInput" type="text" defaultValue={data.content.managerName} className={`w-[200px] h-[30px] px-1.5 left-[459px] top-[293px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
-                <div className=" w-[95px] h-[17px] left-[715px] top-[293px] absolute text-slate-500 text-lg font-bold font-['Inter']">전화번호:</div>
-                <input id="mobileInput" type="text" defaultValue={data.content.mobile} className={`w-[200px] h-[30px] px-1.5 left-[800px] top-[293px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
-                <div className=" w-[95px] h-[17px] left-[1050px] top-[250px] absolute text-slate-500 text-lg font-bold font-['Inter']">의뢰일: </div>
-                <input id="requestDateInput" type="date" defaultValue={data.content.requestDate.replaceAll('.', '-')} className={`w-[200px] h-[30px] px-1.5 left-[1110px] top-[250px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
-                <div className=" w-[95px] h-[17px] left-[1050px] top-[293px] absolute text-slate-500 text-lg font-bold font-['Inter']">이메일:</div>
-                <input id="emailInput" type="email" defaultValue={data.content.email} className={`w-[200px] h-[30px] px-1.5 left-[1110px] top-[293px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+            <div className="relative left-[10px] h-[170px]">
+                <div className=" w-[95px] h-[17px] left-[80px] top-[45px] absolute text-slate-500 text-lg font-bold font-['Inter']">의뢰 기관: </div>
+                <input id="organizationInput" type="text" defaultValue={data.content.organization} className={`w-[200px] h-[30px] px-1.5 left-[159px] top-[45px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                <div className=" w-[95px] h-[17px] left-[80px] top-[88px] absolute text-slate-500 text-lg font-bold font-['Inter']">담당자:</div>
+                <input id="managerNameInput" type="text" defaultValue={data.content.managerName} className={`w-[200px] h-[30px] px-1.5 left-[159px] top-[88px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                <div className=" w-[95px] h-[17px] left-[415px] top-[88px] absolute text-slate-500 text-lg font-bold font-['Inter']">전화번호:</div>
+                <input id="mobileInput" type="text" defaultValue={data.content.mobile} className={`w-[200px] h-[30px] px-1.5 left-[500px] top-[88px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                <div className=" w-[95px] h-[17px] left-[750px] top-[45px] absolute text-slate-500 text-lg font-bold font-['Inter']">의뢰일: </div>
+                <input id="requestDateInput" type="date" defaultValue={data.content.requestDate.replaceAll('.', '-')} className={`w-[200px] h-[30px] px-1.5 left-[810px] top-[45px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                <div className=" w-[95px] h-[17px] left-[750px] top-[88px] absolute text-slate-500 text-lg font-bold font-['Inter']">이메일:</div>
+                <input id="emailInput" type="email" defaultValue={data.content.email} className={`w-[200px] h-[30px] px-1.5 left-[810px] top-[88px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
             </div>
 
             <div className="relative top-[0px] h-[630px]">
-                <div className=" w-[297px] h-[17px] left-[390px] top-[12px] relative text-slate-500 text-lg font-bold font-['Inter']">샘플 및 분석 대상 바이오마커 정보 입력</div>
-                <div className=" w-[214px] h-6 left-[1130px] top-[0px] relative">
+                <div className=" w-[297px] h-[17px] left-[90px] top-[12px] relative text-slate-500 text-lg font-bold font-['Inter']">샘플 및 분석 대상 바이오마커 정보 입력</div>
+                <div className=" w-[214px] h-6 left-[830px] top-[0px] relative">
                     <div className=" left-0 top-[0px] absolute text-sky-900 text-[15px] font-bold font-['Inter']">바이오마커 상세 목록 다운로드</div>
                     <div className="ImportLight w-6 h-6 left-[190px] top-0 absolute flex-col justify-start items-start inline-flex" />
                 </div>
                 {/*테이블 높이는 600으로 고정시키고 싶다.*/}
-                <div id="table" className="left-[390px] top-[10px] w-auto float-left relative max-h-[580px] overflow-y-scroll">
-                    <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0}}>
+                <div id="table" className="left-[90px] top-[10px] w-auto float-left relative max-h-[580px] overflow-y-scroll">
+                    <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0, minWidth:'900px'}}>
                         <thead>
                         <tr>
                             <TableHeaderCell value="번호" minWidth="20px"/>
@@ -138,7 +156,7 @@ function QuotationRequest (props) {
                         <tbody>
                         {
                             data.content.sampleDataList.map((row, index) => (
-                                <tr>
+                                <tr key={index}>
                                     <TableCell value={`${index + 1}`} minWidth="20px" />
                                     <TableCell value={`${row.uniqueNumber}`} />
                                     <TableCell value={`${row.biomarkers ? row.biomarkers.join(' ') : ''}`} />
@@ -147,12 +165,12 @@ function QuotationRequest (props) {
                                     <TableCell value={`${row.volume}`} />
                                     <TableCell value={`${row.additionalAnalysis ? row.additionalAnalysis.join(', ') : ''}`} />
                                     <TableCell>
-                                        <button className=" w-[41px] h-[26px] relative mx-1" rowNumber={`${index}`}
+                                        <button className=" w-[41px] h-[26px] relative mx-1" rownumber={`${index}`}
                                                 onClick={(e) => deleteRow(e)}>
-                                            <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" rowNumber={`${index}`}/>
-                                            <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']" rowNumber={`${index}`}>삭제</div>
+                                            <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" rownumber={`${index}`}/>
+                                            <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']" rownumber={`${index}`}>삭제</div>
                                         </button>
-                                        <button className=" w-[41px] h-[26px] relative mx-1">
+                                        <button className="editButton w-[41px] h-[26px] relative mx-1">
                                             <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />
                                             <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']">수정</div>
                                         </button>
@@ -161,6 +179,7 @@ function QuotationRequest (props) {
                             ))
                         }
                         {
+                            readOnly ? <></> :
                             <tr>
                                 <TableCell value={`${data.content.sampleDataList.length + 1}`}minWidth="20px" />
                                 <TableCell>
@@ -227,25 +246,24 @@ function QuotationRequest (props) {
             </div>
 
             <div className="relative top-[10px]">
-                <div className="Group38 w-[123px] h-[63px] left-[1200px] relative my-5">
-                    <div className=" left-[16px] top-[44px] absolute text-zinc-500 text-[15px] font-bold font-['Inter']">양식 다운로드</div>
-                    <div className=" w-[123px] h-[35px] left-0 top-0 absolute">
+                <div className="Group38 w-[123px] flex flex-col left-[900px] relative my-5">
+                    <button className=" w-[123px] h-[35px] left-0 top-0 relative">
                         <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
                         <div className=" w-[93.48px] h-[17px] left-[18.27px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">파일 업로드</div>
-                    </div>
+                    </button>
+                    <button className="mt-[10px] relative text-zinc-500 text-[15px] font-bold font-['Inter']">양식 다운로드</button>
                     <div className="ImportLight w-5 h-[21px] left-[102px] top-[42px] absolute" />
                 </div>
 
-                <div className=" w-[134px] h-[17px] left-[390px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청일:</div>
-                <input id="sampleDeliveryWishDateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate.replaceAll('.', '-')} className={`w-[200px] h-[30px] px-1.5 left-[405px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
-                <div className=" w-[134px] h-[17px] left-[600px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">결과 보고 희망일:</div>
-                <input id="reportWishDateInput" type="date" defaultValue={data.content.reportWishDate.replaceAll('.', '-')} className={`w-[200px] h-[30px] px-1.5 left-[615px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
-                <div className=" w-[164px] h-[17px] left-[390px] top-[30px] relative text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청 주소:</div>
-                <input id="sampleDeliveryAddressInput" type="text" defaultValue={data.content.sampleDeliveryAddress} className={`w-[730px] h-[30px] px-1.5 left-[553px] top-[10px] relative inline text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                <div className=" w-[134px] h-[17px] left-[90px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청일:</div>
+                <input id="sampleDeliveryWishDateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate.replaceAll('.', '-')} className={`w-[200px] h-[30px] px-1.5 left-[105px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                <div className=" w-[134px] h-[17px] left-[300px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">결과 보고 희망일:</div>
+                <input id="reportWishDateInput" type="date" defaultValue={data.content.reportWishDate.replaceAll('.', '-')} className={`w-[200px] h-[30px] px-1.5 left-[315px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                <div className=" w-[164px] h-[17px] left-[90px] top-[30px] relative text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청 주소:</div>
+                <input id="sampleDeliveryAddressInput" type="text" defaultValue={data.content.sampleDeliveryAddress} className={`w-[730px] h-[30px] px-1.5 left-[253px] top-[10px] relative inline text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
 
-                <div className=" w-[95px] h-[17px] left-[390px] mt-10 relative text-slate-500 text-lg font-bold font-['Inter']">특이사항</div>
-                <textarea id="message" rows="4" className="resize-none left-[390px] mt-5 relative block p-2.5 w-[900px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...">
-                    {data.content.additionalInfo}
+                <div className=" w-[95px] h-[17px] left-[90px] mt-10 relative text-slate-500 text-lg font-bold font-['Inter']">특이사항</div>
+                <textarea value={inputAdditionalInfo ? inputAdditionalInfo : data.content.additionalInfo} onChange={(e)=>handleAdditionalInfoChange(e)}id="message" rows="4" className="resize-none left-[90px] mt-5 relative block p-2.5 w-[900px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...">
                 </textarea>
             </div>
         </div>

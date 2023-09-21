@@ -18,6 +18,7 @@ import AdminLoginPage from "./components/admin_components/AdminLoginPage";
 import MembersDetail from "./new/pages/admin/MembersDetail";
 import AdminOrderList from "./new/pages/admin/AdminOrderList";
 import AdminOrderDetail from "./new/pages/admin/AdminOrderDetail";
+import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
 
 const router = createBrowserRouter([
     {
@@ -85,6 +86,11 @@ const router = createBrowserRouter([
     {
         path: "/admin-page/members/orders/detail",
         element: <AdminOrderDetail/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/orders/create",
+        element: <AdminOrderCreate/>,
         errorElement: <ErrorPage/>
     },
 ]);

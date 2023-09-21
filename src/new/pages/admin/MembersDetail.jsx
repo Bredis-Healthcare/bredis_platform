@@ -90,13 +90,16 @@ function MembersDetail() {
                         <div className="Group26 w-[485px] h-[148px] left-[730px] top-[237px] absolute">
                             <div className="Group25 w-[485px] h-[148px] left-0 top-0 absolute">
                                 <div className="Rectangle21 w-[485px] h-[148px] left-0 top-0 absolute bg-white shadow" />
-                                <div className=" w-[120px] h-[35px] left-[345px] top-[69px] absolute">
-                                    <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
-                                    <div className=" w-[93px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">견적 상세 ></div>
-                                </div>
+                                <Link to="/admin-page/members/orders/create" state={{quotationRequestId: data.quotationRequestId}} className={`${data.quotationRequestId ? 'block' : 'hidden'}`}>
+                                    <button className=" w-[120px] h-[35px] left-[345px] top-[69px] absolute">
+                                        <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
+                                        <div className=" w-[93px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">상세 보기 ></div>
+                                    </button>
+                                </Link>
                                 <div className=" left-[12px] top-[14px] absolute text-neutral-800 text-2xl font-bold font-['Inter']">견적 요청</div>
                             </div>
-                            <div className=" left-[12px] top-[72px] absolute text-black text-2xl font-normal font-['Inter']">새로운 견적 요청이 있습니다.</div>
+                            <div className={`${data.quotationRequestId ? 'block' : 'hidden'} left-[12px] top-[72px] absolute text-black text-2xl font-normal font-['Inter']`}>견적 요청이 진행 중입니다.</div>
+                            <div className={`${data.quotationRequestId ? 'hidden' : 'block'} left-[12px] top-[72px] absolute text-black text-2xl font-normal font-['Inter']`}>진행 중인 견적 요청이 없습니다.</div>
                         </div>
                         <Link to="/admin-page/members/list">
                             <button className=" w-[120px] h-[35px] left-[1077px] top-[1020px] absolute">
