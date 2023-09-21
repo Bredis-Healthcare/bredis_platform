@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation,} from "react-router-dom";
+import {Link, useLocation, useNavigate,} from "react-router-dom";
 import axios from "../../api/axios";
 import Layout from "../components/Layout";
 import {useCookies} from "react-cookie";
@@ -23,6 +23,7 @@ const OrderDetail = () => {
     const [statusList, setStatusList] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const location = useLocation()
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchData();
@@ -437,12 +438,10 @@ const OrderDetail = () => {
                                                         <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
                                                         <div className=" w-[101px] h-[17px] left-[10px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">메시지 전송</div>
                                                     </button>
-                                                    <Link to="/orders/list" className={`${sendModeOn ? 'hidden' : 'block'}`}>
-                                                        <button className=" w-[120px] h-[35px] relative mx-2 my-2">
-                                                            <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
-                                                            <div className=" w-[79px] h-[17px] left-[20px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
-                                                        </button>
-                                                    </Link>
+                                                    <button className={`${sendModeOn ? 'hidden' : 'block'} w-[120px] h-[35px] relative mx-2 my-2`} onClick={()=>navigate(-1)}>
+                                                        <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                                        <div className=" w-[79px] h-[17px] left-[20px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
+                                                    </button>
                                                     <button className={`${sendModeOn ? 'block' : 'hidden'} w-[120px] h-[35px] relative mx-2 my-2`}
                                                             onClick={()=>toggleSendMode()}>>
                                                         <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
@@ -466,12 +465,11 @@ const OrderDetail = () => {
                                         {/*</div>*/}
                                     </div>
 
-                                    <Link to="/orders/list" className={`threadInfoOn ${threadInfoOn ? 'hidden' : 'block'}`}>
-                                        <button className=" w-[120px] h-[35px] left-[920px] top-[60px] relative mx-2 my-2">
-                                            <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
-                                            <div className=" w-[79px] h-[17px] left-[20px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
-                                        </button>
-                                    </Link>
+                                    <button className={`threadInfoOn ${threadInfoOn ? 'hidden' : 'block'} w-[120px] h-[35px] left-[920px] top-[60px] relative mx-2 my-2`}
+                                            onClick={()=>navigate(-1)}>
+                                        <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                        <div className=" w-[79px] h-[17px] left-[20px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
+                                    </button>
                                 </div>
                             </div>
                         </div>

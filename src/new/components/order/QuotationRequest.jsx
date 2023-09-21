@@ -141,7 +141,7 @@ function QuotationRequest (props) {
                                onChange={(e)=>{data.content.mobile = e.target.value; saveContent()}}
                                className={`w-[200px] h-[30px] px-1.5 left-[500px] top-[88px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                         <div className=" w-[95px] h-[17px] left-[750px] top-[45px] absolute text-slate-500 text-lg font-bold font-['Inter']">의뢰일: </div>
-                        <input id="requestDateInput" type="date" defaultValue={data.content.requestDate.replaceAll('.', '-')}
+                        <input id="requestDateInput" type="date" defaultValue={data.content.requestDate ? data.content.requestDate.replaceAll('.', '-') : ''}
                                onChange={(e)=>{data.content.requestDate = e.target.value.replaceAll('-', '.'); saveContent()}}
                                className={`w-[200px] h-[30px] px-1.5 left-[810px] top-[45px] absolute text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                         <div className=" w-[95px] h-[17px] left-[750px] top-[88px] absolute text-slate-500 text-lg font-bold font-['Inter']">이메일:</div>
@@ -157,7 +157,7 @@ function QuotationRequest (props) {
                             <div className="ImportLight w-6 h-6 left-[190px] top-0 absolute flex-col justify-start items-start inline-flex" />
                         </div>
                         {/*테이블 높이는 600으로 고정시키고 싶다.*/}
-                        <div id="table" className="left-[90px] top-[10px] w-auto float-left relative max-h-[580px] overflow-y-scroll">
+                        <div id="table" className="left-[90px] top-[10px] w-auto float-left relative min-h-[500px] max-h-[580px] overflow-y-scroll">
                             <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0, minWidth:'900px'}}>
                                 <thead>
                                 <tr>
@@ -274,11 +274,11 @@ function QuotationRequest (props) {
                         </div>
 
                         <div className=" w-[134px] h-[17px] left-[90px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청일:</div>
-                        <input id="sampleDeliveryWishDateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate.replaceAll('.', '-')}
+                        <input id="sampleDeliveryWishDateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate ? data.content.sampleDeliveryWishDate.replaceAll('.', '-') : ''}
                                onChange={(e)=>{data.content.sampleDeliveryWishDate = e.target.value.replaceAll('.', '-'); saveContent()}}
                                className={`w-[200px] h-[30px] px-1.5 left-[105px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                         <div className=" w-[134px] h-[17px] left-[300px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">결과 보고 희망일:</div>
-                        <input id="reportWishDateInput" type="date" defaultValue={data.content.reportWishDate.replaceAll('.', '-')}
+                        <input id="reportWishDateInput" type="date" defaultValue={data.content.reportWishDate ? data.content.reportWishDate.replaceAll('.', '-') : ''}
                                onChange={(e)=>{data.content.reportWishDate = e.target.value.replaceAll('.', '-'); saveContent()}}
                                className={`w-[200px] h-[30px] px-1.5 left-[315px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                         <div className=" w-[164px] h-[17px] left-[90px] top-[30px] relative text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청 주소:</div>

@@ -27,7 +27,7 @@ function ThreadsCreate () {
             <div className="2 w-[1667px] h-[955px] relative bg-neutral-100">
                 <div className=" w-[90px] h-[23px] left-[470px] top-[20px] relative text-black text-base font-bold font-['Inter'] mt-10">문의 유형<span className="text-red-500"> *</span> </div>
 
-                <select id="category" style={{appearance: 'none'}} rows="1" className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="문의 유형을 선택해주세요">
+                <select id="category" style={{appearance: 'none'}} className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="문의 유형을 선택해주세요">
                     <option value="" selected disabled style={{display: 'none'}}>문의 유형을 선택해주세요.</option>
                     <option value="BIOMARKER">바이오마커 검사</option>
                     <option value="KIT_DEVELOPMENT">신규 검사키트 개발</option>
@@ -49,12 +49,10 @@ function ThreadsCreate () {
                         <div className=" w-[98px] h-[17px] left-[12px] top-[5px] absolute text-white text-lg font-bold font-['Inter']">전송하기</div>
                     </button>
 
-                    <Link to={"/threads/list"}>
-                        <button className=" w-[120px] h-[35px] right-[565px] top-[30px] mx-2 my-2 relative">
-                            <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
-                            <div className=" w-[79px] h-[17px] left-[19px] top-[5px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
-                        </button>
-                    </Link>
+                    <button className=" w-[120px] h-[35px] right-[565px] top-[30px] mx-2 my-2 relative" onClick={()=>navigate(-1)}>
+                        <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
+                        <div className=" w-[79px] h-[17px] left-[19px] top-[5px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
+                    </button>
                 </div>
             </div>
         </Layout>

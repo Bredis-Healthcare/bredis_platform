@@ -6,6 +6,7 @@ import OrderProgressUI from "../components/order/OrderProgressUI";
 import QuotationRequest from "../components/order/QuotationRequest";
 import WaitReply from "../components/order/WaitReply";
 import AskButton from "../components/AskButton";
+import OrderStarted from "../components/order/OrderStarted";
 
 function OrderCreate() {
 
@@ -28,6 +29,13 @@ function OrderCreate() {
 
     async function submitRequest (id) {
         if (window.confirm("견적 요청서를 제출하시겠습니까?")) {
+
+            if (!data.content.organization) { alert("의뢰 기관명을 입력해주세요."); return }
+            if (!data.content.requestDate) { alert("의뢰일을 입력해주세요."); return }
+            if (!data.content.managerName) { alert("담당자를 입력해주세요."); return }
+            if (!data.content.mobile) { alert("전화번호를 입력해주세요."); return }
+            if (!data.content.email) { alert("이메일을 입력해주세요."); return }
+
             await axios.post(`/quotation-requests/submit`, { "id": id, "contents": data.content});
             window.location.reload();
         }
@@ -40,6 +48,13 @@ function OrderCreate() {
         }
     }
 
+    async function createOrder(id) {
+        if (window.confirm("주문을 진행합니다. 주문 이전에 견적서를 먼저 꼭 확인해주세요.")) {
+            await axios.post(`/quotation-requests/${id}/order`);
+            window.location.reload();
+        }
+    }
+
     return (
         <div>
             {data ? (
@@ -48,55 +63,75 @@ function OrderCreate() {
                     <div className="12 w-[1667px] flex flex-col relative bg-neutral-100">
                         <OrderProgressUI status={data.status} />
                         {
-                            data.status === 'SUBMITTED' ? <WaitReply/> : <QuotationRequest data={data}/>
+                            data.status === 'BEFORE_SUBMIT' ? (
+                                <>
+                                    <QuotationRequest data={data}/>
+                                    <button className="alwayson w-[114px] h-[35px] left-[1263px] top-[10px] relative inline-block"
+                                            onClick={() => submitRequest(data.id)}>
+                                        <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                                        <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">요청서 수정</div>
+                                    </button>
+                                    <button className="alwayson w-[114px] h-[35px] left-[1020px] top-[10px] relative inline-block"
+                                    onClick={() => cancelRequest(data.id)}>
+                                        <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                        <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
+                                    </button>
+                                </>
+                            ) : <></>
+                        }
+                        {
+                            data.status === 'SUBMITTED' ? <WaitReply/> : <></>
                         }
                         {
                             data.status === 'OPINION_REGISTERED' ? (
-                                <div className="Group17 w-[815px] h-[200px] left-[443px] top-[30px] relative">
-                                    <div className="Rectangle39 w-[815px] h-[150px] left-0 top-0 absolute bg-slate-500 rounded-[22px] shadow" />
-                                    <div className=" w-[276.21px] h-[18px] left-[20.59px] top-[12px] absolute text-white text-lg font-semibold font-['Inter']">담당자 의견</div>
-                                    <textarea value={data.managerComment} readOnly rows="4" className="resize-none bg-transparent Xxx23YyyXxx w-[773.78px] left-[20.59px] top-[38px] absolute text-white text-lg font-normal font-['Inter']"></textarea>
-                                </div>
+                                <>
+                                    <QuotationRequest data={data}/>
+                                    <div className="Group17 w-[815px] h-[200px] left-[443px] top-[30px] relative">
+                                        <div className="Rectangle39 w-[815px] h-[150px] left-0 top-0 absolute bg-slate-500 rounded-[22px] shadow" />
+                                        <div className=" w-[276.21px] h-[18px] left-[20.59px] top-[12px] absolute text-white text-lg font-semibold font-['Inter']">담당자 의견</div>
+                                        <textarea value={data.managerComment} readOnly rows="4" className="resize-none bg-transparent Xxx23YyyXxx w-[773.78px] left-[20.59px] top-[38px] absolute text-white text-lg font-normal font-['Inter']"></textarea>
+                                    </div>
+                                    <button className="alwayson w-[114px] h-[35px] left-[1263px] top-[10px] relative inline-block"
+                                            onClick={() => submitRequest(data.id)}>
+                                        <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                                        <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">요청서 수정</div>
+                                    </button>
+                                    <button className="alwayson w-[114px] h-[35px] left-[1020px] top-[10px] relative inline-block"
+                                    onClick={() => cancelRequest(data.id)}>
+                                        <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                        <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
+                                    </button>
+                                </>
                             ) : (
                                 <></>
                             )
                         }
                         {
                             data.status === 'QUOTATION_SUGGESTED' ? (
-                                <button className=" w-[160px] h-6 left-[1220px] top-[0px] relative mb-[20px]">
-                                    <div className=" left-0 top-[0px] absolute text-sky-900 text-[20px] font-bold font-['Inter']">견적서 다운로드</div>
-                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f619a59-11ff-42d9-abed-a0d5839fa57a?&width=800"
-                                        className="ImportLight w-[26px] left-[130px] top-0 absolute flex-col justify-start items-start inline-flex"/>
-                                </button>
+                                <>
+                                    <QuotationRequest data={data}/>
+                                    <button className=" w-[160px] h-6 left-[1220px] top-[0px] relative mb-[20px]">
+                                        <div className=" left-0 top-[0px] absolute text-sky-900 text-[20px] font-bold font-['Inter']">견적서 다운로드</div>
+                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f619a59-11ff-42d9-abed-a0d5839fa57a?&width=800"
+                                             className="ImportLight w-[26px] left-[130px] top-0 absolute flex-col justify-start items-start inline-flex"/>
+                                    </button>
+                                    <div className="flex flex-row relative">
+                                        <button className="alwayson w-[114px] h-[35px] left-[1263px] top-[10px] relative inline-block"
+                                                onClick={() => createOrder(data.id)}>
+                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                                            <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">주문 발주</div>
+                                        </button>
+                                        <button className="alwayson w-[114px] h-[35px] left-[1020px] top-[10px] relative inline-block"
+                                                onClick={() => cancelRequest(data.id)}>
+                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                            <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
+                                        </button>
+                                    </div>
+                                </>
                             ) : <></>
                         }
                         {
-                            (data.status === 'SUBMITTED' || data.status === 'ORDER_STARTED') ? <></> :
-                                <div className="flex flex-row relative">
-                                    {
-                                        data.status === 'QUOTATION_SUGGESTED' ? (
-                                            <button className="alwayson w-[114px] h-[35px] left-[1263px] top-[10px] relative inline-block">
-                                                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
-                                                <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">
-                                                    주문 발주
-                                                </div>
-                                            </button>
-                                        ) : (
-                                            <button className="alwayson w-[114px] h-[35px] left-[1263px] top-[10px] relative inline-block"
-                                                    onClick={() => submitRequest(data.id)}>
-                                                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
-                                                <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">
-                                                    { data.status === 'OPINION_REGISTERED' ? '요청서 수정' : '요청서 전송' }
-                                                </div>
-                                            </button>
-                                        )
-                                    }
-                                    <button className="alwayson w-[114px] h-[35px] left-[1020px] top-[10px] relative inline-block"
-                                            onClick={() => cancelRequest(data.id)}>
-                                        <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
-                                        <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
-                                    </button>
-                                </div>
+                            data.status === 'ORDER_STARTED' ? <OrderStarted /> : <></>
                         }
                         <AskButton />
                     </div>
