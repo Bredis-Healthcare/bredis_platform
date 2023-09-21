@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link, useLocation,} from "react-router-dom";
 import axios from "../../../api/axios";
 import Header from "../../components/Header";
-import Layout from "../../components/Layout";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 export async function loader({ params }) {
     const userId = params.userId
@@ -35,7 +35,7 @@ function AdminOrderList() {
         <div>
             {data ? (
                 <>
-                    <Layout menuName="고객 목록 > 고객 상세 > 주문 내역">
+                    <AdminLayout menuName="고객 목록 > 고객 상세 > 주문 내역">
                         <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px] pt-[40px]">
                             {
                                 data.orderItems.map((order, index) => (
@@ -68,7 +68,7 @@ function AdminOrderList() {
                                     </div>
                                 ))}
                         </div>
-                    </Layout>
+                    </AdminLayout>
                     <Header />
                 </>
             ) : (

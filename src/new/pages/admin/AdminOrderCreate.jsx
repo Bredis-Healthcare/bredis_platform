@@ -3,6 +3,7 @@ import QuotationRequest from "../../components/order/QuotationRequest";
 import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import {useLocation, useNavigate} from "react-router-dom";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 function AdminOrderCreate() {
     const [data, setData] = useState(null); // or your fetching logic
@@ -58,7 +59,7 @@ function AdminOrderCreate() {
         <div>
             {data ? (
                 <>
-                    <Layout menuName="고객 목록 > 고객 상세 > 견적 요청서">
+                    <AdminLayout menuName="고객 목록 > 고객 상세 > 견적 요청서">
                         <div className="12 w-[1667px] h-auto relative bg-neutral-100">
                             <QuotationRequest data={data} readOnly={true}/>
                             <div className={`${data.status === 'SUBMITTED' ? 'block' : 'hidden'} flex flex-col relative`}>
@@ -119,7 +120,7 @@ function AdminOrderCreate() {
                             </div>
 
                         </div>
-                    </Layout>
+                    </AdminLayout>
                 </>
             ) : (
                 <p>Loading...</p>

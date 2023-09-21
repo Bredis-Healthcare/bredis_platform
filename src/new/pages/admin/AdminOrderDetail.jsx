@@ -4,6 +4,7 @@ import axios from "../../../api/axios";
 import Layout from "../../components/Layout";
 import {useCookies} from "react-cookie";
 import Select from "react-select";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -114,7 +115,7 @@ const AdminOrderDetail = () => {
         <div>
             {data ? (
                 <>
-                    <Layout menuName="고객 목록 > 고객 상세 > 주문 내역 > 주문 상세" menuNameAddInfo={`${data.orderNumber}`}>
+                    <AdminLayout menuName="고객 목록 > 고객 상세 > 주문 내역 > 주문 상세" menuNameAddInfo={`${data.orderNumber}`}>
                         <div className="shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px] py-[39px]">
                             <div className="w-full max-w-[1098px] mt-[-2px] self-center flex flex-col ml-[16px] mb-[47px]">
                                 <div className="w-full max-w-[1047px] flex flex-col">
@@ -535,7 +536,7 @@ const AdminOrderDetail = () => {
                                 </div>
                             </div>
                         </div>
-                    </Layout>
+                    </AdminLayout>
                 </>
             ) : (
                 <p>Loading...</p>

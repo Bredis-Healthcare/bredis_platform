@@ -2,6 +2,7 @@ import Layout from "../../components/Layout";
 import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 function MembersDetail() {
     const [data, setData] = useState(null); // or your fetching logic
@@ -24,7 +25,7 @@ function MembersDetail() {
         <div>
             {data ? (
                 <>
-                <Layout menuName="고객 목록 > 고객 상세" menuNameAddInfo={`${data.organization} ${data.name} ${data.position}`}>
+                <AdminLayout menuName="고객 목록 > 고객 상세" menuNameAddInfo={`${data.organization} ${data.name} ${data.position}`}>
                     <div className=" w-[1667px] h-[1157px] relative bg-neutral-100">
                         <div className=" w-[464px] h-[163px] left-[237px] top-[249px] absolute">
                             <div className=" left-0 top-0 absolute text-black text-2xl font-bold font-['Inter']">{data.organization}</div>
@@ -106,7 +107,7 @@ function MembersDetail() {
                             <div className=" w-[79px] h-[17px] left-[25px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
                         </button>
                     </div>
-                </Layout>
+                </AdminLayout>
                 </>
             ) : (
                 <p>Loading...</p>

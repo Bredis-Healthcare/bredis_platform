@@ -3,6 +3,7 @@ import {useCookies} from "react-cookie";
 import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import {Link} from "react-router-dom";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 function MembersList() {
     const [data, setData] = useState(null); // or your fetching logic
@@ -25,7 +26,7 @@ function MembersList() {
         <div>
             {data ? (
                 <>
-                <Layout menuName="고객 목록">
+                <AdminLayout menuName="고객 목록">
                     <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px] pt-[30px] pb-[30px]">
                         {
                             data.memberItems.map((member, index) => (
@@ -51,7 +52,7 @@ function MembersList() {
                             ))
                         }
                     </div>
-                </Layout>
+                </AdminLayout>
                 </>
             ) : (
                 <p>Loading...</p>
