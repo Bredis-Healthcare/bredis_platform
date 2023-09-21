@@ -1,6 +1,6 @@
 function WaitReply () {
     return (
-        <div className="top-[250px] relative">
+        <div className="top-[250px] h-[1000px] relative">
             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b981ecb-b1b4-4b07-822c-4628885bfdf8?&width=1200"
                  className="aspect-[1.44] object-cover object-center max-w-[452px] flex shrink-0 ml-auto mr-auto" />
             <div className="text-[#888988] text-center not-italic font-bold text-[27px] self-center flex flex-col ml-[40px] mt-[134px]">
