@@ -1,5 +1,5 @@
 import Layout from "../../components/Layout";
-import QuotationRequest from "../../components/order/QuotationRequest";
+import QuotationRequest from "../../components/ordercreate/QuotationRequest";
 import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import {useLocation, useNavigate} from "react-router-dom";

@@ -2,11 +2,11 @@ import Layout from "../components/Layout";
 import axios from "../../api/axios";
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import OrderProgressUI from "../components/order/OrderProgressUI";
-import QuotationRequest from "../components/order/QuotationRequest";
-import WaitReply from "../components/order/WaitReply";
+import OrderProgressUI from "../components/ordercreate/OrderProgressUI";
+import QuotationRequest from "../components/ordercreate/QuotationRequest";
+import WaitReply from "../components/ordercreate/WaitReply";
 import AskButton from "../components/AskButton";
-import OrderStarted from "../components/order/OrderStarted";
+import OrderStarted from "../components/ordercreate/OrderStarted";
 
 function OrderCreate() {
 
