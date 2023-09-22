@@ -7,6 +7,7 @@ import AdminLayout from "../../components/admin/AdminLayout";
 function MembersDetail() {
     const [data, setData] = useState(null); // or your fetching logic
     const location = useLocation()
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchData();

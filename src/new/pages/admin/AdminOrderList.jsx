@@ -69,7 +69,6 @@ function AdminOrderList() {
                                 ))}
                         </div>
                     </AdminLayout>
-                    <Header />
                 </>
             ) : (
                 <p>Loading...</p>
