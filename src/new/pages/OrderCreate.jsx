@@ -146,7 +146,7 @@ function OrderCreate() {
                             ) : <></>
                         }
                         {
-                            data.status === 'ORDER_STARTED' ? <OrderStarted memberId={cookies.login && cookies.login['id']}/> : <></>
+                            data.status === 'ORDER_STARTED' ? <OrderStarted data={data} memberId={cookies.login && cookies.login['id']}/> : <></>
                         }
                         <AskButton />
                     </div>
