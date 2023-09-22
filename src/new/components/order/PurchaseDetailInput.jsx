@@ -28,15 +28,6 @@ function PurchaseDetailInput (props) {
         return /^\d+$/.test(value);
     }
 
-    function getPurchaseDetailInputData() {
-        return {
-            "subtotal": subtotal,
-            "tax": tax,
-            "total": total,
-            "items": items
-        }
-    }
-
     function addItem() {
         if (!inputData.item) {alert("종목을 입력해주세요.");return}
         if (!inputData.size) {alert("규격을 입력해주세요.");return}
@@ -53,7 +44,7 @@ function PurchaseDetailInput (props) {
 
     return (
         <div>
-            <table className="purchaseDetailInputTable text-[33363F] not-italic font-light text-[16px]" style={{border:'none', borderCollapse: 'collapse', borderSpacing:0, overflow: 'hidden', wordBreak: 'normal'}}>
+            <table id="purchase-detail" className="purchaseDetailInputTable text-[33363F] not-italic font-light text-[16px]" style={{border:'none', borderCollapse: 'collapse', borderSpacing:0, overflow: 'hidden', wordBreak: 'normal'}}>
                 <thead>
                 <tr style={{borderStyle: 'solid', borderBottomWidth: '1px', borderColor: '#888988'}}>
                     <th style={{fontWeight: 'normal', padding: '10px 5px', textAlign: 'center', verticalAlign: 'center'}}>종목</th>

@@ -4,6 +4,7 @@ import axios from "../../../api/axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 import PurchaseDetailInput from "../../components/order/PurchaseDetailInput";
+import PurchaseDetail from "../../components/order/PurchaseDetail";
 
 function AdminOrderCreate() {
     const [data, setData] = useState(null); // or your fetching logic
@@ -57,7 +58,7 @@ function AdminOrderCreate() {
     async function submitQuotationSuggestion(id) {
         if (window.confirm("견적 제안을 전송하시겠습니까?")) {
             let subtotal = document.querySelector("#subtotalValue").innerText
-            let total = document.querySelector("#totalValue").innerText
+            let total = document.querySelector("#totalValue").innerText.replace('₩', '')
             let tax = document.querySelector("#taxValue").innerText
             let itemNames = Array.from(document.querySelectorAll('.itemdata')).map(e => e.innerText)
             let sizes = Array.from(document.querySelectorAll('.sizedata')).map(e => e.innerText)
@@ -161,13 +162,20 @@ function AdminOrderCreate() {
                                 </div>
 
                             </div>
-                            <div className={`${data.status === 'QUOTATION_SUGGESTED' ? 'block' : 'hidden'} top-[10px] right-[370px] mb-[30px] flex flex-row-reverse relative`}>
-                                <div className=" w-[149px] h-[17px] my-[5px] text-sky-900 text-lg font-bold font-['Inter']">견적 제안 완료</div>
-                                <button className="w-[106px] h-[35px] relative mx-[20px]"
-                                        onClick={() => navigate(-1)}>
-                                    <div className="Rectangle7 w-[106px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
-                                    <div className=" w-[80px] h-[17px] left-[15px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
-                                </button>
+                            <div className={`${data.status === 'QUOTATION_SUGGESTED' ? 'block' : 'hidden'} flex flex-col`}>
+                                <div className={`w-[1100px] h-auto left-[300px] top-[10px] mb-[20px] relative bg-white shadow`}>
+                                    <div className="flex flex-col items-center">
+                                        <PurchaseDetail data={data.purchaseSuggestion} />
+                                    </div>
+                                </div>
+                                <div className="top-[10px] right-[370px] mb-[30px] flex flex-row-reverse relative">
+                                    <div className=" w-[149px] h-[17px] my-[5px] text-sky-900 text-lg font-bold font-['Inter']">견적 제안 완료</div>
+                                    <button className="w-[106px] h-[35px] relative mx-[20px]"
+                                            onClick={() => navigate(-1)}>
+                                        <div className="Rectangle7 w-[106px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                                        <div className=" w-[80px] h-[17px] left-[15px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">뒤로 가기</div>
+                                    </button>
+                                </div>
                             </div>
 
                         </div>

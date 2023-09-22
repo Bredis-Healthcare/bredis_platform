@@ -7,11 +7,13 @@ import QuotationRequest from "../components/ordercreate/QuotationRequest";
 import WaitReply from "../components/ordercreate/WaitReply";
 import AskButton from "../components/AskButton";
 import OrderStarted from "../components/ordercreate/OrderStarted";
+import PurchaseDetail from "../components/order/PurchaseDetail";
 
 function OrderCreate() {
 
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [data, setData] = useState(null); // or your fetching logic
+    const [quotationPreviewOn, setQuotationPreviewOn] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -114,11 +116,20 @@ function OrderCreate() {
                             data.status === 'QUOTATION_SUGGESTED' ? (
                                 <>
                                     <QuotationRequest data={data} readOnly={true}/>
-                                    <button className=" w-[160px] h-6 left-[1220px] top-[0px] relative mb-[20px]">
-                                        <div className=" left-0 top-[0px] absolute text-sky-900 text-[20px] font-bold font-['Inter']">견적서 다운로드</div>
-                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f619a59-11ff-42d9-abed-a0d5839fa57a?&width=800"
-                                             className="ImportLight w-[26px] left-[130px] top-0 absolute flex-col justify-start items-start inline-flex"/>
-                                    </button>
+                                    <div className="ml-[300px] flex flex-row gap-[1.2958984375px] items-start flex-wrap mt-[10px]">
+                                        <div className="text-sky-900 not-italic font-bold text-[20px] font-['Inter'] self-center text-center flex flex-col -mt-px">견적 제안 확인하기</div>
+                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
+                                             onClick={()=>setQuotationPreviewOn(quotationPreviewOn => !quotationPreviewOn)}>
+                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                        </div>
+                                    </div>
+                                    <div className={`${quotationPreviewOn ? 'block' : 'hidden'} w-[1100px] h-auto left-[300px] top-[10px] mb-[20px] relative bg-white shadow`}>
+                                        <div className="flex flex-col items-center">
+                                            <PurchaseDetail data={data.purchaseSuggestion}/>
+                                        </div>
+                                    </div>
+
                                     <div className="flex flex-row relative">
                                         <button className="w-[114px] h-[35px] left-[1263px] top-[10px] relative inline-block"
                                                 onClick={() => createOrder(data.id)}>
