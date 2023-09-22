@@ -20,13 +20,10 @@ function QuotationRequest (props) {
     useEffect(() => {
         setReadOnly(props.readOnly)
         if (props.readOnly) {
-            document.querySelectorAll('input').forEach(input => input.setAttribute("readOnly", ''))
-            document.querySelectorAll('button').forEach(button => {
-                if (!button.classList.contains('alwayson')) {
-                    button.style.display='none'
-                }
-            })
-            document.querySelector('#additionalInfo').setAttribute("readonly", '')
+            let quotationRequest = document.querySelector("#quotation-request");
+            quotationRequest.querySelectorAll('input').forEach(input => input.setAttribute("readOnly", ''))
+            quotationRequest.querySelectorAll('button').forEach(button => {button.style.display='none'})
+            quotationRequest.querySelector('#additionalInfo').setAttribute("readonly", '')
         }
     }, [])
 
@@ -124,7 +121,7 @@ function QuotationRequest (props) {
         <div>
         {data ? (
                 <>
-                <div className="Rectangle30 w-[1100px] h-[1200px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
+                <div id="quotation-request" className="Rectangle30 w-[1100px] h-[1200px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
                     {/*<div className="" />*/}
 
                     <div className="relative left-[10px] h-[170px]">

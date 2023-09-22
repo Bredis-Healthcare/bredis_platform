@@ -17,7 +17,7 @@ function PurchaseDetail (props) {
                 </thead>
                 <tbody>
                 {
-                    data.items.map(item=>(
+                    data ? data.items.map(item=>(
                         <tr>
                             <td style={{padding:'10px 40px', textAlign: 'left', verticalAlign: 'top'}}>{item.item}</td>
                             <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}>{item.size}</td>
@@ -26,24 +26,29 @@ function PurchaseDetail (props) {
                             <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}>{item.supplyValue}</td>
                             <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}>{item.tax}</td>
                         </tr>
-                    ))
+                    )) : <></>
                 }
 
-                <tr style={{borderStyle: 'solid', borderTopWidth: '1px', borderColor: '#888988', fontWeight: 'normal'}}>
-                    <td style={{padding:'10px 40px', textAlign: 'center', verticalAlign: 'top'}}>합계</td>
-                    <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}></td>
-                    <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}></td>
-                    <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}></td>
-                    <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}>{data.subtotal}</td>
-                    <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}>{data.tax}</td>
-                </tr>
+                {
+                    data ? <tr style={{borderStyle: 'solid', borderTopWidth: '1px', borderColor: '#888988', fontWeight: 'normal'}}>
+                        <td style={{padding:'10px 40px', textAlign: 'center', verticalAlign: 'top'}}>합계</td>
+                        <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}></td>
+                        <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}></td>
+                        <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}></td>
+                        <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}>{data.subtotal}</td>
+                        <td style={{padding:'10px 40px', textAlign: 'right', verticalAlign: 'top'}}>{data.tax}</td>
+                    </tr> : <></>
+                }
+
                 </tbody>
             </table>
-            <div className="float-right mt-[20px]">
-                <div className="text-zinc-500 text-lg font-normal font-['Inter'] ">합계금액(공급가액 + 세액)</div>
-                <div className="38262070 text-black text-[32px] font-medium font-['Inter']">₩{data.total}</div>
-                <div className=" text-neutral-700 text-xl font-normal font-['Inter'] mt-[5px]">거래명세서 다운로드</div>
-            </div>
+            {
+                data ? <div className="float-right mt-[20px]">
+                    <div className="text-zinc-500 text-lg font-normal font-['Inter'] ">합계금액(공급가액 + 세액)</div>
+                    <div className="38262070 text-black text-[32px] font-medium font-['Inter']">₩{data.total}</div>
+                    <div className=" text-neutral-700 text-xl font-normal font-['Inter'] mt-[5px]">거래명세서 다운로드</div>
+                </div> : <></>
+            }
         </div>
     )
 
