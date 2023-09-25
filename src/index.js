@@ -1,121 +1,106 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import "./index.css"
 import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
-import LoginPage from './components/LoginPage';
-import AdminLoginPage from './components/admin_components/AdminLoginPage';
-import MainPage from './components/MainPage';
-import SignUpPage from './components/SignUpPage';
-import UserListPage from './components/admin_components/UserListPage';
-import ErrorPage from './error-page';
-import AdminUserDetailPage,{
-  loader as userDetailLoader,
-} 
-from './components/admin_components/AdminUserDetailPage';
-import ThreadPage, {
-  adminloader as adminthreadLoader,
-  loader as threadLoader,
-} 
-from './components/ThreadPage';
-import MyPage, {
-  loader as UserPageLoader,
-}  from './components/MyPage';
-import DetailedInformationPage, {
-  loader as detailedInformationLodaer,
-  adminloader as admindetailedInformationLodaer,
-}  from './components/DetailedInformationPage';
-
-import { CookiesProvider } from 'react-cookie';
+import {createBrowserRouter, RouterProvider,} from "react-router-dom";
+import {CookiesProvider} from "react-cookie";
+import Home from "./new/pages/Home";
+import OrderDetail, {loader as OrderDetailLoader} from "./new/pages/OrderDetail";
+import ErrorPage from "./error-page";
+import OrderList, {loader as OrderListLoader} from './new/pages/OrderList';
+import LoginPage from "./components/LoginPage";
+import OrderCreate from "./new/pages/OrderCreate";
+import ThreadsList from "./new/pages/ThreadsList";
+import ThreadsCreate from "./new/pages/ThreadsCreate";
+import ThreadsDetail from "./new/pages/ThreadsDetail";
+import MembersList from "./new/pages/admin/MembersList";
+import AdminLoginPage from "./components/admin_components/AdminLoginPage";
+import MembersDetail from "./new/pages/admin/MembersDetail";
+import AdminOrderList from "./new/pages/admin/AdminOrderList";
+import AdminOrderDetail from "./new/pages/admin/AdminOrderDetail";
+import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainPage/>,
-    errorElement: <ErrorPage />,
-    children :
-    [
-      {
-        path:"admin",
-        children :
-        [
-          {
-            path: "login",
-            element: <AdminLoginPage/>,
-            errorElement: <ErrorPage />,
-          },
-          {
-            path: "userlist",
-            element: <UserListPage/>,
-            errorElement: <ErrorPage />,
-          },
-          {
-            path: "userdetail/:userId",
-            element: <AdminUserDetailPage />,
-            loader: userDetailLoader,
-          },
-          {
-            path: "orders/:orderId/detail",
-            element: <DetailedInformationPage/>,
-            errorElement: <ErrorPage />,
-            loader: admindetailedInformationLodaer,
-          },
-          {
-            path: "thread/:threadId/:userId",
-            element: <ThreadPage />,
-            loader: adminthreadLoader,
-          },
-        ]
-      },
-      
-      {
-        path: "login",
+    {
+        path: "/",
+        element: <Home/>,
+        errorElement: <ErrorPage/>,
+    },
+    {
+        path: "/login",
         element: <LoginPage/>,
         errorElement: <ErrorPage />,
-      },
-      {
-        path: "signup",
-        element: <SignUpPage/>,
+    },
+    {
+        path: "/threads/new",
+        element: <ThreadsCreate/>,
         errorElement: <ErrorPage />,
-      },
-      {
-        path: "Mypage",
-        element: <MyPage/>,
+    },
+    {
+        path: "/threads/list",
+        element: <ThreadsList/>,
         errorElement: <ErrorPage />,
-        loader: UserPageLoader,
-        children :
-        [
-          {
-            path: "orders/:orderId/detail",
-            element: <DetailedInformationPage/>,
-            errorElement: <ErrorPage />,
-            loader: detailedInformationLodaer,
-          },
-          {
-            path: "thread",
-            element: <ThreadPage />,
-            loader: threadLoader,
-          },
-        ],
-      },
-    ]
-  },
-  
-],
-{
-  // basename : "/bredis_platform/"
-});
-
+    },
+    {
+        path: "/threads/detail",
+        element: <ThreadsDetail/>,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/orders/create",
+        element: <OrderCreate/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/orders/list",
+        element: <OrderList/>,
+        errorElement: <ErrorPage/>,
+        loader: OrderListLoader
+    },
+    {
+        path: "/orders/detail",
+        element: <OrderDetail/>,
+        errorElement: <ErrorPage/>,
+        loader: OrderDetailLoader
+    },
+    {
+        path: "/admin-page/login",
+        element: <AdminLoginPage/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/list",
+        element: <MembersList/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/detail",
+        element: <MembersDetail/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/orders",
+        element: <AdminOrderList/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/orders/detail",
+        element: <AdminOrderDetail/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/orders/create",
+        element: <AdminOrderCreate/>,
+        errorElement: <ErrorPage/>
+    },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <CookiesProvider>
-      <RouterProvider router={router} />
-    </CookiesProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <CookiesProvider>
+            <RouterProvider router={router}/>
+        </CookiesProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

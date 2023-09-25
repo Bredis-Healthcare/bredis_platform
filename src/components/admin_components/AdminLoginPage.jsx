@@ -25,7 +25,7 @@ const LoginPage = () => {
                 });
                 console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                 setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                navigate("/admin/userlist" );
+                navigate("/admin-page/members/list" );
             } catch (error) {
                 console.error("Error while logging in:", error);
             }
@@ -35,7 +35,9 @@ const LoginPage = () => {
 
     return (
         <LoginContainer>
-            <p>연구서비스 플랫폼 어드민에 오신 것을 환영합니다.</p>
+            <p>연구서비스 플랫폼 어드민에 오신 것을 환영합니다.</p>에
+            <p>info@bredis.co.kr</p>
+            <p>bredisAdmin!1</p>
             <form onSubmit={handleLogin}>
                 <LoginInput
                     type="email"

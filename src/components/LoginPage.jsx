@@ -11,7 +11,7 @@ const LoginPage = () => {
     // States for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie] = useCookies(['name']);
+    const [cookies, setCookie, removeCookie] = useCookies(['name']);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -25,12 +25,13 @@ const LoginPage = () => {
                     console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                     setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                     console.log("자동로그인되었습니다")
-                    navigate(`/Mypage`);
+                    navigate(`/`);
                     
     
                 } catch (error) {
                     console.error("Error while logging in:", error);
-                    console.error(error.request['status']);
+                    removeCookie(['login']);
+                    navigate("/");
                 }
             }
             autoLogin();
@@ -49,7 +50,7 @@ const LoginPage = () => {
                 });
                 console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                 setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                navigate(`/Mypage`);
+                navigate(`/`);
                 
 
             } catch (error) {

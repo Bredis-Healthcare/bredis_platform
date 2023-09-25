@@ -45,6 +45,7 @@ const MainPageContent = () => {
                 <MainButton onClick={() => navigate("/admin/login")}> 관리자 로그인</MainButton> 
             </MainContainer> }
             <Outlet/>
+            {/* Router 상에서 children에 정의해놓은 것들이 Outlet자리에 들어간다. 그러면 렌더링도 걔네들만 될 것.*/}
             <Footer/>
         </>
     );
