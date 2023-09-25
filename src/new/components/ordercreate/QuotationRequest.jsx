@@ -8,6 +8,7 @@ function QuotationRequest (props) {
 
 
     const [inputModeOn, setInputMode] = useState(false);
+    const [copyModeOn, setCopyMode] = useState(false);
     const [readOnly, setReadOnly] = useState(false);
     const [selectedBiomarkers, setSelectedBiomarkers] = useState([]);
     const [selectedSampleType, setSelectedSampleType] = useState("");
@@ -57,6 +58,10 @@ function QuotationRequest (props) {
 
     const toggleInputMode = () => {
         setInputMode(inputModeOn => !inputModeOn); // on,off 개념 boolean
+    }
+
+    const toggleCopyMode = () => {
+        setCopyMode(copyModeOn => !copyModeOn); // on,off 개념 boolean
     }
 
     async function saveRow() {
@@ -115,6 +120,32 @@ function QuotationRequest (props) {
         await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
 
         toggleInputMode() //FIXME: 이것 호출 안해도 새로고침 되도록.
+    }
+
+    function copySampleData() {
+        let targetSampleNumber = parseInt(document.querySelector('#copySampleNumberInput').value)
+        let count = parseInt(document.querySelector('#copyCountInput').value)
+        let toCopyData = data.content.sampleDataList[targetSampleNumber - 1]
+        if (!toCopyData) {
+            alert("유효한 샘플 번호를 입력해주세요.")
+            return
+        }
+        for (let i = 0; i < count; i++) {
+            data.content.sampleDataList.splice(targetSampleNumber - 1, 0,
+                {
+                    "number": `${data.content.sampleDataList.length + 1}`,
+                    "uniqueNumber": toCopyData.uniqueNumber,
+                    "biomarkers": toCopyData.biomarkers,
+                    "sampleType": toCopyData.sampleType,
+                    "repetition": toCopyData.repetition,
+                    "volume": toCopyData.volume,
+                    "additionalAnalysis": toCopyData.additionalAnalysis
+                }
+            )
+        }
+        toggleInputMode()
+        toggleCopyMode()
+        saveContent()
     }
 
     return (
@@ -235,22 +266,42 @@ function QuotationRequest (props) {
                                                     value={additionalAnalysisOptions.filter(obj => selectedAddAnalysis.includes(obj.value))} onChange={handleAddAnalysisChange} options={additionalAnalysisOptions}/>
                                         </TableCell>
                                         <TableCell>
-                                            <button className={`${inputModeOn ? 'hidden' : 'inline-block'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleInputMode()}>
-                                                <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">복제</div>
-                                            </button>
-                                            <button className={`${inputModeOn ? 'hidden' : 'inline-block'} w-[41px] h-[26px] relative mx-1`} onClick={()=>toggleInputMode()}>
-                                                <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">신규</div>
-                                            </button>
-                                            <button className={`${inputModeOn ? 'inline-block' : 'hidden'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleInputMode()}>
-                                                <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />
-                                                <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']">취소</div>
-                                            </button>
-                                            <button className={`${inputModeOn ? 'inline-block' : 'hidden'} w-[41px] h-[26px] relative mx-1`} onClick={()=>saveRow()}>
-                                                <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">저장</div>
-                                            </button>
+                                            <div className="relative">
+                                                <button className={`${inputModeOn ? 'hidden' : 'inline-block'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleCopyMode()}>
+                                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">복제</div>
+                                                </button>
+                                                <div className={`${(copyModeOn && !inputModeOn) ? 'block' : 'hidden'} absolute w-[240px] h-[150px] right-[5px] top-[22px] z-10`}>
+                                                    <img className="object-contain object-center h-[100%]" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bca921d1-aa51-484b-b5ef-f90ff93de920?&width=800" alt=""/>
+                                                    <div className="Group28 w-[240px] h-[151px] left-[0px] top-[0px] absolute">
+                                                        <div className=" left-[18px] top-[30px] absolute text-black text-[16px] font-normal font-['Inter']">샘플 정보를 복제합니다.</div>
+                                                        <div className=" left-[18px] top-[55px] absolute text-black text-[16px] font-normal font-['Inter']">복제 대상 샘플 번호: </div>
+                                                        <input id="copySampleNumberInput" type="text" maxLength={4}
+                                                               className={`w-[55px] h-[22px] px-1.5 left-[150px] top-[55px] absolute text-[16px] font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                                                        <div className=" left-[18px] top-[80px] absolute text-black text-[16px] font-no기rmal font-['Inter']">복제 횟수: </div>
+                                                        <input id="copyCountInput" type="text" maxLength={4}
+                                                               className={`w-[55px] h-[24px] px-1.5 left-[90px] top-[80px] absolute text-[16px] font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                                                        <button className="Group11 w-[82px] h-[28px] left-[80px] top-[110px] absolute"
+                                                                onClick={(e) => copySampleData(e)}>
+                                                            <div className="Rectangle7 w-[82px] h-[28px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                            <div className=" w-[74px] h-[10.69px] left-[4px] top-[4px] absolute text-white text-[16px] font-bold font-['Inter']">복제하기</div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <button className={`${inputModeOn ? 'hidden' : 'inline-block'} w-[41px] h-[26px] relative mx-1`} onClick={()=>toggleInputMode()}>
+                                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">신규</div>
+                                                </button>
+                                                <button className={`${inputModeOn ? 'inline-block' : 'hidden'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleInputMode()}>
+                                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />
+                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']">취소</div>
+                                                </button>
+                                                <button className={`${inputModeOn ? 'inline-block' : 'hidden'} w-[41px] h-[26px] relative mx-1`} onClick={()=>saveRow()}>
+                                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">저장</div>
+                                                </button>
+                                            </div>
+
                                         </TableCell>
                                     </tr>
                                 }
