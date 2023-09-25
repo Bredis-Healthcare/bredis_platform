@@ -35,6 +35,7 @@ const AdminOrderDetail = () => {
     const [editStatusOn, setEditStatusOn] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState("");
     const [editRequestDetailOn, setEditRequestDetailOn] = useState(false);
+    const [editAnalysisResultOn, setEditAnalysisResultOn] = useState(false);
 
 
     useEffect(() => {
@@ -51,8 +52,7 @@ const AdminOrderDetail = () => {
             setThreadData(threadsRequest.data)
             setStatusList(statusRequest.data.orderStatusList)
             setSelectedOption(request.data.status)
-            console.log("request", request, "statusRequest", statusRequest)
-            
+
         } catch (error) {
             console.log("error", error)
         }
@@ -112,6 +112,20 @@ const AdminOrderDetail = () => {
         }
     }
 
+    function toggleEditAnalysisResult() {
+        setEditAnalysisResultOn(editAnalysisResultOn => !editAnalysisResultOn);
+    }
+
+    async function saveAnalysisResult() {
+        let editContent = document.getElementById("analysisResultInput").value
+        if (!editContent) {
+            alert("분석 결과 내용을 입력해주세요.")
+            return
+        }
+        await axios.post(`/orders/${data.orderNumber}/analysis-result`,{"resultText": `${editContent}`});
+        window.location.reload();
+    }
+
     return (
         <div>
             {data ? (
@@ -141,7 +155,7 @@ const AdminOrderDetail = () => {
                                                     </button>
                                                 </div>
 
-                                                <div className={`${editRequestDetailOn ? 'hidden' : 'block'} w-[500px] text-black not-italic font-normal text-[18px] self-stretch flex flex-col mt-[16px]`}>
+                                                <div className={`${editRequestDetailOn ? 'hidden' : 'block'} whitespace-pre-line w-[500px] text-black not-italic font-normal text-[18px] self-stretch flex flex-col mt-[16px]`}>
                                                     {data.requestDetail}
                                                 </div>
                                                 <textarea id="requestDetailInput" rows="4" className={`${editRequestDetailOn ? 'block' : 'hidden'} resize-none left-[0px] mt-5 relative block p-2.5 w-[500px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
@@ -241,13 +255,25 @@ const AdminOrderDetail = () => {
                                         </div>
                                     </div>
                                     <div className={`analysisInfoOn ${analysisInfoOn ? 'block' : 'hidden'}`}>
-                                        <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">
-                                            분석 결과
-                                            <br />
+                                        <div className="flex flex-row">
+                                            <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">
+                                                분석 결과
+                                                <br />
+                                            </div>
+                                            <button className={`editButton ${editAnalysisResultOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisResult()}>
+                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[26px] self-stretch shrink-0"/>
+                                            </button>
+                                            <button className={`saveButton ${editAnalysisResultOn ? 'block' : 'hidden'}`} onClick={()=>saveAnalysisResult()}>
+                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[26px] mx-[3px] self-stretch shrink-0"/>
+                                            </button>
                                         </div>
+
                                         <div className="Line7 w-[950px] flex flex-col ml-[45px] mt-3 border border-zinc-500"></div>
+                                        <textarea id="analysisResultInput" rows="12" className={`${editAnalysisResultOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
+                                                    {data.analysisResult}
+                                                </textarea>
                                         <div className="relative">
-                                            <div className="w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[21px] max-md:ml-[10px]">
+                                            <div id="analysisResultText" className={`${editAnalysisResultOn ? 'hidden' : 'block'} whitespace-pre-line w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]`}>
                                                 {data.analysisResult}
                                             </div>
                                             <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border border-zinc-500"></div>
@@ -295,7 +321,7 @@ const AdminOrderDetail = () => {
                                             </div>
                                             <div className="w-full max-w-[972px] left-[0px] top-[0px] self-center flex flex-col mt-[10px] relative">
                                                 {threadData.messages.map((message, index) => (
-                                                    <div>
+                                                    <div key={index}>
                                                         <div className="Line2 flex flex-col w-[1013px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
                                                         <div className="flex max-sm:flex-col max-sm:items-stretch">
                                                             <div className="flex flex-col items-stretch leading-[normal] w-[calc(10%_-_10px)] max-sm:w-full my-3">

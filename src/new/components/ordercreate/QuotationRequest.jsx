@@ -196,7 +196,7 @@ function QuotationRequest (props) {
                                 {
                                     readOnly ? <></> :
                                     <tr>
-                                        <TableCell value={`${data.content.sampleDataList.length + 1}`}minWidth="20px" />
+                                        <TableCell value={`${data.content.sampleDataList.length + 1}`} minWidth="20px" />
                                         <TableCell>
                                             <input id="uniqueNumberInput" type="text" placeholder="고유번호" className={`${inputModeOn ? 'block' : 'hidden'} w-[70px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                                         </TableCell>
