@@ -201,11 +201,11 @@ function QuotationRequest (props) {
                                             <input id="uniqueNumberInput" type="text" placeholder="고유번호" className={`${inputModeOn ? 'block' : 'hidden'} w-[70px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                                         </TableCell>
                                         <TableCell minWidth="200px">
-                                            <Select isMulti name="biomarkersSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full`} classNamePrefix="select"
+                                            <Select isMulti name="biomarkersSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full`} classNamePrefix="select" placeholder="바이오마커"
                                                     value={biomarkerOptions.filter(obj => selectedBiomarkers.includes(obj.value))} onChange={handleBiomarkersChange} options={biomarkerOptions}/>
                                         </TableCell>
                                         <TableCell minWidth="110px">
-                                            <Select name="sampleTypeSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select"
+                                            <Select name="sampleTypeSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select" placeholder="샘플 종류"
                                                     onChange={(choice) => setSelectedSampleType(choice.value)}
                                                     options={[
                                                         { value: "EDTA Plasma", label: "EDTA Plasma" },
@@ -214,7 +214,7 @@ function QuotationRequest (props) {
                                                     ]}/>
                                         </TableCell>
                                         <TableCell minWidth="110px">
-                                            <Select name="repetitionSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select"
+                                            <Select name="repetitionSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select" placeholder="반복 횟수"
                                                     onChange={(choice) => setSelectedRepetition(choice.value)}
                                                     options={[
                                                         { value: "Single", label: "Single" },
@@ -231,7 +231,7 @@ function QuotationRequest (props) {
 
                                         </TableCell>
                                         <TableCell minWidth="200px">
-                                            <Select isMulti name="additionalAnalysisSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full`} classNamePrefix="select"
+                                            <Select isMulti name="additionalAnalysisSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full`} classNamePrefix="select" placeholder="추가 분석"
                                                     value={additionalAnalysisOptions.filter(obj => selectedAddAnalysis.includes(obj.value))} onChange={handleAddAnalysisChange} options={additionalAnalysisOptions}/>
                                         </TableCell>
                                         <TableCell>

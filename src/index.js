@@ -19,6 +19,8 @@ import MembersDetail from "./new/pages/admin/MembersDetail";
 import AdminOrderList from "./new/pages/admin/AdminOrderList";
 import AdminOrderDetail from "./new/pages/admin/AdminOrderDetail";
 import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
+import AdminThreadsList from "./new/pages/admin/AdminThreadsList";
+import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
 
 const router = createBrowserRouter([
     {
@@ -91,6 +93,16 @@ const router = createBrowserRouter([
     {
         path: "/admin-page/members/orders/create",
         element: <AdminOrderCreate/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/threads",
+        element: <AdminThreadsList/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/admin-page/members/threads/detail",
+        element: <AdminThreadsDetail/>,
         errorElement: <ErrorPage/>
     },
 ]);
