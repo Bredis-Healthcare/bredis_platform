@@ -1,4 +1,3 @@
-import Layout from "../../components/Layout";
 import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import {Link, useLocation, useNavigate} from "react-router-dom";
@@ -69,10 +68,13 @@ function MembersDetail() {
                         </div>
                         <div className="Group24 w-[499px] h-[226px] left-[726px] top-[396px] absolute">
                             <div className="Rectangle21 w-[485px] h-[226px] left-0 top-0 absolute bg-white shadow" />
-                            <div className=" w-[120px] h-[35px] left-[349px] top-[175px] absolute">
-                                <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
-                                <div className=" w-[90px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">전체 보기 ></div>
-                            </div>
+
+                            <Link to="/admin-page/members/threads" state={{memberId: data.id}}>
+                                <div className=" w-[120px] h-[35px] left-[349px] top-[175px] absolute">
+                                    <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
+                                    <div className=" w-[90px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">전체 보기 ></div>
+                                </div>
+                            </Link>
                             <div className=" left-[12px] top-[14px] absolute text-neutral-800 text-2xl font-bold font-['Inter']">문의</div>
                             <div className="Group21 w-[297px] h-[94px] left-[88px] top-[57px] absolute">
                                 <div className="Group19 w-[85px] h-[94px] left-[106px] top-0 absolute">
