@@ -107,7 +107,7 @@ const AdminOrderDetail = () => {
     async function submitMessage() {
         let contents = document.getElementById("message").value
         if (window.confirm("메시지를 전송하시겠습니까?")) {
-            await axios.post(`/messages`, { "threadId": threadData.id, "content": contents, "senderId": cookies.login && cookies.login['id']});
+            await axios.post(`/admin/threads/messages`, { "threadId": threadData.id, "content": contents});
             window.location.reload();
         }
     }
