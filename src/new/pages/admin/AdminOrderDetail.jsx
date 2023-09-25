@@ -36,6 +36,7 @@ const AdminOrderDetail = () => {
     const [selectedStatus, setSelectedStatus] = useState("");
     const [editRequestDetailOn, setEditRequestDetailOn] = useState(false);
     const [editAnalysisResultOn, setEditAnalysisResultOn] = useState(false);
+    const [editAnalysisHistoryOn, setAnalysisHistoryOn] = useState(false);
 
 
     useEffect(() => {
@@ -126,6 +127,20 @@ const AdminOrderDetail = () => {
         window.location.reload();
     }
 
+    function toggleEditAnalysisHistory() {
+        setAnalysisHistoryOn(editAnalysisHistoryOn => !editAnalysisHistoryOn);
+    }
+
+    async function addAnalysisHistory() {
+        let addContent = document.getElementById("analysisHistoryInput").value
+        if (!addContent) {
+            alert("분석 이력 내용을 입력해주세요.")
+            return
+        }
+        await axios.post(`/orders/${data.orderNumber}/analysis-history`,{"historyText": `${addContent}`});
+        window.location.reload();
+    }
+
     return (
         <div>
             {data ? (
@@ -161,8 +176,6 @@ const AdminOrderDetail = () => {
                                                 <textarea id="requestDetailInput" rows="4" className={`${editRequestDetailOn ? 'block' : 'hidden'} resize-none left-[0px] mt-5 relative block p-2.5 w-[500px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
                                                     {data.requestDetail}
                                                 </textarea>
-
-
                                             </div>
                                         </div>
                                         <div className="flex flex-col items-stretch leading-[normal] w-[calc(45%_-_10px)] ml-[20px] max-sm:w-full">
@@ -268,29 +281,43 @@ const AdminOrderDetail = () => {
                                             </button>
                                         </div>
 
-                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] mt-3 border border-zinc-500"></div>
+                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] mt-3 border border-black border-opacity-25"></div>
                                         <textarea id="analysisResultInput" rows="12" className={`${editAnalysisResultOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
                                                     {data.analysisResult}
                                                 </textarea>
                                         <div className="relative">
                                             <div id="analysisResultText" className={`${editAnalysisResultOn ? 'hidden' : 'block'} whitespace-pre-line w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]`}>
-                                                {data.analysisResult}
+                                                {data.analysisResult ? data.analysisResult : '분석 결과가 아직 등록되지 않았습니다.'}
                                             </div>
-                                            <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border border-zinc-500"></div>
+                                            <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border border-black border-opacity-25"></div>
 
                                             <div className="w-full mt-[13px] flex-col flex relative">
                                                 <div className="left-[800px] top-0 absolute text-neutral-700 text-lg font-normal font-['Inter'] block">분석 보고서 다운로드</div>
                                                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/16efaad3-9492-49e4-a992-7de20eda52a3?&width=200" className="left-[950px] absolute aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"/>
                                             </div>
 
-                                            <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[13px] max-md:ml-[10px]">
-                                                분석 이력
-                                                <br />
+                                            <div className="flex flex-row">
+                                                <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[13px] max-md:ml-[10px]">
+                                                    분석 이력
+                                                    <br />
+                                                </div>
+                                                <button className={`editButton ${editAnalysisHistoryOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisHistory()}>
+                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[10px] self-stretch shrink-0"/>
+                                                </button>
+                                                <button className={`saveButton ${editAnalysisHistoryOn ? 'block' : 'hidden'}`} onClick={()=>addAnalysisHistory()}>
+                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[10px] mx-[3px] self-stretch shrink-0"/>
+                                                </button>
                                             </div>
+                                            <div>
+                                                <textarea id="analysisHistoryInput" rows="12" className={`${editAnalysisHistoryOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
+                                                </textarea>
+                                            </div>
+
+
                                             {
                                                 data.analysisHistory.map(history => (<div>
-                                                        <div className="w-[1000px] h-[0px] ml-[45px] flex flex-col mt-[25px] border border-zinc-500"/>
-                                                        <div className="text-black not-italic font-semibold text-[16px] flex flex-col ml-[55px] mt-[19px] max-md:ml-[10px]">
+                                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
+                                                        <div className="text-black not-italic font-light text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
                                                             {history.createdDatetime}
                                                         </div>
                                                         <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
