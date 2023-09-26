@@ -207,10 +207,11 @@ function QuotationRequest (props) {
 
                     <div className="relative top-[0px] h-[630px]">
                         <div className=" w-[297px] h-[17px] left-[90px] top-[12px] relative text-slate-500 text-lg font-bold font-['Inter']">샘플 및 분석 대상 바이오마커 정보 입력</div>
-                        <div className=" w-[214px] h-6 left-[830px] top-[0px] relative">
-                            <div className=" left-0 top-[0px] absolute text-sky-900 text-[15px] font-bold font-['Inter']">바이오마커 상세 목록 다운로드</div>
-                            <div className="ImportLight w-6 h-6 left-[190px] top-0 absolute flex-col justify-start items-start inline-flex" />
-                        </div>
+                        <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/RFQ_%E1%84%87%E1%85%B3%E1%84%85%E1%85%A6%E1%84%83%E1%85%B5%E1%84%89%E1%85%B3%E1%84%92%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B3%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%A5.pdf"
+                           className=" w-[214px] h-6 left-[830px] top-[0px] relative">
+                            <div className=" left-0 top-[0px] text-sky-900 text-[15px] font-bold font-['Inter'] inline-block">바이오마커 상세 목록 다운로드</div>
+                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0"/>
+                        </a>
                         {/*테이블 높이는 600으로 고정시키고 싶다.*/}
                         <div id="table" className="left-[90px] top-[10px] w-auto float-left relative min-h-[500px] max-h-[580px] overflow-y-scroll">
                             <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0, minWidth:'900px'}}>
@@ -349,7 +350,12 @@ function QuotationRequest (props) {
                                     <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
                                     <div className={`w-[93.48px] h-[17px] left-[18.27px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']`}>저장하기</div>
                                 </button>
-                                <button className="mt-[10px] relative text-zinc-500 text-[15px] font-bold font-['Inter']">양식 다운로드</button>
+                                <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/%EA%B2%80%EC%B2%B4+%EC%A0%95%EB%B3%B4+%EC%9E%85%EB%A0%A5+%E1%84%8B%E1%85%A3%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8_%EB%B8%8C%EB%A0%88%EB%94%94%EC%8A%A4%ED%97%AC%EC%8A%A4%EC%BC%80%EC%96%B4.xlsx"
+                                   className="mt-[10px]">
+                                    <div className="relative text-zinc-500 text-[15px] font-bold font-['Inter'] inline-block">양식 다운로드</div>
+                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0"/>
+                                </a>
+
                             </div>
                             <input id="sampleDataByFileInput" className={`${fileInputOn ? 'block' : 'hidden'} my-[10px] mx-[30px]`} type="file" />
                             <div className="ImportLight w-5 h-[21px] left-[102px] top-[42px] absolute" />
