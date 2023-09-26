@@ -283,8 +283,7 @@ const AdminOrderDetail = () => {
                                             <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border border-black border-opacity-25"></div>
 
                                             <div className="w-full mt-[13px] flex-col flex relative">
-                                                <div className="left-[800px] top-0 absolute text-neutral-700 text-lg font-normal font-['Inter'] block">분석 보고서 다운로드</div>
-                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/16efaad3-9492-49e4-a992-7de20eda52a3?&width=200" className="left-[950px] absolute aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"/>
+                                                <div className="left-[800px] top-0 absolute text-neutral-700 text-lg font-normal font-['Inter'] block">분석 보고서 업로드</div>
                                             </div>
 
                                             <div className="flex flex-row">
