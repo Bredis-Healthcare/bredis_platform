@@ -110,7 +110,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <CookiesProvider>
+          <div className='flex justify-center relative'>
             <RouterProvider router={router}/>
+          </div>
         </CookiesProvider>
     </React.StrictMode>
 );

@@ -78,7 +78,6 @@ function OrderList() {
                                 ))}
                         </div>
                     </Layout>
-                    <Header />
                 </>
             ) : (
                 <p>Loading...</p>

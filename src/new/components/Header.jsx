@@ -59,7 +59,7 @@ const Header = () => {
     }
 
     return (
-            <div className="Header w-[1667px] h-[76px] left-0 top-0 absolute">
+            <div className="Header w-[1667px] h-[76px] relative ">
                 <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
                 <Link to={"/"}>
                     <div className="DigitalElisa left-[189px] top-[21px] absolute text-black text-[26px] font-bold">Digital ELISA 연구분석서비스</div>
