@@ -3,7 +3,7 @@ import axios from "../../../api/axios";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 
-function MembersDetail() {
+function AdminMembersDetail() {
     const [data, setData] = useState(null); // or your fetching logic
     const location = useLocation()
     const navigate = useNavigate()
@@ -119,4 +119,4 @@ function MembersDetail() {
     )
 }
 
-export default MembersDetail
+export default AdminMembersDetail

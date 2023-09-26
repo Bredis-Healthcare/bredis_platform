@@ -3,7 +3,7 @@ import axios from "../../../api/axios";
 import {Link} from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
 
-function MembersList() {
+function AdminMembersList() {
     const [data, setData] = useState(null); // or your fetching logic
 
     useEffect(() => {
@@ -59,4 +59,4 @@ function MembersList() {
     )
 }
 
-export default MembersList
+export default AdminMembersList
