@@ -3,12 +3,14 @@ import TableCell from "./TableCell";
 import Select from "react-select";
 import TableHeaderCell from "./TableHeaderCell";
 import axios from "../../../api/axios";
+import readXlsxFile from 'read-excel-file'
 
 function QuotationRequest (props) {
 
 
     const [inputModeOn, setInputMode] = useState(false);
     const [copyModeOn, setCopyMode] = useState(false);
+    const [fileInputOn, setFileInputOn] = useState(false);
     const [readOnly, setReadOnly] = useState(false);
     const [selectedBiomarkers, setSelectedBiomarkers] = useState([]);
     const [selectedSampleType, setSelectedSampleType] = useState("");
@@ -146,6 +148,31 @@ function QuotationRequest (props) {
         toggleInputMode()
         toggleCopyMode()
         saveContent()
+    }
+
+    function toggleFileInput() {
+        setFileInputOn(fileInputOn => !fileInputOn)
+    }
+
+    function saveFileInput() {
+        let file = document.querySelector("#sampleDataByFileInput").files[0]
+        readXlsxFile(file).then((rows) => {
+
+            for (let i = 1; i < rows.length; i++) {
+                data.content.sampleDataList.push({
+                    "number": `${data.content.sampleDataList.length + 1}`,
+                    "uniqueNumber": rows[i][0],
+                    "biomarkers": rows[i][1].split(',').map(s => s.replaceAll(' ', '')),
+                    "sampleType": rows[i][2],
+                    "repetition": rows[i][3],
+                    "volume": `${rows[i][4]}μl`,
+                    "additionalAnalysis": rows[i][5]
+                })
+            }
+            toggleFileInput()
+            saveContent()
+            console.log(`saved ${rows.length -1} rows`)
+        });
     }
 
     return (
@@ -312,12 +339,19 @@ function QuotationRequest (props) {
                     </div>
 
                     <div className="relative top-[10px]">
-                        <div className="Group38 w-[123px] flex flex-col left-[900px] relative my-5">
-                            <button className=" w-[123px] h-[35px] left-0 top-0 relative">
-                                <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
-                                <div className=" w-[93.48px] h-[17px] left-[18.27px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">파일 업로드</div>
-                            </button>
-                            <button className="mt-[10px] relative text-zinc-500 text-[15px] font-bold font-['Inter']">양식 다운로드</button>
+                        <div className="Group38 flex flex-col left-[800px] relative my-5">
+                            <div className="flex flex-row">
+                                <button className={`${fileInputOn ? 'hidden' : 'block'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => toggleFileInput()}>
+                                    <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
+                                    <div className={`w-[93.48px] h-[17px] left-[18.27px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']`}>파일로 입력</div>
+                                </button>
+                                <button className={`${fileInputOn ? 'block' : 'hidden'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => saveFileInput()}>
+                                    <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
+                                    <div className={`w-[93.48px] h-[17px] left-[18.27px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']`}>저장하기</div>
+                                </button>
+                                <button className="mt-[10px] relative text-zinc-500 text-[15px] font-bold font-['Inter']">양식 다운로드</button>
+                            </div>
+                            <input id="sampleDataByFileInput" className={`${fileInputOn ? 'block' : 'hidden'} my-[10px] mx-[30px]`} type="file" />
                             <div className="ImportLight w-5 h-[21px] left-[102px] top-[42px] absolute" />
                         </div>
 
