@@ -7,7 +7,8 @@ import Layout from "../components/Layout";
 
 export async function loader({ params }) {
     const userId = params.userId
-    return { userId };
+    const isAdmin = false
+    return { userId , isAdmin};
   }
 
 
@@ -45,6 +46,7 @@ function OrderList() {
             {userInfo ? (
                 <>
                     <Layout menuName="주문 내역">
+                    {/* <div className="relative w-[1667px] flex flex-col p-px bg-neutral-100 py-10"> */}
                         <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px] pt-[40px]">
                             {
                                 userInfo.orderHistory.map((order, index) => (
@@ -78,6 +80,7 @@ function OrderList() {
                                 ))}
                         </div>
                     </Layout>
+                    {/* </div> */}
                 </>
             ) : (
                 <p>Loading...</p>
