@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import AdminLayout from "../../components/admin/AdminLayout";
 import Select from "react-select";
+import DownloadButton from "../../components/DownloadButton";
 
 function AdminThreadsDetail() {
 
@@ -104,6 +105,13 @@ function AdminThreadsDetail() {
                                     <div className="flex flex-col items-stretch leading-[normal] w-[calc(90%_-_10px)] ml-[20px] max-sm:w-full my-5">
                                         <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col my-5">
                                             {message.content}
+                                        </div>
+                                        <div className="flex flex-row-reverse mr-[45px]">
+                                            {
+                                                message.files ? message.files.map((file, index) => (
+                                                    <DownloadButton messageId={message.id} title={`첨부파일 ${index + 1}`} fileName={file}/>
+                                                )).reverse() : <></>
+                                            }
                                         </div>
                                     </div>
                                 </div>

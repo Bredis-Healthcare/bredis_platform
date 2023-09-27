@@ -390,6 +390,13 @@ const AdminOrderDetail = () => {
                                                                 <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col my-5">
                                                                     {message.content}
                                                                 </div>
+                                                                <div className="flex flex-row-reverse mr-[45px]">
+                                                                    {
+                                                                        message.files ? message.files.map((file, index) => (
+                                                                            <DownloadButton messageId={message.id} title={`첨부파일 ${index + 1}`} fileName={file}/>
+                                                                        )).reverse() : <></>
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
