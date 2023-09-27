@@ -4,6 +4,8 @@ import axios from "../../api/axios";
 import Layout from "../components/Layout";
 import {useCookies} from "react-cookie";
 import PurchaseDetail from "../components/order/PurchaseDetail";
+import DownloadButton from "../components/DownloadButton";
+import FileUploadModal from "../../components/modals/FileUploadModal";
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -76,6 +78,18 @@ const OrderDetail = () => {
         }
     }
 
+    const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
+    const [uploadFileType, setUploadFileType] = useState('');
+
+    const handleUploadClick = (fileType) => {
+        setIsFileUploadModalOpen(true);
+        setUploadFileType(fileType);
+    }
+
+    const closeFileUploadModal = () => {
+        setIsFileUploadModalOpen(false);
+    }
+
     return (
         <div>
             {data ? (
@@ -88,7 +102,7 @@ const OrderDetail = () => {
                                         <div className="flex flex-col items-stretch leading-[normal] w-[calc(55%_-_10px)] max-sm:w-full">
                                             <div className="flex flex-col mt-[12px] max-md:mt-[50px]">
                                                 <div className="text-[#888988] not-italic font-normal text-[16px] flex flex-col ml-px max-md:ml-px">
-                                                    202308181119-987204
+                                                    {data.orderNumber}
                                                 </div>
                                                 <div className="text-black not-italic font-bold text-[22px] flex flex-col mt-[15px]">
                                                     {data.title}
@@ -117,22 +131,24 @@ const OrderDetail = () => {
                                                             <div className="text-[#888988] not-italic font-normal text-[16px] ml-[-52px] self-center text-center flex flex-col mt-[36px]">
                                                                 검체 정보
                                                             </div>
-                                                            <div className="w-full flex flex-row gap-[4.732421875px] items-start flex-wrap mt-[3px] max-md:justify-center">
-                                                                <div className="text-[#33363F] not-italic font-normal text-[18px] self-center text-center flex flex-col mt-px">
-                                                                    검체 정보.pdf
-                                                                </div>
-                                                                <img
-                                                                    loading="lazy"
-                                                                    srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?"
-                                                                    className="aspect-[1] object-cover object-center w-[24px] self-center shrink-0 mt-[0.5px]"
-                                                                />
-                                                                {/*<div className="self-stretch flex flex-col text-[color:var(--White,#FFF)] not-italic font-bold text-[16px] mt-[-0px] pl-[17px] pr-[15px] py-[9px] rounded-[9px]">*/}
-                                                                {/*    수정 업로드*/}
-                                                                {/*</div>*/}
-                                                                <div className="self-stretch flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative">
-                                                                    <div className="Rectangle7 w-[117.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                                    <div className=" w-[108.84px] h-[17px] left-[16.16px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">수정 업로드</div>
-                                                                </div>
+                                                            <div className="w-full flex flex-row gap-[4.732421875px] items-center flex-wrap mt-[3px] max-md:justify-center">
+                                                                {
+                                                                    data.sampleDataFileName ? <>
+                                                                        <DownloadButton title='검체 정보 파일 다운로드' fileName={data.sampleDataFileName} fileType="SAMPLE_DATA" orderNumber={data.orderNumber} />
+                                                                        <button className="self-stretch flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative"
+                                                                                onClick={() => handleUploadClick("SAMPLE_DATA")}>
+                                                                            <div className="Rectangle7 w-[117.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                                            <div className=" w-[108.84px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">수정 업로드</div>
+                                                                        </button>
+                                                                    </> : <>
+                                                                        <button className="flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative"
+                                                                                onClick={() => handleUploadClick("SAMPLE_DATA")}>
+                                                                            <div className="Rectangle7 w-[80.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                                            <div className=" w-[60px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">업로드</div>
+                                                                        </button>
+                                                                    </>
+                                                                }
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -163,7 +179,7 @@ const OrderDetail = () => {
                                     </div>
                                     <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'}`}>
                                         {
-                                            data.purchaseDetail.total ? <PurchaseDetail data={data.purchaseDetail} /> :
+                                            data.purchaseDetail.total ? <PurchaseDetail orderNumber={data.orderNumber} invoiceFileName={data.invoiceFileName} taxInvoiceFileName={data.taxInvoiceFileName} data={data.purchaseDetail} /> :
                                                 <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
                                                     구매 내역이 없습니다.
                                                 </div>
@@ -193,12 +209,12 @@ const OrderDetail = () => {
                                                 {data.analysisResult ? data.analysisResult : '분석 결과가 아직 등록되지 않았습니다.'}
                                             </div>
                                             <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border-black border-opacity-25"></div>
-
-                                            <div className="w-full mt-[13px] flex-col flex relative">
-                                                <div className="left-[800px] top-0 absolute text-neutral-700 text-lg font-normal font-['Inter'] block">분석 보고서 다운로드</div>
-                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/16efaad3-9492-49e4-a992-7de20eda52a3?&width=200" className="left-[950px] absolute aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"/>
-                                            </div>
-
+                                            {
+                                                data.reportFileName ? <>
+                                                    <div className="ml-[50px]">
+                                                        <DownloadButton title='분석 보고서 다운로드' fileName={data.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
+                                                    </div></> : <></>
+                                            }
                                             <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[13px] max-md:ml-[10px]">
                                                 분석 이력
                                                 <br />
@@ -302,6 +318,7 @@ const OrderDetail = () => {
                                 </div>
                             </div>
                         </div>
+                        <FileUploadModal orderNumber = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
                     </Layout>
                 </>
             ) : (

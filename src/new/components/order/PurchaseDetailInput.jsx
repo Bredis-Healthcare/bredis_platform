@@ -39,7 +39,7 @@ function PurchaseDetailInput (props) {
         if (!inputData.tax) {alert("세액을 입력해주세요.");return}
         if (!isNumeric(inputData.tax)) {alert("세액은 0 이상의 값을 숫자로만 입력해주세요.");return}
 
-        setItems([...items, inputData])
+        setItems(oldItems => [...oldItems,inputData] );
     }
 
     return (
@@ -119,7 +119,8 @@ function PurchaseDetailInput (props) {
             <div className="float-right mt-[20px]">
                 <div className="text-zinc-500 text-lg font-[18px] font-['Inter'] ">합계금액(공급가액 + 세액)</div>
                 <div id="totalValue" className="38262070 text-black text-[24px] font-medium font-['Inter']">₩{total}</div>
-                <div className=" text-neutral-700 text-xl font-normal font-['Inter'] mt-[5px]">견적서 업로드</div>
+                <div className="inline-block text-neutral-700 text-xl font-normal font-['Inter'] mt-[5px]">견적서 첨부: </div>
+                <input id="quotationFileInput" className={`inline-block my-[10px] mx-[30px]`} type="file" />
             </div>
         </div>
     )

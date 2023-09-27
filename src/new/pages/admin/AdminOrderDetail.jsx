@@ -6,6 +6,8 @@ import {useCookies} from "react-cookie";
 import Select from "react-select";
 import AdminLayout from "../../components/admin/AdminLayout";
 import PurchaseDetail from "../../components/order/PurchaseDetail";
+import DownloadButton from "../../components/DownloadButton";
+import FileUploadModal from "../../../components/modals/FileUploadModal";
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -141,6 +143,18 @@ const AdminOrderDetail = () => {
         window.location.reload();
     }
 
+    const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
+    const [uploadFileType, setUploadFileType] = useState('');
+
+    const handleUploadClick = (fileType) => {
+        setIsFileUploadModalOpen(true);
+        setUploadFileType(fileType);
+    }
+
+    const closeFileUploadModal = () => {
+        setIsFileUploadModalOpen(false);
+    }
+
     return (
         <div>
             {data ? (
@@ -192,23 +206,7 @@ const AdminOrderDetail = () => {
                                                             <div className="text-[#888988] not-italic font-normal text-[16px] ml-[-52px] self-center text-center flex flex-col mt-[36px]">
                                                                 검체 정보
                                                             </div>
-                                                            <div className="w-full flex flex-row gap-[4.732421875px] items-start flex-wrap mt-[3px] max-md:justify-center">
-                                                                <div className="text-[#33363F] not-italic font-normal text-[18px] self-center text-center flex flex-col mt-px">
-                                                                    검체 정보.pdf
-                                                                </div>
-                                                                <img
-                                                                    loading="lazy"
-                                                                    srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?"
-                                                                    className="aspect-[1] object-cover object-center w-[24px] self-center shrink-0 mt-[0.5px]"
-                                                                />
-                                                                {/*<div className="self-stretch flex flex-col text-[color:var(--White,#FFF)] not-italic font-bold text-[16px] mt-[-0px] pl-[17px] pr-[15px] py-[9px] rounded-[9px]">*/}
-                                                                {/*    수정 업로드*/}
-                                                                {/*</div>*/}
-                                                                <div className="self-stretch flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative">
-                                                                    <div className="Rectangle7 w-[117.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                                    <div className=" w-[108.84px] h-[17px] left-[16.16px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">수정 업로드</div>
-                                                                </div>
-                                                            </div>
+                                                            <DownloadButton title='검체 정보 파일 다운로드' fileName={data.sampleDataFileName} fileType="SAMPLE_DATA" orderNumber={data.orderNumber} />
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col items-stretch leading-[normal] w-[calc(22%_-_10px)] ml-[20px] max-sm:w-full">
@@ -254,7 +252,23 @@ const AdminOrderDetail = () => {
                                     </div>
                                     <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'}`}>
                                         {
-                                            data.purchaseDetail.total ? <PurchaseDetail data={data.purchaseDetail} /> :
+                                            data.purchaseDetail.total ? <>
+                                                    <PurchaseDetail data={data.purchaseDetail} />
+                                                    <div className={"flex-row flex"}>
+                                                        <button className="flex flex-col m-[5px] w-[160px] relative"
+                                                                onClick={() => handleUploadClick("INVOICE")}>
+                                                            <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                            <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">거래명세서 업로드</div>
+                                                        </button>
+                                                        <button className="flex flex-col m-[5px] w-[160px] relative"
+                                                                onClick={() => handleUploadClick("TAX_INVOICE")}>
+                                                            <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                            <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">세금계산서 업로드</div>
+                                                        </button>
+                                                    </div>
+
+                                                </>
+                                                :
                                                 <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
                                                     구매 내역이 없습니다.
                                                 </div>
@@ -297,9 +311,12 @@ const AdminOrderDetail = () => {
                                             </div>
                                             <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border border-black border-opacity-25"></div>
 
-                                            <div className="w-full mt-[13px] flex-col flex relative">
-                                                <div className="left-[800px] top-0 absolute text-neutral-700 text-lg font-normal font-['Inter'] block">분석 보고서 다운로드</div>
-                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/16efaad3-9492-49e4-a992-7de20eda52a3?&width=200" className="left-[950px] absolute aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"/>
+                                            <div className="w-full mt-[13px] flex-row-reverse flex relative">
+                                                <button className="flex flex-col m-[5px] mr-[40px] w-[160px] relative"
+                                                        onClick={() => handleUploadClick("REPORT")}>
+                                                    <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                    <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">분석 보고서 업로드</div>
+                                                </button>
                                             </div>
 
                                             <div className="flex flex-row">
@@ -418,6 +435,7 @@ const AdminOrderDetail = () => {
                                 </div>
                             </div>
                         </div>
+                        <FileUploadModal orderNumber = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
                     </AdminLayout>
                 </>
             ) : (
