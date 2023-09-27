@@ -26,7 +26,7 @@ function DownloadButton (props) {
     }
 
     return (
-        <div>
+        <div className="inline-block mx-[10px]">
             <button>
                 <div className={`inline-block py-[2px] my-[5px] text-[18px]`} style={{textAlign: 'center', textDecoration: 'none'}}
                      onClick={() => handleDownloadClick()}>
