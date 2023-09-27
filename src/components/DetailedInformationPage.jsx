@@ -267,7 +267,7 @@ const DetailedInformationPage = () => {
                     <></>
                 }
                 </div>
-                <FileUploadModal orderId = {orderId} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
+                <FileUploadModal orderNumber = {orderId} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
                 <AnalisisResultChangeModal orderId = {orderId} prvtext = {data.analysisResult} isOpen={isAnalysisResultChangeModalOpen} closeModal={closeAnalysisResultChangeModal} />
                 </>
                 ):(

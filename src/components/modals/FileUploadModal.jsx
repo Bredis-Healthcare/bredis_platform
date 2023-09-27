@@ -7,7 +7,7 @@ import {
 } from './FileUploadModalStyles';
 import axios from "../../api/axios";
 
-function FileUploadModal( {orderId, uploadFileType, isOpen, closeModal}) {
+function FileUploadModal( {orderNumber, uploadFileType, isOpen, closeModal}) {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const fileRef = useRef(null);
 
@@ -25,7 +25,7 @@ function FileUploadModal( {orderId, uploadFileType, isOpen, closeModal}) {
             });
         
             try {
-              const response = await axios.post(`/orders/${orderId}/files?type=${uploadFileType}`, formData, {
+              const response = await axios.post(`/orders/${orderNumber}/files?type=${uploadFileType}`, formData, {
                 headers: {
                   "Content-Type": "multipart/form-data",
                   "boundary": "--boundary",

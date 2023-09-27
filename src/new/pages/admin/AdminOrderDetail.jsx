@@ -435,7 +435,7 @@ const AdminOrderDetail = () => {
                                 </div>
                             </div>
                         </div>
-                        <FileUploadModal orderId = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
+                        <FileUploadModal orderNumber = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
                     </AdminLayout>
                 </>
             ) : (
