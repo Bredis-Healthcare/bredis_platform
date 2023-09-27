@@ -12,6 +12,8 @@ function DownloadButton (props) {
             request = await axios.get(`/orders/${props.orderNumber}/files?type=${props.fileType}&fileName=${props.fileName}`);
         } else if (props.quotationRequestId) {
             request = await axios.get(`/quotation-requests/${props.quotationRequestId}/file-link`);
+        } else if (props.messageId) {
+            request = await axios.get(`/threads/messages/${props.messageId}/files?fileName=${props.fileName}`);
         } else {
             return
         }
