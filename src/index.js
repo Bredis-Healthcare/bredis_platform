@@ -22,6 +22,7 @@ import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
 import AdminThreadsList from "./new/pages/admin/AdminThreadsList";
 import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
 import AdminHome from './new/pages/AdminHome';
+import "./fonts/pretendard.css"
 
 const router = createBrowserRouter([
     {

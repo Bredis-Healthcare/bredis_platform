@@ -28,14 +28,36 @@ const OrderDetail = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
+    const [ pageInfo, setPageInfo ] = useState({});
+
+
     useEffect(() => {
-        fetchData();
+        console.log("!!!a", location.state, window.sessionStorage.getItem("pageInfo"), pageInfo)
+        if(location.state != null)
+        {
+            window.sessionStorage.setItem("pageInfo", JSON.stringify(location.state));
+            setPageInfo((pageInfo) => location.state)
+            // console.log("!!!b", location.state, window.sessionStorage.getItem("pageInfo"), pageInfo)
+        }
+        else {
+            setPageInfo((pageInfo) => JSON.parse(window.sessionStorage.getItem("pageInfo")))
+            // console.log("!!!c", location.state, window.sessionStorage.getItem("pageInfo"), pageInfo)
+        }
     }, [])
+
+    useEffect(()=>{
+        if(Object.keys(pageInfo).length !== 0)
+        {
+            fetchData();
+        }
+    }, [pageInfo])
+
 
     const fetchData = async () => {
         try {
-            const request = await axios.get(`/orders/${location.state.orderNumber}/detail`);
-            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${location.state.orderNumber}`);
+            // console.log("!@!", pageInfo)
+            const request = await axios.get(`/orders/${pageInfo.orderNumber}/detail`);
+            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.orderNumber}`);
             const statusRequest = await axios.get(`/protocols`);
     
             setData(request.data);
