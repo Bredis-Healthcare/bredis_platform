@@ -15,6 +15,7 @@ export const LoginContainer = styled.div`
     justify-content: center;
     height: 60vh; // Reduced height to 60% of the viewport
     margin-top: 10vh; // Added top margin for spacing above the container
+    margin-bottom: 10vh; // Added top margin for spacing above the container
     width: 100%;
     background-color: #f7f7f7;
     max-width: 400px; // Set a max width for larger screens

@@ -58,6 +58,18 @@ const Header = () => {
         navigate("/");
     }
 
+    async function logout() {
+        const request = await axios.post('logout')
+        removeCookie(['login']);
+        clickProfileIcon()
+        navigate("/");
+    }
+
+    async function login() {
+        setProfileMenuOn(false)
+        navigate("/login");
+    }
+
     return (
             <div className="Header w-[1667px] h-[76px] relative ">
                 <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
@@ -90,12 +102,14 @@ const Header = () => {
                         <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fec38e501943d468fa0df8b6f1a34a36f?&width=200" alt=""/>
                     </div>
                 </div>
+                
                 <button className=" w-[49px] h-[30px] left-[1581px] top-[29px] absolute"
-                        onClick={() => clickProfileIcon()}>
+                        onClick={cookies.login ? () => clickProfileIcon() : () => login()}>
                     <div className="UserCicrleLight w-[55px] h-[30px] left-0 top-0 absolute">
                         <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F620ec0bc269049aa87c29d8e1cbbc3be?&width=200" alt=""/>
                     </div>
                 </button>
+                
                 <button className={`${profileMenuOn ? 'block' : 'hidden'} absolute w-auto left-[1515px] top-[58px] z-10`}
                         onClick={() => logout()}>
                     <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc18ab58-4f37-43ec-8a4c-32e441c85efb?&width=800" />
