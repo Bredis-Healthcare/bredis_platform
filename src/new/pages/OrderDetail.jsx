@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import {useCookies} from "react-cookie";
 import PurchaseDetail from "../components/order/PurchaseDetail";
 import DownloadButton from "../components/DownloadButton";
+import FileUploadModal from "../../components/modals/FileUploadModal";
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -77,6 +78,18 @@ const OrderDetail = () => {
         }
     }
 
+    const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
+    const [uploadFileType, setUploadFileType] = useState('');
+
+    const handleUploadClick = (fileType) => {
+        setIsFileUploadModalOpen(true);
+        setUploadFileType(fileType);
+    }
+
+    const closeFileUploadModal = () => {
+        setIsFileUploadModalOpen(false);
+    }
+
     return (
         <div>
             {data ? (
@@ -122,15 +135,17 @@ const OrderDetail = () => {
                                                                 {
                                                                     data.sampleDataFileName ? <>
                                                                         <DownloadButton title='검체 정보 파일 다운로드' fileName={data.sampleDataFileName} fileType="SAMPLE_DATA" orderNumber={data.orderNumber} />
-                                                                        <div className="self-stretch flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative">
+                                                                        <button className="self-stretch flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative"
+                                                                                onClick={() => handleUploadClick("SAMPLE_DATA")}>
                                                                             <div className="Rectangle7 w-[117.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                                            <div className=" w-[108.84px] h-[17px] left-[16.16px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">수정 업로드</div>
-                                                                        </div>
+                                                                            <div className=" w-[108.84px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">수정 업로드</div>
+                                                                        </button>
                                                                     </> : <>
-                                                                        <div className="flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative">
+                                                                        <button className="flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative"
+                                                                                onClick={() => handleUploadClick("SAMPLE_DATA")}>
                                                                             <div className="Rectangle7 w-[80.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                                            <div className=" w-[60px] h-[17px] left-[16.16px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">업로드</div>
-                                                                        </div>
+                                                                            <div className=" w-[60px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">업로드</div>
+                                                                        </button>
                                                                     </>
                                                                 }
 
@@ -303,6 +318,7 @@ const OrderDetail = () => {
                                 </div>
                             </div>
                         </div>
+                        <FileUploadModal orderId = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
                     </Layout>
                 </>
             ) : (

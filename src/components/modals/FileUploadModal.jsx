@@ -32,6 +32,7 @@ function FileUploadModal( {orderId, uploadFileType, isOpen, closeModal}) {
                 },
               });
               alert("업로드되었습니다.");
+              window.location.reload()
               console.log(response)
             } catch (error) {
               console.log("파일보내기 에러", error);
