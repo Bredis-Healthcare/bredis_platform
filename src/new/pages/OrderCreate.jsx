@@ -126,7 +126,7 @@ function OrderCreate() {
                                     </div>
                                     <div className={`${quotationPreviewOn ? 'block' : 'hidden'} w-[1100px] h-auto left-[300px] top-[10px] mb-[20px] relative bg-white shadow`}>
                                         <div className="flex flex-col items-center">
-                                            <PurchaseDetail data={data.purchaseSuggestion}/>
+                                            <PurchaseDetail quotationRequestId={data.id} data={data.purchaseSuggestion}/>
                                         </div>
                                     </div>
 
@@ -146,7 +146,7 @@ function OrderCreate() {
                             ) : <></>
                         }
                         {
-                            data.status === 'ORDER_STARTED' ? <OrderStarted data={data} memberId={cookies.login && cookies.login['id']}/> : <></>
+                            data.status === 'ORDER_STARTED' ? <OrderStarted data={data} quotationRequestId={data.id} memberId={cookies.login && cookies.login['id']}/> : <></>
                         }
                         <AskButton />
                     </div>
