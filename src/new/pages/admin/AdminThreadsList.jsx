@@ -54,7 +54,7 @@ function AdminThreadsList () {
                                                     <div className="20230331150000 left-[807px] top-[68px] absolute text-zinc-500 text-lg font-normal font-['Inter']">종료일시: {thread.updatedDatetime}</div>
                                                 )
                                             }
-                                            <Link to="/admin-page/members/threads/detail" state={{threadId: thread.id}}>
+                                            <Link to="/admin/members/threads/detail" state={{threadId: thread.id}}>
                                                 <button className=" w-[120px] h-[35px] left-[947px] top-[28px] absolute">
                                                     <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
                                                     <div className=" w-[120px] h-[17px] left-[0px] top-[6px] absolute text-slate-500 text-lg font-bold font-['Inter']">내용 보기 ></div>

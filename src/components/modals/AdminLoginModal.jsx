@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from '../LoginPageStyles';
+import logo from '../../img/bredis_logo.png'
 import axios from "../../api/axios";
 import  {useNavigate  } from "react-router-dom";
 import {useCookies} from 'react-cookie';
+import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton, ModalOverlay, CloseButton } from '../LoginPageStyles';
+import { useLoginModal } from '../LoginModalContext';
 
-// Main login component
-const LoginPage = () => {
-    
-    // States for email and password
+const AdminLoginPageModal = () => {
+    const { setIsModalOpen } = useLoginModal();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cookies, setCookie] = useCookies(['name']);
     const navigate = useNavigate();
+    const handleOutsideClick = (e) => {
+        // if (e.target === e.currentTarget) {
+        //     setIsModalOpen(false);
+        // }
+    };
 
-
-    // Function to handle form submission
     const handleLogin = (e) => {
         e.preventDefault();
         async function loginPress() {
@@ -25,7 +28,8 @@ const LoginPage = () => {
                 });
                 console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                 setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                navigate("/admin/members/list" );
+                setIsModalOpen(false);
+                window.location.reload();
             } catch (error) {
                 console.error("Error while logging in:", error);
             }
@@ -34,9 +38,13 @@ const LoginPage = () => {
     };
 
     return (
-        <LoginContainer>
-            <p>연구서비스 플랫폼 어드민에 오신 것을 환영합니다.</p>
-            <form onSubmit={handleLogin}>
+        <ModalOverlay onClick={handleOutsideClick}>
+            <LoginContainer>
+                <h1>관리자 로그인 만료되었습니다.</h1>
+                <h1> 다시 로그인해주세요</h1>
+                <CloseButton onClick={(e) => {setIsModalOpen(false)}}>X</CloseButton>
+                <LoginImage src={logo} alt="Login Illustration" />
+                <form onSubmit={handleLogin}>
                 <LoginInput
                     type="email"
                     placeholder="이메일"
@@ -57,9 +65,10 @@ const LoginPage = () => {
                 >
                     로그인
                 </LoginButton>
-            </form>
-        </LoginContainer>
+                </form>
+            </LoginContainer>
+        </ModalOverlay>
     );
 };
 
-export default LoginPage;
+export default AdminLoginPageModal;

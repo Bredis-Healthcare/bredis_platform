@@ -21,6 +21,7 @@ import AdminOrderDetail from "./new/pages/admin/AdminOrderDetail";
 import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
 import AdminThreadsList from "./new/pages/admin/AdminThreadsList";
 import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
+import AdminHome from './new/pages/AdminHome';
 
 const router = createBrowserRouter([
     {
@@ -71,57 +72,66 @@ const router = createBrowserRouter([
               errorElement: <ErrorPage/>,
               loader: OrderDetailLoader
           },
-          {
-              path: "/admin-page/login",
-              element: <AdminLoginPage/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
-          {
-              path: "/admin-page/members/list",
-              element: <AdminMembersList/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
-          {
-              path: "/admin-page/members/detail",
-              element: <AdminMembersDetail/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
-          {
-              path: "/admin-page/members/orders",
-              element: <AdminOrderList/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
-          {
-              path: "/admin-page/members/orders/detail",
-              element: <AdminOrderDetail/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
-          {
-              path: "/admin-page/members/orders/create",
-              element: <AdminOrderCreate/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
-          {
-              path: "/admin-page/members/threads",
-              element: <AdminThreadsList/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
-          {
-              path: "/admin-page/members/threads/detail",
-              element: <AdminThreadsDetail/>,
-              errorElement: <ErrorPage/>,
-              loader : adminloader,
-          },
+          
 
         ]
     },
+    {
+        path: "/admin",
+        element: <AdminHome/>,
+        errorElement: <ErrorPage/>,
+        loader : adminloader,
+        children: [
+            {
+                path: "login",
+                element: <AdminLoginPage/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "members/list",
+                element: <AdminMembersList/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "members/detail",
+                element: <AdminMembersDetail/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "members/orders",
+                element: <AdminOrderList/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "members/orders/detail",
+                element: <AdminOrderDetail/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "members/orders/create",
+                element: <AdminOrderCreate/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "members/threads",
+                element: <AdminThreadsList/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "members/threads/detail",
+                element: <AdminThreadsDetail/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+        ]
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

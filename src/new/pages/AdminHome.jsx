@@ -5,12 +5,13 @@ import logo from '../../img/bredis_logo_wide.png'
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {LoginModalProvider, useLoginModal} from '../../components/LoginModalContext';
 import {setUnauthorizedHandler} from '../../api/axios';
-import LoginPageModal from '../../components/modals/LoginModal';
 import Layout from "../components/Layout";
 
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import DefaultPage from './DefaultPage';
+import AdminDefaultPage from './admin/AdminDefaultPage';
+import AdminHeader from '../components/admin/AdminHeader';
+import AdminLoginPageModal from '../../components/modals/AdminLoginModal';
 
 export async function loader({ params }) {
     const isAdmin = false;
@@ -22,7 +23,7 @@ export async function loader({ params }) {
     return { isAdmin };
   }
 
-const Home = () => {
+const AdminHome = () => {
     return (
         <LoginModalProvider>
             <MainPageContent/>
@@ -45,13 +46,13 @@ const MainPageContent = () => {
 
     return (
         <div>
-            <Header/>
-                {isModalOpen && location["pathname"] !== '/login' && <LoginPageModal/>}
-                {location["pathname"] === '/' && <DefaultPage/>}
+            <AdminHeader/>
+                {isModalOpen && location["pathname"] !== 'admin/login' && <AdminLoginPageModal/>}
+                {location["pathname"] === '/admin' && <AdminDefaultPage/>}
             <Outlet/>
             <Footer/>
         </div>
     );
 };
 
-export default Home;
+export default AdminHome;

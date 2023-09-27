@@ -78,7 +78,7 @@ function AdminMembersDetail() {
                             <div className="Group25 w-[485px] h-[148px] left-0 top-0 absolute">
                                 <div className="Rectangle21 w-[485px] h-[148px] left-0 top-0 absolute bg-white shadow" />
                                 <div className=" left-[12px] top-[14px] absolute text-neutral-800 text-2xl font-bold font-['Inter']">견적 요청</div>
-                                <Link to="/admin-page/members/orders/create" state={{quotationRequestId: data.quotationRequestId}} className={`${data.quotationRequestId ? 'block' : 'hidden'}`}>
+                                <Link to="/admin/members/orders/create" state={{quotationRequestId: data.quotationRequestId}} className={`${data.quotationRequestId ? 'block' : 'hidden'}`}>
                                     <button className=" w-[120px] h-[35px] left-[345px] top-[69px] absolute">
                                         <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
                                         <div className=" w-[93px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">상세 보기 ></div>
@@ -105,7 +105,7 @@ function AdminMembersDetail() {
                                     <div className=" w-[43px] h-[23px] left-[23px] top-[58px] absolute text-slate-400 text-xl font-bold font-['Inter']">완료</div>
                                 </div>
                             </div>
-                            <Link to="/admin-page/members/threads" state={{memberId: data.id}}>
+                            <Link to="/admin/members/threads" state={{memberId: data.id}}>
                                 <div className=" w-[120px] h-[35px] left-[332px] top-[175px] absolute">
                                     <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
                                     <div className=" w-[90px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">전체 보기 ></div>
@@ -129,7 +129,7 @@ function AdminMembersDetail() {
                                     <div className=" w-[43px] h-[23px] left-[23px] top-[58px] absolute text-slate-400 text-xl font-bold font-['Inter']">완료</div>
                                 </div>
                             </div>
-                            <Link to="/admin-page/members/orders" state={{memberId: data.id}}>
+                            <Link to="/admin/members/orders" state={{memberId: data.id}}>
                                 <button className=" w-[120px] h-[35px] left-[332px] top-[175px] absolute">
                                     <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-400" />
                                     <div className=" w-[90px] h-[17px] left-[19px] top-[6px] absolute text-slate-400 text-lg font-bold font-['Inter']">전체 보기 ></div>

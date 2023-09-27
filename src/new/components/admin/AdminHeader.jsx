@@ -42,9 +42,9 @@ const AdminHeader = () => {
     }
 
     return (
-            <div className="Header w-[1667px] h-[76px] left-0 top-0 absolute">
+            <div className="Header w-[1667px] h-[76px] relative ">
                 <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
-                <Link to={"/admin-page/members/list"}>
+                <Link to={"/admin"}>
                     <div className="DigitalElisa left-[189px] top-[21px] absolute text-black text-[26px] font-bold">Digital ELISA 연구분석서비스 관리자</div>
                     <img className=" w-[189px] h-[76px] left-0 top-0 absolute" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800" />
                 </Link>
@@ -53,7 +53,7 @@ const AdminHeader = () => {
                     <div className={`${isHovering3 ? 'block' : 'hidden'} w-[82px] h-[3px] left-[1320px] top-[16px] absolute bg-sky-900`} />
                     <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'} left-[1350px] top-[32px] absolute  text-xl font-bold`}>홈</div>
                 </Link>
-                <Link to={"/admin-page/members/list"} onMouseOver={colorOn4} onMouseOut={colorOff4}>
+                <Link to={"/admin/members/list"} onMouseOver={colorOn4} onMouseOut={colorOff4}>
                     <div className={`${isHovering4 ? 'block' : 'hidden'} w-[82px] h-[3px] left-[1415px] top-[16px] absolute bg-sky-900`} />
                     <div className={`${isHovering4 ? 'text-sky-900' : 'text-black'} left-[1421px] top-[32px] absolute  text-xl font-bold`}>고객 목록</div>
                 </Link>
