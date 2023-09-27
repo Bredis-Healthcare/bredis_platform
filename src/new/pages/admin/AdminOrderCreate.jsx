@@ -78,16 +78,25 @@ function AdminOrderCreate() {
                 })
             }
 
-            await axios.post(`/quotation-requests/${id}/suggest-quotation`, {
-                "quotationFileLink": "https://bredis.s3.ap-northeast-2.amazonaws.com/test-service/202308090246-61f81f/SAMPLE_DATA_202308090246-61f81f.png",
-                "purchaseSuggestion":
-                    {
-                        "subtotal": subtotal,
-                        "tax": tax,
-                        "total": total,
-                        "items": items
-                    }
+            let file = document.querySelector("#quotationFileInput").files[0]
+            console.log(file)
+
+
+            const formData = new FormData();
+            formData.append("file", file);
+            let suggestion = JSON.stringify({
+                "subtotal": subtotal,
+                "tax": tax,
+                "total": total,
+                "items": items
             });
+
+            await axios.post(`/quotation-requests/${id}/suggest-quotation?purchaseSuggestion=${encodeURIComponent(suggestion)}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "boundary": "--boundary",
+                }}
+            );
             window.location.reload();
         }
     }
