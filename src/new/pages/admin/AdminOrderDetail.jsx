@@ -7,6 +7,7 @@ import Select from "react-select";
 import AdminLayout from "../../components/admin/AdminLayout";
 import PurchaseDetail from "../../components/order/PurchaseDetail";
 import DownloadButton from "../../components/DownloadButton";
+import FileUploadModal from "../../../components/modals/FileUploadModal";
 
 export async function loader({ params }) {
     const orderId = params.orderId
@@ -142,6 +143,18 @@ const AdminOrderDetail = () => {
         window.location.reload();
     }
 
+    const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
+    const [uploadFileType, setUploadFileType] = useState('');
+
+    const handleUploadClick = (fileType) => {
+        setIsFileUploadModalOpen(true);
+        setUploadFileType(fileType);
+    }
+
+    const closeFileUploadModal = () => {
+        setIsFileUploadModalOpen(false);
+    }
+
     return (
         <div>
             {data ? (
@@ -239,7 +252,23 @@ const AdminOrderDetail = () => {
                                     </div>
                                     <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'}`}>
                                         {
-                                            data.purchaseDetail.total ? <PurchaseDetail data={data.purchaseDetail} /> :
+                                            data.purchaseDetail.total ? <>
+                                                    <PurchaseDetail data={data.purchaseDetail} />
+                                                    <div className={"flex-row flex"}>
+                                                        <button className="flex flex-col m-[5px] w-[160px] relative"
+                                                                onClick={() => handleUploadClick("INVOICE")}>
+                                                            <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                            <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">거래명세서 업로드</div>
+                                                        </button>
+                                                        <button className="flex flex-col m-[5px] w-[160px] relative"
+                                                                onClick={() => handleUploadClick("TAX_INVOICE")}>
+                                                            <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                            <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">세금계산서 업로드</div>
+                                                        </button>
+                                                    </div>
+
+                                                </>
+                                                :
                                                 <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
                                                     구매 내역이 없습니다.
                                                 </div>
@@ -282,8 +311,12 @@ const AdminOrderDetail = () => {
                                             </div>
                                             <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border border-black border-opacity-25"></div>
 
-                                            <div className="w-full mt-[13px] flex-col flex relative">
-                                                <div className="left-[800px] top-0 absolute text-neutral-700 text-lg font-normal font-['Inter'] block">분석 보고서 업로드</div>
+                                            <div className="w-full mt-[13px] flex-row-reverse flex relative">
+                                                <button className="flex flex-col m-[5px] mr-[40px] w-[160px] relative"
+                                                        onClick={() => handleUploadClick("REPORT")}>
+                                                    <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                    <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">분석 보고서 업로드</div>
+                                                </button>
                                             </div>
 
                                             <div className="flex flex-row">
@@ -402,6 +435,7 @@ const AdminOrderDetail = () => {
                                 </div>
                             </div>
                         </div>
+                        <FileUploadModal orderId = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
                     </AdminLayout>
                 </>
             ) : (
