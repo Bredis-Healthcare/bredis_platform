@@ -20,7 +20,7 @@ function OrderStarted (props) {
                 </div>
             </div>
             <div className="relative ml-[300px] mt-[30px] w-[1100px]">
-                <PurchaseDetail data={props.data.purchaseSuggestion}/>
+                <PurchaseDetail quotationRequestId={props.quotationRequestId} data={props.data.purchaseSuggestion}/>
             </div>
             <button className="w-[200px] h-[45px] self-center flex flex-col relative mt-[30px]"
                     onClick={() => createNewQuotationRequest(props.memberId)}>

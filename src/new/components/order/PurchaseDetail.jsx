@@ -1,4 +1,5 @@
 import React from "react";
+import DownloadButton from "../DownloadButton";
 
 function PurchaseDetail (props) {
     let data = props.data
@@ -46,7 +47,11 @@ function PurchaseDetail (props) {
                 data ? <div className="float-right mt-[20px]">
                     <div className="text-zinc-500 text-lg font-normal font-['Inter'] ">합계금액(공급가액 + 세액)</div>
                     <div className="38262070 text-black text-[32px] font-medium font-['Inter']">₩{data.total}</div>
-                    <div className=" text-neutral-700 text-xl font-normal font-['Inter'] mt-[5px]">견적서/거래명세서 다운로드</div>
+                    {
+                        props.quotationRequestId ?
+                            <DownloadButton title='견적서 다운로드' quotationRequestId={props.quotationRequestId} />
+                            : <></>
+                    }
                 </div> : <></>
             }
         </div>

@@ -2,12 +2,20 @@ import axios from "../../api/axios";
 import React from "react";
 
 function DownloadButton (props) {
-    async function handleDownloadClick () {
-        if (!props.fileName) {
-            alert('아직 파일이 등록되지 않았습니다.');
-            return;
+    async function handleDownloadClick() {
+        let request;
+        if (props.orderNumber) {
+            if (!props.fileName) {
+                alert('아직 파일이 등록되지 않았습니다.');
+                return;
+            }
+            request = await axios.get(`/orders/${props.orderNumber}/files?type=${props.fileType}&fileName=${props.fileName}`);
+        } else if (props.quotationRequestId) {
+            request = await axios.get(`/quotation-requests/${props.quotationRequestId}/file-link`);
+        } else {
+            return
         }
-        const request = await axios.get(`/orders/${props.orderNumber}/files?type=${props.fileType}&fileName=${props.fileName}`);
+
         const downloadUrl = request.data.link;
         const link = document.createElement('a');
         link.href = downloadUrl;
