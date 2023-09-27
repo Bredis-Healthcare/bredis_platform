@@ -41,14 +41,30 @@ const AdminOrderDetail = () => {
     const [editAnalysisHistoryOn, setAnalysisHistoryOn] = useState(false);
 
 
+    const [ pageInfo, setPageInfo ] = useState({});
     useEffect(() => {
-        fetchData();
+        if(location.state != null)
+        {
+            window.sessionStorage.setItem("pageInfo", JSON.stringify(location.state));
+            setPageInfo((pageInfo) => location.state)
+        }
+        else {
+            setPageInfo((pageInfo) => JSON.parse(window.sessionStorage.getItem("pageInfo")))
+        }
     }, [])
+
+    useEffect(()=>{
+        if(Object.keys(pageInfo).length !== 0)
+        {
+            fetchData();
+        }
+    }, [pageInfo])
+
 
     const fetchData = async () => {
         try {
-            const request = await axios.get(`/orders/${location.state.orderNumber}/detail`);
-            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${location.state.orderNumber}`);
+            const request = await axios.get(`/orders/${pageInfo.orderNumber}/detail`);
+            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.orderNumber}`);
             const statusRequest = await axios.get(`/protocols`);
     
             setData(request.data);

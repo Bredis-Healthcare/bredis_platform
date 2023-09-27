@@ -7,14 +7,29 @@ import AdminLayout from "../../components/admin/AdminLayout";
 function AdminThreadsList () {
     const [data, setData] = useState(null); // or your fetching logic
     const location = useLocation()
-
+    const [ pageInfo, setPageInfo ] = useState({});
     useEffect(() => {
-        fetchData();
+        if(location.state != null)
+        {
+            window.sessionStorage.setItem("pageInfo", JSON.stringify(location.state));
+            setPageInfo((pageInfo) => location.state)
+        }
+        else {
+            setPageInfo((pageInfo) => JSON.parse(window.sessionStorage.getItem("pageInfo")))
+        }
     }, [])
+
+    useEffect(()=>{
+        if(Object.keys(pageInfo).length !== 0)
+        {
+            fetchData();
+        }
+    }, [pageInfo])
+
     const fetchData = async () => {
 
         try {
-            const request = await axios.get(`/admin/threads?memberId=${location.state.memberId}`);
+            const request = await axios.get(`/admin/threads?memberId=${pageInfo.memberId}`);
             setData(request.data);
 
         } catch (error) {

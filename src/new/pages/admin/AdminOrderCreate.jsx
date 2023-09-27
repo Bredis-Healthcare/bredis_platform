@@ -22,14 +22,29 @@ function AdminOrderCreate() {
     const toggleSuggestQuotationOn = () => {
         setSuggestQuotationOn(suggestQuotationOn => !suggestQuotationOn);
     }
-
+    const [ pageInfo, setPageInfo ] = useState({});
     useEffect(() => {
-        fetchData();
+        if(location.state != null)
+        {
+            window.sessionStorage.setItem("pageInfo", JSON.stringify(location.state));
+            setPageInfo((pageInfo) => location.state)
+        }
+        else {
+            setPageInfo((pageInfo) => JSON.parse(window.sessionStorage.getItem("pageInfo")))
+        }
     }, [])
+
+    useEffect(()=>{
+        if(Object.keys(pageInfo).length !== 0)
+        {
+            fetchData();
+        }
+    }, [pageInfo])
+
     const fetchData = async () => {
 
         try {
-            const request = await axios.get(`/quotation-requests/${location.state.quotationRequestId}`);
+            const request = await axios.get(`/quotation-requests/${pageInfo.quotationRequestId}`);
             setData(request.data);
             console.log(request.data)
 

@@ -13,13 +13,29 @@ function AdminThreadsDetail() {
     const [editStatusOn, setEditStatusOn] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState("");
 
+    const [ pageInfo, setPageInfo ] = useState({});
     useEffect(() => {
-        fetchData();
+        if(location.state != null)
+        {
+            window.sessionStorage.setItem("pageInfo", JSON.stringify(location.state));
+            setPageInfo((pageInfo) => location.state)
+        }
+        else {
+            setPageInfo((pageInfo) => JSON.parse(window.sessionStorage.getItem("pageInfo")))
+        }
     }, [])
+
+    useEffect(()=>{
+        if(Object.keys(pageInfo).length !== 0)
+        {
+            fetchData();
+        }
+    }, [pageInfo])
+
     const fetchData = async () => {
 
         try {
-            const request = await axios.get(`/threads/${location.state.threadId}`);
+            const request = await axios.get(`/threads/${pageInfo.threadId}`);
             setData(request.data);
         } catch (error) {
             console.log("error", error)
@@ -41,14 +57,14 @@ function AdminThreadsDetail() {
             alert("문의 상태를 선택해주세요.")
             return
         }
-        await axios.patch(`/admin/threads/${location.state.threadId}/status`, {"status": selectedStatus});
+        await axios.patch(`/admin/threads/${pageInfo.threadId}/status`, {"status": selectedStatus});
         window.location.reload();
     }
 
     async function submitMessage() {
         let contents = document.getElementById("message").value
         if (window.confirm("메시지를 전송하시겠습니까?")) {
-            await axios.post(`/admin/threads/messages`, { "threadId": location.state.threadId, "content": contents});
+            await axios.post(`/admin/threads/messages`, { "threadId": pageInfo.threadId, "content": contents});
             window.location.reload();
         }
     }

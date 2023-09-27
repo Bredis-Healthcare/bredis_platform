@@ -9,13 +9,29 @@ function AdminMembersDetail() {
     const location = useLocation()
     const navigate = useNavigate()
 
+    const [ pageInfo, setPageInfo ] = useState({});
     useEffect(() => {
-        fetchData();
+        if(location.state != null)
+        {
+            window.sessionStorage.setItem("pageInfo", JSON.stringify(location.state));
+            setPageInfo((pageInfo) => location.state)
+        }
+        else {
+            setPageInfo((pageInfo) => JSON.parse(window.sessionStorage.getItem("pageInfo")))
+        }
     }, [])
+
+    useEffect(()=>{
+        if(Object.keys(pageInfo).length !== 0)
+        {
+            fetchData();
+        }
+    }, [pageInfo])
+
     const fetchData = async () => {
 
         try {
-            const request = await axios.get(`/members/${location.state.memberId}/detail`);
+            const request = await axios.get(`/members/${pageInfo.memberId}/detail`);
             setData(request.data);
 
         } catch (error) {
@@ -34,7 +50,7 @@ function AdminMembersDetail() {
             alert("관리자 메모를 입력해주세요.")
             return
         }
-        await axios.patch(`/members/${location.state.memberId}/admin-memo`,{"content": `${editContent}`});
+        await axios.patch(`/members/${pageInfo.memberId}/admin-memo`,{"content": `${editContent}`});
         window.location.reload();
 
     }

@@ -29,19 +29,14 @@ const OrderDetail = () => {
     const navigate = useNavigate()
 
     const [ pageInfo, setPageInfo ] = useState({});
-
-
     useEffect(() => {
-        console.log("!!!a", location.state, window.sessionStorage.getItem("pageInfo"), pageInfo)
         if(location.state != null)
         {
             window.sessionStorage.setItem("pageInfo", JSON.stringify(location.state));
             setPageInfo((pageInfo) => location.state)
-            // console.log("!!!b", location.state, window.sessionStorage.getItem("pageInfo"), pageInfo)
         }
         else {
             setPageInfo((pageInfo) => JSON.parse(window.sessionStorage.getItem("pageInfo")))
-            // console.log("!!!c", location.state, window.sessionStorage.getItem("pageInfo"), pageInfo)
         }
     }, [])
 
