@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import {useCookies} from "react-cookie";
 import PurchaseDetail from "../components/order/PurchaseDetail";
 import DownloadButton from "../components/DownloadButton";
-import FileUploadModal from "../../components/modals/FileUploadModal";
+import FileUploadModal from "../components/modals/FileUploadModal";
 
 export async function loader({ params }) {
     const orderId = params.orderId

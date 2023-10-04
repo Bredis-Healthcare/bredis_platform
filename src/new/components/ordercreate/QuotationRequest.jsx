@@ -362,7 +362,10 @@ function QuotationRequest (props) {
                         </div>
 
                         <div className=" w-[134px] h-[17px] left-[90px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청일:</div>
-                        <input id="sampleDeliveryWishDateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate ? data.content.sampleDeliveryWishDate.replaceAll('.', '-') : ''}
+                        <input id="sampleDeliveryWishD
+                        
+                        
+                          ateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate ? data.content.sampleDeliveryWishDate.replaceAll('.', '-') : ''}
                                onChange={(e)=>{data.content.sampleDeliveryWishDate = e.target.value.replaceAll('.', '-'); saveContent()}}
                                className={`w-[200px] h-[30px] px-1.5 left-[105px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                         <div className=" w-[134px] h-[17px] left-[300px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">결과 보고 희망일:</div>

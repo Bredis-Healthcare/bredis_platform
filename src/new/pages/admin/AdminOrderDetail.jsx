@@ -7,7 +7,7 @@ import Select from "react-select";
 import AdminLayout from "../../components/admin/AdminLayout";
 import PurchaseDetail from "../../components/order/PurchaseDetail";
 import DownloadButton from "../../components/DownloadButton";
-import FileUploadModal from "../../../components/modals/FileUploadModal";
+import FileUploadModal from "../../components/modals/FileUploadModal";
 
 export async function loader({ params }) {
     const orderId = params.orderId

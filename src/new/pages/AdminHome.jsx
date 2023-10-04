@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {BigImage, MainButton, MainContainer} from '../../components/MainPageStyles';
+import {BigImage, MainButton, MainContainer} from './MainPageStyles';
 import logo from '../../img/bredis_logo_wide.png'
 
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import {LoginModalProvider, useLoginModal} from '../../components/LoginModalContext';
+import {LoginModalProvider, useLoginModal} from '../components/modals/LoginModalContext';
 import {setUnauthorizedHandler} from '../../api/axios';
 import Layout from "../components/Layout";
 
@@ -11,7 +11,7 @@ import Footer from "../components/Footer";
 import DefaultPage from './DefaultPage';
 import AdminDefaultPage from './admin/AdminDefaultPage';
 import AdminHeader from '../components/admin/AdminHeader';
-import AdminLoginPageModal from '../../components/modals/AdminLoginModal';
+import AdminLoginPageModal from '../components/modals/AdminLoginModal';
 
 export async function loader({ params }) {
     const isAdmin = false;

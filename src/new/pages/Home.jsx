@@ -1,12 +1,9 @@
 import React, {useEffect} from 'react';
-import {BigImage, MainButton, MainContainer} from '../../components/MainPageStyles';
-import logo from '../../img/bredis_logo_wide.png'
 
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import {LoginModalProvider, useLoginModal} from '../../components/LoginModalContext';
+import {LoginModalProvider, useLoginModal} from '../components/modals/LoginModalContext';
 import {setUnauthorizedHandler} from '../../api/axios';
-import LoginPageModal from '../../components/modals/LoginModal';
-import Layout from "../components/Layout";
+import LoginPageModal from '../components/modals/LoginModal';
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
