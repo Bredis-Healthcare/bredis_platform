@@ -90,7 +90,17 @@ const OrderDetail = () => {
     async function submitMessage() {
         let contents = document.getElementById("message").value
         if (window.confirm("메시지를 전송하시겠습니까?")) {
-            await axios.post(`/messages`, { "threadId": threadData.id, "content": contents, "senderId": cookies.login && cookies.login['id']});
+
+            let file = document.querySelector("#messageFileInput").files[0]
+            const formData = new FormData();
+            formData.append("file", file);
+
+            await axios.post(`/messages?threadId=${threadData.id}&senderId=${cookies.login && cookies.login['id']}&content=${encodeURIComponent(contents)}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "boundary": "--boundary",
+                }}
+            );
             window.location.reload();
         }
     }
@@ -310,6 +320,8 @@ const OrderDetail = () => {
                                                 <div className={`${sendModeOn ? 'block' : 'hidden'}`}>
                                                     <div className=" w-[415px] h-[22px] text-neutral-700 text-[15px] mt-5 font-medium font-['Inter']">※ 간단한 주의사항...</div>
                                                     <textarea id="message" rows="12" className="resize-none left-[0px] top-[10px] relative block p-2.5 mb-3 w-[910px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="메시지를 입력해주세요."></textarea>
+                                                    <div className="inline-block text-neutral-700 text-[14px] font-normal font-['Inter'] mt-[5px]">첨부 파일: </div>
+                                                    <input id="messageFileInput" className={`inline-block text-[14px] my-[10px] mx-[10px]`} type="file" />
                                                 </div>
                                                 <div className="flex flex-row-reverse max-sm:flex-col max-sm:items-stretch mr-[50px] mt-[10px]">
                                                     <button className={`${sendModeOn ? 'hidden' : 'block'} w-[120px] h-[35px] relative mx-2 my-2`}
