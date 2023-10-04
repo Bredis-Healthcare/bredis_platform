@@ -60,6 +60,13 @@ const Header = () => {
         setNotifications(request.data);
     }
 
+    async function checkReadAll() {
+        await axios.post(`/notifications/read?notificationsIds=${notifications.list.map(noti => noti.id).join(',')}`);
+        setNotificationsOn(false)
+        const request = await axios.get(`/notifications?memberId=${cookies.login && cookies.login['id']}`);
+        setNotifications(request.data);
+    }
+
     return (
             <div className="Header w-[1667px] h-[76px] relative ">
                 <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
@@ -111,8 +118,9 @@ const Header = () => {
                     <div className="left-0 top-0 w-[100%] relative">
                         {
                             notifications ?
-                                (notifications.list.length > 0 ?
-                                        notifications.list.map((notification) => (<>
+                                (notifications.list.length > 0 ? <>
+                                        {
+                                            notifications.list.map((notification) => (<>
                                                 <Link to={notification.linkTo} state={{resourceId: notification.resourceId}} onClick={(e) => checkRead(e, notification.id)}>
                                                     <button className="text-left">
                                                         <div className="px-[17px] my-[5px] relative text-black text-[14px] font-normal font-['Inter']">
@@ -124,8 +132,17 @@ const Header = () => {
                                                     </button>
                                                 </Link>
                                                 <div className="Line11 w-[265px] h-[0px] left-[16px] my-[5px] relative border border-zinc-500 border-opacity-50"></div>
-                                            </>
-                                        )) : <div className="px-[17px] my-[5px] relative text-black text-[14px] font-normal font-['Inter']">새로운 알림이 없습니다.</div>
+                                            </>))
+                                        }
+                                        <button className="mx-[17px] my-[5px] float-right relative text-slate-500 text-[14px] font-bold font-['Inter']"
+                                                onClick={() => checkReadAll()}
+                                        >모두 읽음 표시
+                                        </button>
+                                        <button className="relative my-[3px] mx-[17px] float-left">
+                                            <div className="Rectangle7 w-[110px] h-[24px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"></div>
+                                            <div className=" w-[90px] h-[15px] left-[11px] top-[3px] absolute text-white text-[14px] font-bold font-['Inter']">지난 알림 보기</div>
+                                        </button>
+                                    </> : <div className="px-[17px] my-[5px] relative text-black text-[14px] font-normal font-['Inter']">새로운 알림이 없습니다.</div>
                                 ) : <></>
                         }
                     </div>
