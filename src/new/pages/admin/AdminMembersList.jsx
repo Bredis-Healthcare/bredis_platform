@@ -32,7 +32,7 @@ function AdminMembersList() {
                                     <div className=" w-[1066px] h-[160px] left-[77px] top-[0px] my-[8px] relative">
                                         <div className=" left-0 top-[56px] absolute text-black text-2xl font-bold font-['Inter']">{member.organization}</div>
                                         <div className="1 left-[559px] top-[21px] absolute text-neutral-800 text-lg font-normal font-['Inter']">답변하지 않은 문의 1건</div>
-                                        <Link to="/admin/members/detail" state={{memberId: member.id}}>
+                                        <Link to="/admin/members/detail" state={{resourceId: member.id}}>
                                             <button className=" w-[120px] h-[35px] left-[946px] top-[45px] absolute">
                                                 <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
                                                 <div className=" w-[93px] h-[17px] left-[19px] top-[6px] absolute text-slate-500 text-lg font-bold font-['Inter']">상세 보기 ></div>

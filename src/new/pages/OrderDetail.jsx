@@ -51,8 +51,8 @@ const OrderDetail = () => {
     const fetchData = async () => {
         try {
             // console.log("!@!", pageInfo)
-            const request = await axios.get(`/orders/${pageInfo.orderNumber}/detail`);
-            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.orderNumber}`);
+            const request = await axios.get(`/orders/${pageInfo.resourceId}/detail`);
+            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.resourceId}`);
             const statusRequest = await axios.get(`/protocols`);
     
             setData(request.data);
@@ -64,7 +64,6 @@ const OrderDetail = () => {
         } catch (error) {
             console.log("error", error)
         }
-        
     };
 
     const [orderInfoOn, setToggleOrderInfo] = useState(false);  // 메뉴의 초기값을 false로 설정

@@ -36,7 +36,7 @@ function AdminThreadsDetail() {
     const fetchData = async () => {
 
         try {
-            const request = await axios.get(`/threads/${pageInfo.threadId}`);
+            const request = await axios.get(`/threads/${pageInfo.resourceId}`);
             setData(request.data);
         } catch (error) {
             console.log("error", error)
@@ -58,7 +58,7 @@ function AdminThreadsDetail() {
             alert("문의 상태를 선택해주세요.")
             return
         }
-        await axios.patch(`/admin/threads/${pageInfo.threadId}/status`, {"status": selectedStatus});
+        await axios.patch(`/admin/threads/${pageInfo.resourceId}/status`, {"status": selectedStatus});
         window.location.reload();
     }
 
@@ -70,7 +70,7 @@ function AdminThreadsDetail() {
             const formData = new FormData();
             formData.append("file", file);
 
-            await axios.post(`/admin/threads/messages?threadId=${pageInfo.threadId}&content=${encodeURIComponent(contents)}`, formData, {
+            await axios.post(`/admin/threads/messages?threadId=${pageInfo.resourceId}&content=${encodeURIComponent(contents)}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "boundary": "--boundary",

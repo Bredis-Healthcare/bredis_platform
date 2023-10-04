@@ -63,8 +63,8 @@ const AdminOrderDetail = () => {
 
     const fetchData = async () => {
         try {
-            const request = await axios.get(`/orders/${pageInfo.orderNumber}/detail`);
-            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.orderNumber}`);
+            const request = await axios.get(`/orders/${pageInfo.resourceId}/detail`);
+            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.resourceId}`);
             const statusRequest = await axios.get(`/protocols`);
     
             setData(request.data);

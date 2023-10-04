@@ -34,7 +34,7 @@ function ThreadsDetail() {
     const fetchData = async () => {
 
         try {
-            const request = await axios.get(`/threads/${pageInfo.threadId}`);
+            const request = await axios.get(`/threads/${pageInfo.resourceId}`);
             setData(request.data);
         } catch (error) {
             console.log("error", error)
@@ -55,7 +55,7 @@ function ThreadsDetail() {
             const formData = new FormData();
             formData.append("file", file);
 
-            await axios.post(`/messages?threadId=${pageInfo.threadId}&content=${encodeURIComponent(contents)}&senderId=${cookies.login && cookies.login['id']}`, formData, {
+            await axios.post(`/messages?threadId=${pageInfo.resourceId}&content=${encodeURIComponent(contents)}&senderId=${cookies.login && cookies.login['id']}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "boundary": "--boundary",

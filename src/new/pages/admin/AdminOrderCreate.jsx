@@ -44,7 +44,7 @@ function AdminOrderCreate() {
     const fetchData = async () => {
 
         try {
-            const request = await axios.get(`/quotation-requests/${pageInfo.quotationRequestId}`);
+            const request = await axios.get(`/quotation-requests/${pageInfo.resourceId}`);
             setData(request.data);
             console.log(request.data)
 
