@@ -46,6 +46,7 @@ function OrderCreate() {
     async function cancelRequest (id) {
         if (window.confirm("진행 중이던 견적 요청 내용이 모두 삭제됩니다. 정말로 다시 작성하시겠습니까?")) {
             await axios.post(`/quotation-requests/${id}/cancel`);
+            await axios.post(`/quotation-requests/create?memberId=${cookies.login && cookies.login['id']}`);
             window.location.reload();
         }
     }
