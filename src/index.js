@@ -23,6 +23,7 @@ import AdminThreadsList from "./new/pages/admin/AdminThreadsList";
 import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
 import AdminHome from './new/pages/AdminHome';
 import "./fonts/pretendard.css"
+import {QueryClient, QueryClientProvider} from "react-query";
 
 const router = createBrowserRouter([
     {
@@ -135,13 +136,17 @@ const router = createBrowserRouter([
     }
 ]);
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <CookiesProvider>
-          <div className='flex justify-center relative'>
-            <RouterProvider router={router}/>
-          </div>
-        </CookiesProvider>
+        <QueryClientProvider client={queryClient}>
+            <CookiesProvider>
+              <div className='flex justify-center relative'>
+                <RouterProvider router={router}/>
+              </div>
+            </CookiesProvider>
+        </QueryClientProvider>
     </React.StrictMode>
 );
 

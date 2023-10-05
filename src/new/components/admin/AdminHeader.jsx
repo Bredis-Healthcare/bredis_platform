@@ -2,6 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import axios from "../../../api/axios";
+import {useQuery} from 'react-query'
 import {useCookies} from "react-cookie";
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -15,23 +16,13 @@ const AdminHeader = () => {
     const [profileMenuOn, setProfileMenuOn] = useState(false);
     const [notificationsOn, setNotificationsOn] = useState(false);
 
-    const [notifications, setNotifications] = useState(null);
-
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
+    const {isLoading, error, data, refetch} = useQuery('notifications',
+        () => axios.get(`/notifications?memberId=0`),
+        {refetchInterval: 10000});
 
-    useEffect(() => {
-        fetchData();
-    }, [])
-    const fetchData = async () => {
-
-        try {
-            const request = await axios.get(`/notifications?memberId=0`);
-            setNotifications(request.data);
-        } catch (error) {
-            console.log("error", error)
-        }
-    };
+    if (isLoading || error) return 'Loading...';
 
     function clickProfileIcon() {
         setNotificationsOn(false)
@@ -57,15 +48,13 @@ const AdminHeader = () => {
     async function checkRead(e, id) {
         await axios.post(`/notifications/read?notificationsIds=${id}`);
         setNotificationsOn(false)
-        const request = await axios.get(`/notifications?memberId=0`);
-        setNotifications(request.data);
+        await refetch();
     }
 
     async function checkReadAll() {
-        await axios.post(`/notifications/read?notificationsIds=${notifications.list.map(noti => noti.id).join(',')}`);
+        await axios.post(`/notifications/read?notificationsIds=${data.data.list.map(noti => noti.id).join(',')}`);
         setNotificationsOn(false)
-        const request = await axios.get(`/notifications?memberId=0`);
-        setNotifications(request.data);
+        await refetch();
     }
 
     return (
@@ -107,10 +96,10 @@ const AdminHeader = () => {
                                 shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
                     <div className="left-0 top-0 w-[100%] relative">
                         {
-                            notifications ?
-                                (notifications.list.length > 0 ? <>
+                            data.data ?
+                                (data.data.list.length > 0 ? <>
                                         {
-                                            notifications.list.map((notification) => (<>
+                                            data.data.list.map((notification) => (<>
                                                 <Link to={notification.linkTo} state={{resourceId: notification.resourceId}} onClick={(e) => checkRead(e, notification.id)}>
                                                     <button className="text-left">
                                                         <div className="px-[17px] my-[5px] relative text-black text-[14px] font-normal font-['Inter']">
