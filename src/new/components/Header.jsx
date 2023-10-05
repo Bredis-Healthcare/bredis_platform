@@ -91,6 +91,7 @@ const Header = () => {
                         <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fec38e501943d468fa0df8b6f1a34a36f?&width=200" alt=""/>
                     </div>
                 </button>
+                <div className={`${data.data.list.length > 0 ? 'block' : 'hidden'} Ellipse49 w-3 h-3 left-[1538px] top-[29px] absolute bg-red-600 rounded-full`} />
                 
                 <button className=" w-[49px] h-[30px] left-[1581px] top-[29px] absolute"
                         onClick={cookies.login ? () => clickProfileIcon() : () => login()}>
