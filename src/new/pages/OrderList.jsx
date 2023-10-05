@@ -13,7 +13,7 @@ export async function loader({ params }) {
 function OrderList() {
 
 	const [cookies, setCookie, removeCookie] = useCookies(['login']);
-    const [userInfo, setUserInfo] = useState(null); // or your fetching logic
+    const [data, setData] = useState(null); // or your fetching logic
     const [statusList, setStatusList] = useState([]);
 
     let location = useLocation();
@@ -26,11 +26,11 @@ function OrderList() {
     const fetchData = async () => {
         try {
             const statusRequest = await axios.get(`/protocols`);
-            const request = await axios.post(`/my-info`, { "memberId": cookies.login && cookies.login['id'] });
+            const request = await axios.get(`/orders?memberId=${cookies.login && cookies.login['id']}`);
 
             console.log('request', request.data);
             console.log('statusRequest', statusRequest.data.threadCategoryList);
-            setUserInfo(request.data);
+            setData(request.data);
             setStatusList(statusRequest.data.threadCategoryList)
 
         } catch (error) {
@@ -41,15 +41,15 @@ function OrderList() {
 
     return (
         <div>
-            {userInfo ? (
+            {data ? (
                 <>
                     <Layout menuName="주문 내역">
                         {
-                            userInfo.orderHistory.length > 0 ?
+                            data.orderItems.length > 0 ?
                                 <div
                                     className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px] pt-[40px]">
                                     {
-                                        userInfo.orderHistory.map((order, index) => (
+                                        data.orderItems.map((order, index) => (
                                             <div key={order.id}>
                                                 {index === 0 ? (<div/>) : (
                                                     <div>
