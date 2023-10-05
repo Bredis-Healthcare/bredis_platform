@@ -101,24 +101,27 @@ function AdminMembersDetail() {
                                     </button>
                                 </Link>
                             </div>
-                            <div className={`${data.quotationRequestId ? 'block' : 'hidden'} left-[12px] top-[72px] absolute text-black text-2xl font-normal font-['Inter']`}>견적 요청이 진행 중입니다.</div>
+                            <div className={`${data.quotationRequestId ? 'block' : 'hidden'} left-[12px] top-[72px] absolute text-black text-2xl font-normal font-['Inter']`}>
+                                <div className={"inline-block relative"}>견적 요청이 진행 중입니다.</div>
+                                <div className={`inline-block Ellipse49 w-3 h-3 left-[0px] top-[-12px] relative bg-red-600 rounded-full`} />
+                            </div>
                             <div className={`${data.quotationRequestId ? 'hidden' : 'block'} left-[12px] top-[72px] absolute text-black text-2xl font-normal font-['Inter']`}>진행 중인 견적 요청이 없습니다.</div>
                         </div>
                         <div className="Group24 w-[499px] h-[226px] left-[726px] top-[396px] absolute">
                             <div className="Rectangle21 w-[485px] h-[226px] left-0 top-0 absolute bg-white shadow" />
                             <div className=" left-[12px] top-[14px] absolute text-neutral-800 text-2xl font-bold font-['Inter']">문의</div>
-                            <div className="Group21 w-[297px] h-[94px] left-[88px] top-[57px] absolute">
-                                <div className="Group18 w-[91px] h-[94px] left-0 top-0 absolute">
-                                    <div className=" w-7 h-[41px] left-[32px] top-[6px] absolute text-rose-400 text-[45px] font-bold font-['Inter']">0</div>
-                                    <div className=" w-[85px] h-[23px] left-[6px] top-[58px] absolute text-rose-400 text-xl font-bold font-['Inter']">답변필요</div>
+                            <div className="Group21 w-[297px] h-[94px] left-[88px] top-[57px] absolute flex flex-row">
+                                <div className="Group18 w-[91px] h-[94px] mx-[10px] flex flex-col">
+                                    <div className={`text-center ${data.threadNeedResponseCount > 0 ? 'text-[#FA8484]': 'text-slate-400'} text-[45px] font-bold font-['Inter']`}>{data.threadNeedResponseCount}</div>
+                                    <div className={`text-center ${data.threadNeedResponseCount > 0 ? 'text-[#FA8484]': 'text-slate-400'} text-xl font-bold font-['Inter']`}>답변필요</div>
                                 </div>
-                                <div className="Group19 w-[85px] h-[94px] left-[106px] top-0 absolute">
-                                    <div className=" w-7 h-[41px] left-[32px] top-[6px] absolute text-lime-500 text-[45px] font-bold font-['Inter']">{data.threadProgressCount}</div>
-                                    <div className=" w-[58px] h-[23px] left-[15px] top-[58px] absolute text-lime-500 text-xl font-bold font-['Inter']">진행중</div>
+                                <div className="Group19 w-[85px] h-[94px] mx-[10px] flex flex-col">
+                                    <div className="text-center text-[#95A91D] text-[45px] font-bold font-['Inter']">{data.threadProgressCount}</div>
+                                    <div className="text-center text-[#95A91D] text-xl font-bold font-['Inter']">진행중</div>
                                 </div>
-                                <div className="Group20 w-[85px] h-[94px] left-[212px] top-0 absolute">
-                                    <div className=" w-7 h-[41px] left-[27px] top-[6px] absolute text-slate-400 text-[45px] font-bold font-['Inter']">{data.threadCompleteCount}</div>
-                                    <div className=" w-[43px] h-[23px] left-[23px] top-[58px] absolute text-slate-400 text-xl font-bold font-['Inter']">완료</div>
+                                <div className="Group20 w-[85px] h-[94px] mx-[10px] flex flex-col">
+                                    <div className="text-center text-slate-400 text-[45px] font-bold font-['Inter']">{data.threadCompleteCount}</div>
+                                    <div className="text-center text-slate-400 text-xl font-bold font-['Inter']">완료</div>
                                 </div>
                             </div>
                             <Link to="/admin/members/threads" state={{resourceId: data.id}}>
@@ -131,18 +134,18 @@ function AdminMembersDetail() {
                         <div className="Group23 w-[485px] h-[226px] left-[726px] top-[633px] absolute">
                             <div className="Rectangle22 w-[485px] h-[226px] left-0 top-0 absolute bg-white shadow" />
                             <div className=" left-[12px] top-[14px] absolute text-neutral-800 text-2xl font-bold font-['Inter']">주문</div>
-                            <div className="Group22 w-[297px] h-[94px] left-[94px] top-[57px] absolute">
-                                <div className="Group18 w-[91px] h-[94px] left-0 top-0 absolute">
-                                    <div className=" w-7 h-[41px] left-[29px] top-[6px] absolute text-zinc-500 text-[45px] font-bold font-['Inter']">0</div>
-                                    <div className=" w-[85px] h-[23px] left-[6px] top-[58px] absolute text-zinc-500 text-xl font-bold font-['Inter']">확인필요</div>
+                            <div className="Group22 w-[297px] h-[94px] left-[94px] top-[57px] absolute flex flex-row">
+                                <div className="Group18 w-[91px] h-[94px] mx-[10px] flex flex-col">
+                                    <div className={`text-center ${data.orderNeedCheckCount > 0 ? 'text-[#FA8484]' : 'text-slate-400'} text-[45px] font-bold font-['Inter']`}>{data.orderNeedCheckCount}</div>
+                                    <div className={`text-center ${data.orderNeedCheckCount > 0 ? 'text-[#FA8484]' : 'text-slate-400'} text-xl font-bold font-['Inter']`}>확인필요</div>
                                 </div>
-                                <div className="Group19 w-[85px] h-[94px] left-[106px] top-0 absolute">
-                                    <div className=" w-7 h-[41px] left-[29px] top-[6px] absolute text-zinc-500 text-[45px] font-bold font-['Inter']">{data.orderProgressCount}</div>
-                                    <div className=" w-[58px] h-[23px] left-[15px] top-[58px] absolute text-zinc-500 text-xl font-bold font-['Inter']">진행중</div>
+                                <div className="Group19 w-[85px] h-[94px] mx-[10px] flex flex-col">
+                                    <div className="text-center text-[#95A91D] text-[45px] font-bold font-['Inter']">{data.orderProgressCount}</div>
+                                    <div className="text-center text-[#95A91D] text-xl font-bold font-['Inter']">진행중</div>
                                 </div>
-                                <div className="Group20 w-[85px] h-[94px] left-[212px] top-0 absolute">
-                                    <div className=" w-7 h-[41px] left-[27px] top-[6px] absolute text-slate-400 text-[45px] font-bold font-['Inter']">{data.orderCompleteCount}</div>
-                                    <div className=" w-[43px] h-[23px] left-[23px] top-[58px] absolute text-slate-400 text-xl font-bold font-['Inter']">완료</div>
+                                <div className="Group20 w-[85px] h-[94px] mx-[10px] flex flex-col">
+                                    <div className="text-center text-slate-400 text-[45px] font-bold font-['Inter']">{data.orderCompleteCount}</div>
+                                    <div className="text-center text-slate-400 text-xl font-bold font-['Inter']">완료</div>
                                 </div>
                             </div>
                             <Link to="/admin/members/orders" state={{resourceId: data.id}}>
