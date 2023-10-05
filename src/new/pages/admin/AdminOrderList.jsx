@@ -72,6 +72,14 @@ function AdminOrderList() {
                                             <div className=" left-0 top-[88px] absolute text-zinc-500 text-lg font-normal font-['Inter']">의뢰내용</div>
                                             <div className=" left-[745px] top-[88px] absolute text-zinc-500 text-lg font-normal font-['Inter']">금액</div>
                                             <div className="38262070 left-[700px] top-[121px] absolute text-black text-2xl font-medium font-['Inter']">₩{order.price}</div>
+                                            {
+                                                order.unreadCustomerMessages > 0 ? (
+                                                    <div className="UnreadNoti">
+                                                        <div className="Ellipse49 w-3 h-3 left-[1030px] top-[175px] absolute bg-red-600 rounded-full" />
+                                                        <div className="1 left-[800px] top-[180px] absolute text-zinc-500 text-lg font-normal font-['Inter']">읽지 않은 메시지가 {order.unreadCustomerMessages}건 있습니다.</div>
+                                                    </div>
+                                                ) : (<div />)
+                                            }
                                             <Link to="/admin/members/orders/detail" state={{resourceId: order.orderNumber}}>
                                                 <button className=" w-[120px] h-[35px] left-[935px] top-[110px] absolute">
                                                     <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />

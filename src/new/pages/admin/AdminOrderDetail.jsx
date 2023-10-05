@@ -64,11 +64,9 @@ const AdminOrderDetail = () => {
     const fetchData = async () => {
         try {
             const request = await axios.get(`/orders/${pageInfo.resourceId}/detail`);
-            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.resourceId}`);
             const statusRequest = await axios.get(`/protocols`);
     
             setData(request.data);
-            setThreadData(threadsRequest.data)
             setStatusList(statusRequest.data.orderStatusList)
             setSelectedOption(request.data.status)
 
@@ -84,7 +82,11 @@ const AdminOrderDetail = () => {
     const toggleAnalysisInfo = () => {
         setToggleAnalysisInfo(analysisInfoOn => !analysisInfoOn);
     }
-    const toggleThreadInfo = () => {
+    async function toggleThreadInfo() {
+        if (!threadInfoOn && !threadData) {
+            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.resourceId}`);
+            setThreadData(threadsRequest.data)
+        }
         setToggleThreadInfo(threadInfoOn => !threadInfoOn);
     }
 
@@ -136,8 +138,9 @@ const AdminOrderDetail = () => {
                     "boundary": "--boundary",
                 }}
             );
-
-            window.location.reload();
+            const threadsRequest = await axios.get(`/threads/by-order-number?orderNumber=${pageInfo.resourceId}`);
+            setThreadData(threadsRequest.data)
+            document.getElementById("message").value = ''
         }
     }
 
@@ -401,7 +404,7 @@ const AdminOrderDetail = () => {
                                                 메시지
                                             </div>
                                             <div className="w-full max-w-[972px] left-[0px] top-[0px] self-center flex flex-col mt-[10px] relative">
-                                                {threadData.messages.length > 0 ? threadData.messages.map((message, index) => (
+                                                {threadData && threadData.messages.length > 0 ? threadData.messages.map((message, index) => (
                                                     <div key={index}>
                                                         <div className="Line2 flex flex-col w-[920px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
                                                         <div className="flex max-sm:flex-col max-sm:items-stretch">
