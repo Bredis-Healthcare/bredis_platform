@@ -92,8 +92,16 @@ function AdminOrderCreate() {
                     "tax": taxes[i]
                 })
             }
+            if (items.length < 1) {
+                alert("견적 내용에 항목이 1개 이상 있어야 합니다.")
+                return;
+            }
 
             let file = document.querySelector("#quotationFileInput").files[0]
+            if (!file) {
+                alert("견적서 파일을 첨부해주세요.")
+                return;
+            }
             console.log(file)
 
 

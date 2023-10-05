@@ -16,8 +16,10 @@ const Header = () => {
     const [profileMenuOn, setProfileMenuOn] = useState(false);
     const [notificationsOn, setNotificationsOn] = useState(false);
 
-    const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [notifications, setNotifications] = useState(null);
+
+    const [cookies, setCookie, removeCookie] = useCookies(['login']);
+
 
     useEffect(() => {
         fetchData();
