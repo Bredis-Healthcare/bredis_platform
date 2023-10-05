@@ -24,6 +24,7 @@ import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
 import AdminHome from './new/pages/AdminHome';
 import "./fonts/pretendard.css"
 import {QueryClient, QueryClientProvider} from "react-query";
+import NotificationList from "./new/pages/NotificationList";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,12 @@ const router = createBrowserRouter([
           {
               path: "/login",
               element: <LoginPage/>,
+              errorElement: <ErrorPage />,
+              loader : loader,
+          },
+          {
+              path: "/notifications",
+              element: <NotificationList/>,
               errorElement: <ErrorPage />,
               loader : loader,
           },
@@ -88,6 +95,12 @@ const router = createBrowserRouter([
                 path: "login",
                 element: <AdminLoginPage/>,
                 errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "notifications",
+                element: <NotificationList/>,
+                errorElement: <ErrorPage />,
                 loader : adminloader,
             },
             {

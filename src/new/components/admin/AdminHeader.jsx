@@ -118,16 +118,20 @@ const AdminHeader = () => {
                                                 onClick={() => checkReadAll()}
                                         >모두 읽음 표시
                                         </button>
-                                        <button className="relative my-[3px] mx-[17px] float-left">
-                                            <div className="Rectangle7 w-[110px] h-[24px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"></div>
-                                            <div className=" w-[90px] h-[15px] left-[11px] top-[3px] absolute text-white text-[14px] font-bold font-['Inter']">지난 알림 보기</div>
-                                        </button>
+                                        <Link to={"/admin/notifications"} onClick={() => setNotificationsOn(false)}>
+                                            <button className="relative my-[3px] mx-[17px] float-left">
+                                                <div className="Rectangle7 w-[110px] h-[24px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"></div>
+                                                <div className=" w-[90px] h-[15px] left-[11px] top-[3px] absolute text-white text-[14px] font-bold font-['Inter']">지난 알림 보기</div>
+                                            </button>
+                                        </Link>
                                     </> : <>
                                         <div className="text-center px-[17px] my-[5px] relative text-black text-[14px] font-normal font-['Inter']">새로운 알림이 없습니다.</div>
-                                        <button className="relative my-[3px] mx-[17px] top-[-20px] left-[75px]">
-                                            <div className="Rectangle7 w-[110px] h-[24px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"></div>
-                                            <div className=" w-[90px] h-[15px] left-[11px] top-[3px] absolute text-white text-[14px] font-bold font-['Inter']">지난 알림 보기</div>
-                                        </button>
+                                        <Link to={"/admin/notifications"} onClick={() => setNotificationsOn(false)}>
+                                            <button className="relative my-[3px] mx-[17px] top-[-20px] left-[75px]">
+                                                <div className="Rectangle7 w-[110px] h-[24px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"></div>
+                                                <div className=" w-[90px] h-[15px] left-[11px] top-[3px] absolute text-white text-[14px] font-bold font-['Inter']">지난 알림 보기</div>
+                                            </button>
+                                        </Link>
                                     </>
                                 ) : <></>
                         }
