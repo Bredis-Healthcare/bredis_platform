@@ -225,21 +225,21 @@ const AdminOrderDetail = () => {
                                             <div className="flex flex-col max-md:mt-[50px]">
                                                 <div className="flex max-sm:flex-col max-sm:items-stretch">
                                                     <div className="flex flex-col items-stretch leading-[normal] w-[calc(78%_-_10px)] max-sm:w-full">
-                                                        <div className="flex flex-col max-md:mt-px">
-                                                            <div className="text-[#888988] not-italic font-normal text-[16px] ml-[-55px] self-center text-center flex flex-col">
+                                                        <div className="flex flex-col items-center max-md:mt-px mt-[12px]">
+                                                            <div className="text-[#888988] not-italic font-normal text-[16px] text-center flex flex-col">
                                                                 주문일시
                                                             </div>
-                                                            <div className="text-black not-italic font-light text-[22px] flex flex-col mt-[21px]">
+                                                            <div className="text-black not-italic font-light text-[22px] text-center flex flex-col mt-[21px]">
                                                                 {data.createdDatetime}
                                                             </div>
-                                                            <div className="text-[#888988] not-italic font-normal text-[16px] ml-[-52px] self-center text-center flex flex-col mt-[36px]">
+                                                            <div className="text-[#888988] not-italic font-normal text-[16px] text-center flex flex-col mt-[36px]">
                                                                 검체 정보
                                                             </div>
                                                             <DownloadButton title='검체 정보 파일 다운로드' fileName={data.sampleDataFileName} fileType="SAMPLE_DATA" orderNumber={data.orderNumber} />
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col items-stretch leading-[normal] w-[calc(22%_-_10px)] ml-[20px] max-sm:w-full">
-                                                        <div className="flex flex-col mt-[4px] max-md:mt-[5px]">
+                                                        <div className="flex flex-col items-center mt-[4px] max-md:mt-px">
                                                             <div className="flex flex-row">
                                                                 <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col ml-[2px]">
                                                                     상태
@@ -251,15 +251,17 @@ const AdminOrderDetail = () => {
                                                                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mx-[3px] self-stretch shrink-0"/>
                                                                 </button>
                                                             </div>
-                                                            <Select name="statusSelect" className={`${editStatusOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select"
+                                                            <Select name="statusSelect" className={`${editStatusOn ? 'block' : 'hidden'} w-[150px] text-center`} classNamePrefix="select"
                                                                     onChange={(choice) => setSelectedStatus(choice.value)}
                                                                     options={[
-                                                                        { value: "ANALYSIS_IN_PROGRESS", label: "분석중" },
-                                                                        { value: "ANALYSIS_COMPLETE", label: "분석 완료" },
-                                                                        { value: "Triplicate", label: "Triplicate" },
-                                                                        { value: "Quadruplicate", label: "Quadruplicate" }
+                                                                        {value: "ORDER_ACCEPTED", label: "주문 접수"},
+                                                                        {value: "SAMPLE_PICKUP_IN_PROGRESS", label: "검체 수거 중"},
+                                                                        {value: "SAMPLE_PICKUP_COMPLETE", label: "검체 인수 완료"},
+                                                                        {value: "ANALYSIS_STAND_BY", label: "분석 대기"},
+                                                                        {value: "ANALYSIS_IN_PROGRESS", label: "분석 중"},
+                                                                        {value: "ANALYSIS_COMPLETE", label: "분석 완료"}
                                                                     ]}/>
-                                                            <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} text-[#035772] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>
+                                                            <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} text-[#035772] w-[150px] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>
                                                                 {data.status}
                                                             </div>
                                                         </div>
