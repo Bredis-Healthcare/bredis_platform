@@ -19,7 +19,7 @@ const AdminHeader = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
     const {isLoading, error, data, refetch} = useQuery('notifications',
-        () => axios.get(`/notifications?memberId=0`),
+        () => cookies.login ? axios.get(`/notifications?memberId=${cookies.login && cookies.login['id']}`) : null,
         {refetchInterval: 10000});
 
     if (isLoading || error) return 'Loading...';

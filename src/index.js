@@ -21,7 +21,7 @@ import AdminOrderDetail from "./new/pages/admin/AdminOrderDetail";
 import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
 import AdminThreadsList from "./new/pages/admin/AdminThreadsList";
 import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
-import AdminHome from './new/pages/AdminHome';
+import AdminHome from './new/pages/admin/AdminHome';
 import "./fonts/pretendard.css"
 import {QueryClient, QueryClientProvider} from "react-query";
 import NotificationList from "./new/pages/NotificationList";

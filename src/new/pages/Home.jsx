@@ -8,6 +8,7 @@ import LoginPageModal from '../components/modals/LoginModal';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import DefaultPage from './DefaultPage';
+import {useCookies} from "react-cookie";
 
 export async function loader({ params }) {
     const isAdmin = false;
@@ -31,12 +32,14 @@ const MainPageContent = () => {
     const {isModalOpen, setIsModalOpen} = useLoginModal();
     const navigate = useNavigate();
     let location = useLocation();
+    const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
     useEffect(() => {
         // setIsModalOpen(true)
         console.log(isModalOpen, location["pathname"])
         setUnauthorizedHandler(() => {
             setIsModalOpen(true);
+            removeCookie('login', {path:'/'});
         });
     }, [setIsModalOpen]);
 

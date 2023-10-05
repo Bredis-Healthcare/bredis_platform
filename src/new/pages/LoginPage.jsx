@@ -30,7 +30,7 @@ const LoginPage = () => {
     
                 } catch (error) {
                     console.error("Error while logging in:", error);
-                    removeCookie(['login']);
+                    removeCookie('login', {path:'/'});
                     navigate("/");
                 }
             }
