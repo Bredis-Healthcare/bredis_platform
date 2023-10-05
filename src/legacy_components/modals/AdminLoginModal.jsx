@@ -40,7 +40,7 @@ const AdminLoginPageModal = () => {
     return (
         <ModalOverlay onClick={handleOutsideClick}>
             <LoginContainer>
-                <h1>관리자 로그인 만료되었습니다.</h1>
+                <h1>관리자 로그인이 만료되었습니다.</h1>
                 <h1> 다시 로그인해주세요</h1>
                 <CloseButton onClick={(e) => {setIsModalOpen(false)}}>X</CloseButton>
                 <LoginImage src={logo} alt="Login Illustration" />

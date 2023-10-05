@@ -10,7 +10,6 @@ export async function loader({ params }) {
     return { userId , isAdmin};
   }
 
-
 function OrderList() {
 
 	const [cookies, setCookie, removeCookie] = useCookies(['login']);

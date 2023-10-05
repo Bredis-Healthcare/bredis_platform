@@ -48,10 +48,10 @@ function ThreadsList () {
                                             <div className="Gfap left-0 top-[30px] absolute text-black text-2xl font-bold font-['Inter']">{thread.title}</div>
                                             <div className=" left-0 top-0 absolute text-zinc-500 text-lg font-normal font-['Inter']">{thread.category}</div>
                                             {
-                                                thread.unreadMessages > 0 ? (
+                                                thread.unreadAdminMessages > 0 ? (
                                                     <div className="UnreadNoti">
                                                         <div className="Ellipse49 w-3 h-3 left-[774px] top-[27px] absolute bg-red-600 rounded-full" />
-                                                        <div className="1 left-[543px] top-[33px] absolute text-zinc-500 text-lg font-normal font-['Inter']">읽지 않은 메시지가 {thread.unreadMessages}건 있습니다.</div>
+                                                        <div className="1 left-[543px] top-[33px] absolute text-zinc-500 text-lg font-normal font-['Inter']">읽지 않은 메시지가 {thread.unreadAdminMessages}건 있습니다.</div>
                                                     </div>
                                                 ) : (<div />)
                                             }
