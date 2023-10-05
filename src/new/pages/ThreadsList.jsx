@@ -2,11 +2,12 @@ import Layout from "../components/Layout";
 import {useCookies} from "react-cookie";
 import React, {useEffect, useState} from "react";
 import axios from "../../api/axios";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function ThreadsList () {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [data, setData] = useState(null); // or your fetching logic
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchData();
@@ -16,6 +17,9 @@ function ThreadsList () {
         try {
             const request = await axios.get(`/threads?memberId=${cookies.login && cookies.login['id']}`);
             setData(request.data);
+            if (request.data.list.length < 1) {
+                navigate("/threads/new")
+            }
 
         } catch (error) {
             console.log("error", error)
