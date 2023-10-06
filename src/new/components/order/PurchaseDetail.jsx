@@ -5,7 +5,7 @@ function PurchaseDetail (props) {
     let data = props.data
     return (
         <div>
-            <table className="text-[33363F] not-italic font-light text-[16px]" style={{border:'none', borderCollapse: 'collapse', borderSpacing:0, overflow: 'hidden', wordBreak: 'normal'}}>
+            <table className="text-[33363F] not-italic font-light text-[16px] min-w-[950px]" style={{border:'none', borderCollapse: 'collapse', borderSpacing:0, overflow: 'hidden', wordBreak: 'normal'}}>
                 <thead>
                 <tr style={{borderStyle: 'solid', borderBottomWidth: '1px', borderColor: '#888988'}}>
                     <th style={{fontWeight: 'normal', padding: '10px 5px', textAlign: 'center', verticalAlign: 'center'}}>종목</th>

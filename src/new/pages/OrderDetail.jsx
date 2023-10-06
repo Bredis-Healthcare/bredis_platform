@@ -150,30 +150,30 @@ const OrderDetail = () => {
                                             <div className="flex flex-col max-md:mt-[50px]">
                                                 <div className="flex max-sm:flex-col max-sm:items-stretch">
                                                     <div className="flex flex-col items-stretch leading-[normal] w-[calc(78%_-_10px)] max-sm:w-full">
-                                                        <div className="flex flex-col max-md:mt-px">
-                                                            <div className="text-[#888988] not-italic font-normal text-[16px] ml-[-55px] self-center text-center flex flex-col">
+                                                        <div className="flex flex-col items-center max-md:mt-px mt-[4px]">
+                                                            <div className="text-[#888988] not-italic font-normal text-[16px] text-center flex flex-col">
                                                                 주문일시
                                                             </div>
-                                                            <div className="text-black not-italic font-light text-[22px] flex flex-col mt-[21px]">
+                                                            <div className="text-black not-italic font-light text-[22px] text-center flex flex-col mt-[21px]">
                                                                 {data.createdDatetime}
                                                             </div>
-                                                            <div className="text-[#888988] not-italic font-normal text-[16px] ml-[-52px] self-center text-center flex flex-col mt-[36px]">
+                                                            <div className="text-[#888988] not-italic font-normal text-[16px] text-center flex flex-col mt-[36px]">
                                                                 검체 정보
                                                             </div>
-                                                            <div className="w-full flex flex-row gap-[4.732421875px] items-center flex-wrap mt-[3px] max-md:justify-center">
+                                                            <div className="w-full flex flex-row gap-[5px] items-center justify-center flex-wrap mt-[3px] max-md:justify-center">
                                                                 {
                                                                     data.sampleDataFileName ? <>
                                                                         <DownloadButton title='검체 정보 파일 다운로드' fileName={data.sampleDataFileName} fileType="SAMPLE_DATA" orderNumber={data.orderNumber} />
-                                                                        <button className="self-stretch flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative"
+                                                                        <button className="self-stretch flex flex-col mt-[-0px] pl-[17px] pr-[15px] py-[9px] relative"
                                                                                 onClick={() => handleUploadClick("SAMPLE_DATA")}>
                                                                             <div className="Rectangle7 w-[117.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
                                                                             <div className=" w-[108.84px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">수정 업로드</div>
                                                                         </button>
                                                                     </> : <>
-                                                                        <button className="flex flex-col mt-[-0px] ml-10 pl-[17px] pr-[15px] py-[9px] relative"
+                                                                        <button className="self-stretch flex flex-col mt-[-0px] pr-[15px] py-[9px] relative"
                                                                                 onClick={() => handleUploadClick("SAMPLE_DATA")}>
-                                                                            <div className="Rectangle7 w-[80.46px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                                            <div className=" w-[60px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">업로드</div>
+                                                                            <div className="Rectangle7 w-[80px] h-[35px] left-[-30px] top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                                            <div className=" w-[60px] h-[17px] left-[-21px] top-[4px] absolute text-white text-lg font-bold font-['Inter']">업로드</div>
                                                                         </button>
                                                                     </>
                                                                 }
@@ -182,11 +182,11 @@ const OrderDetail = () => {
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col items-stretch leading-[normal] w-[calc(22%_-_10px)] ml-[20px] max-sm:w-full">
-                                                        <div className="flex flex-col mt-[4px] max-md:mt-[5px]">
+                                                        <div className="flex flex-col items-center w-[150px] mt-[4px] max-md:mt-px">
                                                             <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col ml-[2px]">
                                                                 상태
                                                             </div>
-                                                            <div className="text-[#035772] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[15px]">
+                                                            <div className="text-center self-center text-[#035772] w-[150px] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[15px]">
                                                                 {data.status}
                                                             </div>
                                                         </div>
@@ -206,7 +206,7 @@ const OrderDetail = () => {
                                             <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
                                         </div>
                                     </div>
-                                    <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'}`}>
+                                    <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'} ml-[45px] w-[950px]`}>
                                         {
                                             data.purchaseDetail.total ? <PurchaseDetail orderNumber={data.orderNumber} invoiceFileName={data.invoiceFileName} taxInvoiceFileName={data.taxInvoiceFileName} data={data.purchaseDetail} /> :
                                                 <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
@@ -217,7 +217,7 @@ const OrderDetail = () => {
                                     </div>
 
                                     {/*분석 결과*/}
-                                    <div className="w-full flex flex-row gap-[1.2958984375px] items-start flex-wrap mt-[17px]">
+                                    <div className="w-full flex flex-row gap-[1.3px] items-start flex-wrap mt-[17px]">
                                         <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col -mt-px">
                                             분석 결과
                                         </div>

@@ -281,7 +281,7 @@ const AdminOrderDetail = () => {
                                             <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
                                         </div>
                                     </div>
-                                    <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'}`}>
+                                    <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'} ml-[45px] w-[950px]`}>
                                         {
                                             data.purchaseDetail.total ? <>
                                                     <PurchaseDetail data={data.purchaseDetail} />
