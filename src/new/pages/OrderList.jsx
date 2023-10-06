@@ -60,6 +60,7 @@ function OrderList() {
                                                 )}
                                                 <div className={`w-[1077px] h-[200px] left-[76px] top-[34px] relative`}>
                                                     <div className="left-0 top-[30px] max-w-[580px] absolute text-black text-2xl font-bold font-['Inter']">{order.title}</div>
+                                                    <div className="left-0 top-[88px] absolute text-zinc-500 text-lg font-normal font-['Inter']">의뢰내용</div>
                                                     <p className="left-0 top-[121px] w-[600px] absolute text-black text-lg font-normal font-['Inter'] truncate ...">{order.requestDetail}</p>
                                                     <div className="left-0 top-0 absolute text-zinc-500 text-lg font-normal font-['Inter']">주문번호: {order.orderNumber}</div>
                                                     <div className=" left-[630px] top-[1px] absolute flex flex-col object-center">
@@ -81,9 +82,6 @@ function OrderList() {
                                                             </Link>
                                                         </div>
                                                     </div>
-
-                                                    <div className=" left-0 top-[88px] absolute text-zinc-500 text-lg font-normal font-['Inter']">의뢰내용</div>
-
                                                     {
                                                         order.unreadAdminMessages > 0 ? (
                                                             <div className="UnreadNoti">
