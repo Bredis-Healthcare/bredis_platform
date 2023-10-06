@@ -12,6 +12,8 @@ function QuotationRequest (props) {
     const [copyModeOn, setCopyMode] = useState(false);
     const [fileInputOn, setFileInputOn] = useState(false);
     const [readOnly, setReadOnly] = useState(false);
+    const [volumeAlert, setVolumeAlert] = useState(false);
+    const [volumeAlertLimit, setVolumeAlertLimit] = useState(0);
     const [selectedBiomarkers, setSelectedBiomarkers] = useState([]);
     const [selectedSampleType, setSelectedSampleType] = useState("");
     const [selectedRepetition, setSelectedRepetition] = useState("");
@@ -68,6 +70,10 @@ function QuotationRequest (props) {
 
     async function saveRow() {
         if (readOnly) {
+            return
+        }
+
+        if (volumeAlert) {
             return
         }
 
@@ -173,6 +179,25 @@ function QuotationRequest (props) {
             saveContent()
             console.log(`saved ${rows.length -1} rows`)
         });
+    }
+
+    function calculateVolumeLimit() {
+        let needVolume = 0;
+        if (selectedBiomarkers.includes("BDNF")) {
+            needVolume += 30;
+        }
+
+        if (selectedBiomarkers.includes("GFAP")) {
+            needVolume += 30;
+        }
+        if (selectedRepetition === 'Duplicate') {
+            needVolume *= 1.5;
+        }
+        // selectedRepetition
+        // selectedSampleType
+        //  에 따라 다르게 동작하도록.
+        // 기본값 return 0;
+        return needVolume;
     }
 
     return (
@@ -284,8 +309,12 @@ function QuotationRequest (props) {
                                         </TableCell>
                                         <TableCell minWidth="100px">
                                             <div className={`${inputModeOn ? 'block' : 'hidden'}`}>
-                                                <input id="volumeInput" type="number" placeholder="용량" className={`w-[70px] h-[25px] mr-1 text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                                                <input id="volumeInput" type="number" placeholder="용량"
+                                                       className={`w-[70px] h-[25px] mr-1 text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                                                       onChange={(e) => {setVolumeAlertLimit(calculateVolumeLimit()); setVolumeAlert(e.target.value < volumeAlertLimit)}}
+                                                />
                                                 μl
+                                                <p className={`${volumeAlert ? 'block' : 'hidden'} text-red-500 text-xs italic`}>{volumeAlertLimit}μl 이상부터 가능합니다.</p>
                                             </div>
 
                                         </TableCell>
