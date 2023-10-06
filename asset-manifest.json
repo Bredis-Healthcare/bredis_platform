@@ -1,8 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.ce91561f.css",
-    "main.js": "/static/js/main.e0197ce5.js",
+    "main.css": "/static/css/main.8f0bb190.css",
+    "main.js": "/static/js/main.fbc5a5aa.js",
     "static/js/787.db26289b.chunk.js": "/static/js/787.db26289b.chunk.js",
+    "static/media/coverImage.png": "/static/media/coverImage.a73a76f438b934fcd9bf.png",
+    "static/media/companys.png": "/static/media/companys.d538217a44dea78e2d6b.png",
+    "static/media/hdx.png": "/static/media/hdx.7bc4b41a966d5c0156e7.png",
     "static/media/Pretendard-Black.woff": "/static/media/Pretendard-Black.8bad248bdb96c3377cbc.woff",
     "static/media/Pretendard-ExtraBold.woff": "/static/media/Pretendard-ExtraBold.88651b953c5d967d1db9.woff",
     "static/media/Pretendard-Bold.woff": "/static/media/Pretendard-Bold.dd56301118da9e158ce9.woff",
@@ -21,15 +24,20 @@
     "static/media/Pretendard-Light.woff2": "/static/media/Pretendard-Light.76c4e0977ecfcfcb58e4.woff2",
     "static/media/Pretendard-ExtraLight.woff2": "/static/media/Pretendard-ExtraLight.78e886701aa794247c35.woff2",
     "static/media/Pretendard-Thin.woff2": "/static/media/Pretendard-Thin.450b58933971c5b135f4.woff2",
+    "static/media/pos1.png": "/static/media/pos1.9672467dadd9b3007d41.png",
+    "static/media/pos3.png": "/static/media/pos3.82178607b265b412e118.png",
+    "static/media/1000x.png": "/static/media/1000x.11c28b3092965f5a9f78.png",
+    "static/media/pos2.png": "/static/media/pos2.f9858f49c7a47ac48fc3.png",
     "static/media/bredis_logo.png": "/static/media/bredis_logo.3a5a6679ca737917b2ea.png",
     "static/media/bredis_logo_wide.png": "/static/media/bredis_logo_wide.dc70bdac982a33eed62b.png",
+    "static/media/design1.png": "/static/media/design1.5e243ac8133d40a7dd1b.png",
     "index.html": "/index.html",
-    "main.ce91561f.css.map": "/static/css/main.ce91561f.css.map",
-    "main.e0197ce5.js.map": "/static/js/main.e0197ce5.js.map",
+    "main.8f0bb190.css.map": "/static/css/main.8f0bb190.css.map",
+    "main.fbc5a5aa.js.map": "/static/js/main.fbc5a5aa.js.map",
     "787.db26289b.chunk.js.map": "/static/js/787.db26289b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce91561f.css",
-    "static/js/main.e0197ce5.js"
+    "static/css/main.8f0bb190.css",
+    "static/js/main.fbc5a5aa.js"
   ]
 }
