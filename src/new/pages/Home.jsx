@@ -9,7 +9,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import DefaultPage from './DefaultPage';
 import {useCookies} from "react-cookie";
-
 export async function loader({ params }) {
     const isAdmin = false;
     return { isAdmin };
