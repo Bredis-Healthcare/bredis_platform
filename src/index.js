@@ -26,6 +26,7 @@ import "./fonts/pretendard.css"
 import {QueryClient, QueryClientProvider} from "react-query";
 import NotificationList from "./new/pages/NotificationList";
 import MemberCreate from "./new/pages/MemberCreate";
+import MemberModify from "./new/pages/MemberModify";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,12 @@ const router = createBrowserRouter([
             {
                 path: "/signup",
                 element: <MemberCreate/>,
+                errorElement: <ErrorPage />,
+                loader : loader,
+            },
+            {
+                path: "/members/modify",
+                element: <MemberModify/>,
                 errorElement: <ErrorPage />,
                 loader : loader,
             },
