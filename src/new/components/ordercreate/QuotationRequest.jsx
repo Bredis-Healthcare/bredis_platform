@@ -369,7 +369,7 @@ function QuotationRequest (props) {
                     </div>
 
                     <div className="relative top-[10px]">
-                        <div className="Group38 flex flex-col left-[800px] relative my-5">
+                        <div className="Group38 flex flex-col left-[800px] w-[300px] relative my-5">
                             <div className="flex flex-row">
                                 <button className={`${fileInputOn ? 'hidden' : 'block'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => toggleFileInput()}>
                                     <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500" />
