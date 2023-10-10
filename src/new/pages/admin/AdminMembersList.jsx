@@ -54,7 +54,7 @@ function AdminMembersList() {
                                         </div>
                                         <div className="1214 left-[559px] top-[100px] absolute text-neutral-800 text-lg font-light font-['Inter']">
                                             주문 진행 {member.inProgressOrderCount}건
-                                            <div className={`mx-[4px] ${member.unreadMessages > 0 ? 'inline-block' : 'hidden'}`}>
+                                            <div className={`mx-[4px] ${member.unreadOrderMessages > 0 ? 'inline-block' : 'hidden'}`}>
                                                 | 읽지 않은 문의 {member.unreadOrderMessages}건
                                                 <div className={ `inline-block Ellipse49 w-3 h-3 left-[2px] top-[-7px] relative bg-red-600 rounded-full`} />
                                             </div>
