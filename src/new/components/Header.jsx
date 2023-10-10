@@ -110,10 +110,20 @@ const Header = () => {
                     </div>
                 </button>
                 
-                <button className={`${profileMenuOn ? 'block' : 'hidden'} absolute w-auto left-[1515px] top-[58px] z-10`}
-                        onClick={() => logout()}>
-                    <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc18ab58-4f37-43ec-8a4c-32e441c85efb?&width=800" />
-                </button>
+                <div className={`${profileMenuOn ? 'block' : 'hidden'} profileModal absolute w-[260px] flex flex-col left-[1410px] top-[72px] z-10 bg-white
+                            shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
+                    <div className="left-[15px] w-[240px] my-[5px] relative text-black text-lg font-normal font-['Inter']">김철수 연구원님, 안녕하세요.</div>
+                    <div className="w-[234px] h-[0px] left-[17px]  relative border border-zinc-500 border-opacity-50"></div>
+                    <Link to="/members/modify">
+                        <button onClick={() => setProfileMenuOn(false)}>
+                            <div className="mx-[15px] my-[5px] text-black text-lg font-bold font-['Inter']">프로필 정보 변경</div>
+                        </button>
+                    </Link>
+                    <div className="Line12 w-[234px] h-[0px] left-[16px]  relative border border-zinc-500 border-opacity-50"></div>
+                    <button onClick={() => logout()}>
+                        <div className="text-left mx-[15px] my-[5px] relative text-black text-lg font-bold font-['Inter']">로그아웃</div>
+                    </button>
+                </div>
 
                 <div className={`${notificationsOn ? 'block' : 'hidden'} notificationModal absolute w-[300px] flex flex-col left-[1320px] top-[72px] z-10 bg-white 
                                 shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
