@@ -25,6 +25,7 @@ import AdminHome from './new/pages/admin/AdminHome';
 import "./fonts/pretendard.css"
 import {QueryClient, QueryClientProvider} from "react-query";
 import NotificationList from "./new/pages/NotificationList";
+import MemberCreate from "./new/pages/MemberCreate";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,12 @@ const router = createBrowserRouter([
               errorElement: <ErrorPage />,
               loader : loader,
           },
+            {
+                path: "/signup",
+                element: <MemberCreate/>,
+                errorElement: <ErrorPage />,
+                loader : loader,
+            },
           {
               path: "/threads/new",
               element: <ThreadsCreate/>,
