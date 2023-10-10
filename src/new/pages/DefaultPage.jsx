@@ -13,7 +13,7 @@ import companys from '../../img/info/companys.png'
 import design1 from '../../img/info/design1.png'
 
 import AskButton from '../components/AskButton';
-
+import { motion } from "framer-motion"
 
 
 const DefaultPage = () => {
@@ -26,8 +26,8 @@ const DefaultPage = () => {
                     <MainButton onClick={() => navigate("/login")}> 회원 로그인</MainButton>
                     <MainButton onClick={() => navigate("/admin")}>관리자 페이지</MainButton>
                 </MainContainer> */}
-                <div className="bg-white flex-col justify-start items-center gap-[200px] inline-flex w-full mt-[-40px] pb-[300px]">
-                  <div className="w-[w-full] h-[50%] relative">
+                <div className="bg-white flex-col justify-start items-center gap-[200px] inline-flex w-full mt-[-157px] pb-[300px] mb-[-40px]">
+                  <div className="w-[101%] h-[50%] relative">
                       <img className="w-full" src={coverImage} alt="coverImage"/>
                       <div className="left-[10%] bottom-[10%] absolute">
                         <span className="text-stone-950 text-6xl font-bold ">WE MAKE<br/></span>
@@ -37,6 +37,7 @@ const DefaultPage = () => {
                         <span className="text-stone-950 text-6xl font-bold">RUPTIVE<br/>INNOVATIONS</span>
                       </div>
                   </div>
+                  <div className="w-[90%] h-[3px] bg-zinc-400 opacity-60"/>
                   <div className="w-[80%] justify-start items-center gap-[33px] inline-flex">
                     <div className="flex-col justify-start items-start gap-40 inline-flex">
                       <div className="text-black text-[44.76px] font-bold">기존 플레이트 Immunoassay의<br/>약 1,000배 이상의 민감도</div>
@@ -44,27 +45,28 @@ const DefaultPage = () => {
                     </div>
                     <img className="w-[50%] " src={img1000x} alt="img1000x"/>
                   </div>
+                  <div className="w-[90%] h-[3px] bg-zinc-400 opacity-60"/>
                   <div className="w-[90%] flex-col justify-start items-center gap-[78px] inline-flex">
                     <div className="text-center text-black text-[44.76px] font-bold font-['Inter']">초고감도 바이오마커 분석이 필요한 연구를<br/>가장 적합한 방식으로 지원합니다</div>
                     <div className="w-[100%] relative">
                       <img className="w-full " src={design1} alt="design1"/>
                       <div className="w-full left-[3%] top-[10%] absolute justify-start items-start gap-[5%] inline-flex">
-                        <div className="w-[20%]  h-[289.11px] relative">
+                        <div className="w-[20%]  h-[289.11px] relative transition-all hover:scale-[1.1]">
                           <div className="w-[100%] h-[100%] left-0 top-0 absolute bg-sky-100 rounded-full" />
                           <div className="left-[49.49px] top-[90.29px] absolute text-center text-black text-[38.86px] font-bold ">서비스 기획</div>
                           <div className="w-[227.47px] left-[30.39px] top-[165.83px] absolute text-center text-neutral-400 text-lg font-bold ">연구분석 목적에 꼭 맞는 분석 서비스를 제안드립니다.</div>
                         </div>
-                        <div className="w-[289.11px] h-[289.11px] relative">
+                        <div className="w-[289.11px] h-[289.11px] relative transition-all hover:scale-[1.1] ">
                           <div className="w-[289.11px] h-[289.11px] left-0 top-0 absolute bg-sky-100 rounded-full" />
                           <div className="left-[67.49px] top-[90.29px] absolute text-center text-black text-[38.86px] font-bold">검체 수거</div>
                           <div className="w-[227.47px] left-[30.39px] top-[165.83px] absolute text-center text-neutral-400 text-lg font-bold ">전문인력이 안전하고 정확하게 분석대상 검체를 수거합니다.</div>
                         </div>
-                        <div className="w-[289.11px] h-[289.11px] relative">
+                        <div className="w-[289.11px] h-[289.11px] relative transition-all hover:scale-[1.1]">
                           <div className="w-[289.11px] h-[289.11px] left-0 top-0 absolute bg-sky-100 rounded-full" />
                           <div className="left-[71.49px] top-[90.29px] absolute text-center text-black text-[38.86px] font-bold ">연구분석</div>
                           <div className="w-[227.47px] left-[30.39px] top-[165.83px] absolute text-center text-neutral-400 text-lg font-bold ">온습도, 청정도가 통제된 클린룸 환경에서 정밀하게 분석합니다.</div>
                         </div>
-                        <div className="w-[289.11px] h-[289.11px] relative">
+                        <div className="w-[289.11px] h-[289.11px] relative transition-all hover:scale-[1.1] ">
                           <div className="w-[289.11px] h-[289.11px] left-0 top-0 absolute bg-sky-100 rounded-full" />
                           <div className="left-[71.49px] top-[90.29px] absolute text-center text-black text-[38.86px] font-bold ">결과보고</div>
                           <div className="w-[227.47px] left-[30.39px] top-[165.83px] absolute text-center text-neutral-400 text-lg font-bold ">분석결과 Raw Data와 <br/>연구분석 목적에 따른 추가분석을 제공합니다.</div>
@@ -74,18 +76,19 @@ const DefaultPage = () => {
                     <div className="w-[90%] h-[45px] justify-center items-start gap-[10%] inline-flex">
                       <div className="w-[231px] h-[45px] relative">
                         <div className="w-[231px] h-[45px] left-0 top-0 absolute bg-zinc-300 rounded-[10px]" />
-                        <div className="left-[40px] top-[5px] absolute text-center text-white text-3xl font-bold font-['Inter']">1-2 weeks</div>
+                        <div className="left-[40px] top-[5px] absolute text-center text-white text-3xl font-bold ">1-2 weeks</div>
                       </div>
                       <div className="w-[592px] h-[45px] relative">
                         <div className="w-[592px] h-[45px] left-0 top-0 absolute bg-zinc-300 rounded-[10px]" />
-                        <div className="w-[251.15px] left-[169.14px] top-[5px] absolute text-center text-white text-3xl font-bold font-['Inter']">2-4 weeks</div>
+                        <div className="w-[251.15px] left-[169.14px] top-[5px] absolute text-center text-white text-3xl font-bold ">2-4 weeks</div>
                       </div>
                       <div className="w-[231px] h-[45px] relative">
                         <div className="w-[231px] h-[45px] left-0 top-0 absolute bg-zinc-300 rounded-[10px]" />
-                        <div className="left-[66px] top-[5px] absolute text-center text-white text-3xl font-bold font-['Inter']">3 days</div>
+                        <div className="left-[66px] top-[5px] absolute text-center text-white text-3xl font-bold">3 days</div>
                       </div>
                     </div>
                   </div>
+                  <div className="w-[90%] h-[3px] bg-zinc-400 opacity-60"/>
                   <div className="w-[90%] justify-center items-start gap-[6%] inline-flex ">
                     <div className="w-[30%] flex-col justify-center items-center gap-[24.20px] inline-flex relative">
                       <div className="text-center text-black text-[41.73px] font-bold ">Experienced</div>
@@ -103,22 +106,23 @@ const DefaultPage = () => {
                           <img className="w-[90%]" src={pos2} alt="pos2" />
                       </div>
                     </div>
-                    
                     <div className="w-[30%] flex-col justify-center items-center gap-[24.20px] inline-flex relative">
                       <div className="text-center text-black text-[41.73px] font-bold ">Insightful</div>
                       <div className="text-center text-black text-[22px] font-bold ">기 보유 자체 데이터분석모형을 통해<br/>분석 결과 관련 추가 인사이트를 제공합니다.</div>
                       <div className="w-[100%] h-[300px] rounded-2xl border-2 border-zinc-400 flex-col justify-center items-center gap-[20px] flex">
-                          <div className="text-center"><span className="text-neutral-500 text-base font-bold font-['Inter']">자체보유 임상데이터 기반 데이터분석모형 보유<br/></span><span className="text-neutral-500 text-[10px] font-bold font-['Inter']">(알츠하이머병 및 인지기능 장애 관련 1,000명 이상 데이터 기반)</span></div>
+                          <div className="text-center"><span className="text-neutral-500 text-base font-bold ">자체보유 임상데이터 기반 데이터분석모형 보유<br/></span><span className="text-neutral-500 text-[10px] font-bold font-['Inter']">(알츠하이머병 및 인지기능 장애 관련 1,000명 이상 데이터 기반)</span></div>
                           <img className="w-[90%]" src={pos3} alt="pos3"  />
                       </div>
                     </div>
                   </div>
+                  <div className="w-[90%] h-[3px] bg-zinc-400 opacity-60"/>
                   <div className="w-[90%] flex-col justify-start items-center gap-[50px] inline-flex">
-                    <div className="text-center text-black text-[40px] font-bold font-['Inter']">자사 클린룸 내 자체보유 장비로 분석 서비스를 제공합니다</div>
+                    <div className="text-center text-black text-[40px] font-bold ">자사 클린룸 내 자체보유 장비로 분석 서비스를 제공합니다</div>
                     <img className="w-[80%] h-[100%]" src={hdx} alt="hdx" />
                   </div>
+                  <div className="w-[90%] h-[3px] bg-zinc-400 opacity-60"/>
                   <div className="w-[90%] flex-col justify-start items-center gap-[50px] inline-flex">
-                    <div className="text-center text-black text-[40px] font-bold font-['Inter']">국내외 상급종합병원에 서비스를 공급하고 있으며<br/>다양한 방식으로 연구기관, 의료기관, 글로벌 기업과 협업하고 있습니다</div>
+                    <div className="text-center text-black text-[40px] font-bold ">국내외 상급종합병원에 서비스를 공급하고 있으며<br/>다양한 방식으로 연구기관, 의료기관, 글로벌 기업과 협업하고 있습니다</div>
                     <img className="w-[80%] h-[100%]" src={companys} alt="companys" />
                   </div>
                 </div>

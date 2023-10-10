@@ -12,15 +12,22 @@ export const LoginContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     height: 60vh; // Reduced height to 60% of the viewport
     margin-top: 10vh; // Added top margin for spacing above the container
     margin-bottom: 10vh; // Added top margin for spacing above the container
     width: 100%;
+    overflow: scroll;
     background-color: #f7f7f7;
+    max-height: 800px; // Set a max width for larger screens
     max-width: 400px; // Set a max width for larger screens
     margin-left: auto;
     margin-right: auto; // Center the container on larger screens
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none; /* 크롬, 사파리, 오페라, 엣지 */
+    }
 
     // Media query to make the container responsive on larger screens
     @media (min-width: 768px) {

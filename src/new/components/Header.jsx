@@ -6,6 +6,8 @@ import {useQuery} from 'react-query'
 import {useCookies} from "react-cookie";
 import moment from 'moment';
 import 'moment/locale/ko';
+import icon_authed from "../../img/icon_authed.png"
+import icon_unauthed from "../../img/icon_unauthed.png"
 
 const Header = () => {
 
@@ -22,8 +24,13 @@ const Header = () => {
     const {isLoading, error, data, refetch} = useQuery('notifications',
         () => cookies.login ? axios.get(`/notifications?memberId=${cookies.login && cookies.login['id']}`) : null,
         {refetchInterval: 10000});
+        
+    useEffect(()=>{
+        refetch()
+    },[cookies.login])
 
     if (isLoading || error) return 'Loading...';
+
 
     function clickProfileIcon() {
         setNotificationsOn(false)
@@ -92,11 +99,14 @@ const Header = () => {
                     </div>
                 </button>
                 <div className={`${data && data.data && data.data.list.length > 0 ? 'block' : 'hidden'} Ellipse49 w-3 h-3 left-[1538px] top-[29px] absolute bg-red-600 rounded-full`} />
-                
                 <button className=" w-[49px] h-[30px] left-[1581px] top-[29px] absolute"
                         onClick={cookies.login ? () => clickProfileIcon() : () => login()}>
                     <div className="UserCicrleLight w-[55px] h-[30px] left-0 top-0 absolute">
-                        <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F620ec0bc269049aa87c29d8e1cbbc3be?&width=200" alt=""/>
+                        {
+                            cookies.login ? 
+                            <img className="object-cover object-center" src={icon_authed} alt="userIcon"/> :
+                            <img className="object-cover object-center" src={icon_unauthed} alt="userIcon"/>
+                        }
                     </div>
                 </button>
                 

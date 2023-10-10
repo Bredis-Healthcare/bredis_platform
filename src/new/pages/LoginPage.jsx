@@ -38,7 +38,6 @@ const LoginPage = () => {
         }
     });
 
-
     // Function to handle form submission
     const handleLogin = (e) => {
         e.preventDefault();

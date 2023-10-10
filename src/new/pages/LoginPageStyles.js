@@ -12,15 +12,18 @@ export const LoginContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     height: 60vh; // Reduced height to 60% of the viewport
     margin-top: 10vh; // Added top margin for spacing above the container
     margin-bottom: 10vh; // Added top margin for spacing above the container
     width: 100%;
+    overflow: scroll;
     background-color: #f7f7f7;
+    max-height: 750px; // Set a max width for larger screens
     max-width: 400px; // Set a max width for larger screens
     margin-left: auto;
     margin-right: auto; // Center the container on larger screens
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none;
 
     // Media query to make the container responsive on larger screens
     @media (min-width: 768px) {
@@ -29,7 +32,11 @@ export const LoginContainer = styled.div`
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+    &::-webkit-scrollbar {
+        display: none; /* 크롬, 사파리, 오페라, 엣지 */
+    }
 `;
+
 
 // Styled input fields
 export const LoginInput = styled.input`

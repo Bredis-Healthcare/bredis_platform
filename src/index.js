@@ -155,7 +155,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <CookiesProvider>
-              <div className='flex justify-center relative'>
+              <div className='flex relative'>
                 <RouterProvider router={router}/>
               </div>
             </CookiesProvider>
