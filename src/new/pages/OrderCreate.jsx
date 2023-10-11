@@ -96,7 +96,11 @@ function OrderCreate() {
                                         <div className=" w-[276.21px] h-[18px] left-[20.59px] top-[12px] absolute text-white text-lg font-semibold font-['Inter']">담당자 의견</div>
                                         <textarea value={data.managerComment} readOnly rows="4" className="resize-none bg-transparent Xxx23YyyXxx w-[773.78px] left-[20.59px] top-[38px] absolute text-white text-lg font-normal font-['Inter']"></textarea>
                                     </div>
+<<<<<<< HEAD
                                     <div className="mr-40 ml-auto w-[300px] mt-[8px] relative">
+=======
+                                    <div className="left-[1100px] mt-[8px] w-[300px] relative">
+>>>>>>> 5abf071074b9b16b8cff754f6a1b7a6301bed35e
                                         <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
                                                 onClick={() => cancelRequest(data.id)}>
                                             <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
@@ -131,8 +135,13 @@ function OrderCreate() {
                                         </div>
                                     </div>
 
+<<<<<<< HEAD
                                     <div className="flex flex-row gap-4 mt-[8px] mr-40 ml-auto">
                                         <button className="w-[114px] h-[35px] relative inline-block"
+=======
+                                    <div className="flex flex-row relative w-[300px]">
+                                        <button className="w-[114px] h-[35px] left-[1263px] top-[10px] relative inline-block"
+>>>>>>> 5abf071074b9b16b8cff754f6a1b7a6301bed35e
                                                 onClick={() => createOrder(data.id)}>
                                             <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
                                             <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">주문 발주</div>

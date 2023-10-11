@@ -85,8 +85,8 @@ function OrderList() {
                                                     {
                                                         order.unreadAdminMessages > 0 ? (
                                                             <div className="UnreadNoti">
-                                                                <div className="Ellipse49 w-3 h-3 left-[1030px] top-[0px] absolute bg-red-600 rounded-full" />
-                                                                <div className="1 left-[800px] top-[5px] absolute text-zinc-500 text-lg font-normal font-['Inter']">읽지 않은 메시지가 {order.unreadAdminMessages}건 있습니다.</div>
+                                                                <div className="Ellipse49 w-3 h-3 left-[1030px] top-[145px] absolute bg-red-600 rounded-full" />
+                                                                <div className="1 left-[800px] top-[150px] absolute text-zinc-500 text-lg font-normal font-['Inter']">읽지 않은 메시지가 {order.unreadAdminMessages}건 있습니다.</div>
                                                             </div>
                                                         ) : (<div />)
                                                     }
