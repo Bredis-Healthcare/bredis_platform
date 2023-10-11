@@ -27,6 +27,8 @@ import {QueryClient, QueryClientProvider} from "react-query";
 import NotificationList from "./new/pages/NotificationList";
 import MemberCreate from "./new/pages/MemberCreate";
 import MemberModify from "./new/pages/MemberModify";
+import ServiceTerms from "./new/pages/terms/ServiceTerms";
+import PrivacyTerms from "./new/pages/terms/PrivacyTerms";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +52,18 @@ const router = createBrowserRouter([
             {
                 path: "/signup",
                 element: <MemberCreate/>,
+                errorElement: <ErrorPage />,
+                loader : loader,
+            },
+            {
+                path: "/terms/service",
+                element: <ServiceTerms/>,
+                errorElement: <ErrorPage />,
+                loader : loader,
+            },
+            {
+                path: "/terms/privacy",
+                element: <PrivacyTerms/>,
                 errorElement: <ErrorPage />,
                 loader : loader,
             },
