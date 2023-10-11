@@ -47,18 +47,18 @@ function OrderList() {
                         {
                             data.orderItems.length > 0 ?
                                 <div
-                                    className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] pb-[50px] px-[20px] pt-[40px]">
+                                    className="Contents relative shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] max-w-[1222px] self-center flex flex-col m-auto pb-[50px] px-[20px] pt-[40px]">
                                     {
                                         data.orderItems.map((order, index) => (
                                             <div key={order.id}>
                                                 {index === 0 ? (<div/>) : (
                                                     <div>
                                                         <div className="h-5"></div>
-                                                        <div className={`w-[1114px] h-[0px] left-[37px] top-[0px]] relative border border-zinc-500`}/>
+                                                        <div className={`w-[1114px] h-[0px]  top-[0px]] relative border border-zinc-500`}/>
                                                         <div className="h-5"></div>
                                                     </div>
                                                 )}
-                                                <div className={`w-[1077px] h-[200px] left-[76px] top-[34px] relative`}>
+                                                <div className={`w-[1077px] h-[200px] left-[30px] top-[34px] relative`}>
                                                     <div className="left-0 top-[30px] max-w-[580px] absolute text-black text-2xl font-bold font-['Inter']">{order.title}</div>
                                                     <div className="left-0 top-[88px] absolute text-zinc-500 text-lg font-normal font-['Inter']">의뢰내용</div>
                                                     <p className="left-0 top-[121px] w-[600px] absolute text-black text-lg font-normal font-['Inter'] truncate ...">{order.requestDetail}</p>
@@ -85,8 +85,8 @@ function OrderList() {
                                                     {
                                                         order.unreadAdminMessages > 0 ? (
                                                             <div className="UnreadNoti">
-                                                                <div className="Ellipse49 w-3 h-3 left-[1030px] top-[175px] absolute bg-red-600 rounded-full" />
-                                                                <div className="1 left-[800px] top-[180px] absolute text-zinc-500 text-lg font-normal font-['Inter']">읽지 않은 메시지가 {order.unreadAdminMessages}건 있습니다.</div>
+                                                                <div className="Ellipse49 w-3 h-3 left-[1030px] top-[0px] absolute bg-red-600 rounded-full" />
+                                                                <div className="1 left-[800px] top-[5px] absolute text-zinc-500 text-lg font-normal font-['Inter']">읽지 않은 메시지가 {order.unreadAdminMessages}건 있습니다.</div>
                                                             </div>
                                                         ) : (<div />)
                                                     }

@@ -31,9 +31,9 @@ function ThreadsList () {
             {data ? (
                 <>
                 <Layout menuName="문의하기 > 문의 목록">
-                    <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-full max-w-[1222px] self-center flex flex-col ml-[0.5px] mt-[46px] px-[20px] pt-[30px] pb-[30px]">
-                        <Link to="/threads/new">
-                            <button className="NewThreadButton w-[120px] h-[35px] relative float-right mx-[40px]">
+                    <div className="Contents shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] w-[1222px] self-center flex flex-col m-auto px-[20px] pt-[30px] pb-[30px]">
+                        <Link className="flex justify-end" to="/threads/new">
+                            <button className="NewThreadButton w-[120px] h-[35px] relative ml-auto mx-[40px]">
                                 <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
                                 <div className=" w-[98px] h-[17px] left-[14px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">새로운 문의</div>
                             </button>

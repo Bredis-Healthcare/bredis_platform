@@ -5,7 +5,7 @@ function Footer() {
 
     const navigate = useNavigate();
     return (
-        <div className="w-[1667px] px-[20px] py-[37px] text-zinc-500 text-[10px] font-bold bg-gray-200 flex justify-center">
+        <div className="w-full px-[20px] py-[37px] text-zinc-500 text-[10px] font-bold bg-gray-200 flex justify-center">
             <div className="w-fit">
                 <div className = "flex flex-row ">
                     <div className="mx-[5px]">주식회사 | 브레디스헬스케어  </div>
@@ -24,4 +24,3 @@ function Footer() {
 }
 
 export default Footer;
-
