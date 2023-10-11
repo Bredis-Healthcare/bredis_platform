@@ -1,9 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.b6c7d50c.css",
-    "main.js": "/static/js/main.7cb33f01.js",
+    "main.css": "/static/css/main.bbd5bdce.css",
+    "main.js": "/static/js/main.48e8b1c7.js",
     "static/js/787.db26289b.chunk.js": "/static/js/787.db26289b.chunk.js",
-    "static/media/coverImage.png": "/static/media/coverImage.a73a76f438b934fcd9bf.png",
     "static/media/companys.png": "/static/media/companys.d538217a44dea78e2d6b.png",
     "static/media/hdx.png": "/static/media/hdx.7bc4b41a966d5c0156e7.png",
     "static/media/Pretendard-Black.woff": "/static/media/Pretendard-Black.8bad248bdb96c3377cbc.woff",
@@ -15,6 +14,7 @@
     "static/media/Pretendard-Regular.woff": "/static/media/Pretendard-Regular.21b4bbcb93a4b1214f7d.woff",
     "static/media/Pretendard-ExtraLight.woff": "/static/media/Pretendard-ExtraLight.050334e61f5fd99dddd4.woff",
     "static/media/Pretendard-Thin.woff": "/static/media/Pretendard-Thin.d3e53f3d68cbe18c8f70.woff",
+    "static/media/coverImage.png": "/static/media/coverImage.f27356fb99d8ef5670e3.png",
     "static/media/Pretendard-Black.woff2": "/static/media/Pretendard-Black.a4a9c5efac034f021c8e.woff2",
     "static/media/Pretendard-ExtraBold.woff2": "/static/media/Pretendard-ExtraBold.d96f7e46d4ca0cdd4912.woff2",
     "static/media/Pretendard-Bold.woff2": "/static/media/Pretendard-Bold.14a8579db02dbe10e1c0.woff2",
@@ -32,12 +32,12 @@
     "static/media/bredis_logo_wide.png": "/static/media/bredis_logo_wide.dc70bdac982a33eed62b.png",
     "static/media/design1.png": "/static/media/design1.5e243ac8133d40a7dd1b.png",
     "index.html": "/index.html",
-    "main.b6c7d50c.css.map": "/static/css/main.b6c7d50c.css.map",
-    "main.7cb33f01.js.map": "/static/js/main.7cb33f01.js.map",
+    "main.bbd5bdce.css.map": "/static/css/main.bbd5bdce.css.map",
+    "main.48e8b1c7.js.map": "/static/js/main.48e8b1c7.js.map",
     "787.db26289b.chunk.js.map": "/static/js/787.db26289b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b6c7d50c.css",
-    "static/js/main.7cb33f01.js"
+    "static/css/main.bbd5bdce.css",
+    "static/js/main.48e8b1c7.js"
   ]
 }
