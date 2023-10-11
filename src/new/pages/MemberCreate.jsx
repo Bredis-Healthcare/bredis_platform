@@ -56,27 +56,27 @@ function MemberCreate() {
             <input id="position" rows="1" className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="연구원"></input>
 
             <div className="left-[450px] relative mt-[50px]">
-                <input type="checkbox" id="checkbox1" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.35rem] w-[1.35rem] "/>
+                <input type="checkbox" id="checkbox1" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                 <label className="align-middle text-black text-base font-normal font-['Inter'] inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox1">
                     이용약관 동의
                 </label>
                 <a href="/terms/service" target="_blank" className="align-middle text-slate-500 underline text-base font-normal font-['Inter'] inline-block pl-[0.3rem] hover:cursor-pointer">보기</a>
             </div>
             <div className="left-[450px] relative mt-[10px]">
-                <input type="checkbox" id="checkbox2" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.35rem] w-[1.35rem] "/>
+                <input type="checkbox" id="checkbox2" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                 <label className="align-middle text-black text-base font-normal font-['Inter'] inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox2">
                     개인정보 취급방침 동의
                 </label>
                 <a href="/terms/privacy" target="_blank" className="align-middle text-slate-500 underline text-base font-normal font-['Inter'] inline-block pl-[0.3rem] hover:cursor-pointer">보기</a>
             </div>
             <div className="left-[450px] relative mt-[10px]">
-                <input type="checkbox" id="checkbox3" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.35rem] w-[1.35rem] "/>
+                <input type="checkbox" id="checkbox3" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                 <label className="align-middle text-black text-base font-normal font-['Inter'] inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox3">
                     만 14세 이상입니다.
                 </label>
             </div>
 
-            <button style={{left: 'calc(50% - 120px)'}} className=" w-[126px] h-[35px] top-[50px] mx-2 my-2 relative" onClick={() => submit()}>
+            <button style={{left: 'calc(50% - 120px)'}} className=" w-[126px] h-[35px] top-[40px] mx-2 my-2 relative" onClick={() => submit()}>
                 <div className="Rectangle7 w-[120px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
                 <div className=" w-[98px] h-[17px] left-[12px] top-[5px] absolute text-white text-lg font-bold font-['Inter']">가입하기</div>
             </button>
