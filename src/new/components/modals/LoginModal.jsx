@@ -43,8 +43,6 @@ const LoginPageModal = () => {
     return (
         <ModalOverlay onClick={handleOutsideClick}>
             <LoginContainer>
-                <h1>로그인이 필요합니다.</h1>
-                <h1>로그인해주세요.</h1>
                 <br/>
                 <CloseButton onClick={(e) => {setIsModalOpen(false)}}>X</CloseButton>
                 <LoginImage src={logo} alt="Login Illustration" />

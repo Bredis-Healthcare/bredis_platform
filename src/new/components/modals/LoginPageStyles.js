@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // Image displayed at the top of the login form
 export const LoginImage = styled.img`
-    width: 80%; // Set the image width
+    width: 50%; // Set the image width
     max-width: 300px; // Max width to make it responsive
     margin-bottom: 20px; // Space below the image
 `;
@@ -12,7 +12,7 @@ export const LoginContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 60vh; // Reduced height to 60% of the viewport
+    height: 80vh; // Reduced height to 60% of the viewport
     margin-top: 10vh; // Added top margin for spacing above the container
     margin-bottom: 10vh; // Added top margin for spacing above the container
     width: 100%;
