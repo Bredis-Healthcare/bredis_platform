@@ -510,6 +510,19 @@ function QuotationRequest (props) {
                                         </TableCell>
                                     </tr>
                                 }
+                                {
+                                    data.content.sampleDataList.length < 13 ?
+                                        [...Array(13 - data.content.sampleDataList.length).keys()].map((key) => (<tr>
+                                        <TableCell value={`${data.content.sampleDataList.length + key + 2}`} minWidth="20px" maxWidth="90px"/>
+                                        <TableCell maxWidth="90px"/>
+                                        <TableCell maxWidth="90px"/>
+                                        <TableCell maxWidth="90px"/>
+                                        <TableCell maxWidth="90px"/>
+                                        <TableCell maxWidth="90px"/>
+                                        <TableCell maxWidth="90px"/>
+                                        <TableCell maxWidth="90px"/>
+                                    </tr>)) : <></>
+                                }
                                 </tbody>
                             </table>
                         </div>
