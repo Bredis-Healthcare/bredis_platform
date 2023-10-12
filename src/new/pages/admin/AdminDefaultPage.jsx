@@ -10,10 +10,10 @@ const AdminDefaultPage = () => {
   return (
     <div>
         <Layout menuName = "홈">
-                <MainContainer>
-                    <BigImage src={logo} alt="Descriptive Image"/>
+                <div className="flex flex-col items-center justify-center h-full w-full min-h-[60vh]">
+                    <img className="w-[30%] mb-[20px]" src={logo} alt="Descriptive Image"/>
                     <MainButton onClick={() => navigate("/admin/login")}> 관리자 로그인</MainButton>
-                </MainContainer>
+                </div>
         </Layout>
       
     </div>

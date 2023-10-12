@@ -46,7 +46,7 @@ const MainPageContent = () => {
         <div className ="w-full justify-center relative ">
             <Header/>
                 {isModalOpen && location["pathname"] !== '/login' && <LoginPageModal/>}
-                {location["pathname"] === '/' && <DefaultPage/>}
+                {location["pathname"] === '/' && <DefaultPage/>}/
             <Outlet/>
             <Footer/>
         </div>

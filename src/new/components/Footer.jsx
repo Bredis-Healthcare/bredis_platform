@@ -18,12 +18,13 @@ function Footer() {
 
 
                 </div>
-                <div className = "flex flex-row mt-[10px]" >
+                <div className = "flex flex-row mt-[10px] mb-[10px]" >
                     <a href="/terms/service" className="mx-[10px] hover:cursor-pointer">이용약관</a>
                     <a href="/terms/privacy" className="mx-[10px] hover:cursor-pointer">개인정보 취급방침</a>
                     <div className="mx-[10px]">회사 소개서 다운로드</div>
                     <div className="mx-[10px]">RFQ 다운로드</div>
                 </div>
+                <a href="/admin" className="mx-[10px] hover:cursor-pointer">관리자 페이지</a>
                 <div className="mx-[10px] mt-[20px]">Copyrights ⓒ 2023 Bredis Healthcare Inc. All Rights Reserved</div>
             </div>
         </div>

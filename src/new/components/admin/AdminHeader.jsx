@@ -6,6 +6,8 @@ import {useQuery} from 'react-query'
 import {useCookies} from "react-cookie";
 import moment from 'moment';
 import 'moment/locale/ko';
+import icon_authed from "../../../img/icon_authed.png"
+import icon_unauthed from "../../../img/icon_unauthed.png"
 
 
 const AdminHeader = () => {
@@ -32,12 +34,12 @@ const AdminHeader = () => {
         const request = await axios.post('logout')
         removeCookie(['login']);
         clickProfileIcon()
-        navigate("/");
+        navigate("/admin");
     }
 
     async function login() {
         setProfileMenuOn(false)
-        navigate("/login");
+        navigate("/admin/login");
     }
 
     function clickNotificationIcon() {
@@ -58,44 +60,56 @@ const AdminHeader = () => {
     }
 
     return (
-            <div className="Header w-[1667px] h-[76px] relative ">
-                <div className=" w-[1667px] h-[76px] left-0 top-0 absolute bg-white" />
-                <Link to={"/admin"}>
-                    <div className="DigitalElisa left-[189px] top-[21px] absolute text-black text-[26px] font-bold">Digital ELISA 연구분석서비스 관리자</div>
-                    <img className=" w-[189px] h-[76px] left-0 top-0 absolute" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800" />
+        <div className="Header w-full h-20 relative flex flex-row items-center justify-between">
+            <Link className="flex flex-row  items-center"to={"/admin"}>
+                <img className="w-40" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800"  alt="logo"/>
+                <div className="text-black lg:text-2xl md:text-xl font-bold">Digital ELISA<br className="lg:hidden md:block" /> 연구분석서비스 관리자</div>
+            </Link>
+
+            <div className="flex flex-row items-center lg:gap-8 md:gap-2" >
+            
+                <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/admin"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
+                    <div className={`${isHovering3 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
+                    <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'}  lg:text-xl md:text-base mt-[0.5rem] font-bold`}>홈</div>
                 </Link>
 
-                <Link to={"/"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
-                    <div className={`${isHovering3 ? 'block' : 'hidden'} w-[82px] h-[3px] left-[1320px] top-[16px] absolute bg-sky-900`} />
-                    <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'} left-[1350px] top-[32px] absolute  text-xl font-bold`}>홈</div>
+                <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/admin/members/list"} onMouseOver={() => setIsHovering4(true)} onMouseOut={() => setIsHovering4(false)}>
+                    <div className={`${isHovering4 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
+                    <div className={`${isHovering4 ? 'text-sky-900' : 'text-black'}   lg:text-xl md:text-base mt-[0.5rem] font-bold`}>고객목록</div>
                 </Link>
-                <Link to={"/admin/members/list"} onMouseOver={() => setIsHovering4(true)} onMouseOut={() => setIsHovering4(false)}>
-                    <div className={`${isHovering4 ? 'block' : 'hidden'} w-[82px] h-[3px] left-[1415px] top-[16px] absolute bg-sky-900`} />
-                    <div className={`${isHovering4 ? 'text-sky-900' : 'text-black'} left-[1421px] top-[32px] absolute  text-xl font-bold`}>고객 목록</div>
-                </Link>
-                <button className=" w-[50px] h-[30px] left-[1521px] top-[29px] absolute"
-                        onClick={() => clickNotificationIcon()}>
-                    <div className="Bell w-[55px] h-[30px] left-0 top-0 absolute">
-                        <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fec38e501943d468fa0df8b6f1a34a36f?&width=200" alt=""/>
-                    </div>
-                </button>
-                <div className={`${data && data.data && data.data.list.length > 0 ? 'block' : 'hidden'} Ellipse49 w-3 h-3 left-[1538px] top-[29px] absolute bg-red-600 rounded-full`} />
+                <div>
+                    <button className=" w-[3.25rem] mt-[0.8rem]"
+                            onClick={() => clickNotificationIcon()}>
+                        <div className="w-full">
+                            <div className={`${data && data.data && data.data.list.length > 0 ? 'block' : 'hidden'} Ellipse49 w-3 h-3 ml-1 absolute bg-red-600 rounded-full`} />
+                            <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fec38e501943d468fa0df8b6f1a34a36f?&width=200" alt=""/>
+                        </div>
+                    </button>
+                    
+                    <button className=" w-[3.25rem] "
+                            onClick={cookies.login ? () => clickProfileIcon() : () => login()}>
+                        <div className="w-full">
+                            {
+                                cookies.login ? 
+                                <img className="object-cover object-center" src={icon_authed} alt="userIcon"/> :
+                                <img className="object-cover object-center" src={icon_unauthed} alt="userIcon"/>
+                            }
+                        </div>
+                    </button>
+                </div>
+                <div className={`${profileMenuOn ? 'block' : 'hidden'} profileModal absolute w-[16rem] flex flex-col items-center right-1 top-20 z-10 bg-white lg:text-lg md:text-base
+                            shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
+                    <div className="w-[240px] my-[5px] relative text-black  font-normal text-center">관리자님, 안녕하세요.</div>
+                    <div className="w-[234px] h-[0px] relative border border-zinc-500 border-opacity-50"></div>
+                    <div className="Line12 w-[234px] h-[0px] relative border border-zinc-500 border-opacity-50"></div>
+                    <button onClick={() => logout()}>
+                        <div className="text-left mx-[15px] my-[5px] relative text-black font-bold">로그아웃</div>
+                    </button>
+                </div>
 
-                <button className=" w-[49px] h-[30px] left-[1581px] top-[29px] absolute"
-                        onClick={cookies.login ? () => clickProfileIcon() : () => login()}>
-                    <div className="UserCicrleLight w-[55px] h-[30px] left-0 top-0 absolute">
-                        <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F620ec0bc269049aa87c29d8e1cbbc3be?&width=200" alt=""/>
-                    </div>
-                </button>
-
-                <button className={`${profileMenuOn ? 'block' : 'hidden'} absolute w-auto left-[1515px] top-[58px] z-10`}
-                        onClick={() => logout()}>
-                    <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc18ab58-4f37-43ec-8a4c-32e441c85efb?&width=800" />
-                </button>
-
-                <div className={`${notificationsOn ? 'block' : 'hidden'} notificationModal absolute w-[300px] flex flex-col left-[1320px] top-[72px] z-10 bg-white 
+                <div className={`${notificationsOn ? 'block' : 'hidden'} notificationModal absolute w-[300px] flex flex-col right-[3.5rem] top-20 z-10 bg-white lg:text-base md:text-sm
                                 shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
-                    <div className="left-0 top-0 w-[100%] relative">
+                    <div className="flex flex-col w-[100%] justify-center relative">
                         {
                             data && data.data ?
                                 (data.data.list.length > 0 ? <>
@@ -103,10 +117,10 @@ const AdminHeader = () => {
                                             data.data.list.map((notification) => (<>
                                                 <Link to={notification.linkTo} state={{resourceId: notification.resourceId}} onClick={(e) => checkRead(e, notification.id)}>
                                                     <button className="text-left">
-                                                        <div className="px-[17px] my-[5px] relative text-black text-[14px] font-normal font-['Inter']">
+                                                        <div className="px-[17px] my-[5px] relative text-black ">
                                                             {notification.message}
                                                         </div>
-                                                        <div className="px-[17px] my-[5px] relative text-zinc-500 text-[12px] font-normal font-['Inter']">
+                                                        <div className="px-[17px] my-[5px] relative text-zinc-500 lg:text-[0.75rem]">
                                                             {moment(notification.createdDatetime).fromNow()}
                                                         </div>
                                                     </button>
@@ -114,30 +128,33 @@ const AdminHeader = () => {
                                                 <div className="Line11 w-[265px] h-[0px] left-[16px] my-[5px] relative border border-zinc-500 border-opacity-50"></div>
                                             </>))
                                         }
-                                        <button className="mx-[17px] my-[5px] float-right relative text-slate-500 text-[14px] font-bold font-['Inter']"
-                                                onClick={() => checkReadAll()}
-                                        >모두 읽음 표시
-                                        </button>
-                                        <Link to={"/admin/notifications"} onClick={() => setNotificationsOn(false)}>
-                                            <button className="relative my-[3px] mx-[17px] float-left">
-                                                <div className="Rectangle7 w-[110px] h-[24px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"></div>
-                                                <div className=" w-[90px] h-[15px] left-[11px] top-[3px] absolute text-white text-[14px] font-bold font-['Inter']">지난 알림 보기</div>
+                                        <div className="flex flex-row justify-between"> 
+                                            <Link to={"/notifications"} onClick={() => setNotificationsOn(false)}>
+                                                <button className="relative my-[3px] mx-[17px] w-[110px] h-[24px] bg-slate-500 rounded-[9px] flex justify-center items-center">
+                                                    <div className="text-white font-bold ">지난 알림 보기</div>
+                                                </button>
+                                            </Link>
+                                            <button className="mx-[17px] my-[5px] relative text-slate-500  font-bold justify-center items-center"
+                                                    onClick={() => checkReadAll()}
+                                            >모두 읽음 표시
+                                            </button>
+                                        </div>
+                                        
+                                        </> : 
+                                        <>
+                                        <div className="text-center px-[17px] my-[5px] relative text-black font-normal ">새로운 알림이 없습니다.</div>
+                                        <Link className = "flex flex-row justify-center" to={"/notifications"} onClick={() => setNotificationsOn(false)}>
+                                            <button className="relative my-[3px] mx-[17px] w-[110px] h-[24px] bg-slate-500 rounded-[9px] flex justify-center items-center">
+                                                <div className="text-white font-bold ">지난 알림 보기</div>
                                             </button>
                                         </Link>
-                                    </> : <>
-                                        <div className="text-center px-[17px] my-[5px] relative text-black text-[14px] font-normal font-['Inter']">새로운 알림이 없습니다.</div>
-                                        <Link to={"/admin/notifications"} onClick={() => setNotificationsOn(false)}>
-                                            <button className="relative my-[3px] mx-[17px] top-[-20px] left-[75px]">
-                                                <div className="Rectangle7 w-[110px] h-[24px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"></div>
-                                                <div className=" w-[90px] h-[15px] left-[11px] top-[3px] absolute text-white text-[14px] font-bold font-['Inter']">지난 알림 보기</div>
-                                            </button>
-                                        </Link>
-                                    </>
+                                        </>
                                 ) : <></>
                         }
                     </div>
                 </div>
             </div>
+        </div>
     );
 }
 
