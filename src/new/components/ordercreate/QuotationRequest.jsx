@@ -19,8 +19,10 @@ function QuotationRequest (props) {
     const [selectedRepetition, setSelectedRepetition] = useState("");
     const [selectedAddAnalysis, setSelectedAddAnalysis] = useState([]);
     const [inputAdditionalInfo, setInputAdditionalInfo] = useState("");
-
-    let data = props.data
+    const [data, setData] = useState(props.data); //props.data에서 content, id만 쓰고 있어서 setData에서도 id, content만 넣어주고 있음, 다른 정보도 사용하는 경우 그 부분 꼭 확인 필요.
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [selectRowInfoOn, setSelectRowInfoOn] = useState(false);
+    let dragInProgress = '';
 
     useEffect(() => {
         setReadOnly(props.readOnly)
@@ -120,10 +122,15 @@ function QuotationRequest (props) {
         data.content.sampleDataList.splice(e.target.attributes.rownumber.value, 1);
         await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
 
-        toggleInputMode() //FIXME: 이것 호출 안해도 새로고침 되도록.
+        setSelectedRows([])
+        document.querySelectorAll('td').forEach(td => td.style.backgroundColor='#fff')
+        setData({
+            content: data.content,
+            id: data.id
+        });
     }
 
-    function copySampleData() {
+    async function copySampleData() {
         let targetSampleNumber = parseInt(document.querySelector('#copySampleNumberInput').value)
         let count = parseInt(document.querySelector('#copyCountInput').value)
         let toCopyData = data.content.sampleDataList[targetSampleNumber - 1]
@@ -144,9 +151,8 @@ function QuotationRequest (props) {
                 }
             )
         }
-        toggleInputMode()
         toggleCopyMode()
-        saveContent()
+        await saveContent()
     }
 
     function toggleFileInput() {
@@ -278,8 +284,76 @@ function QuotationRequest (props) {
         return needVolume;
     }
 
+    function selectRow(rowNumber) {
+        const index = selectedRows.indexOf(rowNumber)
+        if (index > -1) {
+            if (!dragInProgress) {
+                dragInProgress = 'unselect'
+            }
+            if (dragInProgress === 'select') {
+                return
+            }
+            selectedRows.splice(index, 1)
+            document.querySelectorAll(`.rowNumber${rowNumber}`).forEach(td => td.style.backgroundColor = '#fff');
+        } else {
+            if (!dragInProgress) {
+                dragInProgress = 'select'
+            }
+            if (dragInProgress === 'unselect') {
+                return
+            }
+            selectedRows.push(rowNumber)
+            document.querySelectorAll(`.rowNumber${rowNumber}`).forEach(td => td.style.backgroundColor = '#ddd');
+        }
+        setSelectedRows(selectedRows)
+        console.log(selectedRows)
+        if (selectedRows.length > 0) {
+            document.querySelector('.selectedRowsLabel').innerText = selectedRows.length > 0 ? `${selectedRows.length}개 행 선택됨` : ''
+            setSelectRowInfoOn(true);
+        } else {
+            setSelectRowInfoOn(false);
+        }
+    }
+
+    function selectAllRows() {
+        const allRowNumbers = [...Array(data.content.sampleDataList.length).keys()];
+        if (selectedRows.length === allRowNumbers.length) {
+            setSelectedRows([])
+            document.querySelectorAll('td').forEach(td => td.style.backgroundColor='#fff')
+            setSelectRowInfoOn(false);
+            return
+        }
+        setSelectedRows(allRowNumbers)
+        const tableElements = Array.from(document.querySelectorAll(`td`));
+        tableElements.splice(-8)
+        tableElements.forEach(td => td.style.backgroundColor = '#ddd');
+        setSelectRowInfoOn(true);
+        console.log(allRowNumbers)
+        document.querySelector('.selectedRowsLabel').innerText = allRowNumbers.length > 0 ? `${allRowNumbers.length}개 행 선택됨` : ''
+    }
+
+    async function deleteSelectedRows() {
+        if (readOnly || !window.confirm(`선택한 행들을 삭제하시겠습니까? 총 ${selectedRows.length}개의 행이 삭제됩니다.`)) {
+            return;
+        }
+
+        for (let i = selectedRows.length -1; i >= 0; i--) {
+            data.content.sampleDataList.splice(selectedRows[i],1);
+        }
+
+        await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
+        setSelectedRows([])
+        document.querySelectorAll('td').forEach(td => td.style.backgroundColor='#fff')
+        setSelectRowInfoOn(false);
+        setData({
+            content: data.content,
+            id: data.id
+        });
+
+    }
+
     return (
-        <div>
+        <div onPointerUp={() => dragInProgress = false}>
         {data ? (
                 <>
                 <div id="quotation-request" className="Rectangle30 w-[1100px] h-[1200px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
@@ -317,7 +391,7 @@ function QuotationRequest (props) {
                         </a>
                         {/*테이블 높이는 600으로 고정시키고 싶다.*/}
                         <div id="table" className="left-[90px] top-[10px] w-auto float-left relative min-h-[500px] max-h-[580px] overflow-y-scroll">
-                            <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0, minWidth:'900px'}}>
+                            <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0, minWidth:'900px', userSelect:'none', msUserSelect: 'none'}}>
                                 <thead>
                                 <tr>
                                     <TableHeaderCell value="번호" minWidth="20px"/>
@@ -333,24 +407,29 @@ function QuotationRequest (props) {
                                 <tbody>
                                 {
                                     data.content.sampleDataList.map((row, index) => (
-                                        <tr key={index}>
-                                            <TableCell value={`${index + 1}`} minWidth="20px" />
-                                            <TableCell value={`${row.uniqueNumber}`} />
-                                            <TableCell value={`${row.biomarkers ? row.biomarkers.join(', ') : ''}`} />
-                                            <TableCell value={`${row.sampleType}`} minWidth="110px"/>
-                                            <TableCell value={`${row.repetition}`} maxWidth="110px"/>
-                                            <TableCell value={`${row.volume}`} />
-                                            <TableCell value={`${row.additionalAnalysis ? row.additionalAnalysis.join(', ') : ''}`} />
-                                            <TableCell>
-                                                <button className=" w-[41px] h-[26px] relative mx-1" rownumber={`${index}`}
-                                                        onClick={(e) => deleteRow(e)}>
-                                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" rownumber={`${index}`}/>
-                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']" rownumber={`${index}`}>삭제</div>
-                                                </button>
-                                                <button className="editButton w-[41px] h-[26px] relative mx-1">
-                                                    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />
-                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']">수정</div>
-                                                </button>
+                                        <tr key={index}
+                                            onPointerDown={() => {selectRow(index);}}
+                                            onPointerOver={() => dragInProgress ? selectRow(index) : ''}
+                                            onPointerUp={() => {dragInProgress = '';}}
+                                        >
+                                            <TableCell rowNumber={index} value={`${index + 1}`} minWidth="20px" />
+                                            <TableCell rowNumber={index} value={`${row.uniqueNumber}`} />
+                                            <TableCell rowNumber={index} value={`${row.biomarkers ? row.biomarkers.join(', ') : ''}`} />
+                                            <TableCell rowNumber={index} value={`${row.sampleType}`} minWidth="110px"/>
+                                            <TableCell rowNumber={index} value={`${row.repetition}`} maxWidth="110px"/>
+                                            <TableCell rowNumber={index} value={`${row.volume}`} />
+                                            <TableCell rowNumber={index} value={`${row.additionalAnalysis ? row.additionalAnalysis.join(', ') : ''}`} />
+                                            <TableCell rowNumber={index}>
+                                                {/*<button className=" w-[41px] h-[26px] relative mx-1" rownumber={`${index}`}*/}
+                                                {/*        onClick={(e) => deleteRow(e)}>*/}
+                                                {/*    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" rownumber={`${index}`}/>*/}
+                                                {/*    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-zinc-500 text-sm font-bold font-['Inter']" rownumber={`${index}`}>삭제</div>*/}
+                                                {/*</button>*/}
+                                                {/*<button className="editButton w-[41px] h-[26px] relative mx-1"*/}
+                                                {/*        onClick={(e) => selectRow(index)}>*/}
+                                                {/*    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />*/}
+                                                {/*    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-zinc-500 text-sm font-bold font-['Inter']">선택</div>*/}
+                                                {/*</button>*/}
                                             </TableCell>
                                         </tr>
                                     ))
@@ -395,7 +474,7 @@ function QuotationRequest (props) {
                                             <div className="relative">
                                                 <button className={`${inputModeOn ? 'hidden' : 'inline-block'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleCopyMode()}>
                                                     <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">복제</div>
+                                                    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-white text-sm font-bold font-['Inter']">복제</div>
                                                 </button>
                                                 <div className={`${(copyModeOn && !inputModeOn) ? 'block' : 'hidden'} absolute w-[240px] h-[150px] right-[5px] top-[22px] z-10`}>
                                                     <img className="object-contain object-center h-[100%]" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bca921d1-aa51-484b-b5ef-f90ff93de920?&width=800" alt=""/>
@@ -416,15 +495,15 @@ function QuotationRequest (props) {
                                                 </div>
                                                 <button className={`${inputModeOn ? 'hidden' : 'inline-block'} w-[41px] h-[26px] relative mx-1`} onClick={()=>toggleInputMode()}>
                                                     <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">신규</div>
+                                                    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-white text-sm font-bold font-['Inter']">신규</div>
                                                 </button>
                                                 <button className={`${inputModeOn ? 'inline-block' : 'hidden'}  w-[41px] h-[26px] relative mx-1`} onClick={() => toggleInputMode()}>
                                                     <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />
-                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-zinc-500 text-sm font-bold font-['Inter']">취소</div>
+                                                    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-zinc-500 text-sm font-bold font-['Inter']">취소</div>
                                                 </button>
                                                 <button className={`${inputModeOn ? 'inline-block' : 'hidden'} w-[41px] h-[26px] relative mx-1`} onClick={()=>saveRow()}>
                                                     <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                    <div className=" w-[27px] h-[13px] left-[7px] top-[5px] absolute text-white text-sm font-bold font-['Inter']">저장</div>
+                                                    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-white text-sm font-bold font-['Inter']">저장</div>
                                                 </button>
                                             </div>
 
@@ -438,33 +517,42 @@ function QuotationRequest (props) {
                     </div>
 
                     <div className="relative top-[10px]">
-                    <div className="Group38 w-[40%] flex flex-col my-5 ml-auto">
-                            <div className="flex flex-row justify-end mr-10">
-                                <button className={`${fileInputOn ? 'hidden' : 'block'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => toggleFileInput()}>
-                                    <div className="Rectangle7 w-[123px] h-[35px] bg-neutral-100 rounded-[9px] border-2 border-slate-500 flex justify-center items-center text-slate-500 text-lg font-bold">파일로 입력</div>
+                        <div className="flex flex-row">
+                            <div className={`flex flex-row w-[35%] my-3 mx-auto`}>
+                                <div className={`${selectRowInfoOn ? 'block' : 'hidden'} mx-3 text-zinc-500 text-[15px] font-normal selectedRowsLabel`}></div>
+                                <button className="mx-5 h-[1rem] text-zinc-500 text-[15px] font-bold"
+                                        onClick={() => selectAllRows()}>
+                                    전체 선택
                                 </button>
-                                <button className={`${fileInputOn ? 'block' : 'hidden'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => saveFileInput()}>
-                                    <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500 flex justify-center items-center text-slate-500 text-lg font-bold ">저장하기</div>
+                                <button className={`${selectRowInfoOn ? 'block' : 'hidden'} h-[1rem] mx-3 text-zinc-500 text-[15px] font-bold`}
+                                        onClick={() => deleteSelectedRows()}>
+                                    삭제
                                 </button>
-                                <button className={`${fileInputOn ? 'block' : 'hidden'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => toggleFileInput()}>
-                                    <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500 flex justify-center items-center text-slate-500 text-lg font-bold ">취소</div>
-                                </button>
-                                <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/%EA%B2%80%EC%B2%B4+%EC%A0%95%EB%B3%B4+%EC%9E%85%EB%A0%A5+%E1%84%8B%E1%85%A3%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8_%EB%B8%8C%EB%A0%88%EB%94%94%EC%8A%A4%ED%97%AC%EC%8A%A4%EC%BC%80%EC%96%B4.xlsx"
-                                   className="mt-[10px]">
-                                    <div className="relative text-zinc-500 text-[15px] font-bold font-['Inter'] inline-block">양식 다운로드</div>
-                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0" alt="다운버튼"/>
-                                </a>
-
                             </div>
-                            <input id="sampleDataByFileInput" className={`${fileInputOn ? 'block' : 'hidden'} my-[10px] mx-[30px]`} type="file" />
-                            <div className="ImportLight w-5 h-[21px] left-[102px] top-[42px] absolute" />
+                            <div className="Group38 w-[40%] flex flex-col my-3 ml-auto">
+                                <div className="flex flex-row justify-end mr-10">
+                                    <button className={`${fileInputOn ? 'hidden' : 'block'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => toggleFileInput()}>
+                                        <div className="Rectangle7 w-[123px] h-[35px] bg-neutral-100 rounded-[9px] border-2 border-slate-500 flex justify-center items-center text-slate-500 text-lg font-bold">파일로 입력</div>
+                                    </button>
+                                    <button className={`${fileInputOn ? 'block' : 'hidden'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => saveFileInput()}>
+                                        <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500 flex justify-center items-center text-slate-500 text-lg font-bold ">저장하기</div>
+                                    </button>
+                                    <button className={`${fileInputOn ? 'block' : 'hidden'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => toggleFileInput()}>
+                                        <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500 flex justify-center items-center text-slate-500 text-lg font-bold ">취소</div>
+                                    </button>
+                                    <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/%EA%B2%80%EC%B2%B4+%EC%A0%95%EB%B3%B4+%EC%9E%85%EB%A0%A5+%E1%84%8B%E1%85%A3%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8_%EB%B8%8C%EB%A0%88%EB%94%94%EC%8A%A4%ED%97%AC%EC%8A%A4%EC%BC%80%EC%96%B4.xlsx"
+                                       className="mt-[10px]">
+                                        <div className="relative text-zinc-500 text-[15px] font-bold font-['Inter'] inline-block">양식 다운로드</div>
+                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0" alt="다운버튼"/>
+                                    </a>
+
+                                </div>
+                                <input id="sampleDataByFileInput" className={`${fileInputOn ? 'block' : 'hidden'} my-[10px] mx-[30px]`} type="file" />
+                            </div>
                         </div>
 
                         <div className=" w-[134px] h-[17px] left-[90px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">검체 수거 요청일:</div>
-                        <input id="sampleDeliveryWishD
-                        
-                        
-                          ateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate ? data.content.sampleDeliveryWishDate.replaceAll('.', '-') : ''}
+                        <input id="sampleDeliveryWishDateInput" type="date" defaultValue={data.content.sampleDeliveryWishDate ? data.content.sampleDeliveryWishDate.replaceAll('.', '-') : ''}
                                onChange={(e)=>{data.content.sampleDeliveryWishDate = e.target.value.replaceAll('.', '-'); saveContent()}}
                                className={`w-[200px] h-[30px] px-1.5 left-[105px] top-[10px] relative inline-block text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                         <div className=" w-[134px] h-[17px] left-[300px] top-[10px] relative inline-block text-slate-500 text-lg font-bold font-['Inter']">결과 보고 희망일:</div>
