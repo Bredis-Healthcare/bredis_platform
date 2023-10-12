@@ -48,6 +48,19 @@ function QuotationRequest (props) {
         { value: "Cognitive Stage Transition Prediction", label: "Cognitive Stage Transition Prediction" }
     ]
 
+    const sampleTypeOptions = [
+        {value: "EDTA Plasma", label: "EDTA Plasma"},
+        {value: "Serum", label: "Serum"},
+        {value: "CSF", label: "CSF"}
+    ];
+
+    const repetitionOptions = [
+        { value: "Single", label: "Single" },
+        { value: "Duplicate", label: "Duplicate" },
+        { value: "Triplicate", label: "Triplicate" },
+        { value: "Quadruplicate", label: "Quadruplicate" }
+    ];
+
     const handleBiomarkersChange = (e) => {
         setSelectedBiomarkers(Array.isArray(e) ? e.map(x => x.value) : []);
     }
@@ -69,36 +82,17 @@ function QuotationRequest (props) {
     }
 
     async function saveRow() {
-        if (readOnly) {
-            return
-        }
-
-        if (volumeAlert) {
-            return
-        }
+        if (readOnly) {return}
 
         let uniqueNumber = document.getElementById("uniqueNumberInput").value
-        if (!uniqueNumber) {
-            alert("고유번호를 입력해주세요.")
-            return
-        }
-        if (selectedBiomarkers.length < 1) {
-            alert("바이오마커를 선택해주세요.")
-            return
-        }
-        if (!selectedSampleType) {
-            alert("샘플 종류를 선택해주세요.")
-            return
-        }
-        if (!selectedRepetition) {
-            alert("반복 횟수를 선택해주세요.")
-            return
-        }
         let volume = document.getElementById("volumeInput").value
-        if (!volume) {
-            alert("용량을 입력해주세요.")
-            return
-        }
+
+        if (!uniqueNumber) {alert("고유번호를 입력해주세요."); return;}
+        if (selectedBiomarkers.length < 1) {alert("바이오마커를 선택해주세요."); return;}
+        if (!selectedSampleType) {alert("샘플 종류를 선택해주세요."); return;}
+        if (!selectedRepetition) {alert("반복 횟수를 선택해주세요."); return;}
+        if (!volume) {alert("용량을 입력해주세요."); return;}
+        if (volumeAlert) {alert("용량을 수정해주세요."); return;}
 
 
         data.content.sampleDataList.push({
@@ -111,7 +105,6 @@ function QuotationRequest (props) {
             "additionalAnalysis": selectedAddAnalysis
         })
 
-        console.log(data.content)
         await saveContent()
         toggleInputMode()
     }
@@ -160,37 +153,122 @@ function QuotationRequest (props) {
         setFileInputOn(fileInputOn => !fileInputOn)
     }
 
+    function validateBiomarkers(biomarkers) {
+        if (biomarkers.length < 1) {
+            alert("바이오마커는 필수값입니다.");
+            return false;
+        }
+        let biomarkerNames = biomarkerOptions.map(o => o.label);
+        for (const marker of biomarkers) {
+            if (!biomarkerNames.includes(marker)) {
+                alert(`${marker}는 유효하지 않은 값입니다. 분석 가능한 바이오마커 목록을 확인해주시고, 여러 개의 바이오마커를 동시에 분석하고자 하시는 경우 콤마(,)로 구분해주세요.`)
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function validateSampleType(sampleType) {
+        if (!sampleType) {
+            alert("샘플 종류는 필수값입니다.");
+            return;
+        }
+        let sampleTypeNames = sampleTypeOptions.map(o => o.label);
+        if (!sampleTypeNames.includes(sampleType)) {
+            alert(`${sampleType}은 유효하지 않은 값입니다. 분석 가능한 샘플 종류를 확인해주세요.`)
+            return false;
+        }
+        return true;
+    }
+
+    function validateRepetition(repetition) {
+        if (!repetition) {
+            alert("반복 횟수는 필수값입니다.");
+            return;
+        }
+        let repetitionNames = repetitionOptions.map(o => o.label);
+        if (!repetitionNames.includes(repetition)) {
+            alert(`${repetition}은 유효하지 않은 값입니다. 요청 가능한 반복 횟수를 확인해주세요.`)
+            return false;
+        }
+        return true;
+    }
+
+    function validateVolume(biomarkers, sampleType, repetition, volume) {
+        if (!volume) {
+            alert("용량은 필수값입니다.");
+            return;
+        }
+        let volumeLimit = calculateVolumeLimit(biomarkers, sampleType, repetition);
+        if (volume < volumeLimit) {
+            alert(`바이오마커 ${biomarkers.join(",")}, 샘플 종류 ${sampleType}, 반복 횟수 ${repetition}에 대해서는 용량이 최소 ${volumeLimit}μl가 필요합니다.`)
+            return false;
+        }
+        return true;
+    }
+
+    function validateAdditionalAnalysis(additionalAnalysisList) {
+        let additionalAnalysisNames = additionalAnalysisOptions.map(o => o.label);
+        for (const a of additionalAnalysisList) {
+            if (!additionalAnalysisNames.includes(a)) {
+                alert(`${a}은 유효하지 않은 값입니다. 요청 가능한 추가 분석 옵션 목록을 확인해주시고, 여러 개의 추가 분석 옵션을 동시에 선택하고자 하시는 경우 콤마(,)로 구분해주세요.`)
+                return false;
+            }
+        }
+        return true;
+    }
+
     function saveFileInput() {
         let file = document.querySelector("#sampleDataByFileInput").files[0]
+        if (!file) {
+            alert("파일을 선택해주세요.");
+            return;
+        }
         readXlsxFile(file).then((rows) => {
 
-            for (let i = 1; i < rows.length; i++) {
-                data.content.sampleDataList.push({
+            let dataToAdd = [];
+            for (const item of rows.slice(1)) {
+                let uniqueNumber = item[0];
+                let biomarkers = item[1] ? item[1].split(',').map(s => s.replaceAll(" ", "")) : [];
+                let sampleType = item[2];
+                let repetition = item[3];
+                let volume = item[4];
+                let additionalDataAnalysis = item[5] ? item[5].split(',').map(s => s.replaceAll(" ", "")) : ["없음"];
+
+                if (!validateBiomarkers(biomarkers)) {return;}
+                if (!validateSampleType(sampleType)) {return;}
+                if (!validateRepetition(repetition)) {return;}
+                if (!validateVolume(biomarkers, sampleType, repetition, volume)) {return;}
+                if (!validateAdditionalAnalysis(additionalDataAnalysis)) {return;}
+
+                dataToAdd.push({
                     "number": `${data.content.sampleDataList.length + 1}`,
-                    "uniqueNumber": rows[i][0],
-                    "biomarkers": rows[i][1].split(',').map(s => s.replaceAll(' ', '')),
-                    "sampleType": rows[i][2],
-                    "repetition": rows[i][3],
-                    "volume": `${rows[i][4]}μl`,
-                    "additionalAnalysis": rows[i][5]
+                    "uniqueNumber": uniqueNumber,
+                    "biomarkers": biomarkers.map(s => s.replaceAll(' ', '')),
+                    "sampleType": sampleType,
+                    "repetition": repetition,
+                    "volume": `${volume}μl`,
+                    "additionalAnalysis": additionalDataAnalysis.map(s => s.replaceAll(' ', '')),
                 })
             }
+            Array.prototype.push.apply(data.content.sampleDataList, dataToAdd);
+
             toggleFileInput()
             saveContent()
             console.log(`saved ${rows.length -1} rows`)
         });
     }
 
-    function calculateVolumeLimit() {
+    function calculateVolumeLimit(biomarkers, sampleType, repetition) {
         let needVolume = 0;
-        if (selectedBiomarkers.includes("BDNF")) {
+        if (biomarkers.includes("BDNF")) {
             needVolume += 30;
         }
 
-        if (selectedBiomarkers.includes("GFAP")) {
+        if (biomarkers.includes("GFAP")) {
             needVolume += 30;
         }
-        if (selectedRepetition === 'Duplicate') {
+        if (repetition === 'Duplicate') {
             needVolume *= 1.5;
         }
         // selectedRepetition
@@ -258,7 +336,7 @@ function QuotationRequest (props) {
                                         <tr key={index}>
                                             <TableCell value={`${index + 1}`} minWidth="20px" />
                                             <TableCell value={`${row.uniqueNumber}`} />
-                                            <TableCell value={`${row.biomarkers ? row.biomarkers.join(' ') : ''}`} />
+                                            <TableCell value={`${row.biomarkers ? row.biomarkers.join(', ') : ''}`} />
                                             <TableCell value={`${row.sampleType}`} minWidth="110px"/>
                                             <TableCell value={`${row.repetition}`} maxWidth="110px"/>
                                             <TableCell value={`${row.volume}`} />
@@ -291,27 +369,18 @@ function QuotationRequest (props) {
                                         <TableCell minWidth="120px" maxWidth="120px">
                                             <Select name="sampleTypeSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select" placeholder="샘플 종류"
                                                     onChange={(choice) => setSelectedSampleType(choice.value)}
-                                                    options={[
-                                                        { value: "EDTA Plasma", label: "EDTA Plasma" },
-                                                        { value: "Serum", label: "Serum" },
-                                                        { value: "CSF", label: "CSF" }
-                                                    ]}/>
+                                                    options={sampleTypeOptions}/>
                                         </TableCell>
                                         <TableCell minWidth="130px" maxWidth="130px">
                                             <Select name="repetitionSelect" className={`${inputModeOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select" placeholder="반복 횟수"
                                                     onChange={(choice) => {setSelectedRepetition(choice.value); setVolumeAlert(true)}}
-                                                    options={[
-                                                        { value: "Single", label: "Single" },
-                                                        { value: "Duplicate", label: "Duplicate" },
-                                                        { value: "Triplicate", label: "Triplicate" },
-                                                        { value: "Quadruplicate", label: "Quadruplicate" }
-                                                    ]}/>
+                                                    options={repetitionOptions}/>
                                         </TableCell>
                                         <TableCell minWidth="100px" maxWidth="100px">
                                             <div className={`${inputModeOn ? 'block' : 'hidden'}`}>
                                                 <input id="volumeInput" type="number" placeholder="용량"
                                                        className={`w-[70px] h-[25px] mr-1 text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                                                       onChange={(e) => {setVolumeAlertLimit(calculateVolumeLimit()); setVolumeAlert(e.target.value < volumeAlertLimit)}}
+                                                       onChange={(e) => {setVolumeAlertLimit(calculateVolumeLimit(selectedBiomarkers, selectedSampleType, selectedRepetition)); setVolumeAlert(e.target.value < volumeAlertLimit)}}
                                                 />
                                                 μl
                                                 <p className={`${volumeAlert ? 'block' : 'hidden'} text-red-500 text-xs italic`}>{volumeAlertLimit}μl 이상부터<br />가능합니다.</p>
