@@ -61,14 +61,14 @@ const AdminHeader = () => {
 
     return (
         <div className="Header w-full h-20 relative flex flex-row items-center justify-between">
-            <Link className="flex flex-row  items-center"to={"/admin"}>
+            <Link className="flex flex-row  items-center"to={"/admin/members/list"}>
                 <img className="w-40" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800"  alt="logo"/>
                 <div className="text-black lg:text-2xl md:text-xl font-bold">Digital ELISA<br className="lg:hidden md:block" /> 연구분석서비스 관리자</div>
             </Link>
 
             <div className="flex flex-row items-center lg:gap-8 md:gap-2" >
             
-                <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/admin"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
+                <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
                     <div className={`${isHovering3 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
                     <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'}  lg:text-xl md:text-base mt-[0.5rem] font-bold`}>홈</div>
                 </Link>

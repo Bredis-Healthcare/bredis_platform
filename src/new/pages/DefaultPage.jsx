@@ -21,7 +21,7 @@ const DefaultPage = () => {
     const totalImages = 7;
     const handleImageLoaded = () => {
       setLoadedImages(loadedImages + 1);
-      console.log(loadedImages, totalImages===loadedImages)
+      // console.log(loadedImages, totalImages===loadedImages)
     };
   return (
     <div>

@@ -35,7 +35,7 @@ const MainPageContent = () => {
 
     useEffect(() => {
         // setIsModalOpen(true)
-        console.log(isModalOpen, location["pathname"])
+        console.log("login",isModalOpen, location["pathname"])
         setUnauthorizedHandler(() => {
             setIsModalOpen(true);
             removeCookie('login', {path:'/'});
@@ -45,8 +45,8 @@ const MainPageContent = () => {
     return (
         <div className ="w-full justify-center relative ">
             <Header/>
-                {isModalOpen && location["pathname"] !== '/login' && <LoginPageModal/>}
-                {location["pathname"] === '/' && <DefaultPage/>}/
+                {isModalOpen && (location["pathname"] !== '/login' || location["pathname"] !== '/') && <LoginPageModal/>}
+                {location["pathname"] === '/' && <DefaultPage/>}
             <Outlet/>
             <Footer/>
         </div>

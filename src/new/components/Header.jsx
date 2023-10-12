@@ -8,10 +8,12 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import icon_authed from "../../img/icon_authed.png"
 import icon_unauthed from "../../img/icon_unauthed.png"
+import { useLoginModal } from "./modals/LoginModalContext";
 
 const Header = () => {
 
     const navigate = useNavigate();
+    const { ismodalopen, setIsModalOpen } = useLoginModal();
     const location = useLocation();
     const [isHovering1, setIsHovering1] = useState(false);
     const [isHovering2, setIsHovering2] = useState(false);
@@ -19,6 +21,7 @@ const Header = () => {
     const [isHovering4, setIsHovering4] = useState(false);
     const [profileMenuOn, setProfileMenuOn] = useState(false);
     const [notificationsOn, setNotificationsOn] = useState(false);
+    const [userInfo, setUserInfo] = useState({});
 
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
@@ -27,6 +30,21 @@ const Header = () => {
         {refetchInterval: 10000});
         
     useEffect(()=>{
+        async function loadUserInfo() {
+            try {
+                if(cookies.login)
+                {
+                    const request = await axios.get(`/members/${cookies.login && cookies.login['id']}/info`,);
+                    setUserInfo(request.data);
+                }
+    
+            } catch (error) {
+                console.error("Error while load user info in:", error);
+                setIsModalOpen(false);
+            }
+        }
+
+        loadUserInfo()
         refetch()
     },[cookies.login])
 
@@ -38,13 +56,15 @@ const Header = () => {
     if (isLoading || error) return 'Loading...';
 
 
+
     function clickProfileIcon() {
         setNotificationsOn(false)
         setProfileMenuOn(profileMenuOn => !profileMenuOn)
     }
     async function logout() {
         const request = await axios.post('logout')
-        removeCookie(['login']);
+        await removeCookie(['login']);
+        setIsModalOpen(false);
         clickProfileIcon()
         navigate("/");
     }
@@ -119,7 +139,7 @@ const Header = () => {
                     </div>
                     <div className={`${profileMenuOn ? 'block' : 'hidden'} profileModal absolute w-[16rem] flex flex-col items-center right-1 top-20 z-10 bg-white lg:text-lg md:text-base
                                 shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
-                        <div className="w-[240px] my-[5px] relative text-black  font-normal text-center">김철수 연구원님, 안녕하세요.</div>
+                        <div className="w-[240px] my-[5px] relative text-black  font-normal text-center">{userInfo.name} {userInfo.position}님 안녕하세요</div>
                         <div className="w-[234px] h-[0px] relative border border-zinc-500 border-opacity-50"></div>
                         <Link to="/members/modify">
                             <button onClick={() => setProfileMenuOn(false)}>

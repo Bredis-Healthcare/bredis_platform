@@ -51,7 +51,7 @@ function MemberModify() {
 
                     <div className=" w-[90px] h-[23px] left-[470px] top-[20px] relative text-black text-base font-bold font-['Inter'] mt-10">이메일</div>
                     <input disabled id="email" type="email" defaultValue={data.email} rows="1" className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-500 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="example@bredis.co.kr"></input>
-                    <div className="w=[90px] h-[10px] top-[20px] left-[475px] relative text-zinc-500 text-xs font-normal font-['Inter'] mt-[2px]">이메일은 수정이 불가능합니다. 수정이 필요하신 경우 ‘문의하기’를 통해 문의 주시면 감사하겠습니다.</div>
+                    <div className="w-[633px] h-[10px] top-[20px] left-[475px] relative  text-zinc-500 text-xs font-normal font-['Inter'] mt-[2px]">이메일은 수정이 불가능합니다. 수정이 필요하신 경우 ‘문의하기’를 통해 문의 주시면 감사하겠습니다.</div>
 
                     <div className=" w-[90px] h-[23px] left-[470px] top-[20px] relative text-black text-base font-bold font-['Inter'] mt-10">비밀번호</div>
                     <input id="password" type="password" rows="1" className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="비밀번호를 입력해주세요."></input>

@@ -17,6 +17,20 @@ const LoginPageModal = () => {
         //     setIsModalOpen(false);
         // }
     };
+    const handleKeyUp = (e) => {
+        if (e.key === 'Escape') {
+            setIsModalOpen(false);
+            navigate("/");
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('keyup', handleKeyUp);
+
+        return () => {
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, []);
 
     const handleLogin = (e) => {
         e.preventDefault();
