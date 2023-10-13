@@ -390,7 +390,7 @@ const AdminOrderDetail = () => {
                                                         {
                                                             history.reportFileName ? <>
                                                                 <div className="ml-[700px]">
-                                                                    <DownloadButton title='첨부된 분석 보고서' fileName={history.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
+                                                                    <DownloadButton title='분석 보고서 다운로드' fileName={history.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
                                                                 </div></> : <></>
                                                         }
                                                         <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[30px] border border-black border-opacity-25"/>
@@ -430,7 +430,7 @@ const AdminOrderDetail = () => {
 
                                                 <div className="flex flex-row ml-[20px]">
                                                     <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">
-                                                        분석 이력에 분석 결과 추가
+                                                        분석 결과 작성
                                                         <br />
                                                     </div>
                                                     <button className={`editButton ${editAnalysisResultOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisResult()}>

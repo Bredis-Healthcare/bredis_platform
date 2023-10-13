@@ -136,6 +136,7 @@ const OrderDetail = () => {
                 // console.log("!");
                 try {
                     const request = await axios.get(`/orders/${data.orderNumber}/files?type=REPORT&fileName=${history.reportFileName}`);
+                    
                     let downloadUrl = request.data.link;
                     let link = document.createElement('a');
                     link.href = downloadUrl;
