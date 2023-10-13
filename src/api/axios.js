@@ -55,15 +55,9 @@ instance.interceptors.response.use(
                     window.alert(error.response.data.message);
                     window.location.replace("/");
                     return Promise.resolve();
-                case 500:
-                    // window.alert(error.response.data.message);
-                    if (handleUnauthorized) {
-                        handleUnauthorized();
-                    }
-                    // window.location.replace("/");
-                    return Promise.resolve();
                 default:
                     window.alert(error.response.data.message);
+                    return Promise.resolve();
             }
         }
         return Promise.reject(error);

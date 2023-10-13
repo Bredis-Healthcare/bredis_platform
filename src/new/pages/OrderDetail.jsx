@@ -53,6 +53,28 @@ const OrderDetail = () => {
             // console.log("!@!", pageInfo)
             const request = await axios.get(`/orders/${pageInfo.resourceId}/detail`);
             const statusRequest = await axios.get(`/protocols`);
+            
+            // request.data.analysisHistory = [
+            //     {
+            //         createdDatetime : "2023년 8월 1일",
+            //         text : "분석 결과입니다",
+            //         analysisResult : "분석결과는 ABCD",
+            //         reportFileName : "1234"
+            //     },
+            //     {
+            //         createdDatetime : "2023년 8월 3일",
+            //         text : "2차 분석 준비 중입니다",
+            //         analysisResult : "",
+            //         reportFileName : ""
+            //     },
+            //     {
+            //         createdDatetime : "2023년 8월 5일",
+            //         text : "2차 분석 결과입니다",
+            //         analysisResult : "분석결과는 abcd",
+            //         reportFileName : "12345234"
+            //     },
+                
+            // ];
             setData(request.data);
             setStatusList(statusRequest.data.orderStatusList)
             setSelectedOption(request.data.status)
@@ -66,6 +88,8 @@ const OrderDetail = () => {
     const [orderInfoOn, setToggleOrderInfo] = useState(false);  // 메뉴의 초기값을 false로 설정
     const [analysisInfoOn, setToggleAnalysisInfo] = useState(false);
     const [threadInfoOn, setToggleThreadInfo] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
+    const [onlyResultOn, setOnlyResultOn] = useState(false);
 
     const toggleOrderInfo = () => {
         setToggleOrderInfo(orderInfoOn => !orderInfoOn); // on,off 개념 boolean
@@ -106,6 +130,28 @@ const OrderDetail = () => {
             document.getElementById("message").value = ''
         }
     }
+    const downloadAllReport = async () => {
+        for (const history of data.analysisHistory) {
+            if (history.reportFileName) {
+                // console.log("!");
+                try {
+                    const request = await axios.get(`/orders/${data.orderNumber}/files?type=REPORT&fileName=${history.reportFileName}`);
+                    let downloadUrl = request.data.link;
+                    let link = document.createElement('a');
+                    link.href = downloadUrl;
+                    link.setAttribute('download', `FileName.pdf`);
+                    document.body.appendChild(link);
+                    link.click();
+                    link.parentNode.removeChild(link);
+                } catch (error) {
+                    console.error("다운로드 실패: ", error);
+                }
+                // 다음 파일 다운로드 사이에 일정 시간 지연이 필요하다면 아래 코드를 사용하십시오.
+                await new Promise(resolve => setTimeout(resolve, 1000)); // 1초 대기
+            }
+        }
+    }
+
 
     const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
     const [uploadFileType, setUploadFileType] = useState('');
@@ -118,6 +164,12 @@ const OrderDetail = () => {
     const closeFileUploadModal = () => {
         setIsFileUploadModalOpen(false);
     }
+
+    const handleCheckboxChange = (e) => {
+        // 체크박스의 현재 상태를 반전시킵니다.
+        setIsChecked(e.target.checked);
+        setOnlyResultOn(e.target.checked);
+    };
 
     return (
         <div>
@@ -227,45 +279,90 @@ const OrderDetail = () => {
                                             <img className={`object-cover object-center ${analysisInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
                                         </div>
                                     </div>
-                                    <div className={`analysisInfoOn ${analysisInfoOn ? 'block' : 'hidden'}`}>
-                                        <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">
-                                            분석 결과
+                                    <div className={`analysisInfoOn ${analysisInfoOn ? 'block' : 'hidden'} flex flex-col`}>
+                                        <div className="text-[#222] not-italic font-bold text-[25px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">
+                                            분석 이력
                                             <br />
                                         </div>
-                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] mt-3 border border-black border-opacity-25"></div>
+                                        <div className='flex flex-col justify-end items-end ml-auto'>
+                                            <div className="">
+                                                <input type="checkbox" id="checkbox" checked={isChecked} onChange={handleCheckboxChange} className="accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                                <label className="align-right text-black text-base font-normal inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox">
+                                                    분석 보고서만 보기
+                                                </label>
+                                            </div>
+                                            <div className="flex flex-row py-4  hover:cursor-pointer " onClick={downloadAllReport}>
+                                                <div>분석 보고서 모두 다운로드</div>
+                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" alt="downloadIcon" className="inline-block aspect-[1] object-cover object-center w-[22px] ml-[5px] mb-[4px] self-center shrink-0"/>
+                                            </div>
+                                            </div>
+                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border-[2px] border-black border-opacity-25"/>
                                         <div className="relative">
-                                            <div className="w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[21px] max-md:ml-[10px]">
-                                                {data.analysisResult ? data.analysisResult : '분석 결과가 아직 등록되지 않았습니다.'}
-                                            </div>
-                                            <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border-black border-opacity-25"></div>
                                             {
-                                                data.reportFileName ? <>
-                                                    <div className="ml-[50px]">
-                                                        <DownloadButton title='분석 보고서 다운로드' fileName={data.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
-                                                    </div></> : <></>
-                                            }
-                                            <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[13px] max-md:ml-[10px]">
-                                                분석 이력
-                                                <br />
-                                            </div>
-                                            <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
-                                            {
-                                                data.analysisHistory.length > 0 ? data.analysisHistory.map(history => (<div>
-                                                        <div className="text-black not-italic font-light text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
-                                                            {history.createdDatetime}
+                                                data ?
+                                                    ( data.analysisHistory.length > 0 ? <>
+                                                        {
+                                                            data.analysisHistory.map((history) => (
+                                                                <div>
+                                                                    { onlyResultOn ? <div>
+                                                                        {history.analysisResult && <div>
+                                                                                <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">분석 결과</div>
+                                                                                <div className="w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[21px] max-md:ml-[10px]">
+                                                                                    {history.analysisResult}
+                                                                                </div>
+                                                                                {
+                                                                                    history.reportFileName ? <>
+                                                                                        <div className="ml-[750px]">
+                                                                                            <DownloadButton title='분석 보고서 다운로드' fileName={history.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
+                                                                                        </div></> : <></>
+                                                                                }
+                                                                                
+                                                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] my-10 border-[2px] border-black border-opacity-25"></div>
+                                                                        </div>}
+                                                                    </div> :
+                                                                    <div>
+                                                                        <div>
+                                                                            <div className="text-black not-italic font-light text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
+                                                                                {history.createdDatetime}
+                                                                            </div>
+                                                                            <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
+                                                                                {history.text}
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                        {history.analysisResult &&<div className="w-[920px] h-[0px] ml-[60px] flex flex-col mt-[15px] border border-black border-opacity-25"/>}
+                                                                        <div className="w-[90%] ml-[5%]">
+                                                                            {history.analysisResult && <div>
+                                                                                <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">분석 결과</div>
+                                                                                <div className="w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[21px] max-md:ml-[10px]">
+                                                                                    {history.analysisResult}
+                                                                                </div>
+                                                                                {
+                                                                                    history.reportFileName ? <>
+                                                                                        <div className="ml-[700px]">
+                                                                                            <DownloadButton title='분석 보고서 다운로드' fileName={history.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
+                                                                                        </div></> : <></>
+                                                                                }
+                                                                            </div>}
+                                                                        </div>
+                                                                        
+                                                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] my-10 border-[2px] border-black border-opacity-25"></div>
+                                                                    </div>}
+                                                                </div>
+                                                                
+                                                            ))
+                                                        }
+                                                        </> : 
+                                                        <>
+                                                        <div className="w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[21px] max-md:ml-[10px]">
+                                                            분석 이력이 없습니다.
                                                         </div>
-                                                        <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
-                                                            {history.text}
-                                                        </div>
-                                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
-                                                    </div>
-                                                )) : <div>
-                                                    <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
-                                                        분석 이력이 없습니다.
-                                                    </div>
-                                                    <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
-                                                </div>
+                                                        </>
+                                                    ) : <></>
                                             }
+                                            
+                                            
 
                                         </div>
                                     </div>

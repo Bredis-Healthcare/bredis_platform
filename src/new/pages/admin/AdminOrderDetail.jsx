@@ -65,7 +65,27 @@ const AdminOrderDetail = () => {
         try {
             const request = await axios.get(`/orders/${pageInfo.resourceId}/detail`);
             const statusRequest = await axios.get(`/protocols`);
-    
+            // request.data.analysisHistory = [
+            //     {
+            //         createdDatetime : "2023년 8월 1일",
+            //         text : "분석 결과입니다",
+            //         analysisResult : "분석결과는 ABCD",
+            //         reportFileName : "1234"
+            //     },
+            //     {
+            //         createdDatetime : "2023년 8월 3일",
+            //         text : "2차 분석 준비 중입니다",
+            //         analysisResult : "",
+            //         reportFileName : ""
+            //     },
+            //     {
+            //         createdDatetime : "2023년 8월 5일",
+            //         text : "2차 분석 결과입니다",
+            //         analysisResult : "분석결과는 abcd",
+            //         reportFileName : "12345234"
+            //     },
+                
+            // ];
             setData(request.data);
             setStatusList(statusRequest.data.orderStatusList)
             setSelectedOption(request.data.status)
@@ -163,13 +183,38 @@ const AdminOrderDetail = () => {
     }
 
     async function addAnalysisHistory() {
-        let addContent = document.getElementById("analysisHistoryInput").value
-        if (!addContent) {
-            alert("분석 이력 내용을 입력해주세요.")
-            return
+        if (window.confirm("분석 이력을 추가하시겠습니까?")) {
+            
+            let addContent = document.getElementById("analysisHistoryInput").value;
+            let editContent = document.getElementById("analysisResultInput").value;
+
+            let file = document.querySelector("#analysisResultFileInput").files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            if (!addContent) {
+                alert("분석 이력 내용을 입력해주세요.")
+                return
+            }
+            if (!editContent && editAnalysisResultOn) {
+                alert("분석 결과 내용을 입력해주세요.")
+                return
+            }
+            let result = await axios.post(`/orders/${data.orderNumber}/analysis-history`,{
+                "historyText": addContent, 
+                "resultText": editContent 
+            });
+            console.log("DFDFD", result);
+
+            await axios.post(`/orders/${data.orderNumber}/analysis-report-file?analysisHistoryId=${result.data.id}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "boundary": "--boundary",
+                }}
+            );
+            window.location.reload();
         }
-        await axios.post(`/orders/${data.orderNumber}/analysis-history`,{"historyText": `${addContent}`});
-        window.location.reload();
+        
     }
 
     const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
@@ -319,54 +364,12 @@ const AdminOrderDetail = () => {
                                         </div>
                                     </div>
                                     <div className={`analysisInfoOn ${analysisInfoOn ? 'block' : 'hidden'}`}>
-                                        <div className="flex flex-row">
-                                            <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">
-                                                분석 결과
+                                        
+                                        <div className="relative">
+                                            <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[13px] max-md:ml-[10px]">
+                                                분석 이력
                                                 <br />
                                             </div>
-                                            <button className={`editButton ${editAnalysisResultOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisResult()}>
-                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[26px] self-stretch shrink-0"/>
-                                            </button>
-                                            <button className={`saveButton ${editAnalysisResultOn ? 'block' : 'hidden'}`} onClick={()=>saveAnalysisResult()}>
-                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[26px] mx-[3px] self-stretch shrink-0"/>
-                                            </button>
-                                        </div>
-
-                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] mt-3 border border-black border-opacity-25"></div>
-                                        <textarea id="analysisResultInput" rows="12" className={`${editAnalysisResultOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
-                                                    {data.analysisResult}
-                                                </textarea>
-                                        <div className="relative">
-                                            <div id="analysisResultText" className={`${editAnalysisResultOn ? 'hidden' : 'block'} whitespace-pre-line w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]`}>
-                                                {data.analysisResult ? data.analysisResult : '분석 결과가 아직 등록되지 않았습니다.'}
-                                            </div>
-                                            <div className="Line9 w-[950px] flex flex-col mt-5 ml-[45px] border border-black border-opacity-25"></div>
-
-                                            <div className="w-full mt-[13px] flex-row-reverse flex relative">
-                                                <button className="flex flex-col m-[5px] mr-[40px] w-[160px] relative"
-                                                        onClick={() => handleUploadClick("REPORT")}>
-                                                    <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                    <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">분석 보고서 업로드</div>
-                                                </button>
-                                            </div>
-
-                                            <div className="flex flex-row">
-                                                <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[13px] max-md:ml-[10px]">
-                                                    분석 이력
-                                                    <br />
-                                                </div>
-                                                <button className={`editButton ${editAnalysisHistoryOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisHistory()}>
-                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[10px] self-stretch shrink-0"/>
-                                                </button>
-                                                <button className={`saveButton ${editAnalysisHistoryOn ? 'block' : 'hidden'}`} onClick={()=>addAnalysisHistory()}>
-                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[10px] mx-[3px] self-stretch shrink-0"/>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <textarea id="analysisHistoryInput" rows="12" className={`${editAnalysisHistoryOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
-                                                </textarea>
-                                            </div>
-
                                             <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
                                             {
                                                 data.analysisHistory.length > 0 ? data.analysisHistory.map(history => (<div>
@@ -376,15 +379,83 @@ const AdminOrderDetail = () => {
                                                         <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
                                                             {history.text}
                                                         </div>
-                                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
+                                                        
+                                                        { history.analysisResult && <div>
+                                                            <div className="w-[910px] h-[0px] ml-[65px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
+                                                            <div className="whitespace-pre-line w-full  max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[60px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]">분석 결과</div>
+                                                            <div id="analysisResultText" className={`whitespace-pre-line w-full  max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[60px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]`}>
+                                                                {history.analysisResult ? history.analysisResult : '분석 결과가 아직 등록되지 않았습니다.'}
+                                                            </div>
+                                                        </div>}
+                                                        {
+                                                            history.reportFileName ? <>
+                                                                <div className="ml-[700px]">
+                                                                    <DownloadButton title='첨부된 분석 보고서' fileName={history.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
+                                                                </div></> : <></>
+                                                        }
+                                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[30px] border border-black border-opacity-25"/>
                                                     </div>
+
+
+
                                                 )) : <div>
                                                     <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
                                                         분석 이력이 없습니다.
                                                     </div>
                                                     <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
                                                 </div>
+                                                
                                             }
+
+                                            <div className="flex flex-row">
+
+                                                
+                                                <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[13px] max-md:ml-[10px]">
+                                                    분석 이력 추가
+                                                    <br />
+                                                </div>
+                                                <button className={`editButton ${editAnalysisHistoryOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisHistory()}>
+                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[10px] self-stretch shrink-0"/>
+                                                </button>
+                                                <button className={`saveButton ${editAnalysisHistoryOn ? 'block' : 'hidden'}`} onClick={()=>addAnalysisHistory()}>
+                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[10px] mx-[3px] self-stretch shrink-0"/>
+                                                </button>
+                                                <button className={`notsaveButton ${editAnalysisHistoryOn ? 'block' : 'hidden'}`} onClick={()=>toggleEditAnalysisHistory()}>
+                                                    <div className="w-[28px] aspect-[1] mt-[10px] flex justify-center items-center text-red-500 font-bold border-[2px] border-red-500 border-opacity-50 rounded-lg ">X</div>    
+                                                </button>
+                                            </div>
+                                            { editAnalysisHistoryOn && <div>
+                                                <textarea id="analysisHistoryInput" rows="12" className={`${editAnalysisHistoryOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
+                                                </textarea>
+
+                                                <div className="flex flex-row ml-[20px]">
+                                                    <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">
+                                                        분석 이력에 분석 결과 추가
+                                                        <br />
+                                                    </div>
+                                                    <button className={`editButton ${editAnalysisResultOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisResult()}>
+                                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[26px] self-stretch shrink-0"/>
+                                                    </button>
+                                                    <button className={`saveButton ${editAnalysisResultOn ? 'block' : 'hidden'}`} onClick={()=>toggleEditAnalysisResult()}>
+                                                        <div className="w-[28px] aspect-[1] mt-[26px] flex justify-center items-center text-red-500 font-bold  border-[2px] border-red-500 border-opacity-50 rounded-lg ">X</div>
+                                                    </button>
+                                                </div>
+                                                <textarea id="analysisResultInput" rows="12" className={`${editAnalysisResultOn ? 'block' : 'hidden'} resize-none left-[65px] mt-5 relative block p-2.5 w-[935px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
+                                                    
+                                                </textarea>
+
+                                                
+                                                <div className={` ${editAnalysisResultOn ? 'block' : 'hidden'} mt-[13px] flex-row flex items-center justify-end`}>
+                                                    {/* <button className="flex flex-col m-[5px] mr-[40px] w-[160px] relative"
+                                                            onClick={() => handleUploadClick("REPORT")}>
+                                                        <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
+                                                        <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">분석 보고서 업로드</div>
+                                                    </button> */}
+                                                    <div className="inline-block text-neutral-700 text-[14px] font-normal font-['Inter'] mt-[5px]">분석 보고서 업로드: </div>
+                                                    <input id="analysisResultFileInput" className={`inline-block text-[14px] my-[10px] mx-[10px]`} type="file" />
+                                                </div>
+                                            </div> }
+                                            
 
                                         </div>
                                     </div>
@@ -475,7 +546,7 @@ const AdminOrderDetail = () => {
                                 </div>
                             </div>
                         </div>
-                        <FileUploadModal orderNumber = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} />
+                        {/* <FileUploadModal orderNumber = {data.orderNumber} uploadFileType={uploadFileType} isOpen={isFileUploadModalOpen} closeModal={closeFileUploadModal} /> */}
                     </AdminLayout>
                 </>
             ) : (

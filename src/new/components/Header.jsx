@@ -160,7 +160,7 @@ const Header = () => {
                                     (data.data.list.length > 0 ? <>
                                             {
                                                 data.data.list.map((notification) => (<>
-                                                    <Link to={notification.linkTo} state={{resourceId: notification.resourceId}} onClick={(e) => checkRead(e, notification.id)}>
+                                                    <Link reloadDocument to={notification.linkTo} state={{resourceId: notification.resourceId}} onClick={(e) => checkRead(e, notification.id)}>
                                                         <button className="text-left">
                                                             <div className="px-[17px] my-[5px] relative text-black ">
                                                                 {notification.message}

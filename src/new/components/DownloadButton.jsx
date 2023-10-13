@@ -17,14 +17,17 @@ function DownloadButton (props) {
         } else {
             return
         }
+        if(request)
+        {   
+            const downloadUrl = request.data.link;
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', `FileName.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
 
-        const downloadUrl = request.data.link;
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.setAttribute('download', `FileName.pdf`);
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
+        }
     }
 
     return (
