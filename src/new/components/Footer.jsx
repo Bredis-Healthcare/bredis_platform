@@ -5,7 +5,7 @@ function Footer() {
 
     const navigate = useNavigate();
     return (
-        <div className="w-full px-[20px] py-[37px] text-zinc-500 text-[10px] font-bold bg-gray-200 flex justify-center">
+        <div className="w-full px-[20px] py-[37px] text-zinc-500 text-[12px] font-normal bg-gray-200 flex justify-center">
             <div className="w-fit">
                 <div className = "flex flex-row ">
                     <div className="mx-[10px]">주식회사 | 브레디스헬스케어  </div>
@@ -21,8 +21,8 @@ function Footer() {
                 <div className = "flex flex-row mt-[10px] mb-[10px]" >
                     <a href="/terms/service" className="mx-[10px] hover:cursor-pointer">이용약관</a>
                     <a href="/terms/privacy" className="mx-[10px] hover:cursor-pointer">개인정보 취급방침</a>
-                    <div className="mx-[10px]">회사 소개서 다운로드</div>
-                    <div className="mx-[10px]">RFQ 다운로드</div>
+                    <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/Digital+ELISA+%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%80%E1%85%AE%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8+%E1%84%89%E1%85%A5%E1%84%87%E1%85%B5%E1%84%89%E1%85%B3_%E1%84%87%E1%85%B3%E1%84%85%E1%85%A6%E1%84%83%E1%85%B5%E1%84%89%E1%85%B3%E1%84%92%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B3%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%A5.pdf"
+                       className="mx-[10px] hover:cursor-pointer">서비스 소개서</a>
                 </div>
                 <a href="/admin" className="mx-[10px] hover:cursor-pointer">관리자 페이지</a>
                 <div className="mx-[10px] mt-[20px]">Copyrights ⓒ 2023 Bredis Healthcare Inc. All Rights Reserved</div>

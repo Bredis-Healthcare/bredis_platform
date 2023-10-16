@@ -384,11 +384,11 @@ function QuotationRequest (props) {
 
                     <div className="relative top-[0px] h-[630px]">
                         <div className=" w-[297px] h-[17px] left-[90px] top-[12px] relative text-slate-500 text-lg font-bold font-['Inter']">샘플 및 분석 대상 바이오마커 정보 입력</div>
-                        <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/RFQ_%E1%84%87%E1%85%B3%E1%84%85%E1%85%A6%E1%84%83%E1%85%B5%E1%84%89%E1%85%B3%E1%84%92%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B3%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%A5.pdf"
-                           className=" w-[214px] h-6 left-[830px] top-[0px] relative">
-                            <div className=" left-0 top-[0px] text-sky-900 text-[15px] font-bold font-['Inter'] inline-block">바이오마커 상세 목록 다운로드</div>
+                        <div className=" w-[214px] h-6 left-[830px] top-[0px] relative">
+                            <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/Digital+ELISA+%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%80%E1%85%AE%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8+%E1%84%89%E1%85%A5%E1%84%87%E1%85%B5%E1%84%89%E1%85%B3_%E1%84%87%E1%85%B3%E1%84%85%E1%85%A6%E1%84%83%E1%85%B5%E1%84%89%E1%85%B3%E1%84%92%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B3%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%A5.pdf"
+                               className=" left-0 top-[0px] text-sky-900 text-[15px] font-bold font-['Inter'] inline-block">바이오마커 상세 목록 다운로드</a>
                             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0"/>
-                        </a>
+                        </div>
                         {/*테이블 높이는 600으로 고정시키고 싶다.*/}
                         <div id="table" className="left-[90px] top-[10px] w-auto float-left relative min-h-[500px] max-h-[580px] overflow-y-scroll">
                             <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0, minWidth:'900px', userSelect:'none', msUserSelect: 'none'}}>
