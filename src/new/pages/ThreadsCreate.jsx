@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import React from "react";
+import React, { useEffect } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "../../api/axios";
 import {useCookies} from "react-cookie";
@@ -8,6 +8,37 @@ function ThreadsCreate () {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const navigate = useNavigate();
 
+    const preventClose = (e:BeforeUnloadEvent) => {
+        e.preventDefault();
+        e.returnValue = "작성 중인 내용은 사라집니다. 그래도 새로고침 하시겠습니까?"; 
+    }
+
+    const preventGoBack = (e:PopStateEvent) => {
+        window.removeEventListener('popstate', preventGoBack);
+        e.preventDefault();
+        const userConfirmed = window.confirm("작성 중인 내용은 사라집니다. 그래도 이동하시겠습니까?");
+        if (userConfirmed) {
+            window.history.back();
+            window.history.back();
+        }
+        else {
+            window.history.pushState(null, null, window.location.href);
+            window.addEventListener('popstate', preventGoBack);
+        }
+    };
+
+    useEffect(() => {
+        (() => {
+            window.history.pushState(null, null, window.location.href);
+            window.addEventListener("popstate", preventGoBack);
+            window.addEventListener("beforeunload", preventClose);  
+        })();
+    
+        return () => {
+            window.removeEventListener("popstate", preventGoBack);
+            window.removeEventListener("beforeunload", preventClose);
+        };
+    },[]);
     async function submitMessage() {
         let category = document.getElementById("category").value
         let title = document.getElementById("title").value
@@ -18,6 +49,7 @@ function ThreadsCreate () {
         }
         if (window.confirm("새로운 문의를 전송합니다.")) {
             await axios.post(`/messages/new-thread`, { "category": category, "content": contents, "title": title, "memberId": cookies.login && cookies.login['id']});
+            await window.alert("문의가 정상적으로 접수되었습니다. 문의 목록으로 이동합니다")
             navigate(`/threads/list`);
         }
     }

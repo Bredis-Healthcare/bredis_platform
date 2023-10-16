@@ -72,7 +72,10 @@ function OrderList() {
 
                                                     <div className="left-[900px] top-[1px] absolute flex flex-col object-center">
                                                         <div className="flex flex-col text-center text-zinc-500 text-lg font-normal font-['Inter']">상태</div>
-                                                        <div className="flex flex-col text-center w-[150px] text-lime-500 text-2xl font-bold font-['Inter']">{order.status}</div>
+                                                        { order.status ==="분석 완료" ?
+                                                            <div className="flex flex-col text-center w-[150px] text-sky-900 text-2xl font-bold font-['Inter']">{order.status}</div> :
+                                                            <div className="flex flex-col text-center w-[150px] text-lime-500 text-2xl font-bold font-['Inter']">{order.status}</div>
+                                                        }
                                                         <div className="flex flex-col">
                                                             <Link to="/orders/detail" state={{resourceId: order.orderNumber}}>
                                                                 <button className="mx-[20px] w-[120px] h-[35px] mt-[40px] relative">

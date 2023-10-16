@@ -11,7 +11,7 @@ let handleUnauthorized;
 instance.interceptors.request.use(
     function (config) {
     
-        console.log("axios", config.url!=='login', config.url, Cookies.get('login'), Cookies.get(), Cookies.get('login'), (config.url==='login'&& Object.keys(config.data).length === 0))
+        // console.log("axios", config.url!=='login', config.url, Cookies.get('login'), Cookies.get(), Cookies.get('login'), (config.url==='login'&& Object.keys(config.data).length === 0))
         
         if ( Cookies.get('login') ) {
             const authorization = JSON.parse(Cookies.get('login'));
@@ -20,6 +20,17 @@ instance.interceptors.request.use(
             config.headers = {
                 ...config.headers,
                 Authorization: authorization["authToken"]
+            }
+        }
+        else{
+            if( config.url==='login' || config.url==='register')
+            {
+                // console.log("!")
+            }
+            else{
+                // console.log("!s")
+                handleUnauthorized();
+                throw new Error("Error");
             }
         }
         return config;    
