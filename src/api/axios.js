@@ -23,7 +23,7 @@ instance.interceptors.request.use(
             }
         }
         else{
-            if( config.url==='login' || config.url==='register')
+            if( config.url==='login' || config.url==='register' || config.url==='/admin/login')
             {
                 // console.log("!")
             }
