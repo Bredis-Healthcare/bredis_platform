@@ -5,7 +5,7 @@ import TableHeaderCell from "./TableHeaderCell";
 import axios from "../../../api/axios";
 import readXlsxFile from 'read-excel-file'
 
-function QuotationRequest (props, setIsQuotationRequestOk) {
+function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, ...props }) {
 
 
     const [inputModeOn, setInputMode] = useState(false);
@@ -123,6 +123,19 @@ function QuotationRequest (props, setIsQuotationRequestOk) {
         {
             setIsQuotationRequestOk(true)
         }
+        else{
+            setIsQuotationRequestOk(false)
+            let noString = "";
+            if(!data.content.sampleDeliveryWishDate) { noString= noString+"검체 수거 요청일, "}
+            if(!data.content.reportWishDate) { noString= noString+"결과 보고 희망일, "}
+            if(!data.content.sampleDeliveryAddress) { noString= noString+"검체 수거 요청 주소, "}
+            if (noString.endsWith(", ")) {
+                noString = noString.slice(0, -2);
+            }
+            // console.log(noString)
+            setQuotationRequestList(noString);
+        }
+        
         
         await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
     }

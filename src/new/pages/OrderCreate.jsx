@@ -15,6 +15,7 @@ function OrderCreate() {
     const [data, setData] = useState(null); // or your fetching logic
     const [quotationPreviewOn, setQuotationPreviewOn] = useState(false);
     const [isQuotationRequestOk, setIsQuotationRequestOk] = useState(false);
+    const [quotationRequestList, setQuotationRequestList] = useState("");
 
     useEffect(() => {
         fetchData();
@@ -32,12 +33,14 @@ function OrderCreate() {
 
     async function submitRequest (id) {
         if (window.confirm("견적 요청서를 제출하시겠습니까?")) {
+            // console.log("!", isQuotationRequestOk, quotationRequestList)
 
             if (!data.content.organization) { alert("의뢰 기관명을 입력해주세요."); return }
             if (!data.content.requestDate) { alert("의뢰일을 입력해주세요."); return }
             if (!data.content.managerName) { alert("담당자를 입력해주세요."); return }
             if (!data.content.mobile) { alert("전화번호를 입력해주세요."); return }
             if (!data.content.email) { alert("이메일을 입력해주세요."); return }
+            if (!isQuotationRequestOk) { alert(`${quotationRequestList}을(를) 확인해주세요`); return }
 
             await axios.post(`/quotation-requests/submit`, { "id": id, "contents": data.content});
             window.location.reload();
@@ -69,7 +72,7 @@ function OrderCreate() {
                         {
                             data.status === 'BEFORE_SUBMIT' ? (
                                 <>
-                                    <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk}/>
+                                    <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk} setQuotationRequestList={setQuotationRequestList}/>
                                     <div className="mt-[8px] w-[600px] mr-[20px] ml-auto">
                                         <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
                                                 onClick={() => cancelRequest(data.id)}>

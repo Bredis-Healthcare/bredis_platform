@@ -90,7 +90,7 @@ const AdminHeader = () => {
                     <button className=" w-[3.25rem] mt-[0.8rem]"
                             onClick={() => clickNotificationIcon()}>
                         <div className="w-full">
-                            <div className={`${data && data.data && data.data.list.length > 0 ? 'block' : 'hidden'} Ellipse49 w-3 h-3 ml-1 absolute bg-red-600 rounded-full`} />
+                            <div className={`${data && data.data && data.data.list.length > 0 ? 'block' : 'hidden'} Ellipse49 w-3 h-3 ml-4 absolute bg-red-600 rounded-full`} />
                             <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fec38e501943d468fa0df8b6f1a34a36f?&width=200" alt=""/>
                         </div>
                     </button>
