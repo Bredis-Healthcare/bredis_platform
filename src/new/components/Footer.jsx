@@ -1,9 +1,19 @@
 import {Link, useNavigate} from "react-router-dom";
+import axios from "../../api/axios";
 import * as React from 'react';
+import {useCookies} from "react-cookie";
 
 function Footer() {
-
+    const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const navigate = useNavigate();
+
+    async function logout() {
+        if(cookies.login){
+            await axios.post('logout');
+            removeCookie(['login']);
+        }
+        navigate('/admin');
+    }
     return (
         <div className="w-full px-[20px] py-[37px] text-zinc-500 text-[12px] font-normal bg-gray-200 flex justify-center">
             <div className="w-fit">
@@ -24,7 +34,7 @@ function Footer() {
                     <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/Digital+ELISA+%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%80%E1%85%AE%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8+%E1%84%89%E1%85%A5%E1%84%87%E1%85%B5%E1%84%89%E1%85%B3_%E1%84%87%E1%85%B3%E1%84%85%E1%85%A6%E1%84%83%E1%85%B5%E1%84%89%E1%85%B3%E1%84%92%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B3%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%A5.pdf"
                        className="mx-[10px] hover:cursor-pointer">서비스 소개서</a>
                 </div>
-                <a href="/admin" className="mx-[10px] hover:cursor-pointer">관리자 페이지</a>
+                <a  onClick={logout} className="mx-[10px] hover:cursor-pointer">관리자 페이지</a>
                 <div className="mx-[10px] mt-[20px]">Copyrights ⓒ 2023 Bredis Healthcare Inc. All Rights Reserved</div>
             </div>
         </div>

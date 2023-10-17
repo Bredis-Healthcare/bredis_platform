@@ -14,6 +14,7 @@ function OrderCreate() {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [data, setData] = useState(null); // or your fetching logic
     const [quotationPreviewOn, setQuotationPreviewOn] = useState(false);
+    const [isQuotationRequestOk, setIsQuotationRequestOk] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -68,7 +69,7 @@ function OrderCreate() {
                         {
                             data.status === 'BEFORE_SUBMIT' ? (
                                 <>
-                                    <QuotationRequest data={data}/>
+                                    <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk}/>
                                     <div className="mt-[8px] w-[600px] mr-[20px] ml-auto">
                                         <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
                                                 onClick={() => cancelRequest(data.id)}>

@@ -1,11 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 
 function PurchaseDetailInput (props) {
     const [subtotal, setSubtotal] = useState(props.data.subtotal);
+    const [quantity, setQuantity] = useState(0);
+    const [unitPrice, setUnitPrice] = useState(0);
+    const [supplyValue, setSupplyValue] = useState(0);
+    const [iTax, setITex] = useState(0);
     const [tax, setTax] = useState(props.data.tax);
     const [total, setTotal] = useState(props.data.total);
     const [items, setItems] = useState(props.data.items);
     const [inputData, setInputData] = useState({"item": '', "size": '', "quantity": '', "unitPrice": '', "supplyValue": '', "tax": ''});
+    const fixedUnitPrice = useRef(null);
+    const fixedSupplyValue = useRef(null);
+    const fixedTax = useRef(null);
+    const fixedQuantity = useRef(null);
+
 
     useEffect(() => {
         let supplyValueSum = Array.from(document.querySelector(".purchaseDetailInputTable").querySelectorAll(".supplyValuedata"))
@@ -41,6 +50,49 @@ function PurchaseDetailInput (props) {
 
         setItems(oldItems => [...oldItems,inputData] );
     }
+
+    const handleUnitPrice = (e) => {
+        let inputValue = parseFloat(e.target.value);
+        if (isNaN(inputValue)) {
+            inputValue = 0;
+        }
+        setUnitPrice(inputValue);
+        setSupplyValue(inputValue*inputData.quantity);
+        setITex(Math.floor(inputValue*inputData.quantity / 10));
+        fixedQuantity.current = inputData.quantity;
+        fixedUnitPrice.current = inputValue;
+        fixedSupplyValue.current = inputValue*inputData.quantity
+        fixedTax.current = Math.floor(inputValue*inputData.quantity / 10)
+        
+        setInputData(prevData => ({
+            ...prevData,
+            quantity:fixedQuantity.current,
+            unitPrice: fixedUnitPrice.current,
+            supplyValue: fixedSupplyValue.current,
+            tax: fixedTax.current
+        }));
+    };
+
+    const handleQuantity = (e) => {
+        let inputValue = parseInt(e.target.value);
+        if (isNaN(inputValue)) {
+            inputValue = 0;
+        }
+        setQuantity(inputValue);
+        setSupplyValue(inputValue*inputData.unitPrice);
+        setITex(Math.floor(inputValue*inputData.unitPrice / 10));
+        fixedQuantity.current = inputValue;
+        fixedSupplyValue.current = inputValue*inputData.unitPrice
+        fixedTax.current = Math.floor(inputValue*inputData.unitPrice / 10)
+        
+        setInputData(prevData => ({
+            ...prevData,
+            quantity:fixedQuantity.current,
+            unitPrice: fixedUnitPrice.current,
+            supplyValue: fixedSupplyValue.current,
+            tax: fixedTax.current
+        }));
+    };
 
     return (
         <div>
@@ -80,22 +132,22 @@ function PurchaseDetailInput (props) {
                 }
                 <tr>
                     <td style={{padding:'10px 20px', textAlign: 'left', verticalAlign: 'top'}}>
-                        <input defaultValue={inputData.item} onChange={(e)=> inputData.item = e.target.value} id="itemInput-new" type="text" placeholder="종목" className={`w-[320px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                        <input value={inputData.item} onChange={(e)=> setInputData(prev => ({ ...prev, item: e.target.value }))} id="itemInput-new" type="text" placeholder="종목" className={`w-[320px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                     </td>
                     <td style={{padding:'10px 20px', textAlign: 'left', verticalAlign: 'top'}}>
-                        <input defaultValue={inputData.size} onChange={(e)=> inputData.size = e.target.value} id="sizeInput-new" type="text" placeholder="규격" className={`w-[70px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                        <input value={inputData.size} onChange={(e)=> setInputData(prev => ({ ...prev, size: e.target.value }))} id="sizeInput-new" type="text" placeholder="규격" className={`w-[70px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                     </td>
                     <td style={{padding:'10px 20px', textAlign: 'left', verticalAlign: 'top'}}>
-                        <input defaultValue={inputData.quantity} onChange={(e)=> inputData.quantity = e.target.value} id="quantityInput-new" type="number" placeholder="수량" className={`w-[70px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                        <input value={quantity || ""} min = "0" onChange={handleQuantity} id="quantityInput-new" type="number" placeholder={quantity === 0 ? "수량" : ""} className={`w-[70px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                     </td>
                     <td style={{padding:'10px 20px', textAlign: 'left', verticalAlign: 'top'}}>
-                        <input defaultValue={inputData.unitPrice} onChange={(e)=> inputData.unitPrice = e.target.value} id="unitPriceInput-new" type="text" placeholder="단가(원)" className={`w-[120px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                        <input value={unitPrice || ""}  onChange={handleUnitPrice} id="unitPriceInput-new" type="text" placeholder={unitPrice === 0 ? "단가(원)" : ""} className={`w-[120px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                     </td>
                     <td style={{padding:'10px 20px', textAlign: 'left', verticalAlign: 'top'}}>
-                        <input defaultValue={inputData.supplyValue} onChange={(e)=> inputData.supplyValue = e.target.value} id="supplyValueInput-new" type="text" placeholder="공급가액(원)" className={`w-[120px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                        <input readOnly value={supplyValue || ""} id="supplyValueInput-new" type="text" placeholder={supplyValue === 0 ? "공급가액(원)" : ""} className={`w-[120px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                     </td>
                     <td style={{padding:'10px 20px', textAlign: 'left', verticalAlign: 'top'}}>
-                        <input defaultValue={inputData.tax} onChange={(e)=> inputData.tax = e.target.value} id="taxInput-new" type="text" placeholder="세액(원)" className={`w-[120px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
+                        <input readOnly value={iTax || ""} id="taxInput-new" type="text" placeholder={iTax === 0 ? "세액(원)" : ""} className={`w-[120px] h-[25px] text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
                     </td>
                     <td style={{verticalAlign: 'top'}}>
                         <button className={`w-[34px] h-[26px] relative mt-[10px]`}

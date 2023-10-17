@@ -46,7 +46,7 @@ const MainPageContent = () => {
     return (
         <div className ="w-full justify-center relative " >
             <AdminHeader/>
-                {isModalOpen && location["pathname"] !== 'admin/login' && <AdminLoginPageModal/>}
+                {isModalOpen && (location["pathname"] !== 'admin/login' || location["pathname"] !== '/admin') && <AdminLoginPageModal/>}
                 {location["pathname"] === '/admin' && <AdminDefaultPage/>}
             <Outlet/>
             <Footer/>

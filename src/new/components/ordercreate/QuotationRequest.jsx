@@ -5,7 +5,7 @@ import TableHeaderCell from "./TableHeaderCell";
 import axios from "../../../api/axios";
 import readXlsxFile from 'read-excel-file'
 
-function QuotationRequest (props) {
+function QuotationRequest (props, setIsQuotationRequestOk) {
 
 
     const [inputModeOn, setInputMode] = useState(false);
@@ -37,9 +37,6 @@ function QuotationRequest (props) {
         }
     }, [])
 
-    useEffect(() => {
-        saveContent()
-    }, [isCheckedTemperature, isCheckedScheduleFlexible, isCheckedSampleRetrieval, data.content])
 
     const biomarkerOptions = [
         { value: "GFAP", label: "GFAP" },
@@ -122,6 +119,11 @@ function QuotationRequest (props) {
         data.content.isCheckedTemperature = isCheckedTemperature;
         data.content.isCheckedScheduleFlexible = isCheckedScheduleFlexible;
         data.content.isCheckedSampleRetrieval = isCheckedSampleRetrieval;
+        if(data.content.sampleDeliveryWishDate &&  data.content.reportWishDate && data.content.sampleDeliveryAddress)
+        {
+            setIsQuotationRequestOk(true)
+        }
+        
         await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
     }
 

@@ -57,6 +57,7 @@ instance.interceptors.response.use(
     function (error) {
         if (error.response && error.response.status) {
             switch (error.response.status) {
+                case 400:
                 case 401:
                     if (handleUnauthorized) {
                         handleUnauthorized();
