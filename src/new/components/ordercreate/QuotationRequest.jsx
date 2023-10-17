@@ -20,6 +20,9 @@ function QuotationRequest (props) {
     const [selectedAddAnalysis, setSelectedAddAnalysis] = useState([]);
     const [inputAdditionalInfo, setInputAdditionalInfo] = useState("");
     const [data, setData] = useState(props.data); //props.data에서 content, id만 쓰고 있어서 setData에서도 id, content만 넣어주고 있음, 다른 정보도 사용하는 경우 그 부분 꼭 확인 필요.
+    const [isCheckedTemperature, setIsCheckedTemperature] = useState(props.data.content.isCheckedTemperature ?? false);
+    const [isCheckedScheduleFlexible, setIsCheckedScheduleFlexible] = useState(props.data.content.isCheckedScheduleFlexible ?? false);
+    const [isCheckedSampleRetrieval, setIsCheckedSampleRetrieval] = useState(props.data.content.isCheckedSampleRetrieval ?? false);
     const [selectedRows, setSelectedRows] = useState([]);
     const [selectRowInfoOn, setSelectRowInfoOn] = useState(false);
     let dragInProgress = '';
@@ -33,6 +36,10 @@ function QuotationRequest (props) {
             quotationRequest.querySelector('#additionalInfo').setAttribute("readonly", '')
         }
     }, [])
+
+    useEffect(() => {
+        saveContent()
+    }, [isCheckedTemperature, isCheckedScheduleFlexible, isCheckedSampleRetrieval, data.content])
 
     const biomarkerOptions = [
         { value: "GFAP", label: "GFAP" },
@@ -112,22 +119,10 @@ function QuotationRequest (props) {
     }
 
     async function saveContent() {
+        data.content.isCheckedTemperature = isCheckedTemperature;
+        data.content.isCheckedScheduleFlexible = isCheckedScheduleFlexible;
+        data.content.isCheckedSampleRetrieval = isCheckedSampleRetrieval;
         await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
-    }
-
-    async function deleteRow(e) {
-        if(readOnly || !window.confirm("삭제하시겠습니까?")) {
-            return;
-        }
-        data.content.sampleDataList.splice(e.target.attributes.rownumber.value, 1);
-        await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
-
-        setSelectedRows([])
-        document.querySelectorAll('td').forEach(td => td.style.backgroundColor='#fff')
-        setData({
-            content: data.content,
-            id: data.id
-        });
     }
 
     async function copySampleData() {
@@ -356,7 +351,7 @@ function QuotationRequest (props) {
         <div onPointerUp={() => dragInProgress = false}>
         {data ? (
                 <>
-                <div id="quotation-request" className="Rectangle30 w-[1100px] h-[1200px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
+                <div id="quotation-request" className="Rectangle30 w-[1100px] h-[1280px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
                     {/*<div className="" />*/}
 
                     <div className="relative left-[10px] h-[170px]">
@@ -512,7 +507,7 @@ function QuotationRequest (props) {
                                 }
                                 {
                                     data.content.sampleDataList.length < 13 ?
-                                        [...Array(13 - data.content.sampleDataList.length).keys()].map((key) => (<tr>
+                                        [...Array(13 - data.content.sampleDataList.length).keys()].map((key) => (<tr key={key}>
                                         <TableCell value={`${data.content.sampleDataList.length + key + 2}`} minWidth="20px" maxWidth="90px"/>
                                         <TableCell maxWidth="90px"/>
                                         <TableCell maxWidth="90px"/>
@@ -577,11 +572,40 @@ function QuotationRequest (props) {
                                onChange={(e)=>{data.content.sampleDeliveryAddress = e.target.value; saveContent()}}
                                className={`w-[730px] h-[30px] px-1.5 left-[253px] top-[10px] relative inline text-lg font-normal font-['Inter'] bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}/>
 
-                        <div className=" w-[95px] h-[17px] left-[90px] mt-10 relative text-slate-500 text-lg font-bold font-['Inter']">특이사항</div>
+                        <div className=" w-[95px] h-[17px] left-[90px] mt-8 relative text-slate-500 text-lg font-bold font-['Inter']">특이사항</div>
                         <textarea value={inputAdditionalInfo ? inputAdditionalInfo : (data.content.additionalInfo ? data.content.additionalInfo : '')} onChange={(e)=> {handleAdditionalInfoChange(e); saveContent()}}
                                   id="additionalInfo" rows="4"
                                   className="resize-none left-[90px] mt-5 relative block p-2.5 w-[900px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...">
                         </textarea>
+                        <div className='checkboxes flex flex-col justify-start items-start mt-[10px] ml-[90px]'>
+                            <div className="">
+                                <input type="checkbox" id="checkbox1" checked={isCheckedTemperature} onChange={(e) => {setIsCheckedTemperature(e.target.checked);}} className="accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                <label className="align-left text-black text-base font-normal inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox1">
+                                    모든 샘플은 초저온 냉동보관(-80°C) 중입니다.
+                                </label>
+                            </div>
+                            <div className="">
+                                <input type="checkbox" id="checkbox2" checked={isCheckedScheduleFlexible} onChange={(e) => {setIsCheckedScheduleFlexible(e.target.checked);}} className="accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                <label className="align-left text-black text-base font-normal inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox2">
+                                    결과 보고 일정 조정이 가능합니다.
+                                </label>
+                                <label className="align-left text-gray-400 text-base text-[13px] inline-block pl-[0.3rem]">동의하시는 경우, 가격 혜택을 얻으실 수 있도록 브레디스헬스케어에서 일정 조정을 도와드립니다.</label>
+                            </div>
+                            <div className="mt-3">
+                                <div>
+                                    <label className="align-left text-black text-base font-normal inline-block hover:cursor-pointer">
+                                        잔여 검체 처리 방식
+                                    </label>
+                                    <label className="align-left text-gray-400 text-base text-[13px] inline-block pl-[0.3rem]">IRB 내용과 동일하게 체크해주세요.</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="checkbox3" checked={!isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(!e.target.checked);}} className="accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                    <label className="align-left text-gray-600 text-base font-normal inline-block px-[0.15rem] hover:cursor-pointer" htmlFor="checkbox3">폐기 요청</label>
+                                    <input type="checkbox" id="checkbox4" checked={isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(e.target.checked);}} className="accent-slate-500 align-middle mx-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                    <label className="align-left text-gray-600 text-base font-normal inline-block px-[0.15rem] hover:cursor-pointer" htmlFor="checkbox4">직접 회수</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 </>

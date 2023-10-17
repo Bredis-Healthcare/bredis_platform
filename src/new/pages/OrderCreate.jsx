@@ -69,7 +69,7 @@ function OrderCreate() {
                             data.status === 'BEFORE_SUBMIT' ? (
                                 <>
                                     <QuotationRequest data={data}/>
-                                    <div className="mt-[8px] mr-40 ml-auto">
+                                    <div className="mt-[8px] w-[600px] mr-[20px] ml-auto">
                                         <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
                                                 onClick={() => cancelRequest(data.id)}>
                                             <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
