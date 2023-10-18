@@ -32,6 +32,7 @@ const Header = () => {
     useEffect(()=>{
         async function loadUserInfo() {
             try {
+                await new Promise(resolve => setTimeout(resolve, 2000)); 
                 if(cookies.login)
                 {
                     const request = await axios.get(`/members/${cookies.login && cookies.login['id']}/info`,);
@@ -43,6 +44,8 @@ const Header = () => {
                 setIsModalOpen(false);
             }
         }
+      
+          
 
         loadUserInfo()
         refetch()

@@ -47,9 +47,14 @@ const LoginPage = () => {
                     "email": email,  // using state value for email
                     "password": password  // using state value for password
                 });
-                console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
-                setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                navigate(`/`);
+                if(request !== "오류"){
+                    console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                    setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
+                    navigate(`/`);
+                }
+                else{
+                    alert("로그인 정보가 맞지 않습니다.")
+                }
                 
 
             } catch (error) {
