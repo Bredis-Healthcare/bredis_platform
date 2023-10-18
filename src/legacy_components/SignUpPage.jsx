@@ -75,7 +75,6 @@ const SignUpPage = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <PasswordMatchInfo>
-                1
                 {confirmPassword && (password === confirmPassword ? '비밀번호가 일치합니다.' : '비밀번호가 일치하지 않습니다.')}
             </PasswordMatchInfo>
             <InputLabel>이름</InputLabel>
