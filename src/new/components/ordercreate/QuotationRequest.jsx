@@ -399,7 +399,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                             <div className="inline-block">샘플 및 분석 대상 바이오마커 정보 입력</div>
                             <span className="align-left text-gray-400 leading-4 text-[12px] font-normal inline-block pl-[0.3rem] w-[800px] mt-0">
                                 - 원심분리 및 불순물 제거가 된 상태에서의 용량을 기준으로 입력해주세요.
-                                <br /> - 필요 용량 기준치에 미달되는 샘플이 있는 경우, ‘문의하기’를 통해 알려주세요. 담당자가 검토 후 도움을 드리겠습니다.
+                                {/*<br /> - 필요 용량 기준치에 미달되는 샘플이 있는 경우, ‘문의하기’를 통해 알려주세요. 담당자가 검토 후 도움을 드리겠습니다.*/}
                             </span>
                         </div>
                         <div className=" w-[214px] h-6 left-[830px] top-[12px] relative">
