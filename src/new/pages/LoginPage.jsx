@@ -15,7 +15,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        console.log("!!!!", cookies.login)
+        // console.log("!!!!", cookies.login)
         if(cookies.login && cookies.login["id"]!==0)
         {
             async function autoLogin() {

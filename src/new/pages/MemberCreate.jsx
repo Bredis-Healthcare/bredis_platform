@@ -24,7 +24,7 @@ function MemberCreate() {
         if (!mobile) {alert("전화번호를 입력해주세요.");return}
         if (!agree1 || !agree2 || !agree3) {alert("모든 약관에 동의해주셔야 회원가입이 가능합니다."); return}
 
-        await axios.post(`/register`, { "email": email, "password": password, "name": name, "mobile": mobile, "organization": organization, "department": department, "position": position});
+        await axios.post(`register`, { "email": email, "password": password, "name": name, "mobile": mobile, "organization": organization, "department": department, "position": position});
         alert("브레디스헬스케어 연구분석서비스의 회원이 되신 것을 환영합니다.")
         navigate("/");
     }
