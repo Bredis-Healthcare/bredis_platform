@@ -368,7 +368,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
         <div onPointerUp={() => dragInProgress = false}>
         {data ? (
                 <>
-                <div id="quotation-request" className="Rectangle30 w-[1100px] h-[1280px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
+                <div id="quotation-request" className="Rectangle30 w-[1100px] h-[1480px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
                     {/*<div className="" />*/}
 
                     <div className="relative left-[10px] h-[170px]">
@@ -395,14 +395,20 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                     </div>
 
                     <div className="relative top-[0px] h-[630px]">
-                        <div className=" w-[297px] h-[17px] left-[90px] top-[12px] relative text-slate-500 text-lg font-bold font-['Inter']">샘플 및 분석 대상 바이오마커 정보 입력</div>
-                        <div className=" w-[214px] h-6 left-[830px] top-[0px] relative">
+                        <div className=" w-[297px] h-[20px] left-[90px] top-[0px] relative text-slate-500 text-lg font-bold font-['Inter']">
+                            <div className="inline-block">샘플 및 분석 대상 바이오마커 정보 입력</div>
+                            <span className="align-left text-gray-400 leading-4 text-[12px] font-normal inline-block pl-[0.3rem] w-[800px] mt-0">
+                                - 원심분리 및 불순물 제거가 된 상태에서의 용량을 기준으로 입력해주세요.
+                                <br /> - 필요 용량 기준치에 미달되는 샘플이 있는 경우, ‘문의하기’를 통해 알려주세요. 담당자가 검토 후 도움을 드리겠습니다.
+                            </span>
+                        </div>
+                        <div className=" w-[214px] h-6 left-[830px] top-[12px] relative">
                             <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/Digital+ELISA+%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%80%E1%85%AE%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8+%E1%84%89%E1%85%A5%E1%84%87%E1%85%B5%E1%84%89%E1%85%B3_%E1%84%87%E1%85%B3%E1%84%85%E1%85%A6%E1%84%83%E1%85%B5%E1%84%89%E1%85%B3%E1%84%92%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B3%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%A5.pdf"
                                className=" left-0 top-[0px] text-sky-900 text-[15px] font-bold font-['Inter'] inline-block">바이오마커 상세 목록 다운로드</a>
                             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0"/>
                         </div>
                         {/*테이블 높이는 600으로 고정시키고 싶다.*/}
-                        <div id="table" className="left-[90px] top-[10px] w-auto float-left relative min-h-[500px] max-h-[580px] overflow-y-scroll">
+                        <div id="table" className="left-[90px] top-[20px] w-auto float-left relative min-h-[500px] max-h-[580px] overflow-y-scroll">
                             <table style={{borderCollapse: 'collapse', borderColor: '#ccc', borderSpacing:0, minWidth:'900px', userSelect:'none', msUserSelect: 'none'}}>
                                 <thead>
                                 <tr>
@@ -606,14 +612,14 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                 <label className="align-left text-black text-base font-normal inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox2">
                                     결과 보고 일정 조정이 가능합니다.
                                 </label>
-                                <label className="align-left text-gray-400 text-base text-[13px] inline-block pl-[0.3rem]">동의하시는 경우, 가격 혜택을 얻으실 수 있도록 브레디스헬스케어에서 일정 조정을 도와드립니다.</label>
+                                <label className="align-left text-gray-400 text-[13px] inline-block pl-[0.3rem]">동의하시는 경우, 가격 혜택을 얻으실 수 있도록 브레디스헬스케어에서 일정 조정을 도와드립니다.</label>
                             </div>
                             <div className="mt-3">
                                 <div>
                                     <label className="align-left text-black text-base font-normal inline-block hover:cursor-pointer">
                                         잔여 검체 처리 방식
                                     </label>
-                                    <label className="align-left text-gray-400 text-base text-[13px] inline-block pl-[0.3rem]">IRB 내용과 동일하게 체크해주세요.</label>
+                                    <label className="align-left text-gray-400 text-[13px] inline-block pl-[0.3rem]">IRB 내용과 동일하게 체크해주세요.</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" id="checkbox3" checked={!isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(!e.target.checked);}} className="checkbox accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
@@ -621,6 +627,20 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                     <input type="checkbox" id="checkbox4" checked={isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(e.target.checked);}} className="checkbox accent-slate-500 align-middle mx-[6px] h-[1.15rem] w-[1.15rem] "/>
                                     <label className="align-left text-gray-600 text-base font-normal inline-block px-[0.15rem] hover:cursor-pointer" htmlFor="checkbox4">직접 회수</label>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="ml-[90px] mt-[30px]">
+                            <div className="text-slate-500 text-base font-bold font-['Inter']">유의사항</div>
+                            <div>
+                                <p className="align-left text-gray-400 text-[12px] w-[930px]">
+                                    - 본 바이오마커 검사서비스는 (주)브레디스헬스케어에서 제공하는 연구 목적의 검사 서비스로, 사람의 혈청 또는 혈장 검체로부터 알츠하이머병 관련 바이오마커를 정량 측정한 결과를 제공합니다.
+                                    <br /> - 검사 진행 과정은 1) 의뢰 접수, 2) 검체 수거, 3) 검사 진행, 4) 결과 분석, 5) 결과보고서 발송 순으로 이루어지며, 의뢰 접수에서부터 결과보고서 발송까지 약 4~6주의 기간이 소요됩니다.
+                                    <br /> - 검사 일정은 상황에 따라 변동될 수 있으며, 일정 변경 시 담당자에게 사전 공지됩니다.
+                                    <br /> - 검사 서비스 의뢰에 사용되는 검체는 검사의 목적으로 사용할 것에 대하여 검체 제공자로부터 동의를 받은 검체만을 사용해야 합니다. 검체 제공자의 동의를 받지 않은 검체를 사용함으로 써 발생하는 문제에 대해 (주)브레디스헬스케어는 책임지지 않습니다.
+                                    <br /> - 검사 서비스 의뢰를 위한 검체(혈청 또는 혈장)는 전용 용기(SST 또는 EDTA tube)에 채혈한 혈액 검체에 한하며, 검체 수거 전 시료의 신뢰성 확보를 위하여 각각 권장하는 방법에 따라 전처리 후 냉동(-20 ~ -80 ℃) 보관된 검체에 대해 검사 서비스 제공이 가능합니다.
+                                    <br /> - 검사에 부적합한 검체(예: 검체량 부족, 검체 보관상태 부적합 등)로 확인된 경우에는 검체의 수거가 이루어지지 않습니다.
+                                    <br /> - 검사 및 분석은 검체의 보관상태, 분석기기의 상태, 검사항목의 특성 등의 이유로 실패할 가능성이 존재하며, (주)브레디스헬스케어는 해당 결과에 대한 책임을 지지 않습니다.
+                                </p>
                             </div>
                         </div>
                     </div>
