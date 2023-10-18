@@ -18,14 +18,15 @@ function MemberCreate() {
     const [agree2, setAgree2] = useState(false);
     const [agree3, setAgree3] = useState(false);
     useEffect(() => {
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z.]{2,}$/;
         setIsValidEmail(emailRegex.test(email));
+        // console.log(isValidEmail, email)
     }, [email]);
 
     async function submit() {
         if (!name) {alert("이름을 입력해주세요.");return}
         if (!email) {alert("이메일을 입력해주세요.");return}
-        if (isValidEmail) {alert("이메일을 확인해 주세요.");return}
+        if (!isValidEmail) {alert("이메일을 확인해 주세요.");return}
         if (!password) {alert("비밀번호를 입력해주세요.");return}
         if (password !== confirmPassword) {alert("비밀번호를 확인해주세요.");return}
         if (!mobile) {alert("전화번호를 입력해주세요.");return}
@@ -34,11 +35,11 @@ function MemberCreate() {
         const request = await axios.post(`register`, { email, password, name, mobile, organization, department, position });
         if(request !== "오류" ){
             alert("브레디스헬스케어 연구분석서비스의 회원이 되신 것을 환영합니다.")
+            navigate("/");
         }
         else{
             alert("이미 가입된 이메일입니다.")
         }
-        navigate("/");
     }
     
 
@@ -75,21 +76,21 @@ function MemberCreate() {
             <input id="position" rows="1" value={position} onChange={(e) => setPosition(e.target.value)} className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="연구원"></input>
 
             <div className="left-[450px] relative mt-[50px]">
-                <input type="checkbox" id="checkbox1" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                <input type="checkbox" id="checkbox1" onChange={(e) => setAgree1(e.target.checked)} checked={agree1} className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                 <label className="align-middle text-black text-base font-normal font-['Inter'] inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox1">
                     이용약관 동의
                 </label>
                 <a href="/terms/service" target="_blank" className="align-middle text-slate-500 underline text-base font-normal font-['Inter'] inline-block pl-[0.3rem] hover:cursor-pointer">보기</a>
             </div>
             <div className="left-[450px] relative mt-[10px]">
-                <input type="checkbox" id="checkbox2" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                <input type="checkbox" id="checkbox2" onChange={(e) => setAgree2(e.target.checked)} checked={agree2} className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                 <label className="align-middle text-black text-base font-normal font-['Inter'] inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox2">
                     개인정보 취급방침 동의
                 </label>
                 <a href="/terms/privacy" target="_blank" className="align-middle text-slate-500 underline text-base font-normal font-['Inter'] inline-block pl-[0.3rem] hover:cursor-pointer">보기</a>
             </div>
             <div className="left-[450px] relative mt-[10px]">
-                <input type="checkbox" id="checkbox3" className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                <input type="checkbox" id="checkbox3"onChange={(e) => setAgree3(e.target.checked)} checked={agree3}  className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                 <label className="align-middle text-black text-base font-normal font-['Inter'] inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox3">
                     만 14세 이상입니다.
                 </label>

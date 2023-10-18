@@ -13,6 +13,7 @@ export const LoginContainer = styled.div`
     flex-direction: column;
     align-items: center;
     height: 60vh; // Reduced height to 60% of the viewport
+    min-height : 700px;
     margin-top: 10vh; // Added top margin for spacing above the container
     margin-bottom: 10vh; // Added top margin for spacing above the container
     width: 100%;

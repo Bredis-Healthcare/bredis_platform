@@ -46,8 +46,10 @@ const Header = () => {
         }
       
           
-
-        loadUserInfo()
+        if(cookies.login)
+        {
+            loadUserInfo()
+        }
         refetch()
     },[cookies.login])
 
