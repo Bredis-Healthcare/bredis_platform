@@ -30,7 +30,7 @@ const LoginPage = () => {
                     navigate("/admin/members/list" );
                 }
                 else{
-                    alert("로그인 정보가 맞지 않습니다.")
+                    alert("가입 정보를 다시 확인해주세요.")
                 }
             } catch (error) {
                 console.error("Error while logging in:", error);
