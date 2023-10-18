@@ -100,7 +100,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
         if (!selectedSampleType) {alert("샘플 종류를 선택해주세요."); return;}
         if (!selectedRepetition) {alert("반복 횟수를 선택해주세요."); return;}
         if (!volume) {alert("용량을 입력해주세요."); return;}
-        if (volumeAlert) {alert("용량을 수정해주세요."); return;}
+        // if (volumeAlert) {alert("용량을 수정해주세요."); return;}
 
 
         data.content.sampleDataList.push({
@@ -217,11 +217,12 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
             alert("용량은 필수값입니다.");
             return;
         }
-        let volumeLimit = calculateVolumeLimit(biomarkers, sampleType, repetition);
-        if (volume < volumeLimit) {
-            alert(`바이오마커 ${biomarkers.join(",")}, 샘플 종류 ${sampleType}, 반복 횟수 ${repetition}에 대해서는 용량이 최소 ${volumeLimit}μl가 필요합니다.`)
-            return false;
-        }
+        // volume 알람은 나중으로 미룸
+        // let volumeLimit = calculateVolumeLimit(biomarkers, sampleType, repetition);
+        // if (volume < volumeLimit) {
+        //     alert(`바이오마커 ${biomarkers.join(",")}, 샘플 종류 ${sampleType}, 반복 횟수 ${repetition}에 대해서는 용량이 최소 ${volumeLimit}μl가 필요합니다.`)
+        //     return false;
+        // }
         return true;
     }
 
@@ -399,7 +400,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                             <div className="inline-block">샘플 및 분석 대상 바이오마커 정보 입력</div>
                             <span className="align-left text-gray-400 leading-4 text-[12px] font-normal inline-block pl-[0.3rem] w-[800px] mt-0">
                                 - 원심분리 및 불순물 제거가 된 상태에서의 용량을 기준으로 입력해주세요.
-                                <br /> - 필요 용량 기준치에 미달되는 샘플이 있는 경우, ‘문의하기’를 통해 알려주세요. 담당자가 검토 후 도움을 드리겠습니다.
+                                {/*<br /> - 필요 용량 기준치에 미달되는 샘플이 있는 경우, ‘문의하기’를 통해 알려주세요. 담당자가 검토 후 도움을 드리겠습니다.*/}
                             </span>
                         </div>
                         <div className=" w-[214px] h-6 left-[830px] top-[12px] relative">
@@ -477,10 +478,10 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                             <div className={`${inputModeOn ? 'block' : 'hidden'}`}>
                                                 <input id="volumeInput" type="number" placeholder="용량"
                                                        className={`w-[70px] h-[25px] mr-1 text-center text-sm text-gray-900 bg-gray-50 rounded-[4px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                                                       onChange={(e) => {setVolumeAlertLimit(calculateVolumeLimit(selectedBiomarkers, selectedSampleType, selectedRepetition)); setVolumeAlert(e.target.value < volumeAlertLimit)}}
+                                                       // onChange={(e) => {setVolumeAlertLimit(calculateVolumeLimit(selectedBiomarkers, selectedSampleType, selectedRepetition)); setVolumeAlert(e.target.value < volumeAlertLimit)}}
                                                 />
                                                 μl
-                                                <p className={`${volumeAlert ? 'block' : 'hidden'} text-red-500 text-xs italic`}>{volumeAlertLimit}μl 이상부터<br />가능합니다.</p>
+                                                {/*<p className={`${volumeAlert ? 'block' : 'hidden'} text-red-500 text-xs italic`}>{volumeAlertLimit}μl 이상부터<br />가능합니다.</p>*/}
                                             </div>
 
                                         </TableCell>
