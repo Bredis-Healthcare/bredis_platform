@@ -31,9 +31,11 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
         setReadOnly(props.readOnly)
         if (props.readOnly) {
             let quotationRequest = document.querySelector("#quotation-request");
+            //모든 종류의 input들을 비활성화시킨다
             quotationRequest.querySelectorAll('input').forEach(input => input.setAttribute("readOnly", ''))
             quotationRequest.querySelectorAll('button').forEach(button => {button.style.display='none'})
             quotationRequest.querySelector('#additionalInfo').setAttribute("readonly", '')
+            quotationRequest.querySelectorAll('.checkbox').forEach(checkbox => checkbox.setAttribute("disabled", ''))
         }
     }, [])
 
@@ -594,13 +596,13 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                         </textarea>
                         <div className='checkboxes flex flex-col justify-start items-start mt-[10px] ml-[90px]'>
                             <div className="">
-                                <input type="checkbox" id="checkbox1" checked={isCheckedTemperature} onChange={(e) => {setIsCheckedTemperature(e.target.checked);}} className="accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                <input type="checkbox" id="checkbox1" checked={isCheckedTemperature} onChange={(e) => {setIsCheckedTemperature(e.target.checked);}} className="checkbox accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                                 <label className="align-left text-black text-base font-normal inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox1">
                                     모든 샘플은 초저온 냉동보관(-80°C) 중입니다.
                                 </label>
                             </div>
                             <div className="">
-                                <input type="checkbox" id="checkbox2" checked={isCheckedScheduleFlexible} onChange={(e) => {setIsCheckedScheduleFlexible(e.target.checked);}} className="accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                <input type="checkbox" id="checkbox2" checked={isCheckedScheduleFlexible} onChange={(e) => {setIsCheckedScheduleFlexible(e.target.checked);}} className="checkbox accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                                 <label className="align-left text-black text-base font-normal inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox2">
                                     결과 보고 일정 조정이 가능합니다.
                                 </label>
@@ -614,9 +616,9 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                     <label className="align-left text-gray-400 text-base text-[13px] inline-block pl-[0.3rem]">IRB 내용과 동일하게 체크해주세요.</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="checkbox3" checked={!isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(!e.target.checked);}} className="accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                    <input type="checkbox" id="checkbox3" checked={!isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(!e.target.checked);}} className="checkbox accent-slate-500 align-middle mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                                     <label className="align-left text-gray-600 text-base font-normal inline-block px-[0.15rem] hover:cursor-pointer" htmlFor="checkbox3">폐기 요청</label>
-                                    <input type="checkbox" id="checkbox4" checked={isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(e.target.checked);}} className="accent-slate-500 align-middle mx-[6px] h-[1.15rem] w-[1.15rem] "/>
+                                    <input type="checkbox" id="checkbox4" checked={isCheckedSampleRetrieval} onChange={(e) => {setIsCheckedSampleRetrieval(e.target.checked);}} className="checkbox accent-slate-500 align-middle mx-[6px] h-[1.15rem] w-[1.15rem] "/>
                                     <label className="align-left text-gray-600 text-base font-normal inline-block px-[0.15rem] hover:cursor-pointer" htmlFor="checkbox4">직접 회수</label>
                                 </div>
                             </div>
