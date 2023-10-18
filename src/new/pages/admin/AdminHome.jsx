@@ -36,7 +36,7 @@ const MainPageContent = () => {
 
     useEffect(() => {
         // setIsModalOpen(true)
-        console.log(isModalOpen, location["pathname"])
+        //console.log(isModalOpen, location["pathname"])
         setUnauthorizedHandler(() => {
             setIsModalOpen(true);
             removeCookie('login', {path:'/'});

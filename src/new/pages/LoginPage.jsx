@@ -22,7 +22,7 @@ const LoginPage = () => {
                 try {
                     const request = await axios.post('login-auto', {
                     });
-                    console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                    //console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                     setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                     console.log("자동로그인되었습니다")
                     navigate(`/`);
@@ -48,7 +48,7 @@ const LoginPage = () => {
                     "password": password  // using state value for password
                 });
                 if(request !== "오류"){
-                    console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                    // console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                     setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                     navigate(`/`);
                 }

@@ -25,7 +25,7 @@ const LoginPage = () => {
                 });
                 
                 if(request !== "오류"){
-                    console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                    //console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                     setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                     navigate("/admin/members/list" );
                 }

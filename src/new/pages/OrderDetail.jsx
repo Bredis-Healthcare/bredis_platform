@@ -78,7 +78,7 @@ const OrderDetail = () => {
             setData(request.data);
             setStatusList(statusRequest.data.orderStatusList)
             setSelectedOption(request.data.status)
-            console.log("request", request, "statusRequest", statusRequest)
+            //console.log("request", request, "statusRequest", statusRequest)
             
         } catch (error) {
             console.log("error", error)

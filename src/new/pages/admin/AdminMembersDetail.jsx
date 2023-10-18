@@ -35,7 +35,7 @@ function AdminMembersDetail() {
             setData(request.data);
 
         } catch (error) {
-            console.log("error", error)
+            //console.log("error", error)
         }
     };
 

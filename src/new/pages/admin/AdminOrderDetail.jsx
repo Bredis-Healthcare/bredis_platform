@@ -204,7 +204,6 @@ const AdminOrderDetail = () => {
                 "historyText": addContent, 
                 "resultText": editContent 
             });
-            console.log("DFDFD", result);
 
             await axios.post(`/orders/${data.orderNumber}/analysis-report-file?analysisHistoryId=${result.data.id}`, formData, {
                 headers: {

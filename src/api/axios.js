@@ -15,7 +15,7 @@ instance.interceptors.request.use(
         
         if ( Cookies.get('login') ) {
             const authorization = JSON.parse(Cookies.get('login'));
-            console.log("auth", authorization["authToken"])
+            // console.log("auth", authorization["authToken"])
 
             config.headers = {
                 ...config.headers,

@@ -134,7 +134,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
             if (noString.endsWith(", ")) {
                 noString = noString.slice(0, -2);
             }
-            // console.log(noString)
+            // //console.log(noString)
             setQuotationRequestList(noString);
         }
         
@@ -273,7 +273,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
 
             toggleFileInput()
             saveContent()
-            console.log(`saved ${rows.length -1} rows`)
+            // //console.log(`saved ${rows.length -1} rows`)
         });
     }
 
@@ -318,7 +318,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
             document.querySelectorAll(`.rowNumber${rowNumber}`).forEach(td => td.style.backgroundColor = '#ddd');
         }
         setSelectedRows(selectedRows)
-        console.log(selectedRows)
+        // console.log(selectedRows)
         if (selectedRows.length > 0) {
             document.querySelector('.selectedRowsLabel').innerText = selectedRows.length > 0 ? `${selectedRows.length}개 행 선택됨` : ''
             setSelectRowInfoOn(true);
@@ -340,7 +340,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
         tableElements.splice(-8)
         tableElements.forEach(td => td.style.backgroundColor = '#ddd');
         setSelectRowInfoOn(true);
-        console.log(allRowNumbers)
+        //console.log(allRowNumbers)
         document.querySelector('.selectedRowsLabel').innerText = allRowNumbers.length > 0 ? `${allRowNumbers.length}개 행 선택됨` : ''
     }
 

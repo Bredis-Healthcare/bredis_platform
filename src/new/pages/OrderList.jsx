@@ -28,8 +28,8 @@ function OrderList() {
             const statusRequest = await axios.get(`/protocols`);
             const request = await axios.get(`/orders?memberId=${cookies.login && cookies.login['id']}`);
 
-            console.log('request', request.data);
-            console.log('statusRequest', statusRequest.data.threadCategoryList);
+            //console.log('request', request.data);
+            //console.log('statusRequest', statusRequest.data.threadCategoryList);
             setData(request.data);
             setStatusList(statusRequest.data.threadCategoryList)
 

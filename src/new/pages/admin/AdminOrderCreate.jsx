@@ -46,7 +46,7 @@ function AdminOrderCreate() {
         try {
             const request = await axios.get(`/quotation-requests/${pageInfo.resourceId}`);
             setData(request.data);
-            console.log(request.data)
+            //console.log(request.data)
 
         } catch (error) {
             console.log("error", error)
@@ -102,7 +102,7 @@ function AdminOrderCreate() {
                 alert("견적서 파일을 첨부해주세요.")
                 return;
             }
-            console.log(file)
+            //console.log(file)
 
 
             const formData = new FormData();

@@ -26,7 +26,7 @@ const AdminLoginPageModal = () => {
                     "email": email,  // using state value for email
                     "password": password  // using state value for password
                 });
-                console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
+                // console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                 setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
                 setIsModalOpen(false);
                 window.location.reload();
