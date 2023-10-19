@@ -89,7 +89,7 @@ const LoginPageModal = () => {
                 </LoginButton>
                 </form>
                 <SignupButton
-                    onClick={() => navigate("/signup"  )}
+                    onClick={() => {navigate("/signup"); setIsModalOpen(false);}}
                 >
                     회원가입
                 </SignupButton>
