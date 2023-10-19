@@ -329,18 +329,18 @@ const AdminOrderDetail = () => {
                                         {
                                             data.purchaseDetail.total ? <>
                                                     <PurchaseDetail data={data.purchaseDetail} />
-                                                    <div className={"flex-row flex"}>
-                                                        <button className="flex flex-col m-[5px] w-[160px] relative"
-                                                                onClick={() => handleUploadClick("INVOICE")}>
-                                                            <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                            <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">거래명세서 업로드</div>
-                                                        </button>
-                                                        <button className="flex flex-col m-[5px] w-[160px] relative"
-                                                                onClick={() => handleUploadClick("TAX_INVOICE")}>
-                                                            <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />
-                                                            <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">세금계산서 업로드</div>
-                                                        </button>
-                                                    </div>
+                                                    {/*<div className={"flex-row flex"}>*/}
+                                                    {/*    <button className="flex flex-col m-[5px] w-[160px] relative"*/}
+                                                    {/*            onClick={() => handleUploadClick("INVOICE")}>*/}
+                                                    {/*        <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />*/}
+                                                    {/*        <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">거래명세서 업로드</div>*/}
+                                                    {/*    </button>*/}
+                                                    {/*    <button className="flex flex-col m-[5px] w-[160px] relative"*/}
+                                                    {/*            onClick={() => handleUploadClick("TAX_INVOICE")}>*/}
+                                                    {/*        <div className="Rectangle7 w-[150px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]" />*/}
+                                                    {/*        <div className=" w-[140px] h-[17px] left-[6px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">세금계산서 업로드</div>*/}
+                                                    {/*    </button>*/}
+                                                    {/*</div>*/}
 
                                                 </>
                                                 :

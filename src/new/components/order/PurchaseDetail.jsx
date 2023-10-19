@@ -51,8 +51,9 @@ function PurchaseDetail (props) {
                         props.quotationRequestId ?
                             <DownloadButton title='견적서 다운로드' quotationRequestId={props.quotationRequestId} /> : (
                                 props.orderNumber ? <>
-                                <DownloadButton title='거래명세서 다운로드' orderNumber={props.orderNumber} fileType='INVOICE' fileName={props.invoiceFileName}/>
-                                <DownloadButton title='세금계산서 다운로드' orderNumber={props.orderNumber} fileType='TAX_INVOICE' fileName={props.taxInvoiceFileName}/>
+                                <DownloadButton title='견적서 다운로드' orderNumber={props.orderNumber} fileType='QUOTATION' fileName={props.quotationFileName}/>
+                                {/*<DownloadButton title='거래명세서 다운로드' orderNumber={props.orderNumber} fileType='INVOICE' fileName={props.invoiceFileName}/>*/}
+                                {/*<DownloadButton title='세금계산서 다운로드' orderNumber={props.orderNumber} fileType='TAX_INVOICE' fileName={props.taxInvoiceFileName}/>*/}
                                 </>
                                 :
                                     <></>

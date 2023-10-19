@@ -261,7 +261,7 @@ const OrderDetail = () => {
                                     </div>
                                     <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'} ml-[45px] w-[950px]`}>
                                         {
-                                            data.purchaseDetail.total ? <PurchaseDetail orderNumber={data.orderNumber} invoiceFileName={data.invoiceFileName} taxInvoiceFileName={data.taxInvoiceFileName} data={data.purchaseDetail} /> :
+                                            data.purchaseDetail.total ? <PurchaseDetail orderNumber={data.orderNumber} quotationFileName={data.quotationFileName} invoiceFileName={data.invoiceFileName} taxInvoiceFileName={data.taxInvoiceFileName} data={data.purchaseDetail} /> :
                                                 <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
                                                     구매 내역이 없습니다.
                                                 </div>
