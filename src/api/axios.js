@@ -59,7 +59,8 @@ instance.interceptors.response.use(
         if (error.response && error.response.status) {
             switch (error.response.status) {
                 case 400:
-                    return Promise.resolve("오류");
+                    window.alert(error.response.data.message);
+                    return new Promise(() => {});
                 case 401:
                     if (handleUnauthorized) {
                         handleUnauthorized();

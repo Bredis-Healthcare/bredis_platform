@@ -61,7 +61,7 @@ function MemberCreate() {
             <div className=" w-[90px] h-[23px] left-[470px] top-[20px] relative text-black text-base font-bold font-['Inter'] mt-10">비밀번호 확인</div>
             <input id="passwordConfirm" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} rows="1" className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="비밀번호를 다시 입력해주세요"></input>
             <p className="left-[470px] top-[20px] relative  text-red-500 text-sm h-[20px]">
-                {confirmPassword && (password === confirmPassword ? '비밀번호가 일치합니다.' : '비밀번호가 일치하지 않습니다.')}
+                {confirmPassword && (password === confirmPassword ? <span className={"text-green-700"}>비밀번호가 일치합니다.</span> : <span>비밀번호가 일치하지 않습니다.</span>)}
             </p>
             <div className=" w-[90px] h-[23px] left-[470px] top-[20px] relative text-black text-base font-bold font-['Inter'] mt-10">전화번호</div>
             <input id="mobile" type="mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} rows="1" className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="010-1234-1234"></input>
