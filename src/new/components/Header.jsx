@@ -144,7 +144,7 @@ const Header = () => {
                     </div>
                     <div className={`${profileMenuOn ? 'block' : 'hidden'} profileModal absolute w-[16rem] flex flex-col items-center right-1 top-20 z-10 bg-white lg:text-lg md:text-base
                                 shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
-                        <div className="w-[240px] my-[5px] relative text-black  font-normal text-center">{userInfo.name} {userInfo.position}님 안녕하세요</div>
+                        <div className="w-[240px] my-[5px] relative text-black  font-normal text-center">{userInfo.name} {userInfo.position}님, 안녕하세요</div>
                         <div className="w-[234px] h-[0px] relative border border-zinc-500 border-opacity-50"></div>
                         <Link to="/members/modify">
                             <button onClick={() => setProfileMenuOn(false)}>
