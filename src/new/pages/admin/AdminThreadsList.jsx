@@ -47,7 +47,7 @@ function AdminThreadsList () {
                                 data.list.map((thread, index) => (
                                     <div key={thread.id}>
                                         <div>
-                                            <div className={`Line5 w-[1114px] h-[0px] left-[45px] my-5 top-[0px] relative border border-zinc-500`}></div>
+                                            <div className={`Line5 w-[1114px] h-[0px] left-[45px] my-5 top-[0px] relative border-[0.5px] border-zinc-400`}></div>
                                         </div>
                                         <div className={`w-[1097px] h-[90px] left-[76px] relative`}>
                                             <div className="Gfap left-0 top-[30px] absolute text-black text-2xl font-bold font-['Inter']">{thread.title}</div>

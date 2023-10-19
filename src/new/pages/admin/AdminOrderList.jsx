@@ -57,7 +57,7 @@ function AdminOrderList() {
                                         {index === 0 ? (<div />) : (
                                             <div>
                                                 <div className="h-5"></div>
-                                                <div className={`w-[1114px] h-[0px] left-[37px] top-[0px]] relative border border-zinc-500`} />
+                                                <div className={`w-[1114px] h-[0px] left-[37px] top-[0px]] relative border-[0.5px] border-zinc-400`} />
                                                 <div className="h-5"></div>
                                             </div>
                                         )}

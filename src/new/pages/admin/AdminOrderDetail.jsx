@@ -369,7 +369,7 @@ const AdminOrderDetail = () => {
                                                 분석 이력
                                                 <br />
                                             </div>
-                                            <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
+                                            <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border-[0.5px] border-black border-opacity-25"/>
                                             {
                                                 data.analysisHistory.length > 0 ? data.analysisHistory.map(history => (<div>
                                                         <div className="text-black not-italic font-light text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
@@ -380,7 +380,7 @@ const AdminOrderDetail = () => {
                                                         </div>
                                                         
                                                         { history.analysisResult && <div>
-                                                            <div className="w-[910px] h-[0px] ml-[65px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
+                                                            <div className="w-[910px] h-[0px] ml-[65px] flex flex-col mt-[15px] border-[0.5px] border-black border-opacity-25"/>
                                                             <div className="whitespace-pre-line w-full  max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[60px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]">분석 결과</div>
                                                             <div id="analysisResultText" className={`whitespace-pre-line w-full  max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[60px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]`}>
                                                                 {history.analysisResult ? history.analysisResult : '분석 결과가 아직 등록되지 않았습니다.'}
@@ -392,7 +392,7 @@ const AdminOrderDetail = () => {
                                                                     <DownloadButton title='분석 보고서 다운로드' fileName={history.reportFileName} fileType='REPORT' orderNumber={data.orderNumber} />
                                                                 </div></> : <></>
                                                         }
-                                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[30px] border border-black border-opacity-25"/>
+                                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[30px] border-[0.5px] border-black border-opacity-25"/>
                                                     </div>
 
 
@@ -401,7 +401,7 @@ const AdminOrderDetail = () => {
                                                     <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
                                                         분석 이력이 없습니다.
                                                     </div>
-                                                    <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border border-black border-opacity-25"/>
+                                                    <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border-[0.5px] border-black border-opacity-25"/>
                                                 </div>
                                                 
                                             }
@@ -424,7 +424,7 @@ const AdminOrderDetail = () => {
                                                 </button>
                                             </div>
                                             { editAnalysisHistoryOn && <div>
-                                                <textarea id="analysisHistoryInput" rows="12" className={`${editAnalysisHistoryOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
+                                                <textarea id="analysisHistoryInput" rows="12" className={`${editAnalysisHistoryOn ? 'block' : 'hidden'} resize-none left-[45px] mt-5 relative block p-2.5 w-[955px] text-sm text-gray-900 bg-gray-50 rounded-lg border-[0.5px] border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
                                                 </textarea>
 
                                                 <div className="flex flex-row ml-[20px]">
@@ -439,7 +439,7 @@ const AdminOrderDetail = () => {
                                                         <div className="w-[28px] aspect-[1] mt-[26px] flex justify-center items-center text-red-500 font-bold  border-[2px] border-red-500 border-opacity-50 rounded-lg ">X</div>
                                                     </button>
                                                 </div>
-                                                <textarea id="analysisResultInput" rows="12" className={`${editAnalysisResultOn ? 'block' : 'hidden'} resize-none left-[65px] mt-5 relative block p-2.5 w-[935px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
+                                                <textarea id="analysisResultInput" rows="12" className={`${editAnalysisResultOn ? 'block' : 'hidden'} resize-none left-[65px] mt-5 relative block p-2.5 w-[935px] text-sm text-gray-900 bg-gray-50 rounded-lg border-[0.5px] border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="특이사항...`}>
                                                     
                                                 </textarea>
 
@@ -478,7 +478,7 @@ const AdminOrderDetail = () => {
                                             <div className="w-full max-w-[972px] left-[0px] top-[0px] self-center flex flex-col mt-[10px] relative">
                                                 {threadData && threadData.messages.length > 0 ? threadData.messages.map((message, index) => (
                                                     <div key={index}>
-                                                        <div className="Line2 flex flex-col w-[920px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
+                                                        <div className="Line2 flex flex-col w-[920px] h-[0px] left-[2.83px] border-[0.5px] border-black border-opacity-25"></div>
                                                         <div className="flex max-sm:flex-col max-sm:items-stretch">
                                                             <div className="flex flex-col items-stretch leading-[normal] w-[calc(10%_-_10px)] max-sm:w-full my-3">
                                                                 <div className="text-black text-[14px] font-light font-['Inter'] text-center flex flex-col my-3">
@@ -502,17 +502,17 @@ const AdminOrderDetail = () => {
                                                         </div>
                                                     </div>
                                                 )) : <div>
-                                                    <div className="Line2 flex flex-col w-[920px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
+                                                    <div className="Line2 flex flex-col w-[920px] h-[0px] left-[2.83px] border-[0.5px] border-black border-opacity-25"></div>
                                                     <div className="text-black text-[15px] font-medium font-['Inter'] flex flex-col my-5">문의 내역이 없습니다.</div>
                                                 </div>
                                                 }
-                                                <div className="Line2 flex flex-col w-[920px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
+                                                <div className="Line2 flex flex-col w-[920px] h-[0px] left-[2.83px] border-[0.5px] border-black border-opacity-25"></div>
                                                 <div className={`${sendModeOn ? 'block' : 'hidden'}`}>
                                                     <div className=" w-[1000px] h-[22px] text-neutral-500 text-[10px] mt-3 font-medium font-['Inter']">
                                                         ※ 무분별한 비방이나 욕설 등 상대방에게 수치심을 느낄 수 있게 하는 내용의 메시지는 엄격히 금지되며, 위반 시 이용이 제한되고 관계 법률에 따른 법적 조치가 진행될 수 있습니다.<br />
                                                         ※ 수신된 메시지에는 부정경쟁 방지 및 영업비밀 보호에 관한 법률에 의해 보호의 대상이 되는 영업비밀, 산업기술 등을 포함할 수 있습니다. 이의 전부 또는 일부를 무단으로 제3자에게 공개, 배포, 복사 또는 사용하는 것은 엄격히 금지됩니다.
                                                     </div>
-                                                    <textarea id="message" rows="12" className="resize-none left-[0px] top-[20px] relative block p-2.5 mb-3 w-[910px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="메시지를 입력해주세요."></textarea>
+                                                    <textarea id="message" rows="12" className="resize-none left-[0px] top-[20px] relative block p-2.5 mb-3 w-[910px] text-sm text-gray-900 bg-gray-50 rounded-lg border-[0.5px] border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="메시지를 입력해주세요."></textarea>
                                                     <div className="inline-block text-neutral-700 text-[14px] font-normal font-['Inter'] mt-[20px]">첨부 파일: </div>
                                                     <input id="messageFileInput" className={`inline-block text-[14px] my-[10px] mx-[10px]`} type="file" />
                                                 </div>

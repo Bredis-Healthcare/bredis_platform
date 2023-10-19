@@ -40,7 +40,7 @@ function NotificationList() {
                         </button>
                         {notifications.list.length > 0 ? notifications.list.map((notification, index) => (
                             <div>
-                                <div className="Line2 flex flex-col w-[1013px] h-[0px] left-[2.83px] border border-black border-opacity-25"></div>
+                                <div className="Line2 flex flex-col w-[1013px] h-[0px] left-[2.83px] border-[0.5px] border-black border-opacity-25"></div>
                                 <div className="flex max-sm:flex-col max-sm:items-stretch">
                                     <div className="flex flex-col items-stretch leading-[normal] w-[calc(15%_-_10px)] max-sm:w-full my-3">
                                         <div className="text-black text-[14px] font-light font-['Inter'] text-center flex flex-col my-5">
