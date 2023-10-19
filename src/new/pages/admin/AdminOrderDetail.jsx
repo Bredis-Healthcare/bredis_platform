@@ -372,7 +372,7 @@ const AdminOrderDetail = () => {
                                             <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border-[0.5px] border-black border-opacity-25"/>
                                             {
                                                 data.analysisHistory.length > 0 ? data.analysisHistory.map(history => (<div>
-                                                        <div className="text-black not-italic font-light text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
+                                                        <div className="text-black not-italic font-medium text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
                                                             {history.createdDatetime}
                                                         </div>
                                                         <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
@@ -381,7 +381,7 @@ const AdminOrderDetail = () => {
                                                         
                                                         { history.analysisResult && <div>
                                                             <div className="w-[910px] h-[0px] ml-[65px] flex flex-col mt-[15px] border-[0.5px] border-black border-opacity-25"/>
-                                                            <div className="whitespace-pre-line w-full  max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[60px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]">분석 결과</div>
+                                                            <div className="whitespace-pre-line w-full  max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-semibold text-[16px] z-[1] ml-[60px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]">분석 결과</div>
                                                             <div id="analysisResultText" className={`whitespace-pre-line w-full  max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[60px] mt-[8px] pl-[12px] pr-[20px] pt-[10px] max-md:ml-[10px]`}>
                                                                 {history.analysisResult ? history.analysisResult : '분석 결과가 아직 등록되지 않았습니다.'}
                                                             </div>

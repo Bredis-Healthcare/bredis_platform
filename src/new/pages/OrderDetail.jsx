@@ -297,7 +297,7 @@ const OrderDetail = () => {
                                                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" alt="downloadIcon" className="inline-block aspect-[1] object-cover object-center w-[22px] ml-[5px] mb-[4px] self-center shrink-0"/>
                                             </div>
                                             </div>
-                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border-[2px] border-black border-opacity-25"/>
+                                        <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border-[1px] border-black border-opacity-25"/>
                                         <div className="relative">
                                             {
                                                 data ?
@@ -318,12 +318,12 @@ const OrderDetail = () => {
                                                                                         </div></> : <></>
                                                                                 }
                                                                                 
-                                                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] my-10 border-[2px] border-black border-opacity-25"></div>
+                                                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] my-10 border-[1px] border-black border-opacity-25"></div>
                                                                         </div>}
                                                                     </div> :
                                                                     <div>
                                                                         <div>
-                                                                            <div className="text-black not-italic font-light text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
+                                                                            <div className="text-black not-italic font-medium text-[16px] flex flex-col ml-[55px] mt-[12px] max-md:ml-[10px]">
                                                                                 {history.createdDatetime}
                                                                             </div>
                                                                             <div className="text-black not-italic font-normal text-[16px] flex flex-col ml-[54px] mt-[13px] max-md:ml-[10px]">
@@ -336,7 +336,7 @@ const OrderDetail = () => {
                                                                         <div className="w-[90%] ml-[5%]">
                                                                             {history.analysisResult && <div>
                                                                                 <div className="text-[#222] not-italic font-bold text-[20px] flex flex-col ml-[51px] mt-[30px] max-md:ml-[10px]">분석 결과</div>
-                                                                                <div className="w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[21px] max-md:ml-[10px]">
+                                                                                <div className="whitespace-pre-line w-full max-w-[896px] pb-[-7px] flex flex-col text-black not-italic font-normal text-[16px] z-[1] ml-[39px] mt-[8px] pl-[12px] pr-[20px] pt-[21px] max-md:ml-[10px]">
                                                                                     {history.analysisResult}
                                                                                 </div>
                                                                                 {
@@ -348,7 +348,7 @@ const OrderDetail = () => {
                                                                             </div>}
                                                                         </div>
                                                                         
-                                                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] my-10 border-[2px] border-black border-opacity-25"></div>
+                                                                        <div className="Line7 w-[950px] flex flex-col ml-[45px] my-10 border-[1px] border-black border-opacity-25"></div>
                                                                     </div>}
                                                                 </div>
                                                                 
