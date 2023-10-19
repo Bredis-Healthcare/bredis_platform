@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.66e4bd21.css",
-    "main.js": "/static/js/main.e1fc6962.js",
+    "main.css": "/static/css/main.52a2f528.css",
+    "main.js": "/static/js/main.2c8cb52b.js",
     "static/js/787.db26289b.chunk.js": "/static/js/787.db26289b.chunk.js",
     "static/media/companys.png": "/static/media/companys.d538217a44dea78e2d6b.png",
     "static/media/hdx.png": "/static/media/hdx.7bc4b41a966d5c0156e7.png",
@@ -32,12 +32,12 @@
     "static/media/bredis_logo_wide.png": "/static/media/bredis_logo_wide.dc70bdac982a33eed62b.png",
     "static/media/design1.png": "/static/media/design1.5e243ac8133d40a7dd1b.png",
     "index.html": "/index.html",
-    "main.66e4bd21.css.map": "/static/css/main.66e4bd21.css.map",
-    "main.e1fc6962.js.map": "/static/js/main.e1fc6962.js.map",
+    "main.52a2f528.css.map": "/static/css/main.52a2f528.css.map",
+    "main.2c8cb52b.js.map": "/static/js/main.2c8cb52b.js.map",
     "787.db26289b.chunk.js.map": "/static/js/787.db26289b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.66e4bd21.css",
-    "static/js/main.e1fc6962.js"
+    "static/css/main.52a2f528.css",
+    "static/js/main.2c8cb52b.js"
   ]
 }
