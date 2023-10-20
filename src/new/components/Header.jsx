@@ -97,7 +97,7 @@ const Header = () => {
     }
 
     return (
-            <div className="Header w-full h-20 relative flex flex-row items-center justify-between">
+            <div className="Header w-full h-20 bg-white flex flex-row items-center justify-between sticky top-0 z-10">
                 <Link className="flex flex-row  items-center"to={"/"}>
                     <img className="w-40" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800"  alt="logo"/>
                     <div className="text-black lg:text-2xl md:text-xl font-bold">Digital ELISA<br className="lg:hidden md:block" /> 연구분석서비스</div>
