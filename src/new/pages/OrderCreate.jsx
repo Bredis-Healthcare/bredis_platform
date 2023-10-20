@@ -94,7 +94,7 @@ function OrderCreate() {
                         {
                             data.status === 'OPINION_REGISTERED' ? (
                                 <>
-                                    <QuotationRequest data={data}/>
+                                    <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk} setQuotationRequestList={setQuotationRequestList}/>
                                     <div className="Group17 w-[815px] h-[200px] left-[443px] top-[30px] relative">
                                         <div className="Rectangle39 w-[815px] h-[150px] left-0 top-0 absolute bg-slate-500 rounded-[22px] shadow" />
                                         <div className=" w-[276.21px] h-[18px] left-[20.59px] top-[12px] absolute text-white text-lg font-semibold font-['Inter']">담당자 의견</div>
