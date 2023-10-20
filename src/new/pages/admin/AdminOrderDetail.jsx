@@ -305,9 +305,10 @@ const AdminOrderDetail = () => {
                                                                         {value: "ANALYSIS_IN_PROGRESS", label: "분석 중"},
                                                                         {value: "ANALYSIS_COMPLETE", label: "분석 완료"}
                                                                     ]}/>
-                                                            <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} text-[#035772] w-[150px] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>
-                                                                {data.status}
-                                                            </div>
+                                                            { data.status ==="분석 완료" ?
+                                                                <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} text-sky-900 w-[150px] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>{data.status}</div> :
+                                                                <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} text-lime-500 w-[150px] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>{data.status}</div>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>

@@ -239,9 +239,10 @@ const OrderDetail = () => {
                                                             <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col ml-[2px]">
                                                                 상태
                                                             </div>
-                                                            <div className="text-center self-center text-[#035772] w-[150px] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[15px]">
-                                                                {data.status}
-                                                            </div>
+                                                            { data.status ==="분석 완료" ?
+                                                                <div className="text-center self-center text-sky-900 w-[150px] not-italic font-bold text-[22px] flex flex-col mt-[15px]">{data.status}</div> :
+                                                                <div className="text-center self-center text-lime-500 w-[150px] not-italic font-bold text-[22px] flex flex-col mt-[15px]">{data.status}</div>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
