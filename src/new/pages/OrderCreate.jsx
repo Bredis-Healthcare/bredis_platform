@@ -14,7 +14,7 @@ function OrderCreate() {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [data, setData] = useState(null); // or your fetching logic
     const [quotationPreviewOn, setQuotationPreviewOn] = useState(false);
-    const [isQuotationRequestOk, setIsQuotationRequestOk] = useState(false);
+    const [isQuotationRequestOk, setIsQuotationRequestOk] = useState(true);
     const [quotationRequestList, setQuotationRequestList] = useState("");
 
     useEffect(() => {
@@ -25,6 +25,7 @@ function OrderCreate() {
         try {
             const request = await axios.get(`/quotation-requests/by-memberId?memberId=${cookies.login && cookies.login['id']}`);
             setData(request.data);
+            console.log(data);
 
         } catch (error) {
             console.log("error", error)
@@ -40,7 +41,9 @@ function OrderCreate() {
             if (!data.content.managerName) { alert("담당자를 입력해주세요."); return }
             if (!data.content.mobile) { alert("전화번호를 입력해주세요."); return }
             if (!data.content.email) { alert("이메일을 입력해주세요."); return }
-            if (!isQuotationRequestOk) { alert(`${quotationRequestList}을(를) 확인해주세요`); return }
+            if (!isQuotationRequestOk) { 
+                alert(`${quotationRequestList}을(를) 확인해주세요`); return
+            }
 
             await axios.post(`/quotation-requests/submit`, { "id": id, "contents": data.content});
             window.location.reload();

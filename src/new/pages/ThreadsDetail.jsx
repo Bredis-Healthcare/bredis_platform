@@ -36,6 +36,7 @@ function ThreadsDetail() {
         try {
             const request = await axios.get(`/threads/${pageInfo.resourceId}`);
             setData(request.data);
+            console.log(data)
         } catch (error) {
             console.log("error", error)
         }
@@ -61,7 +62,7 @@ function ThreadsDetail() {
                     "boundary": "--boundary",
                 }}
             );
-
+            document.querySelector("#messageFileInput").value = '';
             window.location.reload();
         }
     }

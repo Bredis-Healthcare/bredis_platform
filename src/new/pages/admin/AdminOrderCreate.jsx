@@ -46,7 +46,7 @@ function AdminOrderCreate() {
         try {
             const request = await axios.get(`/quotation-requests/${pageInfo.resourceId}`);
             setData(request.data);
-            //console.log(request.data)
+            console.log(request.data)
 
         } catch (error) {
             console.log("error", error)

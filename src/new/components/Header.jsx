@@ -26,8 +26,11 @@ const Header = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
     const {isLoading, error, data, refetch} = useQuery('notifications',
-        () => cookies.login ? axios.get(`/notifications?memberId=${cookies.login && cookies.login['id']}`) : null,
-        {refetchInterval: 10000});
+        () => cookies.login ? axios.get(`/notifications?memberId=${cookies.login && cookies.login['id']}`): null,
+        {
+            refetchInterval: 10000,
+            enabled:!!cookies.login,
+        });
         
     useEffect(()=>{
         async function loadUserInfo() {
@@ -44,21 +47,19 @@ const Header = () => {
                 setIsModalOpen(false);
             }
         }
-      
+        // console.log("cookies.login", cookies.login, !!cookies.login);
           
-        if(cookies.login)
+        if(!!cookies.login)
         {
             loadUserInfo()
+            refetch()
         }
-        refetch()
     },[cookies.login])
 
     useEffect(() => {
         setProfileMenuOn(false);
         setNotificationsOn(false); // 경로가 바뀌면 팝업 창을 닫습니다.
     }, [location]);
-
-    if (isLoading || error) return 'Loading...';
 
 
 
@@ -71,6 +72,9 @@ const Header = () => {
         await removeCookie(['login']);
         setIsModalOpen(false);
         clickProfileIcon()
+        if(request.status === 200){
+            alert("성공적으로 로그아웃 되었습니다.");
+        }
         navigate("/");
     }
 
@@ -157,7 +161,7 @@ const Header = () => {
                         </button>
                     </div>
 
-                    <div className={`${notificationsOn ? 'block' : 'hidden'} notificationModal absolute w-[300px] flex flex-col right-[3.5rem] top-20 z-10 bg-white lg:text-base md:text-sm
+                    <div className={`${notificationsOn&&cookies.login ? 'block' : 'hidden'} notificationModal absolute w-[300px] flex flex-col right-[3.5rem] top-20 z-10 bg-white lg:text-base md:text-sm
                                     shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
                         <div className="flex flex-col w-[100%] justify-center relative">
                             {

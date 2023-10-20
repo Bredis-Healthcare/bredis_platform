@@ -30,13 +30,16 @@ const Home = () => {
 const MainPageContent = () => {
     const {isModalOpen, setIsModalOpen} = useLoginModal();
     const navigate = useNavigate();
-    let location = useLocation();
+    const location = useLocation();
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
 
     useEffect(() => {
         // setIsModalOpen(true)
         setUnauthorizedHandler(() => {
             setIsModalOpen(true);
+            // console.log("로그인 토큰 없음");
+            // console.log("위치", location["pathname"], location["pathname"] !== '/');
+            // console.log("cookies", cookies.login);
             removeCookie('login', {path:'/'});
         });
     }, [setIsModalOpen]);
@@ -44,7 +47,7 @@ const MainPageContent = () => {
     return (
         <div className ="w-full justify-center relative ">
             <Header/>
-                {isModalOpen && (location["pathname"] !== '/login' || location["pathname"] !== '/') && <LoginPageModal/>}
+                {isModalOpen && (location["pathname"] !== '/login' && location["pathname"] !== '/') && <LoginPageModal/>}
                 {location["pathname"] === '/' && <DefaultPage/>}
             <Outlet/>
             <Footer/>

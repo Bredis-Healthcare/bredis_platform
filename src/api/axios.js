@@ -24,14 +24,14 @@ instance.interceptors.request.use(
         }
         else{
             // console.log("!", config.url)
-            if( config.url==='login' || config.url==='register' || config.url==='/admin/login')
+            if( config.url==='/' || config.url==='login' || config.url==='register' || config.url==='/admin/login')
             {
                 // console.log("!")
             }
             else{
                 // console.log("!s")
                 handleUnauthorized();
-                throw new Error("Error");
+                throw new axios.Cancel(`로그인 토큰이 없기에 요청 취소됨, 취소된 api 주소 ${config.url}`);
             }
         }
         return config;    
