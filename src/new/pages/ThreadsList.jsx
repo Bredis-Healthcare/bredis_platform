@@ -57,7 +57,12 @@ function ThreadsList () {
                                             }
 
                                             <div className=" left-[800px] w-[100px] top-0 absolute text-zinc-500 text-lg font-normal font-['Inter'] flex justify-center items-center ">상태</div>
-                                            <div className=" left-[800px] w-[100px] top-[30px] absolute text-lime-500 text-2xl font-bold font-['Inter'] flex justify-center items-center">{thread.status}</div>
+                                            {
+                                                thread.status !== '종료' ? 
+                                                <div className=" left-[800px] w-[100px] top-[30px] absolute text-lime-500 text-2xl font-bold font-['Inter'] flex justify-center items-center">{thread.status}</div> :
+                                                <div className=" left-[800px] w-[100px] top-[30px] absolute text-sky-900 text-2xl font-bold font-['Inter'] flex justify-center items-center">{thread.status}</div>
+                                            }
+                                            
                                             <div className="20220831143000 left-0 top-[67px] absolute text-zinc-500 text-lg font-normal font-['Inter']">문의일시: {thread.createdDatetime}</div>
                                             {
                                                 thread.status !== '종료' ? (<div />) : (

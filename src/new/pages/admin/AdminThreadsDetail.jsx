@@ -109,7 +109,7 @@ function AdminThreadsDetail() {
                                         { value: "IN_PROGRESS", label: "진행중" },
                                         { value: "ENDED", label: "종료" }
                                     ]}/>
-                            <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} text-[#035772] not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>
+                            <div id="statusLabel" className={`${editStatusOn ? 'hidden' : 'block'} ${data.status!=="종료" ? 'text-lime-500' : 'text-sky-900'} not-italic font-bold text-[22px] self-stretch flex flex-col mt-[10px]`}>
                                 {data.status}
                             </div>
                         </div>

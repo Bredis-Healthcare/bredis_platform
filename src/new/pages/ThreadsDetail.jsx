@@ -74,8 +74,12 @@ function ThreadsDetail() {
                     <div className=" w-[925px] h-[89px] left-[350px] top-[43px] relative">
                         <div className="Gfap left-0 top-[30px] absolute text-black text-2xl font-bold font-['Inter']">{data.title}</div>
                         <div className=" left-0 top-0 absolute text-zinc-500 text-lg font-normal font-['Inter']">{data.category}</div>
-                        <div className=" left-[853px] top-[45px] absolute text-lime-500 text-2xl font-bold font-['Inter']">{data.status}</div>
-                        <div className=" left-[870px] top-[15px] absolute text-zinc-500 text-lg font-normal font-['Inter']">상태</div>
+                        <div className=" left-[800px] w-[100px]  top-[15px] absolute text-zinc-500 text-lg font-normal font-['Inter'] flex justify-center items-center ">상태</div>
+                        {
+                            data.status !== '종료' ? 
+                            <div className=" left-[800px] w-[100px] top-[45px] absolute text-lime-500 text-2xl font-bold font-['Inter'] flex justify-center items-center">{data.status}</div> :
+                            <div className=" left-[800px] w-[100px] top-[45px] absolute text-sky-900 text-2xl font-bold font-['Inter'] flex justify-center items-center">{data.status}</div>
+                        }
                         <div className="20220831143000 left-0 top-[67px] absolute text-zinc-500 text-lg font-normal font-['Inter']">생성일시: {data.createdDatetime}</div>
                     </div>
                     <div className="w-full max-w-[972px] left-[0px] top-[0px] self-center flex flex-col mt-[93px] relative">
