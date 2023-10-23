@@ -10,12 +10,12 @@ function ThreadsCreate () {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const navigate = useNavigate();
 
-    const preventClose = (e:BeforeUnloadEvent) => {
+    const preventClose = (e) => {
         e.preventDefault();
         e.returnValue = "작성 중인 내용은 사라집니다. 그래도 새로고침 하시겠습니까?"; 
     }
 
-    const preventGoBack = (e:PopStateEvent) => {
+    const preventGoBack = (e) => {
         window.removeEventListener('popstate', preventGoBack);
         e.preventDefault();
         const userConfirmed = window.confirm("작성 중인 내용은 사라집니다. 그래도 이동하시겠습니까?");

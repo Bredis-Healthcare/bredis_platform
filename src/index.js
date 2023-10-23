@@ -1,3 +1,5 @@
+import "core-js/stable";
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import "./index.css"
@@ -29,6 +31,7 @@ import MemberCreate from "./new/pages/MemberCreate";
 import MemberModify from "./new/pages/MemberModify";
 import ServiceTerms from "./new/pages/terms/ServiceTerms";
 import PrivacyTerms from "./new/pages/terms/PrivacyTerms";
+
 
 const router = createBrowserRouter([
     {
@@ -190,6 +193,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </QueryClientProvider>
     </React.StrictMode>
 );
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
