@@ -5,6 +5,9 @@ import AdminLayout from "../../components/admin/AdminLayout";
 import Select from "react-select";
 import DownloadButton from "../../components/DownloadButton";
 
+import icon_edit from "../../../img/icon_edit.png"
+import icon_save from "../../../img/icon_save.svg"
+
 function AdminThreadsDetail() {
 
     const [data, setData] = useState(null); // or your fetching logic
@@ -97,10 +100,10 @@ function AdminThreadsDetail() {
                                     상태
                                 </div>
                                 <button className={`editButton ${editStatusOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditStatus()}>
-                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] self-stretch shrink-0"/>
+                                    <img src={icon_edit} className="aspect-[1.06] object-cover object-center w-[35px] self-stretch shrink-0"/>
                                 </button>
                                 <button className={`saveButton ${editStatusOn ? 'block' : 'hidden'}`} onClick={()=>saveStatus()}>
-                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mx-[3px] self-stretch shrink-0"/>
+                                    <img src={icon_save} className="aspect-[1.06] object-cover object-center w-[28px] mx-[3px] self-stretch shrink-0"/>
                                 </button>
                             </div>
                             <Select name="statusSelect" className={`${editStatusOn ? 'block' : 'hidden'} w-full text-center`} classNamePrefix="select" placeholder="선택"

@@ -4,6 +4,8 @@ import Select from "react-select";
 import TableHeaderCell from "./TableHeaderCell";
 import axios from "../../../api/axios";
 import readXlsxFile from 'read-excel-file'
+import icon_download from "../../../img/icon_download.png"
+import info_box from "../../../img/info_box.png"
 
 function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, ...props }) {
 
@@ -411,7 +413,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                         <div className=" w-[214px] h-6 left-[830px] top-[12px] relative">
                             <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/Digital+ELISA+%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%80%E1%85%AE%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8+%E1%84%89%E1%85%A5%E1%84%87%E1%85%B5%E1%84%89%E1%85%B3_%E1%84%87%E1%85%B3%E1%84%85%E1%85%A6%E1%84%83%E1%85%B5%E1%84%89%E1%85%B3%E1%84%92%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B3%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%A5.pdf"
                                className=" left-0 top-[0px] text-sky-900 text-[15px] font-bold font-['Inter'] inline-block">바이오마커 상세 목록 다운로드</a>
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0"/>
+                            <img src={icon_download} className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0"/>
                         </div>
                         {/*테이블 높이는 600으로 고정시키고 싶다.*/}
                         <div id="table" className="left-[90px] top-[20px] w-auto float-left relative min-h-[500px] max-h-[580px] overflow-y-scroll">
@@ -501,7 +503,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                                     <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-white text-sm font-bold font-['Inter']">복제</div>
                                                 </button>
                                                 <div className={`${(copyModeOn && !inputModeOn) ? 'block' : 'hidden'} absolute w-[240px] h-[150px] right-[5px] top-[22px] z-10`}>
-                                                    <img className="object-contain object-center h-[100%]" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bca921d1-aa51-484b-b5ef-f90ff93de920?&width=800" alt=""/>
+                                                    <img className="object-contain object-center h-[100%]" src={info_box} alt=""/>
                                                     <div className="Group28 w-[240px] h-[151px] left-[0px] top-[0px] absolute">
                                                         <div className=" left-[18px] top-[30px] absolute text-black text-[16px] font-normal font-['Inter']">샘플 정보를 복제합니다.</div>
                                                         <div className=" left-[18px] top-[55px] absolute text-black text-[16px] font-normal font-['Inter']">복제 대상 샘플 번호: </div>
@@ -581,7 +583,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
 "
                                        className="mt-[10px]">
                                         <div className="relative text-zinc-500 text-[15px] font-bold font-['Inter'] inline-block">양식 다운로드</div>
-                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0" alt="다운버튼"/>
+                                        <img src={icon_download} className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0" alt="다운버튼"/>
                                     </a>
 
                                 </div>

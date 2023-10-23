@@ -7,6 +7,10 @@ import PurchaseDetail from "../components/order/PurchaseDetail";
 import DownloadButton from "../components/DownloadButton";
 import FileUploadModal from "../components/modals/FileUploadModal";
 
+import toggle_off from "../../img/toggle_off.svg"
+import toggle_on from "../../img/toggle_on.svg"
+import icon_download from "../../img/icon_download.png"
+
 export async function loader({ params }) {
     const orderId = params.orderId
     const isAdmin = false
@@ -256,8 +260,8 @@ const OrderDetail = () => {
                                         </div>
                                         <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
                                              onClick={()=>toggleOrderInfo()}>
-                                            <img className={`object-cover object-center ${orderInfoOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
-                                            <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${orderInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
+                                            <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
                                     </div>
                                     <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'} ml-[45px] w-[950px]`}>
@@ -277,8 +281,8 @@ const OrderDetail = () => {
                                         </div>
                                         <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
                                              onClick={()=>toggleAnalysisInfo()}>
-                                            <img className={`object-cover object-center ${analysisInfoOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
-                                            <img className={`object-cover object-center ${analysisInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${analysisInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
+                                            <img className={`object-cover object-center ${analysisInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
                                     </div>
                                     <div className={`analysisInfoOn ${analysisInfoOn ? 'block' : 'hidden'} flex flex-col`}>
@@ -295,7 +299,7 @@ const OrderDetail = () => {
                                             </div>
                                             <div className="flex flex-row py-4  hover:cursor-pointer " onClick={downloadAllReport}>
                                                 <div>분석 보고서 모두 다운로드</div>
-                                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" alt="downloadIcon" className="inline-block aspect-[1] object-cover object-center w-[22px] ml-[5px] mb-[4px] self-center shrink-0"/>
+                                                <img src={icon_download} alt="downloadIcon" className="inline-block aspect-[1] object-cover object-center w-[22px] ml-[5px] mb-[4px] self-center shrink-0"/>
                                             </div>
                                             </div>
                                         <div className="w-[950px] h-[0px] ml-[45px] flex flex-col mt-[15px] border-[1px] border-black border-opacity-25"/>
@@ -376,8 +380,8 @@ const OrderDetail = () => {
                                         </div>
                                         <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
                                              onClick={()=>toggleThreadInfo()}>
-                                            <img className={`object-cover object-center ${threadInfoOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
-                                            <img className={`object-cover object-center ${threadInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${threadInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
+                                            <img className={`object-cover object-center ${threadInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
                                     </div>
                                     <div className={`threadInfoOn ${threadInfoOn ? 'block' : 'hidden'}`}>

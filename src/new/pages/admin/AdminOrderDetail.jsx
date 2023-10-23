@@ -9,6 +9,11 @@ import PurchaseDetail from "../../components/order/PurchaseDetail";
 import DownloadButton from "../../components/DownloadButton";
 import FileUploadModal from "../../components/modals/FileUploadModal";
 
+import icon_edit from "../../../img/icon_edit.png"
+import icon_save from "../../../img/icon_save.svg"
+import toggle_off from "../../../img/toggle_off.svg"
+import toggle_on from "../../../img/toggle_on.svg"
+
 export async function loader({ params }) {
     const orderId = params.orderId
     const isAdmin = false
@@ -250,10 +255,10 @@ const AdminOrderDetail = () => {
                                                         의뢰내용
                                                     </div>
                                                     <button className={`editButton ${editRequestDetailOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditRequestDetail()}>
-                                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[18px] self-stretch shrink-0"/>
+                                                        <img src={icon_edit} className="aspect-[1.06] object-cover object-center w-[35px] mt-[18px] self-stretch shrink-0"/>
                                                     </button>
                                                     <button className={`saveButton ${editRequestDetailOn ? 'block' : 'hidden'}`} onClick={()=>saveRequestDetail()}>
-                                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[18px] mx-[3px] self-stretch shrink-0"/>
+                                                        <img src={icon_save} className="aspect-[1.06] object-cover object-center w-[28px] mt-[18px] mx-[3px] self-stretch shrink-0"/>
                                                     </button>
                                                 </div>
 
@@ -289,10 +294,10 @@ const AdminOrderDetail = () => {
                                                                     상태
                                                                 </div>
                                                                 <button className={`editButton ${editStatusOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditStatus()}>
-                                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] self-stretch shrink-0"/>
+                                                                    <img src={icon_edit} className="aspect-[1.06] object-cover object-center w-[35px] self-stretch shrink-0"/>
                                                                 </button>
                                                                 <button className={`saveButton ${editStatusOn ? 'block' : 'hidden'}`} onClick={()=>saveStatus()}>
-                                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mx-[3px] self-stretch shrink-0"/>
+                                                                    <img src={icon_save} className="aspect-[1.06] object-cover object-center w-[28px] mx-[3px] self-stretch shrink-0"/>
                                                                 </button>
                                                             </div>
                                                             <Select name="statusSelect" className={`${editStatusOn ? 'block' : 'hidden'} w-[150px] text-center`} classNamePrefix="select"
@@ -322,8 +327,8 @@ const AdminOrderDetail = () => {
                                         </div>
                                         <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
                                              onClick={()=>toggleOrderInfo()}>
-                                            <img className={`object-cover object-center ${orderInfoOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
-                                            <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${orderInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
+                                            <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
                                     </div>
                                     <div className={`orderInfo ${orderInfoOn ? 'block' : 'hidden'} ml-[45px] w-[950px]`}>
@@ -359,8 +364,8 @@ const AdminOrderDetail = () => {
                                         </div>
                                         <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
                                              onClick={()=>toggleAnalysisInfo()}>
-                                            <img className={`object-cover object-center ${analysisInfoOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
-                                            <img className={`object-cover object-center ${analysisInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${analysisInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
+                                            <img className={`object-cover object-center ${analysisInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
                                     </div>
                                     <div className={`analysisInfoOn ${analysisInfoOn ? 'block' : 'hidden'}`}>
@@ -415,10 +420,10 @@ const AdminOrderDetail = () => {
                                                     <br />
                                                 </div>
                                                 <button className={`editButton ${editAnalysisHistoryOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisHistory()}>
-                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[10px] self-stretch shrink-0"/>
+                                                    <img src={icon_edit} className="aspect-[1.06] object-cover object-center w-[35px] mt-[10px] self-stretch shrink-0"/>
                                                 </button>
                                                 <button className={`saveButton ${editAnalysisHistoryOn ? 'block' : 'hidden'}`} onClick={()=>addAnalysisHistory()}>
-                                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[10px] mx-[3px] self-stretch shrink-0"/>
+                                                    <img src={icon_save} className="aspect-[1.06] object-cover object-center w-[28px] mt-[10px] mx-[3px] self-stretch shrink-0"/>
                                                 </button>
                                                 <button className={`notsaveButton ${editAnalysisHistoryOn ? 'block' : 'hidden'}`} onClick={()=>toggleEditAnalysisHistory()}>
                                                     <div className="w-[28px] aspect-[1] mt-[10px] flex justify-center items-center text-red-500 font-bold border-[2px] border-red-500 border-opacity-50 rounded-lg ">X</div>    
@@ -434,7 +439,7 @@ const AdminOrderDetail = () => {
                                                         <br />
                                                     </div>
                                                     <button className={`editButton ${editAnalysisResultOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAnalysisResult()}>
-                                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[26px] self-stretch shrink-0"/>
+                                                        <img src={icon_edit} className="aspect-[1.06] object-cover object-center w-[35px] mt-[26px] self-stretch shrink-0"/>
                                                     </button>
                                                     <button className={`saveButton ${editAnalysisResultOn ? 'block' : 'hidden'}`} onClick={()=>toggleEditAnalysisResult()}>
                                                         <div className="w-[28px] aspect-[1] mt-[26px] flex justify-center items-center text-red-500 font-bold  border-[2px] border-red-500 border-opacity-50 rounded-lg ">X</div>
@@ -467,8 +472,8 @@ const AdminOrderDetail = () => {
                                         </div>
                                         <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
                                              onClick={()=>toggleThreadInfo()}>
-                                            <img className={`object-cover object-center ${threadInfoOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
-                                            <img className={`object-cover object-center ${threadInfoOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${threadInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
+                                            <img className={`object-cover object-center ${threadInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
                                     </div>
                                     <div className={`threadInfoOn ${threadInfoOn ? 'block' : 'hidden'}`}>

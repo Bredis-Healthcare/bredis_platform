@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
+import icon_edit from "../../../img/icon_edit.png"
+import icon_save from "../../../img/icon_save.svg"
 
 function AdminMembersDetail() {
     const [data, setData] = useState(null); // or your fetching logic
@@ -78,10 +80,10 @@ function AdminMembersDetail() {
                             <div className="Rectangle18 w-[485px] h-[196px] left-0 top-0 absolute bg-white shadow" />
                             <div className="EditLight w-[35px] h-[33.11px] left-[97px] top-0 absolute">
                                 <button className={`editButton ${editAdminMemoOn ? 'hidden' : 'block'}`} onClick={()=>toggleEditAdminMemo()}>
-                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/73de0a7a-f287-4059-b05d-6e3300e6d3bb?&width=400" className="aspect-[1.06] object-cover object-center w-[35px] mt-[5x] self-stretch shrink-0"/>
+                                    <img src={icon_edit} className="aspect-[1.06] object-cover object-center w-[35px] mt-[5x] self-stretch shrink-0"/>
                                 </button>
                                 <button className={`saveButton ${editAdminMemoOn ? 'block' : 'hidden'}`} onClick={()=>saveAdminMemo()}>
-                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/313cfcf2-748d-4dec-aeb4-c74b734fed03?&width=400" className="aspect-[1.06] object-cover object-center w-[28px] mt-[5px] mx-[3px] self-stretch shrink-0"/>
+                                    <img src={icon_save} className="aspect-[1.06] object-cover object-center w-[28px] mt-[5px] mx-[3px] self-stretch shrink-0"/>
                                 </button>
                             </div>
                             <div className=" left-[12px] top-[6px] absolute text-neutral-800 text-lg font-bold font-['Inter']">관리자 메모</div>

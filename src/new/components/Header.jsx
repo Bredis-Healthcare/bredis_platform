@@ -6,6 +6,8 @@ import {useQuery} from 'react-query'
 import {useCookies} from "react-cookie";
 import moment from 'moment';
 import 'moment/locale/ko';
+import bredis_logo_wide from "../../img/bredis_logo_wide.png"
+import icon_noti from "../../img/icon_noti.png"
 import icon_authed from "../../img/icon_authed.png"
 import icon_unauthed from "../../img/icon_unauthed.png"
 import { useLoginModal } from "./modals/LoginModalContext";
@@ -103,7 +105,7 @@ const Header = () => {
     return (
             <div className="Header w-full h-20 bg-white flex flex-row items-center justify-between sticky top-0 z-10">
                 <Link className="flex flex-row  items-center"to={"/"}>
-                    <img className="w-40" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2F6ef4e97d4d2943759576eb7807cff8ac?&width=800"  alt="logo"/>
+                    <img className="w-40" src={bredis_logo_wide}  alt="logo"/>
                     <div className="text-black lg:text-2xl md:text-xl font-bold">Digital ELISA<br className="lg:hidden md:block" /> 연구분석서비스</div>
                 </Link>
 
@@ -131,7 +133,7 @@ const Header = () => {
                                 onClick={() => clickNotificationIcon()}>
                             <div className="w-full">
                                 <div className={`${data && data.data && data.data.list.length > 0 ? 'block' : 'hidden'} Ellipse49 w-3 h-3 ml-4 absolute bg-red-600 rounded-full`} />
-                                <img className="object-cover object-center" src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fec38e501943d468fa0df8b6f1a34a36f?&width=200" alt=""/>
+                                <img className="object-cover object-center" src={icon_noti} alt="noti"/>
                             </div>
                         </button>
                         

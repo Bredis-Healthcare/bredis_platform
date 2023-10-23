@@ -9,6 +9,9 @@ import AskButton from "../components/AskButton";
 import OrderStarted from "../components/ordercreate/OrderStarted";
 import PurchaseDetail from "../components/order/PurchaseDetail";
 
+import toggle_off from "../../img/toggle_off.svg"
+import toggle_on from "../../img/toggle_on.svg"
+
 function OrderCreate() {
 
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
@@ -128,8 +131,8 @@ function OrderCreate() {
                                         <div className="text-sky-900 not-italic font-bold text-[20px] font-['Inter'] self-center text-center flex flex-col -mt-px">견적 제안 확인하기</div>
                                         <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
                                              onClick={()=>setQuotationPreviewOn(quotationPreviewOn => !quotationPreviewOn)}>
-                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'block' : 'hidden'}`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
-                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'hidden' : 'block'}`} src="https://cdn.builder.io/api/v1/image/assets/TEMP/46b519a3-c692-4c74-8f9f-12d963d49c9f?&width=200" alt="" />
+                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
+                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
                                     </div>
                                     <div className={`${quotationPreviewOn ? 'block' : 'hidden'} w-[1100px] h-auto left-[300px] top-[10px] mb-[20px] relative bg-white shadow`}>

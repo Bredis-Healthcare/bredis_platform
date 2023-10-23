@@ -1,4 +1,5 @@
 import axios from "../../api/axios";
+import icon_download from "../../img/icon_download.png"
 import React from "react";
 
 function DownloadButton (props) {
@@ -37,7 +38,7 @@ function DownloadButton (props) {
                      onClick={() => handleDownloadClick()}>
                     {props.title}
                 </div>
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/09d437dc-f4b1-488e-8408-a412fc62c665?&width=400" className="inline-block aspect-[1] object-cover object-center w-[22px] ml-[5px] mb-[4px] self-center shrink-0"/>
+                <img src={icon_download} className="inline-block aspect-[1] object-cover object-center w-[22px] ml-[5px] mb-[4px] self-center shrink-0"/>
             </button>
         </div>
     )

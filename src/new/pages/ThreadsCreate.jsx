@@ -4,6 +4,8 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "../../api/axios";
 import {useCookies} from "react-cookie";
 
+import toggle_off from "../../img/toggle_off.svg"
+
 function ThreadsCreate () {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const navigate = useNavigate();
@@ -66,7 +68,7 @@ function ThreadsCreate () {
                     <option value="RESEARCH">연구 협력</option>
                     <option value="OTHER">기타 문의</option>
                 </select>
-                <img className={`absolute top-[103px] left-[1070px]`} src="https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Feede2644e07c40428a85a860afad0b8c?&width=200" alt="" />
+                <img className={`absolute top-[103px] left-[1070px]`} src={toggle_off} alt="" />
 
                 <div className=" w-[90px] h-[23px] left-[470px] top-[20px] relative text-black text-base font-bold font-['Inter'] mt-10">문의 제목<span className="text-red-500"> *</span> </div>
                 <textarea id="title" rows="1" className="resize-none left-[470px] top-[30px] relative block p-2.5 mb-3 w-[633px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="문의 제목을 입력해주세요."></textarea>
