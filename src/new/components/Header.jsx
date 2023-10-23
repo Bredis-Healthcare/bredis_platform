@@ -108,21 +108,21 @@ const Header = () => {
                 </Link>
 
                 <div className="flex flex-row items-center lg:gap-8 md:gap-2" >
-                    <Link className="flex flex-col items-center lg:w-[6rem] md:w-[6rem]" to={"/"} onMouseOver={() => setIsHovering1(true)} onMouseOut={() => setIsHovering1(false)}>
+                    <Link reloadDocument className="flex flex-col items-center lg:w-[6rem] md:w-[6rem]" to={"/"} onMouseOver={() => setIsHovering1(true)} onMouseOut={() => setIsHovering1(false)}>
                         <div className={`${isHovering1 ? 'block' : 'hidden'} w-[6rem] md:w-[6rem] h-[0.2rem]  bg-sky-900`} />
                         <div className={`${isHovering1 ? 'text-sky-900' : 'text-black'}  text-black lg:text-xl md:text-base mt-[0.5rem] font-bold`}>서비스 소개</div>
                     </Link>
-                    <Link className="flex flex-col items-center lg:w-[6rem] md:w-[5rem]" to={"/threads/list"} onMouseOver={() => setIsHovering2(true)} onMouseOut={() => setIsHovering2(false)}>
+                    <Link reloadDocument className="flex flex-col items-center lg:w-[6rem] md:w-[5rem]" to={"/threads/list"} onMouseOver={() => setIsHovering2(true)} onMouseOut={() => setIsHovering2(false)}>
                         <div className={`${isHovering2 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
                         <div className={`${isHovering2 ? 'text-sky-900' : 'text-black'}  text-black lg:text-xl md:text-base mt-[0.5rem] font-bold`}>문의하기</div>
                     </Link>
 
-                    <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/orders/create"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
+                    <Link reloadDocument className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/orders/create"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
                         <div className={`${isHovering3 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
                         <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'}  lg:text-xl md:text-base mt-[0.5rem] font-bold`}>주문하기</div>
                     </Link>
 
-                    <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/orders/list"} onMouseOver={() => setIsHovering4(true)} onMouseOut={() => setIsHovering4(false)}>
+                    <Link reloadDocument className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/orders/list"} onMouseOver={() => setIsHovering4(true)} onMouseOut={() => setIsHovering4(false)}>
                         <div className={`${isHovering4 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
                         <div className={`${isHovering4 ? 'text-sky-900' : 'text-black'}   lg:text-xl md:text-base mt-[0.5rem] font-bold`}>주문내역</div>
                     </Link>
