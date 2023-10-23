@@ -83,13 +83,14 @@
       if (window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1) {
           alert('이 웹사이트는 Internet Explorer에서 최적화되지 않았습니다. Chrome, 사파리, 또는 Edge 브라우저를 사용해주세요.');
       }
-      var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-      var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
-      var isEdge = !isIE && !!window.StyleMedia;
+      // var isIE = !!document.documentMode;
+      // var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+      // var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+      // var isEdge = !isIE && !!window.StyleMedia;
   
-      if (!isChrome && !isSafari && !isEdge) {
-          alert('이 웹사이트는 현재 브라우저에서 최적화되지 않았습니다. Chrome, 사파리, 또는 Edge 브라우저를 사용해주세요.');
-      }
+      // if (!isChrome && !isSafari && !isEdge) {
+      //     alert('이 웹사이트는 현재 브라우저에서 최적화되지 않았습니다. Chrome, 사파리, 또는 Edge 브라우저를 사용해주세요.');
+      // }
     </script>
   </body>
 </html>
