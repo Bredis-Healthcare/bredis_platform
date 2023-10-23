@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d8cbeb40.css",
-    "main.js": "/static/js/main.38ad1262.js",
+    "main.css": "/static/css/main.14a84eb0.css",
+    "main.js": "/static/js/main.78426204.js",
     "static/js/787.db26289b.chunk.js": "/static/js/787.db26289b.chunk.js",
     "static/media/companys.png": "/static/media/companys.d538217a44dea78e2d6b.png",
     "static/media/hdx.png": "/static/media/hdx.7bc4b41a966d5c0156e7.png",
@@ -27,17 +27,18 @@
     "static/media/pos1.png": "/static/media/pos1.9672467dadd9b3007d41.png",
     "static/media/pos3.png": "/static/media/pos3.82178607b265b412e118.png",
     "static/media/1000x.png": "/static/media/1000x.11c28b3092965f5a9f78.png",
+    "static/media/check_icon.png": "/static/media/check_icon.6017dd8f86678a0a69f3.png",
     "static/media/bredis_logo.png": "/static/media/bredis_logo.a558dab85ecf3f00cd74.png",
     "static/media/pos2.png": "/static/media/pos2.f9858f49c7a47ac48fc3.png",
     "static/media/bredis_logo_wide.png": "/static/media/bredis_logo_wide.dc70bdac982a33eed62b.png",
     "static/media/design1.png": "/static/media/design1.5e243ac8133d40a7dd1b.png",
     "index.html": "/index.html",
-    "main.d8cbeb40.css.map": "/static/css/main.d8cbeb40.css.map",
-    "main.38ad1262.js.map": "/static/js/main.38ad1262.js.map",
+    "main.14a84eb0.css.map": "/static/css/main.14a84eb0.css.map",
+    "main.78426204.js.map": "/static/js/main.78426204.js.map",
     "787.db26289b.chunk.js.map": "/static/js/787.db26289b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d8cbeb40.css",
-    "static/js/main.38ad1262.js"
+    "static/css/main.14a84eb0.css",
+    "static/js/main.78426204.js"
   ]
 }
