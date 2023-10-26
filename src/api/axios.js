@@ -24,7 +24,7 @@ instance.interceptors.request.use(
         }
         else{
             // console.log("!", config.url)
-            if( config.url==='/' || config.url==='login' || config.url==='register' || config.url==='/admin/login')
+            if( config.url==='/' || config.url==='login' || config.url==='register' || config.url==='/admin/login' || config.url.includes('/register/email-certificate'))
             {
                 // console.log("!")
             }
