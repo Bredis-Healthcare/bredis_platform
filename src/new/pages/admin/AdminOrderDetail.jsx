@@ -321,12 +321,12 @@ const AdminOrderDetail = () => {
                                         </div>
                                     </div>
                                     {/*구매 내역*/}
-                                    <div className="w-full flex flex-row gap-[2.98779296875px] items-start flex-wrap mt-[23px]">
+                                    <div className="w-full flex flex-row gap-[2.98779296875px] items-start flex-wrap mt-[23px]"
+                                         onClick={()=>toggleOrderInfo()}>
                                         <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col -mt-px">
                                             구매 내역
                                         </div>
-                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
-                                             onClick={()=>toggleOrderInfo()}>
+                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0">
                                             <img className={`object-cover object-center ${orderInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
                                             <img className={`object-cover object-center ${orderInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
@@ -358,12 +358,12 @@ const AdminOrderDetail = () => {
                                     </div>
 
                                     {/*분석 결과*/}
-                                    <div className="w-full flex flex-row gap-[1.2958984375px] items-start flex-wrap mt-[17px]">
+                                    <div className="w-full flex flex-row gap-[1.2958984375px] items-start flex-wrap mt-[17px]"
+                                         onClick={()=>toggleAnalysisInfo()}>
                                         <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col -mt-px">
                                             분석 결과
                                         </div>
-                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
-                                             onClick={()=>toggleAnalysisInfo()}>
+                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0">
                                             <img className={`object-cover object-center ${analysisInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
                                             <img className={`object-cover object-center ${analysisInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
@@ -466,12 +466,12 @@ const AdminOrderDetail = () => {
                                     </div>
 
                                     {/*1:1 문의*/}
-                                    <div className="w-full flex flex-row gap-[2.98779296875px] items-start flex-wrap mt-[23px]">
+                                    <div className="w-full flex flex-row gap-[2.98779296875px] items-start flex-wrap mt-[23px]"
+                                         onClick={()=>toggleThreadInfo()}>
                                         <div className="text-[#888988] not-italic font-normal text-[16px] self-center text-center flex flex-col -mt-px">
                                             1:1 문의
                                         </div>
-                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
-                                             onClick={()=>toggleThreadInfo()}>
+                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0">
                                             <img className={`object-cover object-center ${threadInfoOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
                                             <img className={`object-cover object-center ${threadInfoOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
                                         </div>
