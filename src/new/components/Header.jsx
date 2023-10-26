@@ -163,7 +163,7 @@ const Header = () => {
                         </button>
                     </div>
 
-                    <div className={`${notificationsOn&&cookies.login ? 'block' : 'hidden'} notificationModal absolute w-[300px] flex flex-col right-[3.5rem] top-20 z-10 bg-white lg:text-base md:text-sm
+                    <div className={`${notificationsOn&&cookies.login ? 'block' : 'hidden'} notificationModal absolute max-h-[500px] overflow-y-scroll w-[300px] flex flex-col right-[3.5rem] top-20 z-10 bg-white lg:text-base md:text-sm
                                     shadow-[0px_0px_4px_2px_rgba(0,0,0,0.25)] rounded-[9px] py-[3px]`}>
                         <div className="flex flex-col w-[100%] justify-center relative">
                             {
