@@ -3,11 +3,11 @@ import AdminHeader from "./AdminHeader";
 
 const AdminLayout = (props) => {
     return <div>
-        <div className="MenuHeader w-[1667px] h-[115px]  bg-sky-900 relative">
-            <div className=" left-[33px] top-[57px] absolute text-white text-3xl font-bold font-['Inter']">{props.menuName}</div>
-            <div className="987204 right-[180px] top-[63px] absolute"><span className="text-white text-xl font-normal">{props.menuNameAddInfo}</span></div>
+        <div className="MenuHeader w-full h-[7rem] bg-sky-900 relative">
+            <div className=" w-[40%] left-[33px] top-[57px] absolute text-white lg:text-3xl md:text-2xl font-bold break-keep">{props.menuName}</div>
+            <div className="w-[45%] right-[30px] top-[63px] absolute"><span className="text-white lg:text-xl md:text-base font-normal break-keep">{props.menuNameAddInfo}</span></div>
         </div>
-        <div className="relative w-[1667px] flex flex-col p-px bg-neutral-100 py-10">
+        <div className="relative w-full flex flex-col bg-neutral-100 py-10 overflow-x-auto">
                 {props.children}
         </div>
     </div>
