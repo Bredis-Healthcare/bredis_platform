@@ -4,31 +4,31 @@ import "./index.css"
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {CookiesProvider} from "react-cookie";
-import Home, { loader, adminloader  } from "./new/pages/Home";
-import OrderDetail, {loader as OrderDetailLoader} from "./new/pages/OrderDetail";
+import Home, { loader, adminloader  } from "./pages/Home";
+import OrderDetail, {loader as OrderDetailLoader} from "./pages/order/OrderDetail";
 import ErrorPage from "./error-page";
-import OrderList, {loader as OrderListLoader} from './new/pages/OrderList';
-import LoginPage from "./new/pages/LoginPage";
-import OrderCreate from "./new/pages/OrderCreate";
-import ThreadsList from "./new/pages/ThreadsList";
-import ThreadsCreate from "./new/pages/ThreadsCreate";
-import ThreadsDetail from "./new/pages/ThreadsDetail";
-import AdminMembersList from "./new/pages/admin/AdminMembersList";
-import AdminLoginPage from "./new/pages/admin/AdminLoginPage";
-import AdminMembersDetail from "./new/pages/admin/AdminMembersDetail";
-import AdminOrderList from "./new/pages/admin/AdminOrderList";
-import AdminOrderDetail from "./new/pages/admin/AdminOrderDetail";
-import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
-import AdminThreadsList from "./new/pages/admin/AdminThreadsList";
-import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
-import AdminHome from './new/pages/admin/AdminHome';
+import OrderList, {loader as OrderListLoader} from './pages/order/OrderList';
+import LoginPage from "./pages/login/LoginPage";
+import OrderCreate from "./pages/order/OrderCreate";
+import ThreadsList from "./pages/threads/ThreadsList";
+import ThreadsCreate from "./pages/threads/ThreadsCreate";
+import ThreadsDetail from "./pages/threads/ThreadsDetail";
+import AdminMembersList from "./pages/member/AdminMembersList";
+import AdminLoginPage from "./pages/login/AdminLoginPage";
+import AdminMembersDetail from "./pages/member/AdminMembersDetail";
+import AdminOrderList from "./pages/order/AdminOrderList";
+import AdminOrderDetail from "./pages/order/AdminOrderDetail";
+import AdminOrderCreate from "./pages/order/AdminOrderCreate";
+import AdminThreadsList from "./pages/threads/AdminThreadsList";
+import AdminThreadsDetail from "./pages/threads/AdminThreadsDetail";
+import AdminHome from './pages/AdminHome';
 import "./resources/fonts/pretendard.css"
 import {QueryClient, QueryClientProvider} from "react-query";
-import NotificationList from "./new/pages/NotificationList";
-import MemberCreate from "./new/pages/MemberCreate";
-import MemberModify from "./new/pages/MemberModify";
-import ServiceTerms from "./new/pages/terms/ServiceTerms";
-import PrivacyTerms from "./new/pages/terms/PrivacyTerms";
+import NotificationList from "./pages/NotificationList";
+import MemberCreate from "./pages/member/MemberCreate";
+import MemberModify from "./pages/member/MemberModify";
+import ServiceTerms from "./pages/terms/ServiceTerms";
+import PrivacyTerms from "./pages/terms/PrivacyTerms";
 
 const router = createBrowserRouter([
     {
