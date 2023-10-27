@@ -28,7 +28,7 @@ const DefaultPage = () => {
                     :
                     <div className="bg-white flex-col relative justify-start items-center gap-[170px] inline-flex w-full  pb-[50px] mt-[-2.5rem] mb-[-40px]">
                         <div className="w-full  bg-gray-200 relative aspect-video ">
-                            <img className="w-full" src={coverImage} onLoad={handleImageLoaded} alt="coverImage"/>
+                            <img className="w-full" src={coverImage} onLoad={handleImageLoaded} alt="coverImage" fetchpriority="high" />
                             <div className="left-[10%] bottom-[10%] absolute">
                                 <span className="text-stone-950 text-6xl font-bold ">WE MAKE<br/></span>
                                 <span className="text-white text-6xl font-bold ">BRE</span>
