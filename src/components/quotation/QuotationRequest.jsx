@@ -377,8 +377,6 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
         {data ? (
                 <>
                 <div id="quotation-request" className="Rectangle30 w-[1100px] h-[1480px] left-[300px] top-[120px] mb-[150px] relative bg-white shadow">
-                    {/*<div className="" />*/}
-
                     <div className="relative left-[10px] h-[170px]">
                         <div className=" w-[95px] h-[17px] left-[80px] top-[45px] absolute text-slate-500 text-lg font-bold font-['Inter']">의뢰 기관: </div>
                         <input id="organizationInput" type="text" defaultValue={data.content.organization}
@@ -445,18 +443,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                             <TableCell rowNumber={index} value={`${row.repetition}`} maxWidth="110px"/>
                                             <TableCell rowNumber={index} value={`${row.volume}`} />
                                             <TableCell rowNumber={index} value={`${row.additionalAnalysis ? row.additionalAnalysis.join(', ') : ''}`} />
-                                            <TableCell rowNumber={index}>
-                                                {/*<button className=" w-[41px] h-[26px] relative mx-1" rownumber={`${index}`}*/}
-                                                {/*        onClick={(e) => deleteRow(e)}>*/}
-                                                {/*    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" rownumber={`${index}`}/>*/}
-                                                {/*    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-zinc-500 text-sm font-bold font-['Inter']" rownumber={`${index}`}>삭제</div>*/}
-                                                {/*</button>*/}
-                                                {/*<button className="editButton w-[41px] h-[26px] relative mx-1"*/}
-                                                {/*        onClick={(e) => selectRow(index)}>*/}
-                                                {/*    <div className="Rectangle7 w-[41px] h-[26px] left-0 top-0 absolute bg-white rounded-[9px] border border-zinc-500" />*/}
-                                                {/*    <div className=" w-[27px] h-[13px] left-[6px] top-[4px] absolute text-zinc-500 text-sm font-bold font-['Inter']">선택</div>*/}
-                                                {/*</button>*/}
-                                            </TableCell>
+                                            <TableCell rowNumber={index} />
                                         </tr>
                                     ))
                                 }
@@ -560,13 +547,9 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                             <div className={`flex flex-row w-[35%] my-3 mx-auto`}>
                                 <div className={`${selectRowInfoOn ? 'block' : 'hidden'} mx-3 text-zinc-500 text-[15px] font-normal selectedRowsLabel`}></div>
                                 <button className="mx-5 h-[1rem] text-zinc-500 text-[15px] font-bold"
-                                        onClick={() => selectAllRows()}>
-                                    전체 선택
-                                </button>
+                                        onClick={() => selectAllRows()}> 전체 선택 </button>
                                 <button className={`${selectRowInfoOn ? 'block' : 'hidden'} h-[1rem] mx-3 text-zinc-500 text-[15px] font-bold`}
-                                        onClick={() => deleteSelectedRows()}>
-                                    삭제
-                                </button>
+                                        onClick={() => deleteSelectedRows()}> 삭제 </button>
                             </div>
                             <div className="Group38 w-[40%] flex flex-col my-3 ml-auto">
                                 <div className="flex flex-row justify-end mr-10">
@@ -579,8 +562,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                     <button className={`${fileInputOn ? 'block' : 'hidden'} w-[123px] h-[35px] left-0 top-0 relative mx-[10px]`} onClick={() => toggleFileInput()}>
                                         <div className="Rectangle7 w-[123px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500 flex justify-center items-center text-slate-500 text-lg font-bold ">취소</div>
                                     </button>
-                                    <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/%EA%B2%80%EC%B2%B4+%EC%A0%95%EB%B3%B4+%EC%9E%85%EB%A0%A5+%EC%96%91%EC%8B%9D_%EB%B8%8C%EB%A0%88%EB%94%94%EC%8A%A4%ED%97%AC%EC%8A%A4%EC%BC%80%EC%96%B4.xlsx
-"
+                                    <a download href="https://bredis-public.s3.ap-northeast-2.amazonaws.com/test-service/%EA%B2%80%EC%B2%B4+%EC%A0%95%EB%B3%B4+%EC%9E%85%EB%A0%A5+%EC%96%91%EC%8B%9D_%EB%B8%8C%EB%A0%88%EB%94%94%EC%8A%A4%ED%97%AC%EC%8A%A4%EC%BC%80%EC%96%B4.xlsx"
                                        className="mt-[10px]">
                                         <div className="relative text-zinc-500 text-[15px] font-bold font-['Inter'] inline-block">양식 다운로드</div>
                                         <img src={icon_download} className="inline-block aspect-[1] object-cover object-center w-[22px] mb-[3px] self-center shrink-0" alt="다운버튼"/>

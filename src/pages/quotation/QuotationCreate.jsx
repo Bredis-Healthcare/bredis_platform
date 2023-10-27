@@ -6,7 +6,6 @@ import QuotationProgressUI from "../../components/quotation/QuotationProgressUI"
 import QuotationRequest from "../../components/quotation/QuotationRequest";
 import WaitReply from "../../components/quotation/WaitReply";
 import AskButton from "../../components/layout/AskButton";
-import OrderStarted from "../../components/quotation/OrderStarted";
 import PurchaseDetail from "../../components/quotation/PurchaseDetail";
 
 import toggle_off from "../../resources/img/toggle_off.svg"
@@ -68,96 +67,108 @@ function QuotationCreate() {
         }
     }
 
+    const fillOutQuotationRequestForm = (data) => <>
+        <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk} setQuotationRequestList={setQuotationRequestList}/>
+        <div className="mt-[8px] w-[500px] mr-[20px] ml-auto">
+            <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
+                    onClick={() => cancelRequest(data.id)}>
+                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
+            </button>
+            <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
+                    onClick={() => submitRequest(data.id)}>
+                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">요청서 작성</div>
+            </button>
+        </div>
+    </>;
+    const editQuotationRequestForm = (data) => <>
+        <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk} setQuotationRequestList={setQuotationRequestList}/>
+        <div className="Group17 w-[815px] h-[200px] left-[443px] top-[30px] relative">
+            <div className="Rectangle39 w-[815px] h-[150px] left-0 top-0 absolute bg-slate-500 rounded-[22px] shadow"/>
+            <div className=" w-[276.21px] h-[18px] left-[20.59px] top-[12px] absolute text-white text-lg font-semibold font-['Inter']">담당자 의견</div>
+            <textarea value={data.managerComment} readOnly rows="4"
+                      className="resize-none bg-transparent Xxx23YyyXxx w-[773.78px] left-[20.59px] top-[38px] absolute text-white text-lg font-normal font-['Inter']"></textarea>
+        </div>
+        <div className="mr-[20px] ml-auto w-[500px] mt-[8px] relative">
+            <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
+                    onClick={() => cancelRequest(data.id)}>
+                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
+            </button>
+            <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
+                    onClick={() => submitRequest(data.id)}>
+                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">요청서 수정</div>
+            </button>
+        </div>
+    </>;
+    const waitUntilResponse = (data) => <WaitReply/>;
+    const progressOrderOrNot = (data) => <>
+        <QuotationRequest data={data} readOnly={true}/>
+        <div className="ml-[300px] flex flex-row gap-[1.2958984375px] items-start flex-wrap mt-[10px]">
+            <div className="text-sky-900 not-italic font-bold text-[20px] font-['Inter'] self-center text-center flex flex-col -mt-px">견적 제안 확인하기</div>
+            <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
+                 onClick={() => setQuotationPreviewOn(quotationPreviewOn => !quotationPreviewOn)}>
+                <img className={`object-cover object-center ${quotationPreviewOn ? 'block' : 'hidden'}`} src={toggle_off} alt=""/>
+                <img className={`object-cover object-center ${quotationPreviewOn ? 'hidden' : 'block'}`} src={toggle_on} alt=""/>
+            </div>
+        </div>
+        <div className={`${quotationPreviewOn ? 'block' : 'hidden'} w-[1100px] h-auto left-[300px] top-[10px] mb-[20px] relative bg-white shadow`}>
+            <div className="flex flex-col items-center">
+                <PurchaseDetail quotationRequestId={data.id} data={data.purchaseSuggestion}/>
+            </div>
+        </div>
+
+        <div className="flex flex-row gap-4 mt-[8px] mr-[20px] w-[500px] ml-auto">
+            <button className="w-[114px] h-[35px] relative inline-block"
+                    onClick={() => cancelRequest(data.id)}>
+                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
+                <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
+            </button>
+            <button className="w-[114px] h-[35px] relative inline-block"
+                    onClick={() => createOrder(data.id)}>
+                <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
+                <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">주문 발주</div>
+            </button>
+        </div>
+    </>;
+    const orderStarted = (data) => <>
+        <div className="top-[150px] h-[300px] relative ml-[300px]">
+            <div className="text-black text-left not-italic font-bold font-['Inter'] text-[27px] self-center flex flex-col ml-[40px] mt-[10px]">
+                주문 발주가 완료되었습니다!<br />상세 내역은 [주문내역] 메뉴에서 확인하실 수 있습니다.
+            </div>
+            <div className="text-[#888988] text-left not-italic font-normal font-['Inter'] text-[20px] self-center flex flex-col ml-[40px] mt-[10px]">
+                주문 일시: {data.orderDatetime}<br />주문 번호: {data.orderNumber}
+            </div>
+        </div>
+        <div className="relative ml-[300px] mt-[30px] w-[1100px]">
+            <PurchaseDetail quotationRequestId={data.id} data={data.purchaseSuggestion}/>
+        </div>
+        <button className="w-[200px] h-[45px] self-center flex flex-col relative mt-[30px]"
+                onClick={async () => {
+                    await axios.post(`/quotation-requests/create?memberId=${cookies.login && cookies.login['id']}`);
+                    window.location.reload();}}>
+            <div className="Rectangle7 w-[200px] h-[45px] absolute bg-slate-500 rounded-[9px]"/>
+            <div className=" w-[180px] h-[17px] left-[10px] top-[10px] absolute text-white text-[20px] font-bold font-['Inter']">새로운 견적 요청하기</div>
+        </button>
+    </>
+
     return (
         <div>
             {data ? (
                 <>
                 <Layout menuName="주문하기 > 견적 요청서 작성" menuNameAddInfo="견적 요청서 작성 → 견적 협의 → 주문 발주 의 순서로 진행됩니다.">
-                    <div className="12 w-[1667px] flex flex-col relative bg-neutral-100">
+                    <div className="w-[1667px] flex flex-col relative bg-neutral-100">
                         <QuotationProgressUI status={data.status} />
                         {
-                            data.status === 'BEFORE_SUBMIT' ? (
-                                <>
-                                    <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk} setQuotationRequestList={setQuotationRequestList}/>
-                                    <div className="mt-[8px] w-[600px] mr-[20px] ml-auto">
-                                        <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
-                                                onClick={() => cancelRequest(data.id)}>
-                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
-                                            <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
-                                        </button>
-                                        <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
-                                                onClick={() => submitRequest(data.id)}>
-                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
-                                            <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">요청서 작성</div>
-                                        </button>
-                                    </div>
-                                </>
-                            ) : <></>
-                        }
-                        {
-                            data.status === 'SUBMITTED' ? <WaitReply/> : <></>
-                        }
-                        {
-                            data.status === 'OPINION_REGISTERED' ? (
-                                <>
-                                    <QuotationRequest data={data} setIsQuotationRequestOk={setIsQuotationRequestOk} setQuotationRequestList={setQuotationRequestList}/>
-                                    <div className="Group17 w-[815px] h-[200px] left-[443px] top-[30px] relative">
-                                        <div className="Rectangle39 w-[815px] h-[150px] left-0 top-0 absolute bg-slate-500 rounded-[22px] shadow" />
-                                        <div className=" w-[276.21px] h-[18px] left-[20.59px] top-[12px] absolute text-white text-lg font-semibold font-['Inter']">담당자 의견</div>
-                                        <textarea value={data.managerComment} readOnly rows="4" className="resize-none bg-transparent Xxx23YyyXxx w-[773.78px] left-[20.59px] top-[38px] absolute text-white text-lg font-normal font-['Inter']"></textarea>
-                                    </div>
-                                    <div className="mr-40 ml-auto w-[300px] mt-[8px] relative">
-                                        <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
-                                                onClick={() => cancelRequest(data.id)}>
-                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
-                                            <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
-                                        </button>
-                                        <button className="w-[114px] h-[35px] relative inline-block mx-[10px]"
-                                                onClick={() => submitRequest(data.id)}>
-                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
-                                            <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">요청서 수정</div>
-                                        </button>
-                                    </div>
-                                </>
-                            ) : (
-                                <></>
-                            )
-                        }
-                        {
-                            data.status === 'QUOTATION_SUGGESTED' ? (
-                                <>
-                                    <QuotationRequest data={data} readOnly={true}/>
-                                    <div className="ml-[300px] flex flex-row gap-[1.2958984375px] items-start flex-wrap mt-[10px]">
-                                        <div className="text-sky-900 not-italic font-bold text-[20px] font-['Inter'] self-center text-center flex flex-col -mt-px">견적 제안 확인하기</div>
-                                        <div className="aspect-[1] object-cover object-center w-[24px] self-stretch shrink-0"
-                                             onClick={()=>setQuotationPreviewOn(quotationPreviewOn => !quotationPreviewOn)}>
-                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'block' : 'hidden'}`} src={toggle_off} alt="" />
-                                            <img className={`object-cover object-center ${quotationPreviewOn ? 'hidden' : 'block'}`} src={toggle_on} alt="" />
-                                        </div>
-                                    </div>
-                                    <div className={`${quotationPreviewOn ? 'block' : 'hidden'} w-[1100px] h-auto left-[300px] top-[10px] mb-[20px] relative bg-white shadow`}>
-                                        <div className="flex flex-col items-center">
-                                            <PurchaseDetail quotationRequestId={data.id} data={data.purchaseSuggestion}/>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex flex-row gap-4 mt-[8px] mr-40 ml-auto">
-                                        <button className="w-[114px] h-[35px] relative inline-block"
-                                                onClick={() => createOrder(data.id)}>
-                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-slate-500 rounded-[9px]"/>
-                                            <div className=" w-[95px] h-[17px] left-[11px] top-[6px] absolute text-white text-lg font-bold font-['Inter']">주문 발주</div>
-                                        </button>
-                                        <button className="w-[114px] h-[35px] relative inline-block"
-                                                onClick={() => cancelRequest(data.id)}>
-                                            <div className="Rectangle7 w-[114px] h-[35px] left-0 top-0 absolute bg-neutral-100 rounded-[9px] border-2 border-slate-500"/>
-                                            <div className=" w-[95px] h-[17px] left-[10px] top-[7px] absolute text-slate-500 text-lg font-bold font-['Inter']">다시 작성</div>
-                                        </button>
-                                    </div>
-                                </>
-                            ) : <></>
-                        }
-                        {
-                            data.status === 'ORDER_STARTED' ? <OrderStarted data={data} quotationRequestId={data.id} memberId={cookies.login && cookies.login['id']}/> : <></>
+                            {
+                                BEFORE_SUBMIT : fillOutQuotationRequestForm(data),
+                                SUBMITTED : waitUntilResponse(data),
+                                OPINION_REGISTERED : editQuotationRequestForm(data),
+                                QUOTATION_SUGGESTED : progressOrderOrNot(data),
+                                ORDER_STARTED : orderStarted(data)
+                            }[data.status]
                         }
                         <AskButton />
                     </div>
