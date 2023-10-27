@@ -5,10 +5,10 @@ import {LoginModalProvider, useLoginModal} from '../../components/modals/LoginMo
 import {setUnauthorizedHandler} from '../../../api/axios';
 
 import Footer from "../../components/Footer";
-import AdminDefaultPage from './AdminDefaultPage';
 import AdminHeader from '../../components/admin/AdminHeader';
 import AdminLoginPageModal from '../../components/modals/AdminLoginModal';
 import {useCookies} from "react-cookie";
+import AdminLoginPage from "./AdminLoginPage";
 
 export async function loader({ params }) {
     const isAdmin = false;
@@ -47,7 +47,7 @@ const MainPageContent = () => {
         <div className ="w-full justify-center relative " >
             <AdminHeader/>
                 {isModalOpen && (location["pathname"] !== 'admin/login' && location["pathname"] !== '/admin') && <AdminLoginPageModal/>}
-                {location["pathname"] === '/admin' && <AdminDefaultPage/>}
+                {location["pathname"] === '/admin' && <AdminLoginPage/>}
             <Outlet/>
             <Footer/>
         </div>

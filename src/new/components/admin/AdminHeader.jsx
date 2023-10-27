@@ -36,7 +36,7 @@ const AdminHeader = () => {
         const request = await axios.post('logout')
         removeCookie(['login']);
         clickProfileIcon()
-        navigate("/admin");
+        navigate("/admin/login");
     }
     
     async function toMain() {
