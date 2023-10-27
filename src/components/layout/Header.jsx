@@ -170,7 +170,7 @@ const Header = () => {
                                 data && data.data ?
                                     (data.data.list.length > 0 ? <>
                                             {
-                                                data.data.list.map((notification) => (<>
+                                                data.data.list.map((notification, index) => (<div key={index}>
                                                     <Link reloadDocument to={notification.linkTo} state={{resourceId: notification.resourceId}} onClick={(e) => checkRead(e, notification.id)}>
                                                         <button className="text-left">
                                                             <div className="px-[17px] my-[5px] relative text-black ">
@@ -182,7 +182,7 @@ const Header = () => {
                                                         </button>
                                                     </Link>
                                                     <div className="Line11 w-[265px] h-[0px] left-[16px] my-[5px] relative border border-zinc-500 border-opacity-50"></div>
-                                                </>))
+                                                </div>))
                                             }
                                             <div className="flex flex-row justify-between"> 
                                                 <Link to={"/notifications"} onClick={() => setNotificationsOn(false)}>

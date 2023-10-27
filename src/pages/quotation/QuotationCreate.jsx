@@ -4,12 +4,12 @@ import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import QuotationProgressUI from "../../components/quotation/QuotationProgressUI";
 import QuotationRequest from "../../components/quotation/QuotationRequest";
-import WaitReply from "../../components/quotation/WaitReply";
 import AskButton from "../../components/layout/AskButton";
 import PurchaseDetail from "../../components/quotation/PurchaseDetail";
 
 import toggle_off from "../../resources/img/toggle_off.svg"
 import toggle_on from "../../resources/img/toggle_on.svg"
+import checkIcon from "../../resources/img/check_icon.png";
 
 function QuotationCreate() {
 
@@ -27,7 +27,6 @@ function QuotationCreate() {
         try {
             const request = await axios.get(`/quotation-requests/by-memberId?memberId=${cookies.login && cookies.login['id']}`);
             setData(request.data);
-            console.log(data);
 
         } catch (error) {
             console.log("error", error)
@@ -103,7 +102,15 @@ function QuotationCreate() {
             </button>
         </div>
     </>;
-    const waitUntilResponse = (data) => <WaitReply/>;
+    const waitUntilResponse = (data) => <>
+        <div className="top-[250px] h-[1000px] relative">
+            <img src={checkIcon}
+                 className="object-cover object-center max-w-[452px] flex ml-auto mr-auto" />
+            <div className="text-[#888988] text-center not-italic font-bold text-[27px] self-center flex flex-col ml-[40px] mt-[134px]">
+                견적 요청서가 정상적으로 접수되었습니다.<br/>영업일 기준 3일 내에 담당자가 회신을 드릴 예정입니다.
+            </div>
+        </div>
+    </>;
     const progressOrderOrNot = (data) => <>
         <QuotationRequest data={data} readOnly={true}/>
         <div className="ml-[300px] flex flex-row gap-[1.2958984375px] items-start flex-wrap mt-[10px]">

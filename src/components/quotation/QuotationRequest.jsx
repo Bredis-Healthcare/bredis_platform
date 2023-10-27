@@ -337,15 +337,16 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
 
     function selectAllRows() {
         const allRowNumbers = [...Array(data.content.sampleDataList.length).keys()];
+        //전체 선택했다가, 다른 변경 없이 다시 전체 선택을 클릭하면 초기화 된다.
         if (selectedRows.length === allRowNumbers.length) {
             setSelectedRows([])
             document.querySelectorAll('td').forEach(td => td.style.backgroundColor='#fff')
             setSelectRowInfoOn(false);
             return
         }
+        //그 외의 경우에는 전체 선택을 유지한다.
         setSelectedRows(allRowNumbers)
-        const tableElements = Array.from(document.querySelectorAll(`td`));
-        tableElements.splice(-8)
+        const tableElements = Array.from(document.querySelectorAll('.activeRow'));
         tableElements.forEach(td => td.style.backgroundColor = '#ddd');
         setSelectRowInfoOn(true);
         //console.log(allRowNumbers)
@@ -523,7 +524,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
                                         </TableCell>
                                     </tr>
                                 }
-                                {
+                                { //최소 row 개수를 14개로 맞춰준다.
                                     data.content.sampleDataList.length < 13 ?
                                         [...Array(13 - data.content.sampleDataList.length).keys()].map((key) => (<tr key={key}>
                                         <TableCell value={`${data.content.sampleDataList.length + key + 2}`} minWidth="20px" maxWidth="90px"/>
