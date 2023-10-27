@@ -9,7 +9,7 @@ import OrderDetail, {loader as OrderDetailLoader} from "./pages/order/OrderDetai
 import ErrorPage from "./error-page";
 import OrderList, {loader as OrderListLoader} from './pages/order/OrderList';
 import LoginPage from "./pages/login/LoginPage";
-import OrderCreate from "./pages/order/OrderCreate";
+import QuotationCreate from "./pages/quotation/QuotationCreate";
 import ThreadsList from "./pages/threads/ThreadsList";
 import ThreadsCreate from "./pages/threads/ThreadsCreate";
 import ThreadsDetail from "./pages/threads/ThreadsDetail";
@@ -18,7 +18,7 @@ import AdminLoginPage from "./pages/login/AdminLoginPage";
 import AdminMembersDetail from "./pages/member/AdminMembersDetail";
 import AdminOrderList from "./pages/order/AdminOrderList";
 import AdminOrderDetail from "./pages/order/AdminOrderDetail";
-import AdminOrderCreate from "./pages/order/AdminOrderCreate";
+import AdminQuotationCreate from "./pages/quotation/AdminQuotationCreate";
 import AdminThreadsList from "./pages/threads/AdminThreadsList";
 import AdminThreadsDetail from "./pages/threads/AdminThreadsDetail";
 import AdminHome from './pages/AdminHome';
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
           },
           {
               path: "/orders/create",
-              element: <OrderCreate/>,
+              element: <QuotationCreate/>,
               errorElement: <ErrorPage/>,
               loader : loader,
           },
@@ -157,7 +157,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "members/orders/create",
-                element: <AdminOrderCreate/>,
+                element: <AdminQuotationCreate/>,
                 errorElement: <ErrorPage/>,
                 loader : adminloader,
             },

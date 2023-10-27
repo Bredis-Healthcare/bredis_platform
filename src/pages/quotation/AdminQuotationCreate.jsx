@@ -1,12 +1,12 @@
-import QuotationRequest from "../../components/order/QuotationRequest";
+import QuotationRequest from "../../components/quotation/QuotationRequest";
 import React, {useEffect, useState} from "react";
 import axios from "../../api/axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import AdminLayout from "../../components/layout/AdminLayout";
-import PurchaseDetailInput from "../../components/order/PurchaseDetailInput";
-import PurchaseDetail from "../../components/order/PurchaseDetail";
+import PurchaseDetailInput from "../../components/quotation/PurchaseDetailInput";
+import PurchaseDetail from "../../components/quotation/PurchaseDetail";
 
-function AdminOrderCreate() {
+function AdminQuotationCreate() {
     const [data, setData] = useState(null); // or your fetching logic
     const location = useLocation()
     const navigate = useNavigate()
@@ -220,4 +220,4 @@ function AdminOrderCreate() {
     )
 }
 
-export default AdminOrderCreate
+export default AdminQuotationCreate

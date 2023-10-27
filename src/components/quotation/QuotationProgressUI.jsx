@@ -2,7 +2,7 @@ import React from "react";
 
 const statusList = ['BEFORE_SUBMIT', 'SUBMITTED', 'OPINION_REGISTERED', 'QUOTATION_SUGGESTED', 'ORDER_STARTED', 'CANCELED']
 
-function OrderProgressUI (props) {
+function QuotationProgressUI (props) {
     let statusNumber = statusList.indexOf(props.status)
     return (
         <div className="Ui w-[683px] h-20 left-[492px] top-[80px] relative">
@@ -30,4 +30,4 @@ function OrderProgressUI (props) {
         </div>
     )
 }
-export default OrderProgressUI;
+export default QuotationProgressUI;

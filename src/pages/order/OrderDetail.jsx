@@ -3,7 +3,7 @@ import {useLocation, useNavigate,} from "react-router-dom";
 import axios from "../../api/axios";
 import Layout from "../../components/layout/Layout";
 import {useCookies} from "react-cookie";
-import PurchaseDetail from "../../components/order/PurchaseDetail";
+import PurchaseDetail from "../../components/quotation/PurchaseDetail";
 import DownloadButton from "../../components/file/DownloadButton";
 import FileUploadModal from "../../components/file/FileUploadModal";
 

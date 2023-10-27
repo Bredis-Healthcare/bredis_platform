@@ -4,7 +4,7 @@ import axios from "../../api/axios";
 import {useCookies} from "react-cookie";
 import Select from "react-select";
 import AdminLayout from "../../components/layout/AdminLayout";
-import PurchaseDetail from "../../components/order/PurchaseDetail";
+import PurchaseDetail from "../../components/quotation/PurchaseDetail";
 import DownloadButton from "../../components/file/DownloadButton";
 
 import icon_edit from "../../resources/img/icon_edit.png"

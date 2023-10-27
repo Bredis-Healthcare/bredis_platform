@@ -2,17 +2,17 @@ import Layout from "../../components/layout/Layout";
 import axios from "../../api/axios";
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import OrderProgressUI from "../../components/order/OrderProgressUI";
-import QuotationRequest from "../../components/order/QuotationRequest";
-import WaitReply from "../../components/order/WaitReply";
+import QuotationProgressUI from "../../components/quotation/QuotationProgressUI";
+import QuotationRequest from "../../components/quotation/QuotationRequest";
+import WaitReply from "../../components/quotation/WaitReply";
 import AskButton from "../../components/layout/AskButton";
-import OrderStarted from "../../components/order/OrderStarted";
-import PurchaseDetail from "../../components/order/PurchaseDetail";
+import OrderStarted from "../../components/quotation/OrderStarted";
+import PurchaseDetail from "../../components/quotation/PurchaseDetail";
 
 import toggle_off from "../../resources/img/toggle_off.svg"
 import toggle_on from "../../resources/img/toggle_on.svg"
 
-function OrderCreate() {
+function QuotationCreate() {
 
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const [data, setData] = useState(null); // or your fetching logic
@@ -74,7 +74,7 @@ function OrderCreate() {
                 <>
                 <Layout menuName="주문하기 > 견적 요청서 작성" menuNameAddInfo="견적 요청서 작성 → 견적 협의 → 주문 발주 의 순서로 진행됩니다.">
                     <div className="12 w-[1667px] flex flex-col relative bg-neutral-100">
-                        <OrderProgressUI status={data.status} />
+                        <QuotationProgressUI status={data.status} />
                         {
                             data.status === 'BEFORE_SUBMIT' ? (
                                 <>
@@ -170,4 +170,4 @@ function OrderCreate() {
     )
 }
 
-export default OrderCreate;
+export default QuotationCreate;
