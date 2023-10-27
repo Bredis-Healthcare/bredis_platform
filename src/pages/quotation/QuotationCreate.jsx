@@ -47,7 +47,7 @@ function QuotationCreate() {
                 alert(`${quotationRequestList}을(를) 확인해주세요`); return
             }
 
-            await axios.post(`/quotation-requests/submit`, { "id": id, "contents": data.content});
+            await axios.post(`/quotation-requests/submit?id=${id}`);
             window.location.reload();
         }
     }
