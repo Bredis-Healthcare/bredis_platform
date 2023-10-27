@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 import Layout from '../components/Layout'
 import {useNavigate} from 'react-router-dom';
-import coverImage from '../../img/info/coverImage.png'
-import img1000x from '../../img/info/1000x.png'
-import pos1 from '../../img/info/pos1.png'
-import pos2 from '../../img/info/pos2.png'
-import pos3 from '../../img/info/pos3.png'
-import hdx from '../../img/info/hdx.png'
-import companys from '../../img/info/companys.png'
-import design1 from '../../img/info/design1.png'
+import coverImage from '../../resources/img/info/coverImage.png'
+import img1000x from '../../resources/img/info/1000x.png'
+import pos1 from '../../resources/img/info/pos1.png'
+import pos2 from '../../resources/img/info/pos2.png'
+import pos3 from '../../resources/img/info/pos3.png'
+import hdx from '../../resources/img/info/hdx.png'
+import companys from '../../resources/img/info/companys.png'
+import design1 from '../../resources/img/info/design1.png'
 
 import AskButton from '../components/AskButton';
 import {FadeLoader} from 'react-spinners';

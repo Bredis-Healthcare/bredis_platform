@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "../../../api/axios";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
-import icon_edit from "../../../img/icon_edit.png"
-import icon_save from "../../../img/icon_save.svg"
+import icon_edit from "../../../resources/img/icon_edit.png"
+import icon_save from "../../../resources/img/icon_save.svg"
 
 function AdminMembersDetail() {
     const [data, setData] = useState(null); // or your fetching logic

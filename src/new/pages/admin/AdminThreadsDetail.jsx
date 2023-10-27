@@ -5,8 +5,8 @@ import AdminLayout from "../../components/admin/AdminLayout";
 import Select from "react-select";
 import DownloadButton from "../../components/DownloadButton";
 
-import icon_edit from "../../../img/icon_edit.png"
-import icon_save from "../../../img/icon_save.svg"
+import icon_edit from "../../../resources/img/icon_edit.png"
+import icon_save from "../../../resources/img/icon_save.svg"
 
 function AdminThreadsDetail() {
 

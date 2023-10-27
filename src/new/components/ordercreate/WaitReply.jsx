@@ -1,4 +1,4 @@
-import checkIcon from "../../../img/check_icon.png"
+import checkIcon from "../../../resources/img/check_icon.png"
 
 function WaitReply () {
     return (

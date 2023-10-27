@@ -4,8 +4,8 @@ import Select from "react-select";
 import TableHeaderCell from "./TableHeaderCell";
 import axios from "../../../api/axios";
 import readXlsxFile from 'read-excel-file'
-import icon_download from "../../../img/icon_download.png"
-import info_box from "../../../img/info_box.png"
+import icon_download from "../../../resources/img/icon_download.png"
+import info_box from "../../../resources/img/info_box.png"
 
 function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, ...props }) {
 

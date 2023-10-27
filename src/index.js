@@ -22,7 +22,7 @@ import AdminOrderCreate from "./new/pages/admin/AdminOrderCreate";
 import AdminThreadsList from "./new/pages/admin/AdminThreadsList";
 import AdminThreadsDetail from "./new/pages/admin/AdminThreadsDetail";
 import AdminHome from './new/pages/admin/AdminHome';
-import "./fonts/pretendard.css"
+import "./resources/fonts/pretendard.css"
 import {QueryClient, QueryClientProvider} from "react-query";
 import NotificationList from "./new/pages/NotificationList";
 import MemberCreate from "./new/pages/MemberCreate";

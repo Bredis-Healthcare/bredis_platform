@@ -1,5 +1,5 @@
 import axios from "../../api/axios";
-import icon_download from "../../img/icon_download.png"
+import icon_download from "../../resources/img/icon_download.png"
 import React from "react";
 
 function DownloadButton (props) {

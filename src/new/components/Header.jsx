@@ -6,10 +6,10 @@ import {useQuery} from 'react-query'
 import {useCookies} from "react-cookie";
 import moment from 'moment';
 import 'moment/locale/ko';
-import bredis_logo_wide from "../../img/bredis_logo_wide.png"
-import icon_noti from "../../img/icon_noti.png"
-import icon_authed from "../../img/icon_authed.png"
-import icon_unauthed from "../../img/icon_unauthed.png"
+import bredis_logo_wide from "../../resources/img/bredis_logo_wide.png"
+import icon_noti from "../../resources/img/icon_noti.png"
+import icon_authed from "../../resources/img/icon_authed.png"
+import icon_unauthed from "../../resources/img/icon_unauthed.png"
 import { useLoginModal } from "./modals/LoginModalContext";
 
 const Header = () => {

@@ -9,10 +9,10 @@ import PurchaseDetail from "../../components/order/PurchaseDetail";
 import DownloadButton from "../../components/DownloadButton";
 import FileUploadModal from "../../components/modals/FileUploadModal";
 
-import icon_edit from "../../../img/icon_edit.png"
-import icon_save from "../../../img/icon_save.svg"
-import toggle_off from "../../../img/toggle_off.svg"
-import toggle_on from "../../../img/toggle_on.svg"
+import icon_edit from "../../../resources/img/icon_edit.png"
+import icon_save from "../../../resources/img/icon_save.svg"
+import toggle_off from "../../../resources/img/toggle_off.svg"
+import toggle_on from "../../../resources/img/toggle_on.svg"
 
 export async function loader({ params }) {
     const orderId = params.orderId

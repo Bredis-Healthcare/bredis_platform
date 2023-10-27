@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "../../api/axios";
 import {useCookies} from "react-cookie";
 
-import toggle_off from "../../img/toggle_off.svg"
+import toggle_off from "../../resources/img/toggle_off.svg"
 
 function ThreadsCreate () {
     const [cookies, setCookie, removeCookie] = useCookies(['login']);

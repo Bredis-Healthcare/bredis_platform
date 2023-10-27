@@ -7,9 +7,9 @@ import PurchaseDetail from "../components/order/PurchaseDetail";
 import DownloadButton from "../components/DownloadButton";
 import FileUploadModal from "../components/modals/FileUploadModal";
 
-import toggle_off from "../../img/toggle_off.svg"
-import toggle_on from "../../img/toggle_on.svg"
-import icon_download from "../../img/icon_download.png"
+import toggle_off from "../../resources/img/toggle_off.svg"
+import toggle_on from "../../resources/img/toggle_on.svg"
+import icon_download from "../../resources/img/icon_download.png"
 
 export async function loader({ params }) {
     const orderId = params.orderId

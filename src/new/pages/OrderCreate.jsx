@@ -9,8 +9,8 @@ import AskButton from "../components/AskButton";
 import OrderStarted from "../components/ordercreate/OrderStarted";
 import PurchaseDetail from "../components/order/PurchaseDetail";
 
-import toggle_off from "../../img/toggle_off.svg"
-import toggle_on from "../../img/toggle_on.svg"
+import toggle_off from "../../resources/img/toggle_off.svg"
+import toggle_on from "../../resources/img/toggle_on.svg"
 
 function OrderCreate() {
 
