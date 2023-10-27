@@ -61,7 +61,7 @@ function AdminMembersList() {
                                             <br/>분석 완료 {member.completeOrderCount}건
                                         </div>
                                         <div className=" left-0 w-[180px] top-[93px] absolute text-black text-lg font-normal font-['Inter'] break-keep">{member.name} {member.position}</div>
-                                        <div className="20230831143000 left-0 top-0 absolute text-zinc-500 text-base font-normal font-['Inter']"><br/>가입 일시: {member.createdDatetime}</div>
+                                        <div className="20230831143000 left-0 top-0 absolute text-zinc-500 text-base font-normal font-['Inter']"><br/>최종 커뮤니케이션 일시: {member.lastCommunicationDatetime}</div>
                                         <div className="TestGmailCom left-[200px] w-[200px] top-[93px] absolute text-black text-lg font-normal font-['Inter']  break-all">{member.email}</div>
                                     </div>
                                     <div className="Line5 w-[1114px] h-[0px] left-[54px] top-[0px] my-[30px] relative border border-zinc-300"></div>

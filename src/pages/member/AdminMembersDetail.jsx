@@ -71,8 +71,8 @@ function AdminMembersDetail() {
                                 <div className="01012341234 left-0 top-[141px] absolute text-black text-lg font-normal font-['Inter']">전화번호: {data.mobile}</div>
                                 <div className="TestGmailCom left-0 top-[118px] absolute text-black text-lg font-normal font-['Inter']">이메일: {data.email}</div>
                                 <div className=" left-[2px] top-[29px] absolute text-zinc-500 text-base font-normal font-['Inter']">{data.department}</div>
-                                <div className="20230131140000 left-[240px] top-[180px] absolute text-zinc-500 text-sm font-normal font-['Inter']">가입일시: {data.createdDatetime}</div>
-                                {/*<div className="20230831140000 left-[183px] top-[22px] absolute text-zinc-500 text-sm font-normal font-['Inter']">최종 커뮤니케이션 일시: 2023.08.31 14:00:00</div>*/}
+                                <div className="20230131140000 left-[264px] top-[160px] absolute text-zinc-500 text-sm font-normal font-['Inter']">가입일시: {data.createdDatetime}</div>
+                                <div className="20230831140000 left-[193px] top-[180px] absolute text-zinc-500 text-sm font-normal font-['Inter']">최종 커뮤니케이션 일시: {data.lastCommunicationDatetime}</div>
                             </div>
                         </div>
 
