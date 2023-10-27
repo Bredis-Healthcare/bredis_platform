@@ -4,7 +4,7 @@ import "./index.css"
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {CookiesProvider} from "react-cookie";
-import Home, { loader, adminloader  } from "./pages/Home";
+import Home, {adminloader, loader} from "./pages/Home";
 import OrderDetail, {loader as OrderDetailLoader} from "./pages/order/OrderDetail";
 import ErrorPage from "./error-page";
 import OrderList, {loader as OrderListLoader} from './pages/order/OrderList';

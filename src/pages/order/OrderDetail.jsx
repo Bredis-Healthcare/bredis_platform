@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation, useNavigate,} from "react-router-dom";
+import {useLocation, useNavigate,} from "react-router-dom";
 import axios from "../../api/axios";
 import Layout from "../../components/layout/Layout";
 import {useCookies} from "react-cookie";

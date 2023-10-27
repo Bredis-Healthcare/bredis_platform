@@ -1,5 +1,4 @@
 import React from "react";
-import AdminHeader from "./AdminHeader";
 
 const AdminLayout = (props) => {
     return <div>

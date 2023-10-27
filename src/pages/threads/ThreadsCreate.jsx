@@ -1,6 +1,6 @@
 import Layout from "../../components/layout/Layout";
-import React, { useEffect } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "../../api/axios";
 import {useCookies} from "react-cookie";
 

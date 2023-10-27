@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from '../../resources/img/bredis_logo.png'
 import axios from "../../api/axios";
-import  {useNavigate  } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useCookies} from 'react-cookie';
-import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton, ModalOverlay, CloseButton } from './LoginPageStyles';
-import { useLoginModal } from './LoginModalContext';
+import {useLoginModal} from './LoginModalContext';
 
 const LoginPageModal = () => {
     const { setIsModalOpen } = useLoginModal();

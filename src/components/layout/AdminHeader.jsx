@@ -1,6 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import axios from "../../api/axios";
 import {useQuery} from 'react-query'
 import {useCookies} from "react-cookie";

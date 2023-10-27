@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { LoginContainer, LoginButton, LoginInput, LoginImage, SignupButton } from './LoginPageStyles';
+import React, {useState} from 'react';
 import logo from '../../resources/img/bredis_logo.png'
 import axios from "../../api/axios";
-import  {useNavigate  } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useCookies} from 'react-cookie';
 
 // Main login component

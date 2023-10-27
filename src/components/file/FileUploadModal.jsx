@@ -1,9 +1,23 @@
-import React, { useRef, useState } from 'react';
-import { 
-    RootContainer, Title, Contents, UploadBox, DragFile, 
-    FileLabel, FileInput, FilesContainer, FileItem,
-    Thumbnail, Details, Header, Progress, Status,
-    ImageIcon, CloseButton, ModalContent, SubmitButton,
+import React, {useRef, useState} from 'react';
+import {
+    CloseButton,
+    Contents,
+    Details,
+    DragFile,
+    FileInput,
+    FileItem,
+    FileLabel,
+    FilesContainer,
+    Header,
+    ImageIcon,
+    ModalContent,
+    Progress,
+    RootContainer,
+    Status,
+    SubmitButton,
+    Thumbnail,
+    Title,
+    UploadBox,
 } from './FileUploadModalStyles';
 import axios from "../../api/axios";
 

@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation, useNavigate,} from "react-router-dom";
+import {useLocation, useNavigate,} from "react-router-dom";
 import axios from "../../api/axios";
-import Layout from "../../components/layout/Layout";
 import {useCookies} from "react-cookie";
 import Select from "react-select";
 import AdminLayout from "../../components/layout/AdminLayout";
 import PurchaseDetail from "../../components/order/PurchaseDetail";
 import DownloadButton from "../../components/file/DownloadButton";
-import FileUploadModal from "../../components/file/FileUploadModal";
 
 import icon_edit from "../../resources/img/icon_edit.png"
 import icon_save from "../../resources/img/icon_save.svg"

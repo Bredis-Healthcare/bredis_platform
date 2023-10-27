@@ -1,4 +1,4 @@
-import {Link, useNavigate, useLocation } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import axios from "../../api/axios";
@@ -10,7 +10,7 @@ import bredis_logo_wide from "../../resources/img/bredis_logo_wide.png"
 import icon_noti from "../../resources/img/icon_noti.png"
 import icon_authed from "../../resources/img/icon_authed.png"
 import icon_unauthed from "../../resources/img/icon_unauthed.png"
-import { useLoginModal } from "../login/LoginModalContext";
+import {useLoginModal} from "../login/LoginModalContext";
 
 const Header = () => {
 

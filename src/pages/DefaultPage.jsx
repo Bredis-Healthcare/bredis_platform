@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import Layout from '../components/layout/Layout'
-import {useNavigate} from 'react-router-dom';
 import coverImage from '../resources/img/info/coverImage.png'
 import img1000x from '../resources/img/info/1000x.png'
 import pos1 from '../resources/img/info/pos1.png'
