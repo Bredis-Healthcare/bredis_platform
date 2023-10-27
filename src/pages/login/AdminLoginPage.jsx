@@ -56,31 +56,6 @@ const LoginPage = () => {
                 </div>
             </form>
         </div>
-        // <LoginContainer>
-        //     <p>연구서비스 플랫폼 어드민에 오신 것을 환영합니다.</p>
-        //     <form onSubmit={handleLogin}>
-        //         <LoginInput
-        //             type="email"
-        //             placeholder="이메일"
-        //             value={email}
-        //             onChange={(e) => setEmail(e.target.value)}
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         />
-        //         <LoginInput
-        //             type="password"
-        //             placeholder="비밀번호"
-        //             value={password}
-        //             onChange={(e) => setPassword(e.target.value)}
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         />
-        //         <LoginButton
-        //             type="submit"
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         >
-        //             로그인
-        //         </LoginButton>
-        //     </form>
-        // </LoginContainer>
     );
 };
 

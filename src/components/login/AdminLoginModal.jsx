@@ -54,36 +54,6 @@ const AdminLoginPageModal = () => {
                 </div>
             </form>
         </div>
-        // <ModalOverlay onClick={handleOutsideClick}>
-        //     <LoginContainer>
-        //         <h1>관리자 로그인이 만료되었습니다.</h1>
-        //         <h1> 다시 로그인해주세요</h1>
-        //         <CloseButton onClick={(e) => {setIsModalOpen(false)}}>X</CloseButton>
-        //         <LoginImage src={logo} alt="Login Illustration" />
-        //         <form onSubmit={handleLogin}>
-        //         <LoginInput
-        //             type="email"
-        //             placeholder="이메일"
-        //             value={email}
-        //             onChange={(e) => setEmail(e.target.value)}
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         />
-        //         <LoginInput
-        //             type="password"
-        //             placeholder="비밀번호"
-        //             value={password}
-        //             onChange={(e) => setPassword(e.target.value)}
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         />
-        //         <LoginButton
-        //             type="submit"
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         >
-        //             로그인
-        //         </LoginButton>
-        //         </form>
-        //     </LoginContainer>
-        // </ModalOverlay>
     );
 };
 

@@ -143,7 +143,7 @@ function QuotationRequest ({ setIsQuotationRequestOk, setQuotationRequestList, .
         data.content.isCheckedScheduleFlexible = isCheckedScheduleFlexible;
         data.content.isCheckedSampleRetrieval = isCheckedSampleRetrieval;
         
-        setNotice();
+        await setNotice();
         
         await axios.post(`/quotation-requests/save`, { "id": data.id, "contents": data.content});
         // console.log("save");///

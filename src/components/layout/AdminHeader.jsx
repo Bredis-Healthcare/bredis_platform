@@ -72,7 +72,7 @@ const AdminHeader = () => {
 
     return (
         <div className="Header w-full h-20 flex flex-row items-center justify-between bg-white sticky top-0 z-10">
-            <Link className="flex flex-row  items-center"to={"/admin/members/list"}>
+            <Link className="flex flex-row  items-center" to={"/admin/members/list"}>
                 <img className="w-40" src={bredis_logo_wide}  alt="logo"/>
                 <div className="text-black lg:text-2xl md:text-xl font-bold">Digital ELISA<br className="lg:hidden md:block" /> 연구분석서비스 관리자</div>
             </Link>

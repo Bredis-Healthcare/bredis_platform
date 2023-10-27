@@ -78,40 +78,6 @@ const LoginPageModal = () => {
                 </div>
             </form>
         </div>
-        // <ModalOverlay onClick={handleOutsideClick}>
-        //     <LoginContainer>
-        //         <br/>
-        //         <CloseButton onClick={(e) => {setIsModalOpen(false)}}>X</CloseButton>
-        //         <LoginImage src={logo} alt="Login Illustration" />
-        //         <form onSubmit={handleLogin}>
-        //         <LoginInput
-        //             type="email"
-        //             placeholder="이메일"
-        //             value={email}
-        //             onChange={(e) => setEmail(e.target.value)}
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         />
-        //         <LoginInput
-        //             type="password"
-        //             placeholder="비밀번호"
-        //             value={password}
-        //             onChange={(e) => setPassword(e.target.value)}
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         />
-        //         <LoginButton
-        //             type="submit"
-        //             style={{position: 'relative', left: '50%', transform: 'translate(-50%, 0%)'}}
-        //         >
-        //             로그인
-        //         </LoginButton>
-        //         </form>
-        //         <SignupButton
-        //             onClick={() => {navigate("/signup"); setIsModalOpen(false);}}
-        //         >
-        //             회원가입
-        //         </SignupButton>
-        //     </LoginContainer>
-        // </ModalOverlay>
     );
 };
 

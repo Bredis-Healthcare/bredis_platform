@@ -127,7 +127,7 @@ function MemberCreate() {
                 <a href="/terms/privacy" target="_blank" className="align-middle text-slate-500 underline text-base font-normal font-['Inter'] inline-block pl-[0.3rem] hover:cursor-pointer">보기</a>
             </div>
             <div className="left-[450px] relative mt-[10px]">
-                <input type="checkbox" id="checkbox3"onChange={(e) => setAgree3(e.target.checked)} checked={agree3}  className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
+                <input type="checkbox" id="checkbox3" onChange={(e) => setAgree3(e.target.checked)} checked={agree3}  className="accent-slate-500 align-middle ml-[1.5rem] mr-[6px] h-[1.15rem] w-[1.15rem] "/>
                 <label className="align-middle text-black text-base font-normal font-['Inter'] inline-block pl-[0.15rem] hover:cursor-pointer" htmlFor="checkbox3">
                     만 14세 이상입니다.
                 </label>
