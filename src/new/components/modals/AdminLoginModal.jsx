@@ -41,7 +41,6 @@ const AdminLoginPageModal = () => {
         <div className="py-10 overflow-auto fixed flex flex-col min-w-[200px] min-h-[700px] w-[100vw] h-[100vh] top-[0px] left-[0px] bg-black bg-opacity-75 z-50">
             <button className="absolute right-[10px] top-[10px] text-lg cursor-pointer"onClick={(e) => {setIsModalOpen(false)}}>X</button>
             <form className="w-[100%] min-w-[200px] max-w-[400px] h-[60vh] min-h-[700px] relative bg-neutral-100 rounded-[40px] m-auto flex flex-col justify-center items-center gap-4"  onSubmit={handleLogin} >
-                <div className="text-black font-bold text-[2rem] flex text-center justify-center items-center break-keep">관리자 로그인을 진행해주세요</div>
                 <img className="w-[60%] max-w-[300px]" src={logo} alt='bredis_logo' />
                 
                 <div className="text-black text-[22px] font-bold break-keep text-center ">Digital ELISA 연구분석서비스</div>
@@ -52,7 +51,7 @@ const AdminLoginPageModal = () => {
                     value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <div className="w-[40%] pt-4 gap-2 flex flex-col justify-center items-center">
-                    <button className="w-[100%] py-2 bg-sky-900 rounded-[9px] flex justify-center items-center text-white text-lg hover:bg-sky-950 cursor-pointer" type="submit" >로그인</button>
+                    <button className="w-[100%] py-2 bg-sky-900 rounded-[9px] flex justify-center items-center text-white text-lg hover:bg-sky-950 cursor-pointer" type="submit" >관리자 로그인</button>
                 </div>
             </form>
         </div>
