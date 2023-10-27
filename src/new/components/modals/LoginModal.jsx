@@ -62,7 +62,7 @@ const LoginPageModal = () => {
 
     return (
         <div className="py-10 fixed flex flex-col w-[100vw] h-[100vh] min-w-[200px] min-h-[740px] top-[0px] left-[0px] bg-black bg-opacity-75 z-50 overflow-auto">
-            <button className="absolute right-[10px] top-[10px] text-lg cursor-pointer"onClick={(e) => {setIsModalOpen(false)}}>X</button>
+            <button className="absolute right-[10px] top-[10px] text-lg cursor-pointer" onClick={(e) => {setIsModalOpen(false)}}>X</button>
             <form className="w-[100%] min-w-[200px] max-w-[400px] h-[60vh] min-h-[700px] relative bg-neutral-100 rounded-[40px] m-auto flex flex-col justify-center items-center gap-4"  onSubmit={handleLogin} >
                 <img className="w-[60%] max-w-[300px]" src={logo} alt='bredis_logo' />
                 
