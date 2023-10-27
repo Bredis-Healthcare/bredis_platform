@@ -67,7 +67,7 @@ const LoginPage = () => {
 
     return (
         
-        <form className="w-[100%] max-w-[400px] h-[60vh] min-h-[700px] relative bg-neutral-100 rounded-[40px] m-auto flex flex-col justify-center items-center my-[4rem] gap-4"  onSubmit={handleLogin} >
+        <form className="w-[100%] max-w-[400px] h-[60vh] min-h-[740px] relative rounded-[40px] m-auto flex flex-col justify-center items-center my-[4rem] gap-4"  onSubmit={handleLogin} >
             <img className="w-[60%] max-w-[300px]" src={logo} alt='bredis_logo' />
             
             <div className="text-black text-[22px] font-bold break-keep">Digital ELISA 연구분석서비스</div>

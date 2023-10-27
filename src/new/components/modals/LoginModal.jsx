@@ -61,10 +61,9 @@ const LoginPageModal = () => {
     };
 
     return (
-        <div className="py-10 fixed flex flex-col w-[100vw] h-[100vh] min-w-[200px] min-h-[700px] top-[0px] left-[0px] bg-black bg-opacity-75 z-50 overflow-auto">
+        <div className="py-10 fixed flex flex-col w-[100vw] h-[100vh] min-w-[200px] min-h-[740px] top-[0px] left-[0px] bg-black bg-opacity-75 z-50 overflow-auto">
             <button className="absolute right-[10px] top-[10px] text-lg cursor-pointer"onClick={(e) => {setIsModalOpen(false)}}>X</button>
             <form className="w-[100%] min-w-[200px] max-w-[400px] h-[60vh] min-h-[700px] relative bg-neutral-100 rounded-[40px] m-auto flex flex-col justify-center items-center gap-4"  onSubmit={handleLogin} >
-                <div className="text-black font-bold text-[2rem] flex text-center justify-center items-center break-keep">로그인을 진행해주세요</div>
                 <img className="w-[60%] max-w-[300px]" src={logo} alt='bredis_logo' />
                 
                 <div className="text-black text-[22px] font-bold break-keep text-center ">Digital ELISA 연구분석서비스</div>
