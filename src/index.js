@@ -29,6 +29,7 @@ import MemberCreate from "./pages/member/MemberCreate";
 import MemberModify from "./pages/member/MemberModify";
 import ServiceTerms from "./pages/terms/ServiceTerms";
 import PrivacyTerms from "./pages/terms/PrivacyTerms";
+import SampleControlPage from "./pages/dataControl/sampleControl";
 
 const router = createBrowserRouter([
     {
@@ -128,6 +129,12 @@ const router = createBrowserRouter([
             {
                 path: "notifications",
                 element: <NotificationList/>,
+                errorElement: <ErrorPage />,
+                loader : adminloader,
+            },
+            {
+                path: "sampleControl",
+                element: <SampleControlPage/>,
                 errorElement: <ErrorPage />,
                 loader : adminloader,
             },

@@ -17,6 +17,7 @@ const AdminHeader = () => {
     const navigate = useNavigate();
     const [isHovering3, setIsHovering3] = useState(false);
     const [isHovering4, setIsHovering4] = useState(false);
+    const [isHovering5, setIsHovering5] = useState(false);
     const [profileMenuOn, setProfileMenuOn] = useState(false);
     const [notificationsOn, setNotificationsOn] = useState(false);
 
@@ -82,6 +83,11 @@ const AdminHeader = () => {
                 <Link onClick={toMain} className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
                     <div className={`${isHovering3 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
                     <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'}  lg:text-xl md:text-base mt-[0.5rem] font-bold`}>홈</div>
+                </Link>
+
+                <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/admin/sampleControl"} onMouseOver={() => setIsHovering5(true)} onMouseOut={() => setIsHovering5(false)}>
+                    <div className={`${isHovering5 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
+                    <div className={`${isHovering5 ? 'text-sky-900' : 'text-black'}   lg:text-xl md:text-base mt-[0.5rem] font-bold`}>검체 관리</div>
                 </Link>
 
                 <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/admin/members/list"} onMouseOver={() => setIsHovering4(true)} onMouseOut={() => setIsHovering4(false)}>
