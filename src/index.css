@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
 * {
-    font-family: "Pretendard" !important;
-  }
+    font-family: "Pretendard", serif ;
+}
+
+
+
+.ag-icon ,
+.ag-selection-checkbox {
+    font-family: agGridAlpine !important; /* 아이콘 폰트를 지정합니다. */
+}
