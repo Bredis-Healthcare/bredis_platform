@@ -37,7 +37,7 @@ const AdminHeader = () => {
         const request = await axios.post('logout')
         removeCookie(['login']);
         clickProfileIcon()
-        navigate("/admin/login");
+        navigate("/");
     }
     
     async function toMain() {
@@ -80,10 +80,10 @@ const AdminHeader = () => {
 
             <div className="flex flex-row items-center lg:gap-8 md:gap-2" >
             
-                <Link onClick={toMain} className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>
-                    <div className={`${isHovering3 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />
-                    <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'}  lg:text-xl md:text-base mt-[0.5rem] font-bold`}>홈</div>
-                </Link>
+                {/*<Link onClick={toMain} className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/"} onMouseOver={() => setIsHovering3(true)} onMouseOut={() => setIsHovering3(false)}>*/}
+                {/*    <div className={`${isHovering3 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />*/}
+                {/*    <div className={`${isHovering3 ? 'text-sky-900' : 'text-black'}  lg:text-xl md:text-base mt-[0.5rem] font-bold`}>홈</div>*/}
+                {/*</Link>*/}
 
                 <Link className="flex flex-col items-center w-[6rem] md:w-[5rem]" to={"/admin/sampleControl"} onMouseOver={() => setIsHovering5(true)} onMouseOut={() => setIsHovering5(false)}>
                     <div className={`${isHovering5 ? 'block' : 'hidden'} w-[6rem] md:w-[5rem] h-[0.2rem]  bg-sky-900`} />

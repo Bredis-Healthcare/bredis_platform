@@ -40,6 +40,12 @@ const Header = () => {
                 await new Promise(resolve => setTimeout(resolve, 2000)); 
                 if(cookies.login)
                 {
+                    if(cookies.login['id'] === 0){
+                        const request = await axios.post('logout')
+                        await removeCookie(['login']);
+                        setIsModalOpen(false);
+                        clickProfileIcon()
+                    }
                     const request = await axios.get(`/members/${cookies.login && cookies.login['id']}/info`,);
                     setUserInfo(request.data);
                 }

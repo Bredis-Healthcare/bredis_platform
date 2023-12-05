@@ -29,7 +29,8 @@ import MemberCreate from "./pages/member/MemberCreate";
 import MemberModify from "./pages/member/MemberModify";
 import ServiceTerms from "./pages/terms/ServiceTerms";
 import PrivacyTerms from "./pages/terms/PrivacyTerms";
-import SampleControlPage from "./pages/dataControl/sampleControl";
+import SampleControlPage from "./pages/dataControl/SampleControl";
+import AdminMenuSelect from "./pages/AdminMenuSelect";
 
 const router = createBrowserRouter([
     {
@@ -123,6 +124,12 @@ const router = createBrowserRouter([
             {
                 path: "login",
                 element: <AdminLoginPage/>,
+                errorElement: <ErrorPage/>,
+                loader : adminloader,
+            },
+            {
+                path: "menuSelect",
+                element: <AdminMenuSelect/>,
                 errorElement: <ErrorPage/>,
                 loader : adminloader,
             },

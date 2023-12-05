@@ -27,7 +27,7 @@ const LoginPage = () => {
                 if(request !== "오류"){
                     //console.log("request data", request.data["memberId"], "authToken", request.data["authToken"]);
                     setCookie('login', {id : request.data["memberId"], authToken : request.data["authToken"]}, {path : "/" , maxAge : 86400 })
-                    navigate("/admin/members/list" );
+                    navigate("/admin/menuSelect" );
                 }
                 else{
                     alert("가입 정보를 다시 확인해주세요.")
