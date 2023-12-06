@@ -25,7 +25,7 @@ const SampleDataGrid = () => {
         { headerName: "박스", field: "boxInfo", filter: "agTextColumnFilter", hide:false, width: 150 },
         { headerName: "고객제공코드", field: "customerSampleCode", filter: "agTextColumnFilter", hide:true, width: 100 },
         { headerName: "샘플타입", field: "sampleType", filter: "agTextColumnFilter", hide:false, width: 100 },
-        { headerName: "보관위치", field: "stockPosition", filter: "agTextColumnFilter", hide:false, width: 100 },
+        { headerName: "보관위치", field: "stockPosition", filter: "agTextColumnFilter", hide:true, width: 100 },
         { headerName: "기존 용량(μl)", field: "initialVolume", filter: "agNumberColumnFilter", hide:true, width: 150 },
         { headerName: "현재 용량(μl)", field: "currentVolume", filter: "agNumberColumnFilter", hide:true, width: 150 },
         { headerName: "사용 횟수(μl)", field: "numOfUse", filter: "agNumberColumnFilter", hide:true, width: 150 },
@@ -34,6 +34,7 @@ const SampleDataGrid = () => {
         { headerName: "추가인식자2", field: "additional_column2", filter: "agTextColumnFilter", hide:true, width: 150 },
         { headerName: "추가인식자3", field: "additional_column3", filter: "agTextColumnFilter", hide:true, width: 150 },
         { headerName: "추가인식자4", field: "additional_column4", filter: "agTextColumnFilter", hide:true, width: 150 },
+        { headerName: "관련 검체", field: "relatedSampleName", filter: "agTextColumnFilter", hide:true, width: 300 }
 
     ]);
     const [selectColumnDefs, setSelectColumnDefs] = useState([]);
@@ -48,7 +49,7 @@ const SampleDataGrid = () => {
         { headerName: "현재 용량(μl)", field: "currentVolume", filter: "agNumberColumnFilter", cellStyle: nonEditableCellStyle, width: 150,suppressMovable: true },
         { headerName: "사용 용량(μl)", field: "usedVolume", filter: "agNumberColumnFilter", editable: true, width: 120,suppressMovable: true},
         { headerName: "희석 배율", field: "dilution", filter: "agNumberColumnFilter", editable: true, width: 100,suppressMovable: true},
-        { headerName: "비고", field: "memo", hide:false, editable: true, width: 300,suppressMovable: true },
+        { headerName: "메모", field: "memo", hide:false, editable: true, width: 300,suppressMovable: true },
 
     ]);
 
@@ -70,6 +71,7 @@ const SampleDataGrid = () => {
         { headerName: "추가인식자2", field: "additional_column2", filter: "agTextColumnFilter", hide:true, width: 150 },
         { headerName: "추가인식자3", field: "additional_column3", filter: "agTextColumnFilter", hide:true, width: 150 },
         { headerName: "추가인식자4", field: "additional_column4", filter: "agTextColumnFilter", hide:true, width: 150 },
+        { headerName: "관련 검체", field: "relatedSampleName", filter: "agTextColumnFilter", hide:true, width: 300 },
 
         { headerName: "id", field: "h_id", hide:true, cellStyle: nonEditableCellStyle },
         { headerName: "키트종류", field: "h_kit_type", filter: "agDateColumnFilter" ,width: 100 },
@@ -93,6 +95,11 @@ const SampleDataGrid = () => {
     const [showColumnPopup, setShowColumnPopup] = useState(false);
     const [showColumnPopup2, setShowColumnPopup2] = useState(false);
     const [showColumnPopup3, setShowColumnPopup3] = useState(false);
+
+    const popupRef = useRef();
+    const popupRef2 = useRef();
+    const popupRef3 = useRef();
+
     const [columnVisibility, setColumnVisibility] = useState({});
     const [selectColumnVisibility, setSelectColumnVisibility] = useState({});
     const [joinColumnVisibility, setJoinColumnVisibility] = useState({});
@@ -177,7 +184,25 @@ const SampleDataGrid = () => {
         joinData();
     }, [rowData, historyRowData]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                setShowColumnPopup(false);
+            }
+            if (popupRef2.current && !popupRef2.current.contains(event.target)) {
+                setShowColumnPopup2(false);
+            }
+            if (popupRef3.current && !popupRef3.current.contains(event.target)) {
+                setShowColumnPopup3(false);
+            }
+        };
 
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const onGridReady = (params) => {
         // console.log("Grid is ready:", params.api);
@@ -585,7 +610,7 @@ const SampleDataGrid = () => {
                     <button className="w-[150px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={onBtnSelected}>선택 행 선정하기</button>
                 </div>
                 {showColumnPopup && (
-                    <div className="ml-3 mb-5">
+                    <div ref={popupRef} className="mx-3 mb-5">
                         {columnDefs.map(colDef => (
                             <div key={colDef.field}>
                                 <input
@@ -624,7 +649,7 @@ const SampleDataGrid = () => {
                 </div>
 
                 {showColumnPopup2 && (
-                    <div  className="ml-3 mb-5" >
+                    <div ref={popupRef2} className="mx-3 mb-5" >
                         {selectColumnDefs.map(colDef => (
                             <div key={colDef.field}>
                                 <input
@@ -706,7 +731,7 @@ const SampleDataGrid = () => {
                     <button className="w-[150px] mr-1 mb-1 bg-red-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-red-700 hover:cursor-pointer" onClick={onRemoveUse}>선택 사용 기록 삭제</button>
                 </div >
                 {showColumnPopup3 && (
-                    <div  className="ml-3 mb-5" >
+                    <div ref={popupRef3} className="mx-3 mb-5" >
                         {joinColumnDefs.map(colDef => (
                             <div key={colDef.field}>
                                 <input
