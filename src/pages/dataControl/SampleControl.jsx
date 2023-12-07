@@ -4,6 +4,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "../../api/axios";
 import { AgGridReact } from 'ag-grid-react';
 import * as XLSX from 'xlsx';
+import Select from "react-select";
 
 const SampleDataGrid = () => {
     const [rowData, setRowData] = useState([]);
@@ -47,7 +48,7 @@ const SampleDataGrid = () => {
         { headerName: "분석자", field: "analyst", filter: "agTextColumnFilter", editable: true, width: 100,suppressMovable: true},
         { headerName: "기존 용량(μl)", field: "initialVolume", filter: "agNumberColumnFilter", cellStyle: nonEditableCellStyle, width: 150,suppressMovable: true },
         { headerName: "현재 용량(μl)", field: "currentVolume", filter: "agNumberColumnFilter", cellStyle: nonEditableCellStyle, width: 150,suppressMovable: true },
-        { headerName: "사용 용량(μl)", field: "usedVolume", filter: "agNumberColumnFilter", editable: true, width: 120,suppressMovable: true},
+        { headerName: "사용 용량(μl)", field: "usedVolume", filter: "agNumberColumnFilter", editable: true, width: 150,suppressMovable: true},
         { headerName: "희석 배율", field: "dilution", filter: "agNumberColumnFilter", editable: true, width: 100,suppressMovable: true},
         { headerName: "메모", field: "memo", hide:false, editable: true, width: 300,suppressMovable: true },
 
@@ -92,6 +93,23 @@ const SampleDataGrid = () => {
         }
     }
 
+    const sampleTypeOptions = [
+        {value: "11", label: "pTau181"},
+        {value: "12", label: "pTau217"},
+        {value: "17", label: "pTau231"},
+        {value: "16", label: "BDNF"},
+        {value: "15", label: "GFAP"},
+        {value: "14", label: "NfL"},
+        {value: "20", label: "N2PB"},
+        {value: "21", label: "N3PA"},
+        {value: "22", label: "N4PA"},
+        {value: "23", label: "N4PB"},
+        {value: "24", label: "N4PE"},
+        {value: "13", label: "Tau"},
+        {value: "01", label: "희석"},
+        {value: "09", label: "용량 조정"},
+    ];
+
     const [showColumnPopup, setShowColumnPopup] = useState(false);
     const [showColumnPopup2, setShowColumnPopup2] = useState(false);
     const [showColumnPopup3, setShowColumnPopup3] = useState(false);
@@ -109,8 +127,8 @@ const SampleDataGrid = () => {
     const today = new Date().toISOString().split('T')[0];
 
     // 각 항목에 대한 state를 생성합니다.
-    const [kitType, setKitType] = useState('kit종류');
-    const [kitNumber, setKitNumber] = useState('kit번호');
+    const [kitType, setKitType] = useState({value: "99", label: "사용샘플"});
+    const [kitNumber, setKitNumber] = useState("");
     const [date, setDate] = useState(today);
     const [analyst, setAnalyst] = useState('분석자');
     const [usedVolume, setUsedVolume] = useState(80);
@@ -542,18 +560,34 @@ const SampleDataGrid = () => {
         // 두 번째 표의 모든 행 데이터 가져오기
         const allData = [];
         selectGridRef.current.api.forEachNode(node => allData.push(node.data));
-
+        // console.log(formData);
+        // console.log(formData["kitType"]["label"]);
         // 새로운 행 데이터 생성
         const newRows = allData.map(row => {
-            return {
+            const tmpRow = {
                 id: row.id,
                 inHouseUniqueSampleName: row.inHouseUniqueSampleName,
                 initialVolume: row.initialVolume,
                 currentVolume: row.currentVolume,
                 // 폼 데이터 추가
                 ...formData
-            };
+            }
+            tmpRow["kitType"] = tmpRow["kitType"]["label"];
+            return tmpRow;
         });
+        if(kitType["value"].startsWith("0")){
+            useGridRef.current.api.setColumnVisible("dilution", false)
+        }
+        else{
+            useGridRef.current.api.setColumnVisible("dilution", true)
+        }
+        if(kitType["value"].startsWith("09")){
+            useGridRef.current.api.setColumnVisible("kitNumber", false)
+        }
+        else{
+            useGridRef.current.api.setColumnVisible("kitNumber", true)
+
+        }
 
         // 새로운 행을 세 번째 표의 데이터에 추가
         setUseRowData(newRows);
@@ -678,29 +712,39 @@ const SampleDataGrid = () => {
             <div className="mt-10 flex flex-col justify-start items-start">
                 <form className="flex flex-col w-[400px] my-10 mx-auto p-5 border-2 border-sky-400 rounded-2xl" onSubmit={handleSubmit}>
                     <div className="flex items-center mb-2">
-                        <label className="w-24 mr-2">Kit 종류</label>
-                        <input type="text" value={kitType} onChange={e => setKitType(e.target.value)} placeholder="Kit 종류" />
+                        <label className="w-24 mr-2">사용 사유</label>
+                        <Select className="w-full" classNamePrefix="select" placeholder="사용 사유" defaultValue="KIT 이름"
+                                onChange={(choice) => setKitType(choice)}
+                                options={sampleTypeOptions}/>
                     </div>
-                    <div className="flex items-center mb-2">
-                        <label className="w-24 mr-2">Kit 번호</label>
-                        <input type="text" value={kitNumber} onChange={e => setKitNumber(e.target.value)} placeholder="Kit 번호" />
-                    </div>
+                    {
+                        ! kitType["value"].startsWith("0") && (
+                        <div className="flex items-center mb-2">
+                            <label className="w-24 mr-2">Kit 번호</label>
+                            <input className="w-full" type="text" value={kitNumber} onChange={e => setKitNumber(e.target.value)} placeholder="Kit 번호" />
+                        </div> )
+                    }
                     <div className="flex items-center mb-2">
                         <label className="w-24 mr-2">날짜</label>
-                        <input type="date" value={date} onChange={e => setDate(e.target.value)} />           </div>
+                        <input className="w-full" type="date" value={date} onChange={e => setDate(e.target.value)} />           </div>
                     <div className="flex items-center mb-2">
                         <label className="w-24 mr-2">분석자</label>
-                        <input type="text" value={analyst} onChange={e => setAnalyst(e.target.value)} placeholder="Kit 번호" />
+                        <input className="w-full" type="text" value={analyst} onChange={e => setAnalyst(e.target.value)} placeholder="Kit 번호" />
                     </div>
                     <div className="flex items-center mb-2">
-                        <label className="w-24 mr-2">사용용량</label>
-                        <input type="number" value={usedVolume} onChange={e => setUsedVolume(e.target.value)} placeholder="사용 용량" />
-                        <label className="">µl</label>
+                        <label className="w-24 mr-2">{kitType["value"].startsWith("09") ? "변동 용량" : "사용용량"}</label>
+                        <input className="w-full" type="number" value={usedVolume} onChange={e => setUsedVolume(e.target.value)} placeholder="사용 용량" />
+                        <label className="w-fit">µl</label>
                     </div>
-                    <div className="flex items-center mb-2">
-                        <label className="w-24 mr-2">희석배율</label>
-                        <input type="number" value={dilution} onChange={e => setDilution(e.target.value)} placeholder="희석" />
-                    </div>
+                    {kitType["value"].startsWith("09") && (<label className="w-full ml-3 mb-3 text-gray-400  text-sm">사용 기준 입니다. 줄면 양수 입니다.</label>)}
+                    {
+                        ! kitType["value"].startsWith("09") && (
+                            <div className="flex items-center mb-2">
+                                <label className="w-24 mr-2">희석배율</label>
+                                <input className="w-full" type="number" value={dilution} onChange={e => setDilution(e.target.value)} placeholder="희석" />
+                            </div>
+                        )
+                    }
                     <div className="flex items-center mb-2">
                         <label className="w-24 mr-2">메모</label>
                         <textarea className="w-full" value={memo} onChange={e => setMemo(e.target.value)} placeholder="메모" />
