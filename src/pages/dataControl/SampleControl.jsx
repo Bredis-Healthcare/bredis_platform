@@ -20,7 +20,8 @@ const SampleDataGrid = () => {
         { headerName: "id", field: "id", hide:true },
         { headerName: "내부고유코드", field: "inHouseUniqueSampleName", filter: "agTextColumnFilter", hide:false, headerCheckboxSelection: true,
             checkboxSelection: true,width: 300, suppressMovable: true  },
-        { headerName: "입고일", field: "inHouseDate", filter: "agDateColumnFilter", hide:true, width: 100 },
+        { headerName: "입고일 코드", field: "inHouseDateCode", filter: "agTextColumnFilter", hide:true, width: 150 },
+        { headerName: "입고일", field: "inHouseDateReal", filter: "agDateColumnFilter", hide:true, width: 150 },
         { headerName: "담당자", field: "personInCharge", filter: "agTextColumnFilter", hide:true , width: 100},
         { headerName: "고객코드", field: "customerId", filter: "agTextColumnFilter", hide:false, width: 100 },
         { headerName: "박스", field: "boxInfo", filter: "agTextColumnFilter", hide:false, width: 150 },
@@ -35,16 +36,17 @@ const SampleDataGrid = () => {
         { headerName: "추가인식자2", field: "additional_column2", filter: "agTextColumnFilter", hide:true, width: 150 },
         { headerName: "추가인식자3", field: "additional_column3", filter: "agTextColumnFilter", hide:true, width: 150 },
         { headerName: "추가인식자4", field: "additional_column4", filter: "agTextColumnFilter", hide:true, width: 150 },
-        { headerName: "관련 검체", field: "relatedSampleName", filter: "agTextColumnFilter", hide:true, width: 300 }
+        { headerName: "관련 검체", field: "relatedSampleName", filter: "agTextColumnFilter", hide:true, width: 300 },
+        { headerName: "폐기 여부", field: "discard", filter: "agTextColumnFilter", hide:true, width: 100 }
 
     ]);
     const [selectColumnDefs, setSelectColumnDefs] = useState([]);
     const [useColumnDefs, setUseColumnDefs] = useState([
         { headerName: "id", field: "id", hide:true, cellStyle: nonEditableCellStyle, suppressMovable: true },
         { headerName: "내부고유코드", field: "inHouseUniqueSampleName", filter: "agTextColumnFilter", width: 300, cellStyle: nonEditableCellStyle,suppressMovable: true },
-        { headerName: "키트종류", field: "kitType", filter: "agDateColumnFilter" , editable: true, width: 100,suppressMovable: true },
+        { headerName: "키트종류", field: "kitType", filter: "agTextColumnFilter" , editable: true, width: 100,suppressMovable: true },
         { headerName: "키트번호", field: "kitNumber", filter: "agTextColumnFilter", editable: true, width: 100,suppressMovable: true},
-        { headerName: "사용날짜", field: "date", filter: "agTextColumnFilter", editable: true, width: 150,suppressMovable: true },
+        { headerName: "사용날짜", field: "date", filter: "agDateColumnFilter", editable: true, width: 150,suppressMovable: true },
         { headerName: "분석자", field: "analyst", filter: "agTextColumnFilter", editable: true, width: 100,suppressMovable: true},
         { headerName: "기존 용량(μl)", field: "initialVolume", filter: "agNumberColumnFilter", cellStyle: nonEditableCellStyle, width: 150,suppressMovable: true },
         { headerName: "현재 용량(μl)", field: "currentVolume", filter: "agNumberColumnFilter", cellStyle: nonEditableCellStyle, width: 150,suppressMovable: true },
@@ -57,7 +59,8 @@ const SampleDataGrid = () => {
     const [joinColumnDefs , setJoinColumnDefs ] = useState([
         { headerName: "내부고유코드", field: "inHouseUniqueSampleName", filter: "agTextColumnFilter", hide:false, headerCheckboxSelection: true,
             checkboxSelection: true,width: 300, suppressMovable: true  },
-        { headerName: "입고일", field: "inHouseDate", filter: "agDateColumnFilter", hide:true },
+        { headerName: "입고일 코드", field: "inHouseDateCode", filter: "agTextColumnFilter", hide:true, width: 150 },
+        { headerName: "입고일", field: "inHouseDateReal", filter: "agDateColumnFilter", hide:true, width: 100 },
         { headerName: "담당자", field: "personInCharge", filter: "agTextColumnFilter", hide:true },
         { headerName: "고객코드", field: "customerId", filter: "agTextColumnFilter", hide:true },
         { headerName: "박스", field: "boxInfo", filter: "agTextColumnFilter", hide:true },
@@ -82,6 +85,7 @@ const SampleDataGrid = () => {
         { headerName: "사용 용량(μl)", field: "h_usedVolume", filter: "agNumberColumnFilter", width: 150},
         { headerName: "희석 배율", field: "h_dilution_rate", filter: "agNumberColumnFilter",  width: 150},
         { headerName: "메모", field: "h_memo", hide:false, width: 300 },
+        { headerName: "폐기 여부", field: "discard", filter: "agTextColumnFilter", hide:true, width: 100 }
     ]);
 
     function nonEditableCellStyle(params) {
@@ -117,6 +121,9 @@ const SampleDataGrid = () => {
     const popupRef = useRef();
     const popupRef2 = useRef();
     const popupRef3 = useRef();
+    const popupButtonRef = useRef();
+    const popupButtonRef2 = useRef();
+    const popupButtonRef3 = useRef();
 
     const [columnVisibility, setColumnVisibility] = useState({});
     const [selectColumnVisibility, setSelectColumnVisibility] = useState({});
@@ -134,6 +141,7 @@ const SampleDataGrid = () => {
     const [usedVolume, setUsedVolume] = useState(80);
     const [dilution, setDilution] = useState(1);
     const [memo, setMemo] = useState('');
+    const [discard, setDiscard] = useState(false);
 
     // 폼 제출 핸들러
 
@@ -204,13 +212,13 @@ const SampleDataGrid = () => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (popupRef.current && !popupRef.current.contains(event.target)) {
+            if (popupRef.current && !(popupRef.current.contains(event.target) || popupButtonRef.current.contains(event.target))) {
                 setShowColumnPopup(false);
             }
-            if (popupRef2.current && !popupRef2.current.contains(event.target)) {
+            if (popupRef2.current && !(popupRef2.current.contains(event.target) || popupButtonRef2.current.contains(event.target))) {
                 setShowColumnPopup2(false);
             }
-            if (popupRef3.current && !popupRef3.current.contains(event.target)) {
+            if (popupRef3.current && !(popupRef3.current.contains(event.target) || popupButtonRef3.current.contains(event.target))) {
                 setShowColumnPopup3(false);
             }
         };
@@ -462,7 +470,7 @@ const SampleDataGrid = () => {
         try {
             const response = await axios.get('sampleLoad');
             setRowData(response.data);
-            // console.log("data", response.data[0]);
+            console.log("data", response.data[0]);
         } catch (error) {
             console.error("Error fetching data: ", error);
         }
@@ -511,14 +519,17 @@ const SampleDataGrid = () => {
         api.setColumnVisible(field, isVisible);
     };
 
-    const handleTogglePopup = () => {
+    const handleTogglePopup = (event) => {
         setShowColumnPopup(!showColumnPopup);
+        event.stopPropagation();
     };
-    const handleTogglePopup2 = () => {
+    const handleTogglePopup2 = (event) => {
         setShowColumnPopup2(!showColumnPopup2);
+        event.stopPropagation();
     };
-    const handleTogglePopup3 = () => {
+    const handleTogglePopup3 = (event) => {
         setShowColumnPopup3(!showColumnPopup3);
+        event.stopPropagation();
     };
 
     const handleCheckboxChange = (field) => {
@@ -554,7 +565,7 @@ const SampleDataGrid = () => {
 
         // 폼 데이터
         const formData = {
-            kitType, kitNumber, date, analyst, usedVolume, dilution, memo
+            kitType, kitNumber, date, analyst, usedVolume, dilution, memo, discard
         };
 
         // 두 번째 표의 모든 행 데이터 가져오기
@@ -639,7 +650,7 @@ const SampleDataGrid = () => {
                 <div className="text-black text-4xl mx-auto">전체 검체 데이터베이스</div>
                 <button className="mt-4 w-[200px] mb-2 bg-sky-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-sky-700 hover:cursor-pointer" onClick={onBtnExport}>현재 표 엑셀로 Export하기</button>
                 <div className="flex flex-row">
-                    <button className="w-[100px] mr-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={handleTogglePopup}>열 선택</button>
+                    <button ref={popupButtonRef} className="w-[100px] mr-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={handleTogglePopup}>열 선택</button>
                     <button className="w-[100px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={onClearSelection}>선택 해제</button>
                     <button className="w-[150px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={onBtnSelected}>선택 행 선정하기</button>
                 </div>
@@ -677,7 +688,7 @@ const SampleDataGrid = () => {
             <div className="mt-10 flex flex-col justify-start items-start">
                 <div className="text-black text-4xl mx-auto">선정 검체</div>
                 <div className="mt-4 flex flex-row">
-                    <button className="w-[100px] mr-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={handleTogglePopup2}>열 선택 </button>
+                    <button ref={popupButtonRef2}  className="w-[100px] mr-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={handleTogglePopup2}>열 선택 </button>
                     <button className="w-[150px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={onRemoveSelected}>선택 행 선정 해제</button>
                     <button className="w-[100px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={onSelectClear}>선정 표 초기화</button>
                 </div>
@@ -745,6 +756,14 @@ const SampleDataGrid = () => {
                             </div>
                         )
                     }
+
+                    <div className="flex items-center mb-2">
+                        <label className="w-24">폐기여부</label>
+                        <div className="w-full items-center">
+                            <input type="checkbox" className="ml-1"  value={false} onChange={e => setDiscard(e.target.value)}/>
+                        </div>
+                    </div>
+
                     <div className="flex items-center mb-2">
                         <label className="w-24 mr-2">메모</label>
                         <textarea className="w-full" value={memo} onChange={e => setMemo(e.target.value)} placeholder="메모" />
@@ -771,7 +790,7 @@ const SampleDataGrid = () => {
                 <div className="text-black text-4xl mx-auto">검체 사용기록 데이터베이스</div>
                 <button className="mt-4 w-[200px] mb-2 bg-sky-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-sky-700 hover:cursor-pointer" onClick={onBtnJoinExport}>현재 표 엑셀로 Export하기</button>
                 <div className="flex flex-row">
-                    <button className="w-[100px] mr-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={handleTogglePopup3}>열 선택</button>
+                    <button ref={popupButtonRef3}  className="w-[100px] mr-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={handleTogglePopup3}>열 선택</button>
                     <button className="w-[150px] mr-1 mb-1 bg-red-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-red-700 hover:cursor-pointer" onClick={onRemoveUse}>선택 사용 기록 삭제</button>
                 </div >
                 {showColumnPopup3 && (
