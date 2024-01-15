@@ -18,7 +18,7 @@ const SampleDataGrid = () => {
     const joinedGridRef = useRef();
     const [columnDefs, setColumnDefs] = useState([
         { headerName: "id", field: "id", hide:true },
-        { headerName: "내부고유코드", field: "inHouseUniqueSampleName", filter: "agTextColumnFilter", hide:false, headerCheckboxSelection: true,
+        { headerName: "내부고유코드", field: "inHouseUniqueSampleName", filter: "agTextColumnFilter", hide:false, headerCheckboxSelection: false,
             checkboxSelection: true,width: 300, suppressMovable: true  },
         { headerName: "입고일 코드", field: "inHouseDateCode", filter: "agTextColumnFilter", hide:true, width: 150 },
         { headerName: "입고일", field: "inHouseDateReal", filter: "agDateColumnFilter", hide:true, width: 150 },
@@ -78,16 +78,19 @@ const SampleDataGrid = () => {
         { headerName: "관련 검체", field: "relatedSampleName", filter: "agTextColumnFilter", hide:true, width: 300 },
 
         { headerName: "id", field: "h_id", hide:true, cellStyle: nonEditableCellStyle },
-        { headerName: "키트종류", field: "h_kit_type", filter: "agDateColumnFilter" ,width: 100 },
+        { headerName: "키트종류", field: "h_kit_type", filter: "agTextColumnFilter" ,width: 100 },
         { headerName: "키트번호", field: "h_kit_number", filter: "agTextColumnFilter", width: 100},
-        { headerName: "사용날짜", field: "h_use_date", filter: "agTextColumnFilter", width: 150 },
+        { headerName: "사용날짜", field: "h_use_date", filter: "agDateColumnFilter", width: 150 },
+        { headerName: "기록날짜", field: "h_upload_date", filter: "agDateColumnFilter", valueFormatter: params => formatDate(params.value), width: 150 },
         { headerName: "분석자", field: "h_analyst", filter: "agTextColumnFilter", width: 100},
         { headerName: "사용 용량(μl)", field: "h_usedVolume", filter: "agNumberColumnFilter", width: 150},
         { headerName: "희석 배율", field: "h_dilution_rate", filter: "agNumberColumnFilter",  width: 150},
-        { headerName: "메모", field: "h_memo", hide:false, width: 300 },
+        { headerName: "사용메모", field: "h_memo", hide:false, width: 300 },
         { headerName: "폐기 여부", field: "discard", filter: "agTextColumnFilter", hide:true, width: 100 }
     ]);
-
+    function formatDate(value) {
+        return value.split('T')[0];
+    }
     function nonEditableCellStyle(params) {
         // 선택된 행인지 확인
         if (params.node.isSelected()) {
@@ -95,6 +98,12 @@ const SampleDataGrid = () => {
         } else {
             return { backgroundColor: '#E2E2E2' }; // 기본 행 색상
         }
+    }
+
+    function selectFilteredRows() {
+        gridRef.current.api.forEachNodeAfterFilter(function(node) {
+            node.setSelected(true);
+        });
     }
 
     const sampleTypeOptions = [
@@ -113,6 +122,42 @@ const SampleDataGrid = () => {
         {value: "01", label: "희석"},
         {value: "09", label: "용량 조정"},
     ];
+
+    const columNames = [
+        {value: "내부고유코드", label: "InUniqSnum"},
+        {value: "입고일 코드", label: "InHouseDateCode"},
+        {value: "입고일", label: "InHouseDateReal"},
+        {value: "담당자", label: "PersonInCharge"},
+        {value: "고객코드", label: "CustomerId"},
+        {value: "박스", label: "BoxInfo"},
+        {value: "고객제공코드", label: "CustomerSampleCode"},
+        {value: "샘플타입", label: "SampleType"},
+        {value: "보관위치", label: "StockPosition"},
+        {value: "기존 용량(μl)", label: "InitialVolume"},
+        {value: "현재 용량(μl)", label: "CurrentVolume"},
+        {value: "사용 횟수", label: "NumOfUse"},
+        {value: "비고", label: "Memo"},
+        {value: "메모", label: "Memo"},
+        {value: "추가인식자1", label: "AdditionalColumn1"},
+        {value: "추가인식자2", label: "AdditionalColumn2"},
+        {value: "추가인식자3", label: "AdditionalColumn3"},
+        {value: "추가인식자4", label: "AdditionalColumn4"},
+        {value: "관련 검체", label: "RelatedSampleName"},
+        {value: "id", label: "id"},
+        {value: "키트종류", label: "UseType"},
+        {value: "키트번호", label: "KitNumber"},
+        {value: "사용날짜", label: "UploadDate"},
+        {value: "기록날짜", label: "RecordDate"},
+        {value: "분석자", label: "Analyst"},
+        {value: "사용 용량(μl)", label: "ChangedVolume"},
+        {value: "희석 배율", label: "BenchDilution"},
+        {value: "사용메모", label: "UseMemo"},
+        {value: "폐기 여부", label: "Discard"},
+    ];
+    const valueToLabelMap = columNames.reduce((map, obj) => {
+        map[obj.value] = obj.label;
+        return map;
+    }, {});
 
     const [showColumnPopup, setShowColumnPopup] = useState(false);
     const [showColumnPopup2, setShowColumnPopup2] = useState(false);
@@ -241,15 +286,22 @@ const SampleDataGrid = () => {
         const api = gridRef.current.api;
         const displayedColumns = api.getAllDisplayedColumns();
         const allRowData = [];
-        const columnWidths = displayedColumns.map(col => col.getColDef().headerName.length); // headerName 길이로 초기화
+
+        // headerName을 valueToLabelMap을 사용하여 변환
+        const columnLabels = displayedColumns.map(col => {
+            const headerValue = col.getColDef().headerName;
+            return valueToLabelMap[headerValue] || headerValue; // 매핑이 없는 경우 원래의 값을 사용
+        });
+
+        const columnWidths = columnLabels.map(label => label.length); // 변환된 headerName 길이로 초기화
 
         // 각 행 및 컬럼에 대해 반복하면서 최대 길이 계산
         gridApi.forEachNodeAfterFilterAndSort(node => {
             const rowData = {};
             displayedColumns.forEach((col, index) => {
-                const headerName = col.getColDef().headerName;
-                const cellValue = node.data[col.getColId()] ? node.data[col.getColId()].toString() : '';
-                rowData[headerName] = cellValue;
+                let cellValue = node.data[col.getColId()] ? node.data[col.getColId()].toString() : '';
+                const headerLabel = columnLabels[index]; // 변환된 컬럼 레이블 사용
+                rowData[headerLabel] = cellValue;
 
                 // 컬럼 너비 업데이트 (현재 셀 길이와 기존 최대 길이 비교)
                 columnWidths[index] = Math.max(columnWidths[index], cellValue.length);
@@ -257,8 +309,8 @@ const SampleDataGrid = () => {
             allRowData.push(rowData);
         });
 
-        // 엑셀 시트 생성
-        const ws = XLSX.utils.json_to_sheet(allRowData, { header: displayedColumns.map(col => col.getColDef().headerName) });
+        // 엑셀 시트 생성 (변환된 컬럼 레이블 사용)
+        const ws = XLSX.utils.json_to_sheet(allRowData, { header: columnLabels });
 
         // 컬럼 너비 설정 (각 컬럼의 최대 길이 + 여유 공간)
         ws['!cols'] = columnWidths.map(maxWidth => ({ wch: maxWidth + 5 })); // 여유 공간을 5로 설정
@@ -271,20 +323,28 @@ const SampleDataGrid = () => {
         XLSX.writeFile(wb, "exported_data.xlsx");
     };
 
+
     const onBtnUseExport = () => {
         const gridApi = useGridRef.current.api;
         const api = useGridRef.current.api;
         const displayedColumns = api.getAllDisplayedColumns();
         const allRowData = [];
-        const columnWidths = displayedColumns.map(col => col.getColDef().headerName.length); // headerName 길이로 초기화
+
+        // headerName을 valueToLabelMap을 사용하여 변환
+        const columnLabels = displayedColumns.map(col => {
+            const headerValue = col.getColDef().headerName;
+            return valueToLabelMap[headerValue] || headerValue; // 매핑이 없는 경우 원래의 값을 사용
+        });
+
+        const columnWidths = columnLabels.map(label => label.length); // 변환된 headerName 길이로 초기화
 
         // 각 행 및 컬럼에 대해 반복하면서 최대 길이 계산
         gridApi.forEachNodeAfterFilterAndSort(node => {
             const rowData = {};
             displayedColumns.forEach((col, index) => {
-                const headerName = col.getColDef().headerName;
-                const cellValue = node.data[col.getColId()] ? node.data[col.getColId()].toString() : '';
-                rowData[headerName] = cellValue;
+                let cellValue = node.data[col.getColId()] ? node.data[col.getColId()].toString() : '';
+                const headerLabel = columnLabels[index]; // 변환된 컬럼 레이블 사용
+                rowData[headerLabel] = cellValue;
 
                 // 컬럼 너비 업데이트 (현재 셀 길이와 기존 최대 길이 비교)
                 columnWidths[index] = Math.max(columnWidths[index], cellValue.length);
@@ -292,8 +352,8 @@ const SampleDataGrid = () => {
             allRowData.push(rowData);
         });
 
-        // 엑셀 시트 생성
-        const ws = XLSX.utils.json_to_sheet(allRowData, { header: displayedColumns.map(col => col.getColDef().headerName) });
+        // 엑셀 시트 생성 (변환된 컬럼 레이블 사용)
+        const ws = XLSX.utils.json_to_sheet(allRowData, { header: columnLabels });
 
         // 컬럼 너비 설정 (각 컬럼의 최대 길이 + 여유 공간)
         ws['!cols'] = columnWidths.map(maxWidth => ({ wch: maxWidth + 5 })); // 여유 공간을 5로 설정
@@ -306,20 +366,27 @@ const SampleDataGrid = () => {
         XLSX.writeFile(wb, "exported_use_data.xlsx");
     };
 
+
     const onBtnJoinExport = () => {
         const gridApi = joinedGridRef.current.api;
         const api = joinedGridRef.current.api;
         const displayedColumns = api.getAllDisplayedColumns();
         const allRowData = [];
-        const columnWidths = displayedColumns.map(col => col.getColDef().headerName.length); // headerName 길이로 초기화
+        // headerName을 valueToLabelMap을 사용하여 변환
+        const columnLabels = displayedColumns.map(col => {
+            const headerValue = col.getColDef().headerName;
+            return valueToLabelMap[headerValue] || headerValue; // 매핑이 없는 경우 원래의 값을 사용
+        });
 
-        // 각 행 및 컬럼에 대해 반복하면서 최대 길이 계산
+        const columnWidths = columnLabels.map(label => label.length); // 변환된 headerName 길이로 초기화
+
+// 각 행 및 컬럼에 대해 반복하면서 최대 길이 계산
         gridApi.forEachNodeAfterFilterAndSort(node => {
             const rowData = {};
             displayedColumns.forEach((col, index) => {
-                const headerName = col.getColDef().headerName;
-                const cellValue = node.data[col.getColId()] ? node.data[col.getColId()].toString() : '';
-                rowData[headerName] = cellValue;
+                let cellValue = node.data[col.getColId()] ? node.data[col.getColId()].toString() : '';
+                const headerLabel = columnLabels[index]; // 변환된 컬럼 레이블 사용
+                rowData[headerLabel] = cellValue;
 
                 // 컬럼 너비 업데이트 (현재 셀 길이와 기존 최대 길이 비교)
                 columnWidths[index] = Math.max(columnWidths[index], cellValue.length);
@@ -327,18 +394,19 @@ const SampleDataGrid = () => {
             allRowData.push(rowData);
         });
 
-        // 엑셀 시트 생성
-        const ws = XLSX.utils.json_to_sheet(allRowData, { header: displayedColumns.map(col => col.getColDef().headerName) });
+// 엑셀 시트 생성 (변환된 컬럼 레이블 사용)
+        const ws = XLSX.utils.json_to_sheet(allRowData, { header: columnLabels });
 
-        // 컬럼 너비 설정 (각 컬럼의 최대 길이 + 여유 공간)
+// 컬럼 너비 설정 (각 컬럼의 최대 길이 + 여유 공간)
         ws['!cols'] = columnWidths.map(maxWidth => ({ wch: maxWidth + 5 })); // 여유 공간을 5로 설정
 
-        // 워크북 생성 및 시트 추가
+// 워크북 생성 및 시트 추가
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
-        // 엑셀 파일로 내보내기
-        XLSX.writeFile(wb, "exported_sample_use_data.xlsx");
+// 엑셀 파일로 내보내기
+        XLSX.writeFile(wb, "exported_joined_data.xlsx");
+
     };
 
 
@@ -470,7 +538,7 @@ const SampleDataGrid = () => {
         try {
             const response = await axios.get('sampleLoad');
             setRowData(response.data);
-            console.log("data", response.data[0]);
+            // console.log("data", response.data[0]);
         } catch (error) {
             console.error("Error fetching data: ", error);
         }
@@ -651,6 +719,7 @@ const SampleDataGrid = () => {
                 <button className="mt-4 w-[200px] mb-2 bg-sky-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-sky-700 hover:cursor-pointer" onClick={onBtnExport}>현재 표 엑셀로 Export하기</button>
                 <div className="flex flex-row">
                     <button ref={popupButtonRef} className="w-[100px] mr-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={handleTogglePopup}>열 선택</button>
+                    <button className="w-[100px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={selectFilteredRows}>전체 선택</button>
                     <button className="w-[100px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={onClearSelection}>선택 해제</button>
                     <button className="w-[150px] mx-1 mb-1 bg-green-600 rounded-[9px] flex justify-center items-center text-white text-sm hover:bg-green-700 hover:cursor-pointer" onClick={onBtnSelected}>선택 행 선정하기</button>
                 </div>
